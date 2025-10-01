@@ -47,7 +47,6 @@ More species may be added over time.
   Requires Minecraft Forge for 1.20.1 or Neoforge for 1.21.1
 - Download the mod
 - Download [Geckolib](https://modrinth.com/mod/geckolib) for your chosen version
-- If you'd like an in-game guide book, download [Patchouli](https://modrinth.com/mod/patchouli) for your chosen version
 - As with any mod/modpack a mod like [JEI](https://modrinth.com/mod/jei) or [EMI](https://modrinth.com/mod/emi) is recommended, again, download for your chosen version
 - Drop all downloaded mods into the mods folder
 
@@ -58,15 +57,6 @@ Compatible with most Forge/Neoforge-based modpacks for 1.20.1 and most Neoforge-
 ⚠️ This mod is in a VERY early stage of development.
     Expect bugs, missing features, and frequent changes.
     Feedback is welcome, but please be patient!
-
----
-### Trailers:
-<iframe width="560" height="315" src="https://www.youtube.com/embed/FFnIFtvSpxI?si=RGnYNVnw1AxO8yzS" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-p4_R184X2M?si=LlMgH2uiqNsMVG_a" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-
-[![Trailer](https://img.youtube.com/vi/FFnIFtvSpxI/0.jpg)](https://www.youtube.com/watch?v=FFnIFtvSpxI)
-
-[![Teaser](https://img.youtube.com/vi/-p4_R184X2M/0.jpg)](https://www.youtube.com/watch?v=-p4_R184X2M)
 
 ---
 ![T-Rex](https://www.jurassicrevived.com/_next/static/media/trex.bbbfd06d.png)
