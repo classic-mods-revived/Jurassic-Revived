@@ -75,13 +75,13 @@ is mod is in a VERY early stage of development. Expect bugs, missing features, a
 	- Allow Gradle to sync completely (usually takes ~2 minutes).
 
 2. **Select Version (Code Editing Only)**
-	- If you intend to modify the source code, use the included run configurations to set your workspace:
+	- If you intend to modify the source code, use the included run configurations to set your workspace and have Java 21 installed and available:
 		- `Switch to 1.20.1`
 		- `Switch to 1.21.1`
 	- *Note: You can skip this step if you just want to launch the game.*
 
 3. **Launch the Game**
-	- You can launch any of the four targets immediately using the generated Client, Data, or Server run configurations:
+	- You can launch any of the four targets immediately using the generated Client, Data, or Server run configurations (make sure to have Java 17 and 21 installed and available:
 		- **Fabric:** 1.20.1 & 1.21.1
 		- **NeoForge:** 1.21.1
 		- **Forge:** 1.20.1
