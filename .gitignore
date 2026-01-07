@@ -20,4 +20,4 @@ classes/
 *.launch
 .architectury-transformer
 gradle_client_output.txt
-gradle_server_output.txt
+gradle_server_output.txt.DS_Store
