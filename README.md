@@ -68,7 +68,7 @@ Download the mod
 ⚠️ This mod is in a VERY early stage of development. Expect bugs, missing features, and frequent changes. Feedback is welcome, but please be patient!
 is mod is in a VERY early stage of development. Expect bugs, missing features, and frequent changes. Feedback is welcome, but please be patient!
 
-## 🛠️ How to Open in IntelliJ IDEA
+## 🛠️ How to Open in an IDE
 
 1. **Import the Project**
 	- Pull the repository to your local machine.
@@ -79,6 +79,7 @@ is mod is in a VERY early stage of development. Expect bugs, missing features, a
 		- `Switch to 1.20.1`
 		- `Switch to 1.21.1`
 	- *Note: You can skip this step if you just want to launch the game.*
+	- *Note: With IntelliJ idea, you can install the Stonecutter plugin and it becomes a dropdown at the top left*
 
 3. **Launch the Game**
 	- You can launch any of the four targets immediately using the generated Client, Data, or Server run configurations (make sure to have Java 17 and 21 installed and available:
