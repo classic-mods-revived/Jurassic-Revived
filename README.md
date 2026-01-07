@@ -1,7 +1,5 @@
 ![Jurassic Revived](/assets/images/banner-logo.png)
 
-See https://github.com/classic-mods-revived/Jurassic-Revived-1.21.1-Neoforge for the source for the 1.21.1 version and https://github.com/classic-mods-revived/Jurassic-Revived-1.20.1-Forge for the 1.20.1 version
-
 ## A free dinosaur mod for 1.20.1 and 1.21.1, inspired by the classic JurassiCraft experience – no paywalls, no nonsense.
 ## 📦 About the Mod:
 Jurassic Revived is a fan-made dinosaur mod for Minecraft 1.20.1 and 1.21.1, inspired by the gameplay and features of the original JurassiCraft mod.
@@ -69,3 +67,21 @@ Download the mod
 ## 🚧 Early Development Warning
 ⚠️ This mod is in a VERY early stage of development. Expect bugs, missing features, and frequent changes. Feedback is welcome, but please be patient!
 is mod is in a VERY early stage of development. Expect bugs, missing features, and frequent changes. Feedback is welcome, but please be patient!
+
+## 🛠️ How to Open in IntelliJ IDEA
+
+1. **Import the Project**
+	- Pull the repository to your local machine.
+	- Allow Gradle to sync completely (usually takes ~2 minutes).
+
+2. **Select Version (Code Editing Only)**
+	- If you intend to modify the source code, use the included run configurations to set your workspace:
+		- `Switch to 1.20.1`
+		- `Switch to 1.21.1`
+	- *Note: You can skip this step if you just want to launch the game.*
+
+3. **Launch the Game**
+	- You can launch any of the four targets immediately using the generated Client, Data, or Server run configurations:
+		- **Fabric:** 1.20.1 & 1.21.1
+		- **NeoForge:** 1.21.1
+		- **Forge:** 1.20.1
