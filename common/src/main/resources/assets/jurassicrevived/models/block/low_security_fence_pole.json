@@ -1,0 +1,24 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"0": "jurassicrevived:block/low_security_fence_pole",
+		"particle": "jurassicrevived:block/low_security_fence_pole"
+	},
+	"elements": [
+		{
+			"from": [6.5, 0, 6.5],
+			"to": [9.5, 16, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.5, 1, 7.5]},
+			"faces": {
+				"north": {"uv": [0, 0, 3, 16], "texture": "#0"},
+				"east": {"uv": [3, 0, 6, 16], "texture": "#0"},
+				"south": {"uv": [6, 0, 9, 16], "texture": "#0"},
+				"west": {"uv": [9, 0, 12, 16], "texture": "#0"},
+				"up": {"uv": [15, 3, 12, 0], "texture": "#0"},
+				"down": {"uv": [15, 3, 12, 6], "texture": "#0"}
+			}
+		}
+	]
+}

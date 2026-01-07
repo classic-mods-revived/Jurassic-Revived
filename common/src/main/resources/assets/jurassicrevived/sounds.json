@@ -1,0 +1,1760 @@
+{
+  "machine_hum": {
+    "subtitle": "sounds.jurassicrevived.machine_hum",
+    "sounds": [
+      "jurassicrevived:machine_hum"
+    ]
+  },
+  "medium_theropod_attack": {
+    "subtitle": "sounds.jurassicrevived.medium_theropod_attack",
+    "sounds": [
+      "jurassicrevived:generic/medium_theropod_attack"
+    ]
+  },
+  "large_theropod_attack": {
+    "subtitle": "sounds.jurassicrevived.large_theropod_attack",
+    "sounds": [
+      "jurassicrevived:generic/large_theropod_attack"
+    ]
+  },
+  "tail_whip": {
+    "subtitle": "sounds.jurassicrevived.tail_whip",
+    "sounds": [
+      "jurassicrevived:generic/tail_whip_1",
+      "jurassicrevived:generic/tail_whip_2",
+      "jurassicrevived:generic/tail_whip_3"
+    ]
+  },
+  "tail_strike": {
+    "subtitle": "sounds.jurassicrevived.tail_strike",
+    "sounds": [
+      "jurassicrevived:generic/tail_strike"
+    ]
+  },
+  "stomp_attack": {
+    "subtitle": "sounds.jurassicrevived.stomp_attack",
+    "sounds": [
+      "jurassicrevived:generic/stomp_attack"
+    ]
+  },
+  "stomp": {
+    "subtitle": "sounds.jurassicrevived.stomp",
+    "sounds": [
+      "jurassicrevived:generic/stomp_1",
+      "jurassicrevived:generic/stomp_2",
+      "jurassicrevived:generic/stomp_3",
+      "jurassicrevived:generic/stomp_4"
+    ]
+  },
+  "crocodile": {
+    "subtitle": "sounds.jurassicrevived.crocodile",
+    "sounds": [
+      "jurassicrevived:crocodile/crocodile_generic"
+    ]
+  },
+  "crow": {
+    "subtitle": "sounds.jurassicrevived.crow",
+    "sounds": [
+      "jurassicrevived:crow/crow_generic"
+    ]
+  },
+  "goat_call": {
+    "subtitle": "sounds.jurassicrevived.goat_call",
+    "sounds": [
+      "jurassicrevived:goat/goat_living_1",
+      "jurassicrevived:goat/goat_living_2"
+    ]
+  },
+  "goat_hurt": {
+    "subtitle": "sounds.jurassicrevived.goat_hurt",
+    "sounds": [
+      "jurassicrevived:goat/goat_hurt"
+    ]
+  },
+  "goat_death": {
+    "subtitle": "sounds.jurassicrevived.goat_death",
+    "sounds": [
+      "jurassicrevived:goat/goat_death"
+    ]
+  },
+  "tree_frog_call": {
+    "subtitle": "sounds.jurassicrevived.tree_frog_call",
+    "sounds": [
+      "jurassicrevived:tree_frog/tree_frog_living_1",
+      "jurassicrevived:tree_frog/tree_frog_living_2",
+      "jurassicrevived:tree_frog/tree_frog_living_3"
+    ]
+  },
+  "tree_frog_hurt": {
+    "subtitle": "sounds.jurassicrevived.tree_frog_hurt",
+    "sounds": [
+      "jurassicrevived:tree_frog/tree_frog_hurt"
+    ]
+  },
+  "tree_frog_death": {
+    "subtitle": "sounds.jurassicrevived.tree_frog_death",
+    "sounds": [
+      "jurassicrevived:tree_frog/tree_frog_death"
+    ]
+  },
+  "ostrich_call": {
+    "subtitle": "sounds.jurassicrevived.ostrich_call",
+    "sounds": [
+      "jurassicrevived:ostrich/ostrich_living_1",
+      "jurassicrevived:ostrich/ostrich_living_2"
+    ]
+  },
+  "ostrich_hurt": {
+    "subtitle": "sounds.jurassicrevived.ostrich_hurt",
+    "sounds": [
+      "jurassicrevived:ostrich/ostrich_hurt"
+    ]
+  },
+  "ostrich_death": {
+    "subtitle": "sounds.jurassicrevived.ostrich_death",
+    "sounds": [
+      "jurassicrevived:ostrich/ostrich_death"
+    ]
+  },
+  "albertosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.albertosaurus_call",
+    "sounds": [
+      "jurassicrevived:albertosaurus/albertosaurus_living_1",
+      "jurassicrevived:albertosaurus/albertosaurus_living_2",
+      "jurassicrevived:albertosaurus/albertosaurus_living_3"
+    ]
+  },
+  "albertosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.albertosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:albertosaurus/albertosaurus_hurt_1",
+      "jurassicrevived:albertosaurus/albertosaurus_hurt_2"
+    ]
+  },
+  "albertosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.albertosaurus_death",
+    "sounds": [
+      "jurassicrevived:albertosaurus/albertosaurus_death"
+    ]
+  },
+  "allosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.allosaurus_call",
+    "sounds": [
+      "jurassicrevived:allosaurus/allosaurus_living_1",
+      "jurassicrevived:allosaurus/allosaurus_living_2",
+      "jurassicrevived:allosaurus/allosaurus_living_3",
+      "jurassicrevived:allosaurus/allosaurus_living_4"
+    ]
+  },
+  "allosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.allosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:allosaurus/allosaurus_hurt_1",
+      "jurassicrevived:allosaurus/allosaurus_hurt_2"
+    ]
+  },
+  "allosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.allosaurus_death",
+    "sounds": [
+      "jurassicrevived:allosaurus/allosaurus_death"
+    ]
+  },
+  "alvarezsaurus_call": {
+    "subtitle": "sounds.jurassicrevived.alvarezsaurus_call",
+    "sounds": [
+      "jurassicrevived:alvarezsaurus/alvarezsaurus_living_1",
+      "jurassicrevived:alvarezsaurus/alvarezsaurus_living_2",
+      "jurassicrevived:alvarezsaurus/alvarezsaurus_living_3"
+    ]
+  },
+  "alvarezsaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.alvarezsaurus_hurt",
+    "sounds": [
+      "jurassicrevived:alvarezsaurus/alvarezsaurus_hurt"
+    ]
+  },
+  "alvarezsaurus_death": {
+    "subtitle": "sounds.jurassicrevived.alvarezsaurus_death",
+    "sounds": [
+      "jurassicrevived:alvarezsaurus/alvarezsaurus_death"
+    ]
+  },
+  "ankylosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.ankylosaurus_call",
+    "sounds": [
+      "jurassicrevived:anklyosaurus/ankylosaurus_living_1",
+      "jurassicrevived:anklyosaurus/ankylosaurus_living_2",
+      "jurassicrevived:anklyosaurus/ankylosaurus_living_3"
+    ]
+  },
+  "ankylosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.ankylosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:anklyosaurus/ankylosaurus_hurt_1",
+      "jurassicrevived:anklyosaurus/ankylosaurus_hurt_2"
+    ]
+  },
+  "ankylosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.ankylosaurus_death",
+    "sounds": [
+      "jurassicrevived:anklyosaurus/ankylosaurus_death_1",
+      "jurassicrevived:anklyosaurus/ankylosaurus_death_2"
+    ]
+  },
+  "apatosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.apatosaurus_call",
+    "sounds": [
+      "jurassicrevived:apatosaurus/apatosaurus_living_1",
+      "jurassicrevived:apatosaurus/apatosaurus_living_2",
+      "jurassicrevived:apatosaurus/apatosaurus_living_3",
+      "jurassicrevived:apatosaurus/apatosaurus_living_4",
+      "jurassicrevived:apatosaurus/apatosaurus_living_5"
+    ]
+  },
+  "apatosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.apatosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:apatosaurus/apatosaurus_hurt_1"
+    ]
+  },
+  "apatosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.apatosaurus_death",
+    "sounds": [
+      "jurassicrevived:apatosaurus/apatosaurus_death_1",
+      "jurassicrevived:apatosaurus/apatosaurus_death_2"
+    ]
+  },
+  "arambourgiania_call": {
+    "subtitle": "sounds.jurassicrevived.arambourgiania_call",
+    "sounds": [
+      "jurassicrevived:arambourgiania/arambourgiania_living_1",
+      "jurassicrevived:arambourgiania/arambourgiania_living_2",
+      "jurassicrevived:arambourgiania/arambourgiania_living_3",
+      "jurassicrevived:arambourgiania/arambourgiania_living_4"
+    ]
+  },
+  "arambourgiania_hurt": {
+    "subtitle": "sounds.jurassicrevived.arambourgiania_hurt",
+    "sounds": [
+      "jurassicrevived:arambourgiania/arambourgiania_hurt"
+    ]
+  },
+  "arambourgiania_death": {
+    "subtitle": "sounds.jurassicrevived.arambourgiania_death",
+    "sounds": [
+      "jurassicrevived:arambourgiania/arambourgiania_death"
+    ]
+  },
+  "baryonyx_call": {
+    "subtitle": "sounds.jurassicrevived.baryonyx_call",
+    "sounds": [
+      "jurassicrevived:baryonyx/baryonyx_living_1",
+      "jurassicrevived:baryonyx/baryonyx_living_2",
+      "jurassicrevived:baryonyx/baryonyx_living_3",
+      "jurassicrevived:baryonyx/baryonyx_living_4",
+      "jurassicrevived:baryonyx/baryonyx_living_5"
+    ]
+  },
+  "baryonyx_attack": {
+    "subtitle": "sounds.jurassicrevived.baryonyx_attack",
+    "sounds": [
+      "jurassicrevived:baryonyx/baryonyx_attack"
+    ]
+  },
+  "baryonyx_hurt": {
+    "subtitle": "sounds.jurassicrevived.baryonyx_hurt",
+    "sounds": [
+      "jurassicrevived:baryonyx/baryonyx_hurt"
+    ]
+  },
+  "baryonyx_death": {
+    "subtitle": "sounds.jurassicrevived.baryonyx_death",
+    "sounds": [
+      "jurassicrevived:baryonyx/baryonyx_death"
+    ]
+  },
+  "brachiosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.brachiosaurus_call",
+    "sounds": [
+      "jurassicrevived:brachiosaurus/brachiosaurus_living_1",
+      "jurassicrevived:brachiosaurus/brachiosaurus_living_2",
+      "jurassicrevived:brachiosaurus/brachiosaurus_living_3",
+      "jurassicrevived:brachiosaurus/brachiosaurus_living_4"
+    ]
+  },
+  "brachiosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.brachiosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:brachiosaurus/brachiosaurus_hurt_1",
+      "jurassicrevived:brachiosaurus/brachiosaurus_hurt_2"
+    ]
+  },
+  "brachiosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.brachiosaurus_death",
+    "sounds": [
+      "jurassicrevived:brachiosaurus/brachiosaurus_death_1",
+      "jurassicrevived:brachiosaurus/brachiosaurus_death_2"
+    ]
+  },
+  "carcharodontosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.carcharodontosaurus_call",
+    "sounds": [
+      "jurassicrevived:carcharodontosaurus/carcharodontosaurus_living_1",
+      "jurassicrevived:carcharodontosaurus/carcharodontosaurus_living_2",
+      "jurassicrevived:carcharodontosaurus/carcharodontosaurus_living_3",
+      "jurassicrevived:carcharodontosaurus/carcharodontosaurus_living_4",
+      "jurassicrevived:carcharodontosaurus/carcharodontosaurus_living_5",
+      "jurassicrevived:carcharodontosaurus/carcharodontosaurus_living_6",
+      "jurassicrevived:carcharodontosaurus/carcharodontosaurus_living_7"
+    ]
+  },
+  "carcharodontosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.carcharodontosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:carcharodontosaurus/carcharodontosaurus_hurt_1",
+      "jurassicrevived:carcharodontosaurus/carcharodontosaurus_hurt_2"
+    ]
+  },
+  "carcharodontosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.carcharodontosaurus_death",
+    "sounds": [
+      "jurassicrevived:carcharodontosaurus/carcharodontosaurus_death"
+    ]
+  },
+  "carnotaurus_call": {
+    "subtitle": "sounds.jurassicrevived.carnotaurus_call",
+    "sounds": [
+      "jurassicrevived:carnotaurus/carnotaurus_living_1",
+      "jurassicrevived:carnotaurus/carnotaurus_living_2"
+    ]
+  },
+  "carnotaurus_attack": {
+    "subtitle": "sounds.jurassicrevived.carnotaurus_attack",
+    "sounds": [
+      "jurassicrevived:carnotaurus/carnotaurus_attack"
+    ]
+  },
+  "carnotaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.carnotaurus_hurt",
+    "sounds": [
+      "jurassicrevived:carnotaurus/carnotaurus_hurt_1",
+      "jurassicrevived:carnotaurus/carnotaurus_hurt_2"
+    ]
+  },
+  "carnotaurus_death": {
+    "subtitle": "sounds.jurassicrevived.carnotaurus_death",
+    "sounds": [
+      "jurassicrevived:carnotaurus/carnotaurus_death_1"
+    ]
+  },
+  "cearadactylus_call": {
+    "subtitle": "sounds.jurassicrevived.cearadactylus_call",
+    "sounds": [
+      "jurassicrevived:cearadactylus/cearadactylus_living_1",
+      "jurassicrevived:cearadactylus/cearadactylus_living_2",
+      "jurassicrevived:cearadactylus/cearadactylus_living_3"
+    ]
+  },
+  "cearadactylus_hurt": {
+    "subtitle": "sounds.jurassicrevived.cearadactylus_hurt",
+    "sounds": [
+      "jurassicrevived:cearadactylus/cearadactylus_hurt_1",
+      "jurassicrevived:cearadactylus/cearadactylus_hurt_2"
+    ]
+  },
+  "cearadactylus_death": {
+    "subtitle": "sounds.jurassicrevived.cearadactylus_death",
+    "sounds": [
+      "jurassicrevived:cearadactylus/cearadactylus_death"
+    ]
+  },
+  "ceratosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.ceratosaurus_call",
+    "sounds": [
+      "jurassicrevived:ceratosaurus/ceratosaurus_living_1",
+      "jurassicrevived:ceratosaurus/ceratosaurus_living_2",
+      "jurassicrevived:ceratosaurus/ceratosaurus_living_3"
+    ]
+  },
+  "ceratosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.ceratosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:ceratosaurus/ceratosaurus_hurt_1",
+      "jurassicrevived:ceratosaurus/ceratosaurus_hurt_2"
+    ]
+  },
+  "ceratosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.ceratosaurus_death",
+    "sounds": [
+      "jurassicrevived:ceratosaurus/ceratosaurus_death"
+    ]
+  },
+  "chasmosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.chasmosaurus_call",
+    "sounds": [
+      "jurassicrevived:chasmosaurus/chasmosaurus_living_1",
+      "jurassicrevived:chasmosaurus/chasmosaurus_living_2",
+      "jurassicrevived:chasmosaurus/chasmosaurus_living_3"
+    ]
+  },
+  "chasmosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.chasmosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:chasmosaurus/chasmosaurus_hurt_1",
+      "jurassicrevived:chasmosaurus/chasmosaurus_hurt_2"
+    ]
+  },
+  "chasmosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.chasmosaurus_death",
+    "sounds": [
+      "jurassicrevived:chasmosaurus/chasmosaurus_death"
+    ]
+  },
+  "chickenosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.chickenosaurus_call",
+    "sounds": [
+      "jurassicrevived:chickenosaurus/chickenosaurus_living_1",
+      "jurassicrevived:chickenosaurus/chickenosaurus_living_2"
+    ]
+  },
+  "chickenosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.chickenosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:chickenosaurus/chickenosaurus_hurt"
+    ]
+  },
+  "chickenosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.chickenosaurus_death",
+    "sounds": [
+      "jurassicrevived:chickenosaurus/chickenosaurus_death"
+    ]
+  },
+  "coelophysis_call": {
+    "subtitle": "sounds.jurassicrevived.coelophysis_call",
+    "sounds": [
+      "jurassicrevived:coelophysis/coelophysis_living_1",
+      "jurassicrevived:coelophysis/coelophysis_living_2",
+      "jurassicrevived:coelophysis/coelophysis_living_3",
+      "jurassicrevived:coelophysis/coelophysis_living_4"
+    ]
+  },
+  "coelophysis_hurt": {
+    "subtitle": "sounds.jurassicrevived.coelophysis_hurt",
+    "sounds": [
+      "jurassicrevived:coelophysis/coelophysis_hurt"
+    ]
+  },
+  "coelophysis_death": {
+    "subtitle": "sounds.jurassicrevived.coelophysis_death",
+    "sounds": [
+      "jurassicrevived:coelophysis/coelophysis_death"
+    ]
+  },
+  "coelurus_call": {
+    "subtitle": "sounds.jurassicrevived.coelurus_call",
+    "sounds": [
+      "jurassicrevived:coelurus/coelurus_living_1",
+      "jurassicrevived:coelurus/coelurus_living_2",
+      "jurassicrevived:coelurus/coelurus_living_3"
+    ]
+  },
+  "coelurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.coelurus_hurt",
+    "sounds": [
+      "jurassicrevived:coelurus/coelurus_hurt_1",
+      "jurassicrevived:coelurus/coelurus_hurt_2"
+    ]
+  },
+  "coelurus_death": {
+    "subtitle": "sounds.jurassicrevived.coelurus_death",
+    "sounds": [
+      "jurassicrevived:coelurus/coelurus_death_1",
+      "jurassicrevived:coelurus/coelurus_death_2"
+    ]
+  },
+  "compsognathus_call": {
+    "subtitle": "sounds.jurassicrevived.compsognathus_call",
+    "sounds": [
+      "jurassicrevived:compsognathus/compsognathus_living_1",
+      "jurassicrevived:compsognathus/compsognathus_living_2",
+      "jurassicrevived:compsognathus/compsognathus_living_3"
+    ]
+  },
+  "compsognathus_hurt": {
+    "subtitle": "sounds.jurassicrevived.compsognathus_hurt",
+    "sounds": [
+      "jurassicrevived:compsognathus/compsognathus_hurt_1"
+    ]
+  },
+  "compsognathus_death": {
+    "subtitle": "sounds.jurassicrevived.compsognathus_death",
+    "sounds": [
+      "jurassicrevived:compsognathus/compsognathus_death"
+    ]
+  },
+  "concavenator_call": {
+    "subtitle": "sounds.jurassicrevived.concavenator_call",
+    "sounds": [
+      "jurassicrevived:concavenator/concavenator_living_1",
+      "jurassicrevived:concavenator/concavenator_living_2",
+      "jurassicrevived:concavenator/concavenator_living_3"
+    ]
+  },
+  "concavenator_hurt": {
+    "subtitle": "sounds.jurassicrevived.concavenator_hurt",
+    "sounds": [
+      "jurassicrevived:concavenator/concavenator_hurt_1",
+      "jurassicrevived:concavenator/concavenator_hurt_2"
+    ]
+  },
+  "concavenator_death": {
+    "subtitle": "sounds.jurassicrevived.concavenator_death",
+    "sounds": [
+      "jurassicrevived:concavenator/concavenator_death"
+    ]
+  },
+  "corythosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.corythosaurus_call",
+    "sounds": [
+      "jurassicrevived:corythosaurus/corythosaurus_living_1",
+      "jurassicrevived:corythosaurus/corythosaurus_living_2",
+      "jurassicrevived:corythosaurus/corythosaurus_living_3"
+    ]
+  },
+  "corythosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.corythosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:corythosaurus/corythosaurus_hurt_1",
+      "jurassicrevived:corythosaurus/corythosaurus_hurt_2"
+    ]
+  },
+  "corythosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.corythosaurus_death",
+    "sounds": [
+      "jurassicrevived:corythosaurus/corythosaurus_death"
+    ]
+  },
+  "deinonychus_call": {
+    "subtitle": "sounds.jurassicrevived.deinonychus_call",
+    "sounds": [
+      "jurassicrevived:deinonychus/deinonychus_living_1",
+      "jurassicrevived:deinonychus/deinonychus_living_2",
+      "jurassicrevived:deinonychus/deinonychus_bark_1",
+      "jurassicrevived:deinonychus/deinonychus_bark_2"
+    ]
+  },
+  "deinonychus_hurt": {
+    "subtitle": "sounds.jurassicrevived.deinonychus_hurt",
+    "sounds": [
+      "jurassicrevived:deinonychus/deinonychus_hurt"
+    ]
+  },
+  "deinonychus_death": {
+    "subtitle": "sounds.jurassicrevived.deinonychus_death",
+    "sounds": [
+      "jurassicrevived:deinonychus/deinonychus_death"
+    ]
+  },
+  "dilophosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.dilophosaurus_call",
+    "sounds": [
+      "jurassicrevived:dilophosaurus/dilophosaurus_living_1",
+      "jurassicrevived:dilophosaurus/dilophosaurus_living_2",
+      "jurassicrevived:dilophosaurus/dilophosaurus_living_3"
+    ]
+  },
+  "dilophosaurus_attack": {
+    "subtitle": "sounds.jurassicrevived.dilophosaurus_attack",
+    "sounds": [
+      "jurassicrevived:dilophosaurus/dilophosaurus_attack"
+    ]
+  },
+  "dilophosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.dilophosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:dilophosaurus/dilophosaurus_hurt_1",
+      "jurassicrevived:dilophosaurus/dilophosaurus_hurt_2"
+    ]
+  },
+  "dilophosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.dilophosaurus_death",
+    "sounds": [
+      "jurassicrevived:dilophosaurus/dilophosaurus_death_1"
+    ]
+  },
+  "dimorphodon_call": {
+    "subtitle": "sounds.jurassicrevived.dimorphodon_call",
+    "sounds": [
+      "jurassicrevived:dimorphodon/dimorphodon_living_1",
+      "jurassicrevived:dimorphodon/dimorphodon_living_2"
+    ]
+  },
+  "dimorphodon_hurt": {
+    "subtitle": "sounds.jurassicrevived.dimorphodon_hurt",
+    "sounds": [
+      "jurassicrevived:dimorphodon/dimorphodon_hurt"
+    ]
+  },
+  "dimorphodon_death": {
+    "subtitle": "sounds.jurassicrevived.dimorphodon_death",
+    "sounds": [
+      "jurassicrevived:dimorphodon/dimorphodon_death"
+    ]
+  },
+  "diplodocus_call": {
+    "subtitle": "sounds.jurassicrevived.diplodocus_call",
+    "sounds": [
+      "jurassicrevived:diplodocus/diplodocus_living_1",
+      "jurassicrevived:diplodocus/diplodocus_living_2",
+      "jurassicrevived:diplodocus/diplodocus_living_3"
+    ]
+  },
+  "diplodocus_hurt": {
+    "subtitle": "sounds.jurassicrevived.diplodocus_hurt",
+    "sounds": [
+      "jurassicrevived:diplodocus/diplodocus_hurt"
+    ]
+  },
+  "diplodocus_death": {
+    "subtitle": "sounds.jurassicrevived.diplodocus_death",
+    "sounds": [
+      "jurassicrevived:diplodocus/diplodocus_death"
+    ]
+  },
+  "distortus_rex_call": {
+    "subtitle": "sounds.jurassicrevived.distortus_rex_call",
+    "sounds": [
+      "jurassicrevived:distortus_rex/distortus_living_1",
+      "jurassicrevived:distortus_rex/distortus_living_2"
+    ]
+  },
+  "distortus_rex_attack": {
+    "subtitle": "sounds.jurassicrevived.distortus_rex_attack",
+    "sounds": [
+      "jurassicrevived:distortus_rex/distortus_attack"
+    ]
+  },
+  "distortus_rex_hurt": {
+    "subtitle": "sounds.jurassicrevived.distortus_rex_hurt",
+    "sounds": [
+      "jurassicrevived:distortus_rex/distortus_hurt"
+    ]
+  },
+  "distortus_rex_death": {
+    "subtitle": "sounds.jurassicrevived.distortus_rex_death",
+    "sounds": [
+      "jurassicrevived:distortus_rex/distortus_death"
+    ]
+  },
+  "dryosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.dryosaurus_call",
+    "sounds": [
+      "jurassicrevived:dryosaurus/dryosaurus_living_1",
+      "jurassicrevived:dryosaurus/dryosaurus_living_2"
+    ]
+  },
+  "dryosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.dryosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:dryosaurus/dryosaurus_hurt"
+    ]
+  },
+  "dryosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.dryosaurus_death",
+    "sounds": [
+      "jurassicrevived:dryosaurus/dryosaurus_death"
+    ]
+  },
+  "edmontosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.edmontosaurus_call",
+    "sounds": [
+      "jurassicrevived:edmontosaurus/edmontosaurus_living_1",
+      "jurassicrevived:edmontosaurus/edmontosaurus_living_2"
+    ]
+  },
+  "edmontosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.edmontosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:edmontosaurus/edmontosaurus_hurt"
+    ]
+  },
+  "edmontosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.edmontosaurus_death",
+    "sounds": [
+      "jurassicrevived:edmontosaurus/edmontosaurus_death"
+    ]
+  },
+  "fduck_call": {
+    "subtitle": "sounds.jurassicrevived.fduck_call",
+    "sounds": [
+      "jurassicrevived:fduck/fduck_living_1",
+      "jurassicrevived:fduck/fduck_living_2",
+      "jurassicrevived:fduck/fduck_living_3"
+    ]
+  },
+  "fduck_hurt": {
+    "subtitle": "sounds.jurassicrevived.fduck_hurt",
+    "sounds": [
+      "jurassicrevived:fduck/fduck_hurt"
+    ]
+  },
+  "fduck_death": {
+    "subtitle": "sounds.jurassicrevived.fduck_death",
+    "sounds": [
+      "jurassicrevived:fduck/fduck_death"
+    ]
+  },
+  "gallimimus_call": {
+    "subtitle": "sounds.jurassicrevived.gallimimus_call",
+    "sounds": [
+      "jurassicrevived:gallimimus/gallimimus_living_1",
+      "jurassicrevived:gallimimus/gallimimus_living_2"
+    ]
+  },
+  "gallimimus_hurt": {
+    "subtitle": "sounds.jurassicrevived.gallimimus_hurt",
+    "sounds": [
+      "jurassicrevived:gallimimus/gallimimus_hurt_1",
+      "jurassicrevived:gallimimus/gallimimus_hurt_2"
+    ]
+  },
+  "gallimimus_death": {
+    "subtitle": "sounds.jurassicrevived.gallimimus_death",
+    "sounds": [
+      "jurassicrevived:gallimimus/gallimimus_death_1",
+      "jurassicrevived:gallimimus/gallimimus_death_2"
+    ]
+  },
+  "geosternbergia_call": {
+    "subtitle": "sounds.jurassicrevived.geosternbergia_call",
+    "sounds": [
+      "jurassicrevived:geosternbergia/geosternbergia_living_1",
+      "jurassicrevived:geosternbergia/geosternbergia_living_2"
+    ]
+  },
+  "geosternbergia_hurt": {
+    "subtitle": "sounds.jurassicrevived.geosternbergia_hurt",
+    "sounds": [
+      "jurassicrevived:geosternbergia/geosternbergia_hurt"
+    ]
+  },
+  "geosternbergia_death": {
+    "subtitle": "sounds.jurassicrevived.geosternbergia_death",
+    "sounds": [
+      "jurassicrevived:geosternbergia/geosternbergia_death"
+    ]
+  },
+  "giganotosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.giganotosaurus_call",
+    "sounds": [
+      "jurassicrevived:giganotosaurus/giganotosaurus_living_1",
+      "jurassicrevived:giganotosaurus/giganotosaurus_living_2",
+      "jurassicrevived:giganotosaurus/giganotosaurus_living_3",
+      "jurassicrevived:giganotosaurus/giganotosaurus_living_4"
+    ]
+  },
+  "giganotosaurus_attack": {
+    "subtitle": "sounds.jurassicrevived.giganotosaurus_attack",
+    "sounds": [
+      "jurassicrevived:giganotosaurus/giganotosaurus_attack_1",
+      "jurassicrevived:generic/large_theropod_attack"
+    ]
+  },
+  "giganotosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.giganotosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:giganotosaurus/giganotosaurus_hurt_1",
+      "jurassicrevived:giganotosaurus/giganotosaurus_hurt_2"
+    ]
+  },
+  "giganotosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.giganotosaurus_death",
+    "sounds": [
+      "jurassicrevived:giganotosaurus/giganotosaurus_death"
+    ]
+  },
+  "guanlong_call": {
+    "subtitle": "sounds.jurassicrevived.guanlong_call",
+    "sounds": [
+      "jurassicrevived:guanlong/guanlong_living_1",
+      "jurassicrevived:guanlong/guanlong_living_2",
+      "jurassicrevived:guanlong/guanlong_living_3",
+      "jurassicrevived:guanlong/guanlong_living_4"
+    ]
+  },
+  "guanlong_hurt": {
+    "subtitle": "sounds.jurassicrevived.guanlong_hurt",
+    "sounds": [
+      "jurassicrevived:guanlong/guanlong_hurt_1",
+      "jurassicrevived:guanlong/guanlong_hurt_2"
+    ]
+  },
+  "guanlong_death": {
+    "subtitle": "sounds.jurassicrevived.guanlong_death",
+    "sounds": [
+      "jurassicrevived:guanlong/guanlong_death_1",
+      "jurassicrevived:guanlong/guanlong_death_2"
+    ]
+  },
+  "guidraco_call": {
+    "subtitle": "sounds.jurassicrevived.guidraco_call",
+    "sounds": [
+      "jurassicrevived:guidraco/guidraco_living_1",
+      "jurassicrevived:guidraco/guidraco_living_2",
+      "jurassicrevived:guidraco/guidraco_living_3",
+      "jurassicrevived:guidraco/guidraco_living_4"
+    ]
+  },
+  "guidraco_hurt": {
+    "subtitle": "sounds.jurassicrevived.guidraco_hurt",
+    "sounds": [
+      "jurassicrevived:guidraco/guidraco_hurt"
+    ]
+  },
+  "guidraco_death": {
+    "subtitle": "sounds.jurassicrevived.guidraco_death",
+    "sounds": [
+      "jurassicrevived:guidraco/guidraco_death"
+    ]
+  },
+  "hadrosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.hadrosaurus_call",
+    "sounds": [
+      "jurassicrevived:hadrosaurus/hadrosaurus_living_1",
+      "jurassicrevived:hadrosaurus/hadrosaurus_living_2",
+      "jurassicrevived:hadrosaurus/hadrosaurus_living_3",
+      "jurassicrevived:hadrosaurus/hadrosaurus_living_4",
+      "jurassicrevived:hadrosaurus/hadrosaurus_living_5",
+      "jurassicrevived:hadrosaurus/hadrosaurus_call_1",
+      "jurassicrevived:hadrosaurus/hadrosaurus_call_2",
+      "jurassicrevived:hadrosaurus/hadrosaurus_call_3"
+    ]
+  },
+  "hadrosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.hadrosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:hadrosaurus/hadrosaurus_hurt_1",
+      "jurassicrevived:hadrosaurus/hadrosaurus_hurt_2"
+    ]
+  },
+  "hadrosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.hadrosaurus_death",
+    "sounds": [
+      "jurassicrevived:hadrosaurus/hadrosaurus_death"
+    ]
+  },
+  "herrerasaurus_call": {
+    "subtitle": "sounds.jurassicrevived.herrerasaurus_call",
+    "sounds": [
+      "jurassicrevived:herrerasaurus/herrerasaurus_living_1",
+      "jurassicrevived:herrerasaurus/herrerasaurus_living_2"
+    ]
+  },
+  "herrerasaurus_attack": {
+    "subtitle": "sounds.jurassicrevived.herrerasaurus_attack",
+    "sounds": [
+      "jurassicrevived:herrerasaurus/herrerasaurus_attack_1",
+      "jurassicrevived:herrerasaurus/herrerasaurus_attack_2",
+      "jurassicrevived:herrerasaurus/herrerasaurus_attack_3"
+    ]
+  },
+  "herrerasaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.herrerasaurus_hurt",
+    "sounds": [
+      "jurassicrevived:herrerasaurus/herrerasaurus_hurt_1",
+      "jurassicrevived:herrerasaurus/herrerasaurus_hurt_2",
+      "jurassicrevived:herrerasaurus/herrerasaurus_hurt_3"
+    ]
+  },
+  "herrerasaurus_death": {
+    "subtitle": "sounds.jurassicrevived.herrerasaurus_death",
+    "sounds": [
+      "jurassicrevived:herrerasaurus/herrerasaurus_death_1",
+      "jurassicrevived:herrerasaurus/herrerasaurus_death_2"
+    ]
+  },
+  "hypsilophodon_call": {
+    "subtitle": "sounds.jurassicrevived.hypsilophodon_call",
+    "sounds": [
+      "jurassicrevived:hypsilophodon/hypsilophodon_living_1",
+      "jurassicrevived:hypsilophodon/hypsilophodon_living_2",
+      "jurassicrevived:hypsilophodon/hypsilophodon_living_3",
+      "jurassicrevived:hypsilophodon/hypsilophodon_living_4"
+    ]
+  },
+  "hypsilophodon_hurt": {
+    "subtitle": "sounds.jurassicrevived.hypsilophodon_hurt",
+    "sounds": [
+      "jurassicrevived:hypsilophodon/hypsilophodon_hurt_1"
+    ]
+  },
+  "hypsilophodon_death": {
+    "subtitle": "sounds.jurassicrevived.hypsilophodon_death",
+    "sounds": [
+      "jurassicrevived:hypsilophodon/hypsilophodon_death_1"
+    ]
+  },
+  "indominus_rex_call": {
+    "subtitle": "sounds.jurassicrevived.indominus_rex_call",
+    "sounds": [
+      "jurassicrevived:indominus_rex/indominus_living_1",
+      "jurassicrevived:indominus_rex/indominus_living_2",
+      "jurassicrevived:indominus_rex/indominus_living_3",
+      "jurassicrevived:indominus_rex/indominus_living_4",
+      "jurassicrevived:indominus_rex/indominus_bark_1",
+      "jurassicrevived:indominus_rex/indominus_bark_2",
+      "jurassicrevived:indominus_rex/indominus_bark_3"
+    ]
+  },
+  "indominus_rex_attack": {
+    "subtitle": "sounds.jurassicrevived.indominus_rex_attack",
+    "sounds": [
+      "jurassicrevived:indominus_rex/indominus_attack_1"
+    ]
+  },
+  "indominus_rex_hurt": {
+    "subtitle": "sounds.jurassicrevived.indominus_rex_hurt",
+    "sounds": [
+      "jurassicrevived:indominus_rex/indominus_hurt_1",
+      "jurassicrevived:indominus_rex/indominus_hurt_2",
+      "jurassicrevived:indominus_rex/indominus_hurt_3"
+    ]
+  },
+  "indominus_rex_death": {
+    "subtitle": "sounds.jurassicrevived.indominus_rex_death",
+    "sounds": [
+      "jurassicrevived:indominus_rex/indominus_death_1",
+      "jurassicrevived:indominus_rex/indominus_death_2"
+    ]
+  },
+  "indoraptor_call": {
+    "subtitle": "sounds.jurassicrevived.indoraptor_call",
+    "sounds": [
+      "jurassicrevived:indoraptor/indoraptor_living_1",
+      "jurassicrevived:indoraptor/indoraptor_living_2",
+      "jurassicrevived:indoraptor/indoraptor_living_3",
+      "jurassicrevived:indoraptor/indoraptor_living_4",
+      "jurassicrevived:indoraptor/indoraptor_living_5",
+      "jurassicrevived:indoraptor/indoraptor_living_6",
+      "jurassicrevived:indoraptor/indoraptor_living_7",
+      "jurassicrevived:indoraptor/indoraptor_bark_1",
+      "jurassicrevived:indoraptor/indoraptor_bark_2"
+    ]
+  },
+  "indoraptor_hurt": {
+    "subtitle": "sounds.jurassicrevived.indoraptor_hurt",
+    "sounds": [
+      "jurassicrevived:indoraptor/indoraptor_hurt"
+    ]
+  },
+  "indoraptor_death": {
+    "subtitle": "sounds.jurassicrevived.indoraptor_death",
+    "sounds": [
+      "jurassicrevived:indoraptor/indoraptor_death_1"
+    ]
+  },
+  "inostrancevia_call": {
+    "subtitle": "sounds.jurassicrevived.inostrancevia_call",
+    "sounds": [
+      "jurassicrevived:inostrancevia/inostrancevia_living_1",
+      "jurassicrevived:inostrancevia/inostrancevia_living_2"
+    ]
+  },
+  "inostrancevia_hurt": {
+    "subtitle": "sounds.jurassicrevived.inostrancevia_hurt",
+    "sounds": [
+      "jurassicrevived:inostrancevia/inostrancevia_hurt"
+    ]
+  },
+  "inostrancevia_death": {
+    "subtitle": "sounds.jurassicrevived.inostrancevia_death",
+    "sounds": [
+      "jurassicrevived:inostrancevia/inostrancevia_death"
+    ]
+  },
+  "lambeosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.lambeosaurus_call",
+    "sounds": [
+      "jurassicrevived:lambeosaurus/lambeosaurus_living_1",
+      "jurassicrevived:lambeosaurus/lambeosaurus_living_2",
+      "jurassicrevived:lambeosaurus/lambeosaurus_living_3"
+    ]
+  },
+  "lambeosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.lambeosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:lambeosaurus/lambeosaurus_hurt"
+    ]
+  },
+  "lambeosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.lambeosaurus_death",
+    "sounds": [
+      "jurassicrevived:lambeosaurus/lambeosaurus_death"
+    ]
+  },
+  "ludodactylus_call": {
+    "subtitle": "sounds.jurassicrevived.ludodactylus_call",
+    "sounds": [
+      "jurassicrevived:ludodactylus/ludodactylus_living_1",
+      "jurassicrevived:ludodactylus/ludodactylus_living_2",
+      "jurassicrevived:ludodactylus/ludodactylus_living_3"
+    ]
+  },
+  "ludodactylus_hurt": {
+    "subtitle": "sounds.jurassicrevived.ludodactylus_hurt",
+    "sounds": [
+      "jurassicrevived:ludodactylus/ludodactylus_hurt"
+    ]
+  },
+  "ludodactylus_death": {
+    "subtitle": "sounds.jurassicrevived.ludodactylus_death",
+    "sounds": [
+      "jurassicrevived:ludodactylus/ludodactylus_death"
+    ]
+  },
+  "majungasaurus_call": {
+    "subtitle": "sounds.jurassicrevived.majungasaurus_call",
+    "sounds": [
+      "jurassicrevived:majungasaurus/majungasaurus_living_1",
+      "jurassicrevived:majungasaurus/majungasaurus_living_2",
+      "jurassicrevived:majungasaurus/majungasaurus_living_3"
+    ]
+  },
+  "majungasaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.majungasaurus_hurt",
+    "sounds": [
+      "jurassicrevived:majungasaurus/majungasaurus_hurt"
+    ]
+  },
+  "majungasaurus_death": {
+    "subtitle": "sounds.jurassicrevived.majungasaurus_death",
+    "sounds": [
+      "jurassicrevived:majungasaurus/majungasaurus_death"
+    ]
+  },
+  "mamenchisaurus_call": {
+    "subtitle": "sounds.jurassicrevived.mamenchisaurus_call",
+    "sounds": [
+      "jurassicrevived:mamenchisaurus/mamenchisaurus_living_1",
+      "jurassicrevived:mamenchisaurus/mamenchisaurus_living_2",
+      "jurassicrevived:mamenchisaurus/mamenchisaurus_living_3",
+      "jurassicrevived:mamenchisaurus/mamenchisaurus_living_4"
+    ]
+  },
+  "mamenchisaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.mamenchisaurus_hurt",
+    "sounds": [
+      "jurassicrevived:mamenchisaurus/mamenchisaurus_hurt"
+    ]
+  },
+  "mamenchisaurus_death": {
+    "subtitle": "sounds.jurassicrevived.mamenchisaurus_death",
+    "sounds": [
+      "jurassicrevived:mamenchisaurus/mamenchisaurus_death"
+    ]
+  },
+  "metriacanthosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.metriacanthosaurus_call",
+    "sounds": [
+      "jurassicrevived:metriacanthosaurus/metriacanthosaurus_living_1",
+      "jurassicrevived:metriacanthosaurus/metriacanthosaurus_living_2",
+      "jurassicrevived:metriacanthosaurus/metriacanthosaurus_living_3"
+    ]
+  },
+  "metriacanthosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.metriacanthosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:metriacanthosaurus/metriacanthosaurus_hurt"
+    ]
+  },
+  "metriacanthosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.metriacanthosaurus_death",
+    "sounds": [
+      "jurassicrevived:metriacanthosaurus/metriacanthosaurus_death"
+    ]
+  },
+  "moganopterus_call": {
+    "subtitle": "sounds.jurassicrevived.moganopterus_call",
+    "sounds": [
+      "jurassicrevived:moganopterus/moganopterus_living_1",
+      "jurassicrevived:moganopterus/moganopterus_living_2",
+      "jurassicrevived:moganopterus/moganopterus_living_3"
+    ]
+  },
+  "moganopterus_hurt": {
+    "subtitle": "sounds.jurassicrevived.moganopterus_hurt",
+    "sounds": [
+      "jurassicrevived:moganopterus/moganopterus_hurt"
+    ]
+  },
+  "moganopterus_death": {
+    "subtitle": "sounds.jurassicrevived.moganopterus_death",
+    "sounds": [
+      "jurassicrevived:moganopterus/moganopterus_death"
+    ]
+  },
+  "nyctosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.nyctosaurus_call",
+    "sounds": [
+      "jurassicrevived:nyctosaurus/nyctosaurus_living_1",
+      "jurassicrevived:nyctosaurus/nyctosaurus_living_2",
+      "jurassicrevived:nyctosaurus/nyctosaurus_living_3"
+    ]
+  },
+  "nyctosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.nyctosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:nyctosaurus/nyctosaurus_hurt"
+    ]
+  },
+  "nyctosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.nyctosaurus_death",
+    "sounds": [
+      "jurassicrevived:nyctosaurus/nyctosaurus_death"
+    ]
+  },
+  "ornitholestes_call": {
+    "subtitle": "sounds.jurassicrevived.ornitholestes_call",
+    "sounds": [
+      "jurassicrevived:ornitholestes/ornitholestes_living_1",
+      "jurassicrevived:ornitholestes/ornitholestes_living_2",
+      "jurassicrevived:ornitholestes/ornitholestes_living_3",
+      "jurassicrevived:ornitholestes/ornitholestes_living_4"
+    ]
+  },
+  "ornitholestes_hurt": {
+    "subtitle": "sounds.jurassicrevived.ornitholestes_hurt",
+    "sounds": [
+      "jurassicrevived:ornitholestes/ornitholestes_hurt"
+    ]
+  },
+  "ornitholestes_death": {
+    "subtitle": "sounds.jurassicrevived.ornitholestes_death",
+    "sounds": [
+      "jurassicrevived:ornitholestes/ornitholestes_death"
+    ]
+  },
+  "ornithomimus_call": {
+    "subtitle": "sounds.jurassicrevived.ornithomimus_call",
+    "sounds": [
+      "jurassicrevived:ornithomimus/ornithomimus_living_1",
+      "jurassicrevived:ornithomimus/ornithomimus_living_2",
+      "jurassicrevived:ornithomimus/ornithomimus_living_3",
+      "jurassicrevived:ornithomimus/ornithomimus_living_4"
+    ]
+  },
+  "ornithomimus_hurt": {
+    "subtitle": "sounds.jurassicrevived.ornithomimus_hurt",
+    "sounds": [
+      "jurassicrevived:ornithomimus/ornithomimus_hurt_1",
+      "jurassicrevived:ornithomimus/ornithomimus_hurt_2",
+      "jurassicrevived:ornithomimus/ornithomimus_hurt_3"
+    ]
+  },
+  "ornithomimus_death": {
+    "subtitle": "sounds.jurassicrevived.ornithomimus_death",
+    "sounds": [
+      "jurassicrevived:ornithomimus/ornithomimus_death_1"
+    ]
+  },
+  "ouranosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.ouranosaurus_call",
+    "sounds": [
+      "jurassicrevived:ouranosaurus/ouranosaurus_living_1",
+      "jurassicrevived:ouranosaurus/ouranosaurus_living_2"
+    ]
+  },
+  "ouranosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.ouranosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:ouranosaurus/ouranosaurus_hurt_1",
+      "jurassicrevived:ouranosaurus/ouranosaurus_hurt_2"
+    ]
+  },
+  "ouranosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.ouranosaurus_death",
+    "sounds": [
+      "jurassicrevived:ouranosaurus/ouranosaurus_death"
+    ]
+  },
+  "oviraptor_call": {
+    "subtitle": "sounds.jurassicrevived.oviraptor_call",
+    "sounds": [
+      "jurassicrevived:oviraptor/oviraptor_living_1",
+      "jurassicrevived:oviraptor/oviraptor_living_2",
+      "jurassicrevived:oviraptor/oviraptor_living_3",
+      "jurassicrevived:oviraptor/oviraptor_living_4"
+    ]
+  },
+  "oviraptor_hurt": {
+    "subtitle": "sounds.jurassicrevived.oviraptor_hurt",
+    "sounds": [
+      "jurassicrevived:oviraptor/oviraptor_hurt"
+    ]
+  },
+  "oviraptor_death": {
+    "subtitle": "sounds.jurassicrevived.oviraptor_death",
+    "sounds": [
+      "jurassicrevived:oviraptor/oviraptor_death"
+    ]
+  },
+  "pachycephalosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.pachycephalosaurus_call",
+    "sounds": [
+      "jurassicrevived:pachycephalosaurus/pachycephalosaurus_living_1",
+      "jurassicrevived:pachycephalosaurus/pachycephalosaurus_living_2",
+      "jurassicrevived:pachycephalosaurus/pachycephalosaurus_living_3"
+    ]
+  },
+  "pachycephalosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.pachycephalosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:pachycephalosaurus/pachycephalosaurus_hurt"
+    ]
+  },
+  "pachycephalosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.pachycephalosaurus_death",
+    "sounds": [
+      "jurassicrevived:pachycephalosaurus/pachycephalosaurus_death"
+    ]
+  },
+  "parasaurolophus_call": {
+    "subtitle": "sounds.jurassicrevived.parasaurolophus_call",
+    "sounds": [
+      "jurassicrevived:parasaurolophus/parasaurolophus_living_1",
+      "jurassicrevived:parasaurolophus/parasaurolophus_living_2",
+      "jurassicrevived:parasaurolophus/parasaurolophus_call_1",
+      "jurassicrevived:parasaurolophus/parasaurolophus_call_2"
+    ]
+  },
+  "parasaurolophus_hurt": {
+    "subtitle": "sounds.jurassicrevived.parasaurolophus_hurt",
+    "sounds": [
+      "jurassicrevived:parasaurolophus/parasaurolophus_hurt_1"
+    ]
+  },
+  "parasaurolophus_death": {
+    "subtitle": "sounds.jurassicrevived.parasaurolophus_death",
+    "sounds": [
+      "jurassicrevived:parasaurolophus/parasaurolophus_death_1"
+    ]
+  },
+  "proceratosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.proceratosaurus_call",
+    "sounds": [
+      "jurassicrevived:proceratosaurus/proceratosaurus_living_1",
+      "jurassicrevived:proceratosaurus/proceratosaurus_living_2"
+    ]
+  },
+  "proceratosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.proceratosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:proceratosaurus/proceratosaurus_hurt"
+    ]
+  },
+  "proceratosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.proceratosaurus_death",
+    "sounds": [
+      "jurassicrevived:proceratosaurus/proceratosaurus_death"
+    ]
+  },
+  "procompsognathus_call": {
+    "subtitle": "sounds.jurassicrevived.procompsognathus_call",
+    "sounds": [
+      "jurassicrevived:procompsognathus/procompsognathus_living_1",
+      "jurassicrevived:procompsognathus/procompsognathus_living_2",
+      "jurassicrevived:procompsognathus/procompsognathus_living_3"
+    ]
+  },
+  "procompsognathus_hurt": {
+    "subtitle": "sounds.jurassicrevived.procompsognathus_hurt",
+    "sounds": [
+      "jurassicrevived:procompsognathus/procompsognathus_hurt_1",
+      "jurassicrevived:procompsognathus/procompsognathus_hurt_2"
+    ]
+  },
+  "procompsognathus_death": {
+    "subtitle": "sounds.jurassicrevived.procompsognathus_death",
+    "sounds": [
+      "jurassicrevived:procompsognathus/procompsognathus_death"
+    ]
+  },
+  "protoceratops_call": {
+    "subtitle": "sounds.jurassicrevived.protoceratops_call",
+    "sounds": [
+      "jurassicrevived:protoceratops/protoceratops_living_1",
+      "jurassicrevived:protoceratops/protoceratops_living_2",
+      "jurassicrevived:protoceratops/protoceratops_living_3"
+    ]
+  },
+  "protoceratops_hurt": {
+    "subtitle": "sounds.jurassicrevived.protoceratops_hurt",
+    "sounds": [
+      "jurassicrevived:protoceratops/protoceratops_hurt"
+    ]
+  },
+  "protoceratops_death": {
+    "subtitle": "sounds.jurassicrevived.protoceratops_death",
+    "sounds": [
+      "jurassicrevived:protoceratops/protoceratops_death"
+    ]
+  },
+  "pteranodon_call": {
+    "subtitle": "sounds.jurassicrevived.pteranodon_call",
+    "sounds": [
+      "jurassicrevived:pteranodon/pteranodon_living_1",
+      "jurassicrevived:pteranodon/pteranodon_living_2"
+    ]
+  },
+  "pteranodon_hurt": {
+    "subtitle": "sounds.jurassicrevived.pteranodon_hurt",
+    "sounds": [
+      "jurassicrevived:pteranodon/pteranodon_hurt"
+    ]
+  },
+  "pteranodon_death": {
+    "subtitle": "sounds.jurassicrevived.pteranodon_death",
+    "sounds": [
+      "jurassicrevived:pteranodon/pteranodon_death"
+    ]
+  },
+  "pterodaustro_call": {
+    "subtitle": "sounds.jurassicrevived.pterodaustro_call",
+    "sounds": [
+      "jurassicrevived:pterodaustro/pterodaustro_living_1",
+      "jurassicrevived:pterodaustro/pterodaustro_living_2",
+      "jurassicrevived:pterodaustro/pterodaustro_living_3",
+      "jurassicrevived:pterodaustro/pterodaustro_living_4"
+    ]
+  },
+  "pterodaustro_hurt": {
+    "subtitle": "sounds.jurassicrevived.pterodaustro_hurt",
+    "sounds": [
+      "jurassicrevived:pterodaustro/pterodaustro_hurt"
+    ]
+  },
+  "pterodaustro_death": {
+    "subtitle": "sounds.jurassicrevived.pterodaustro_death",
+    "sounds": [
+      "jurassicrevived:pterodaustro/pterodaustro_death"
+    ]
+  },
+  "quetzalcoatlus_call": {
+    "subtitle": "sounds.jurassicrevived.quetzalcoatlus_call",
+    "sounds": [
+      "jurassicrevived:quetzalcoatlus/quetzalcoatlus_living_1",
+      "jurassicrevived:quetzalcoatlus/quetzalcoatlus_living_2"
+    ]
+  },
+  "quetzalcoatlus_hurt": {
+    "subtitle": "sounds.jurassicrevived.quetzalcoatlus_hurt",
+    "sounds": [
+      "jurassicrevived:quetzalcoatlus/quetzalcoatlus_hurt_1",
+      "jurassicrevived:quetzalcoatlus/quetzalcoatlus_hurt_2"
+    ]
+  },
+  "quetzalcoatlus_death": {
+    "subtitle": "sounds.jurassicrevived.quetzalcoatlus_death",
+    "sounds": [
+      "jurassicrevived:quetzalcoatlus/quetzalcoatlus_death"
+    ]
+  },
+  "rajasaurus_call": {
+    "subtitle": "sounds.jurassicrevived.rajasaurus_call",
+    "sounds": [
+      "jurassicrevived:rajasaurus/rajasaurus_living_1",
+      "jurassicrevived:rajasaurus/rajasaurus_living_2",
+      "jurassicrevived:rajasaurus/rajasaurus_living_3"
+    ]
+  },
+  "rajasaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.rajasaurus_hurt",
+    "sounds": [
+      "jurassicrevived:rajasaurus/rajasaurus_hurt"
+    ]
+  },
+  "rajasaurus_death": {
+    "subtitle": "sounds.jurassicrevived.rajasaurus_death",
+    "sounds": [
+      "jurassicrevived:rajasaurus/rajasaurus_death"
+    ]
+  },
+  "rugops_call": {
+    "subtitle": "sounds.jurassicrevived.rugops_call",
+    "sounds": [
+      "jurassicrevived:rugops/rugops_living_1",
+      "jurassicrevived:rugops/rugops_living_2",
+      "jurassicrevived:rugops/rugops_living_3",
+      "jurassicrevived:rugops/rugops_living_4"
+    ]
+  },
+  "rugops_attack": {
+    "subtitle": "sounds.jurassicrevived.rugops_attack",
+    "sounds": [
+      "jurassicrevived:rugops/rugops_attack_1"
+    ]
+  },
+  "rugops_hurt": {
+    "subtitle": "sounds.jurassicrevived.rugops_hurt",
+    "sounds": [
+      "jurassicrevived:rugops/rugops_hurt_1",
+      "jurassicrevived:rugops/rugops_hurt_2"
+    ]
+  },
+  "rugops_death": {
+    "subtitle": "sounds.jurassicrevived.rugops_death",
+    "sounds": [
+      "jurassicrevived:rugops/rugops_death_1",
+      "jurassicrevived:rugops/rugops_death_2"
+    ]
+  },
+  "segisaurus_call": {
+    "subtitle": "sounds.jurassicrevived.segisaurus_call",
+    "sounds": [
+      "jurassicrevived:segisaurus/segisaurus_living_1",
+      "jurassicrevived:segisaurus/segisaurus_living_2",
+      "jurassicrevived:segisaurus/segisaurus_living_3"
+    ]
+  },
+  "segisaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.segisaurus_hurt",
+    "sounds": [
+      "jurassicrevived:segisaurus/segisaurus_hurt"
+    ]
+  },
+  "segisaurus_death": {
+    "subtitle": "sounds.jurassicrevived.segisaurus_death",
+    "sounds": [
+      "jurassicrevived:segisaurus/segisaurus_death"
+    ]
+  },
+  "shantungosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.shantungosaurus_call",
+    "sounds": [
+      "jurassicrevived:shantungosaurus/shantungosaurus_living_1",
+      "jurassicrevived:shantungosaurus/shantungosaurus_living_2"
+    ]
+  },
+  "shantungosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.shantungosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:shantungosaurus/shantungosaurus_hurt"
+    ]
+  },
+  "shantungosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.shantungosaurus_death",
+    "sounds": [
+      "jurassicrevived:shantungosaurus/shantungosaurus_death"
+    ]
+  },
+  "spinosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.spinosaurus_call",
+    "sounds": [
+      "jurassicrevived:spinosaurus/spinosaurus_living_1",
+      "jurassicrevived:spinosaurus/spinosaurus_living_2",
+      "jurassicrevived:spinosaurus/spinosaurus_living_3",
+      "jurassicrevived:spinosaurus/spinosaurus_living_4"
+    ]
+  },
+  "spinosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.spinosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:spinosaurus/spinosaurus_hurt_1",
+      "jurassicrevived:spinosaurus/spinosaurus_hurt_2"
+    ]
+  },
+  "spinosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.spinosaurus_death",
+    "sounds": [
+      "jurassicrevived:spinosaurus/spinosaurus_death"
+    ]
+  },
+  "stegosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.stegosaurus_call",
+    "sounds": [
+      "jurassicrevived:stegosaurus/stegosaurus_living_1",
+      "jurassicrevived:stegosaurus/stegosaurus_living_2",
+      "jurassicrevived:stegosaurus/stegosaurus_living_3"
+    ]
+  },
+  "stegosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.stegosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:stegosaurus/stegosaurus_hurt"
+    ]
+  },
+  "stegosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.stegosaurus_death",
+    "sounds": [
+      "jurassicrevived:stegosaurus/stegosaurus_death"
+    ]
+  },
+  "styracosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.styracosaurus_call",
+    "sounds": [
+      "jurassicrevived:styracosaurus/styracosaurus_living_1",
+      "jurassicrevived:styracosaurus/styracosaurus_living_2"
+    ]
+  },
+  "styracosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.styracosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:styracosaurus/styracosaurus_hurt_1",
+      "jurassicrevived:styracosaurus/styracosaurus_hurt_2"
+    ]
+  },
+  "styracosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.styracosaurus_death",
+    "sounds": [
+      "jurassicrevived:styracosaurus/styracosaurus_death"
+    ]
+  },
+  "tapejara_call": {
+    "subtitle": "sounds.jurassicrevived.tapejara_call",
+    "sounds": [
+      "jurassicrevived:tapejara/tapejara_living_1",
+      "jurassicrevived:tapejara/tapejara_living_2",
+      "jurassicrevived:tapejara/tapejara_living_3"
+    ]
+  },
+  "tapejara_hurt": {
+    "subtitle": "sounds.jurassicrevived.tapejara_hurt",
+    "sounds": [
+      "jurassicrevived:tapejara/tapejara_hurt"
+    ]
+  },
+  "tapejara_death": {
+    "subtitle": "sounds.jurassicrevived.tapejara_death",
+    "sounds": [
+      "jurassicrevived:tapejara/tapejara_death"
+    ]
+  },
+  "therizinosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.therizinosaurus_call",
+    "sounds": [
+      "jurassicrevived:therizinosaurus/therizinosaurus_living_1",
+      "jurassicrevived:therizinosaurus/therizinosaurus_living_2",
+      "jurassicrevived:therizinosaurus/therizinosaurus_living_3"
+    ]
+  },
+  "therizinosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.therizinosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:therizinosaurus/therizinosaurus_hurt_1",
+      "jurassicrevived:therizinosaurus/therizinosaurus_hurt_2"
+    ]
+  },
+  "therizinosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.therizinosaurus_death",
+    "sounds": [
+      "jurassicrevived:therizinosaurus/therizinosaurus_death"
+    ]
+  },
+  "titanosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.titanosaurus_call",
+    "sounds": [
+      "jurassicrevived:titanosaurus/titanosaurus_living_1",
+      "jurassicrevived:titanosaurus/titanosaurus_living_2"
+    ]
+  },
+  "titanosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.titanosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:titanosaurus/titanosaurus_hurt"
+    ]
+  },
+  "titanosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.titanosaurus_death",
+    "sounds": [
+      "jurassicrevived:titanosaurus/titanosaurus_death"
+    ]
+  },
+  "triceratops_call": {
+    "subtitle": "sounds.jurassicrevived.triceratops_call",
+    "sounds": [
+      "jurassicrevived:triceratops/triceratops_living_1",
+      "jurassicrevived:triceratops/triceratops_living_2",
+      "jurassicrevived:triceratops/triceratops_living_3"
+    ]
+  },
+  "triceratops_hurt": {
+    "subtitle": "sounds.jurassicrevived.triceratops_hurt",
+    "sounds": [
+      "jurassicrevived:triceratops/triceratops_hurt_1"
+    ]
+  },
+  "triceratops_death": {
+    "subtitle": "sounds.jurassicrevived.triceratops_death",
+    "sounds": [
+      "jurassicrevived:triceratops/triceratops_death_1"
+    ]
+  },
+  "troodon_call": {
+    "subtitle": "sounds.jurassicrevived.troodon_call",
+    "sounds": [
+      "jurassicrevived:troodon/troodon_living_1",
+      "jurassicrevived:troodon/troodon_living_2",
+      "jurassicrevived:troodon/troodon_living_3",
+      "jurassicrevived:troodon/troodon_living_4"
+    ]
+  },
+  "troodon_hurt": {
+    "subtitle": "sounds.jurassicrevived.troodon_hurt",
+    "sounds": [
+      "jurassicrevived:troodon/troodon_hurt_1",
+      "jurassicrevived:troodon/troodon_hurt_2"
+    ]
+  },
+  "troodon_death": {
+    "subtitle": "sounds.jurassicrevived.troodon_death",
+    "sounds": [
+      "jurassicrevived:troodon/troodon_death"
+    ]
+  },
+  "tropeognathus_call": {
+    "subtitle": "sounds.jurassicrevived.tropeognathus_call",
+    "sounds": [
+      "jurassicrevived:tropeognathus/tropeognathus_living_1",
+      "jurassicrevived:tropeognathus/tropeognathus_living_2"
+    ]
+  },
+  "tropeognathus_hurt": {
+    "subtitle": "sounds.jurassicrevived.tropeognathus_hurt",
+    "sounds": [
+      "jurassicrevived:tropeognathus/tropeognathus_hurt"
+    ]
+  },
+  "tropeognathus_death": {
+    "subtitle": "sounds.jurassicrevived.tropeognathus_death",
+    "sounds": [
+      "jurassicrevived:tropeognathus/tropeognathus_death"
+    ]
+  },
+  "tupuxuara_call": {
+    "subtitle": "sounds.jurassicrevived.tupuxuara_call",
+    "sounds": [
+      "jurassicrevived:tupuxuara/tupuxuara_living_1",
+      "jurassicrevived:tupuxuara/tupuxuara_living_2",
+      "jurassicrevived:tupuxuara/tupuxuara_living_3"
+    ]
+  },
+  "tupuxuara_hurt": {
+    "subtitle": "sounds.jurassicrevived.tupuxuara_hurt",
+    "sounds": [
+      "jurassicrevived:tupuxuara/tupuxuara_hurt"
+    ]
+  },
+  "tupuxuara_death": {
+    "subtitle": "sounds.jurassicrevived.tupuxuara_death",
+    "sounds": [
+      "jurassicrevived:tupuxuara/tupuxuara_death"
+    ]
+  },
+  "tyrannosaurus_rex_call": {
+    "subtitle": "sounds.jurassicrevived.tyrannosaurus_rex_call",
+    "sounds": [
+      "jurassicrevived:tyrannosaurus_rex/tyrannosaurus_living_1",
+      "jurassicrevived:tyrannosaurus_rex/tyrannosaurus_living_2",
+      "jurassicrevived:tyrannosaurus_rex/tyrannosaurus_living_3",
+      "jurassicrevived:tyrannosaurus_rex/tyrannosaurus_living_4",
+      "jurassicrevived:tyrannosaurus_rex/tyrannosaurus_living_5",
+      "jurassicrevived:tyrannosaurus_rex/tyrannosaurus_living_6"
+    ]
+  },
+  "tyrannosaurus_rex_attack": {
+    "subtitle": "sounds.jurassicrevived.tyrannosaurus_rex_attack",
+    "sounds": [
+      "jurassicrevived:tyrannosaurus_rex/tyrannosaurus_attack_1",
+      "jurassicrevived:tyrannosaurus_rex/tyrannosaurus_attack_2"
+    ]
+  },
+  "tyrannosaurus_rex_hurt": {
+    "subtitle": "sounds.jurassicrevived.tyrannosaurus_rex_hurt",
+    "sounds": [
+      "jurassicrevived:tyrannosaurus_rex/tyrannosaurus_hurt_1",
+      "jurassicrevived:tyrannosaurus_rex/tyrannosaurus_hurt_2"
+    ]
+  },
+  "tyrannosaurus_rex_death": {
+    "subtitle": "sounds.jurassicrevived.tyrannosaurus_rex_death",
+    "sounds": [
+      "jurassicrevived:tyrannosaurus_rex/tyrannosaurus_death_1",
+      "jurassicrevived:tyrannosaurus_rex/tyrannosaurus_death_2"
+    ]
+  },
+  "utahraptor_call": {
+    "subtitle": "sounds.jurassicrevived.utahraptor_call",
+    "sounds": [
+      "jurassicrevived:utahraptor/utahraptor_living_1",
+      "jurassicrevived:utahraptor/utahraptor_living_2",
+      "jurassicrevived:utahraptor/utahraptor_living_3"
+    ]
+  },
+  "utahraptor_hurt": {
+    "subtitle": "sounds.jurassicrevived.utahraptor_hurt",
+    "sounds": [
+      "jurassicrevived:utahraptor/utahraptor_hurt"
+    ]
+  },
+  "utahraptor_death": {
+    "subtitle": "sounds.jurassicrevived.utahraptor_death",
+    "sounds": [
+      "jurassicrevived:utahraptor/utahraptor_death"
+    ]
+  },
+  "velociraptor_call": {
+    "subtitle": "sounds.jurassicrevived.velociraptor_call",
+    "sounds": [
+      "jurassicrevived:velociraptor/velociraptor_living_1",
+      "jurassicrevived:velociraptor/velociraptor_living_2",
+      "jurassicrevived:velociraptor/velociraptor_living_3",
+      "jurassicrevived:velociraptor/velociraptor_living_4",
+      "jurassicrevived:velociraptor/velociraptor_living_5",
+      "jurassicrevived:velociraptor/velociraptor_living_6",
+      "jurassicrevived:velociraptor/velociraptor_bark_1",
+      "jurassicrevived:velociraptor/velociraptor_bark_2",
+      "jurassicrevived:velociraptor/velociraptor_bark_3"
+    ]
+  },
+  "velociraptor_attack": {
+    "subtitle": "sounds.jurassicrevived.velociraptor_attack",
+    "sounds": [
+      "jurassicrevived:velociraptor/velociraptor_attack_1",
+      "jurassicrevived:velociraptor/velociraptor_attack_2",
+      "jurassicrevived:velociraptor/velociraptor_attack_3"
+    ]
+  },
+  "velociraptor_hurt": {
+    "subtitle": "sounds.jurassicrevived.velociraptor_hurt",
+    "sounds": [
+      "jurassicrevived:velociraptor/velociraptor_hurt_1",
+      "jurassicrevived:velociraptor/velociraptor_hurt_3"
+    ]
+  },
+  "velociraptor_death": {
+    "subtitle": "sounds.jurassicrevived.velociraptor_death",
+    "sounds": [
+      "jurassicrevived:velociraptor/velociraptor_death_1"
+    ]
+  },
+  "zhenyuanopterus_call": {
+    "subtitle": "sounds.jurassicrevived.zhenyuanopterus_call",
+    "sounds": [
+      "jurassicrevived:zhenyuanopterus/zhenyuanopterus_living_1",
+      "jurassicrevived:zhenyuanopterus/zhenyuanopterus_living_2",
+      "jurassicrevived:zhenyuanopterus/zhenyuanopterus_living_3"
+    ]
+  },
+  "zhenyuanopterus_hurt": {
+    "subtitle": "sounds.jurassicrevived.zhenyuanopterus_hurt",
+    "sounds": [
+      "jurassicrevived:zhenyuanopterus/zhenyuanopterus_hurt"
+    ]
+  },
+  "zhenyuanopterus_death": {
+    "subtitle": "sounds.jurassicrevived.zhenyuanopterus_death",
+    "sounds": [
+      "jurassicrevived:zhenyuanopterus/zhenyuanopterus_death"
+    ]
+  }
+}
