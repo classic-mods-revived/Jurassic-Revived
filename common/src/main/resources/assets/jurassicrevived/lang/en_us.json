@@ -1,9 +1,9 @@
 {
-  "itemGroup.jurassicrevived.jurassicrevived_item_tab": "Items and Tools",
-  "itemGroup.jurassicrevived.jurassicrevived_block_tab": "Blocks and Machines",
-  "itemGroup.jurassicrevived.jurassicrevived_plant_tab": "Prehistoric Plants",
-  "itemGroup.jurassicrevived.jurassicrevived_dna_tab": "Genetic Material",
-  "itemGroup.jurassicrevived.jurassicrevived_dino_tab": "Dinosaur Spawn Eggs",
+  "itemGroup.jurassicrevived.item_tab": "Items and Tools",
+  "itemGroup.jurassicrevived.block_tab": "Blocks and Machines",
+  "itemGroup.jurassicrevived.plant_tab": "Prehistoric Plants",
+  "itemGroup.jurassicrevived.dna_tab": "Genetic Material",
+  "itemGroup.jurassicrevived.dino_tab": "Dinosaur Spawn Eggs",
 
   "item.jurassicrevived.apatosaurus_spawn_egg": "Apatosaurus Spawn Egg",
   "item.jurassicrevived.albertosaurus_spawn_egg": "Albertosaurus Spawn Egg",

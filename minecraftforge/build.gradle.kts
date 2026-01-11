@@ -5,6 +5,24 @@ plugins {
 	// id("net.minecraftforge.accesstransformers")
 }
 
+val is120 = commonMod.minecraft_version.startsWith("1.20")
+
+// Define repositories first so they are available for dependencies and mavenizer
+repositories {
+	maven("https://api.modrinth.com/maven") { name = "Modrinth" }
+	maven {
+        name = "CurseMaven"
+		url = uri("https://www.cursemaven.com")
+		content {
+			includeGroup("curse.maven")
+		}
+	}
+	maven("https://maven.architectury.dev/")
+	maven("https://maven.terraformersmc.com/releases/")
+	maven("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
+	maven("https://maven.blamejared.com/")
+}
+
 minecraft.mavenizer(repositories)
 
 println(
@@ -16,12 +34,12 @@ println(
 )
 
 minecraft {
-	/*mappings(
+	mappings(
 		if (commonMod.propOrNull("parchment_mappings") != null) "parchment" else "official",
 		if (commonMod.propOrNull("parchment_mappings") != null)
 			"${commonMod.minecraft_version}-${commonMod.prop("parchment_mappings")}" else commonMod.minecraft_version
-	)*/
-	mappings("official", commonMod.minecraft_version)
+	)
+    // REMOVED: mappings("official", commonMod.minecraft_version) -- this was overriding the block above
 
 	//setAccessTransformers(true)
 
@@ -38,7 +56,12 @@ minecraft {
 			//args ("-mixin.config=${commonMod.id}.mixins.json")
 
 			//classpath(sourceSets.main.get())
-		}
+            // This ensures the implementation dependencies are on the runtime classpath
+            lazy {
+                val jadeVersion = if (is120) commonMod.prop("jade_version_1_20_1") else commonMod.prop("jade_version_1_21_1")
+                property("forge.enabledGameTestNamespaces", commonMod.id)
+            }
+        }
 
 		register("client") {
 			systemProperty("forge.enabledGameTestNamespaces", commonMod.id)
@@ -88,30 +111,32 @@ dependencies {
 	// then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
 	implementation(minecraft.dependency("net.minecraftforge:forge:${commonMod.minecraft_version}-${commonMod.prop("minecraftforge_version")}"))
 
-	// Forge 1.21.6+ uses EventBus 7, which shifts most of its runtime validation to compile-time via an annotation processor
-	// to improve performance in production environments. This line is required to enable said compile-time validation
-	// in your development environment, helping you catch issues early.
-	if (stonecutter.eval(stonecutter.current.version, ">=1.21.6"))
-		annotationProcessor("net.minecraftforge:eventbus-validator:${commonMod.prop("minecraftforge_eventbus_validator_version")}")
+    // Jade - Use fg.deobf to ensure the obfuscated mod jar is remapped for the dev environment
+    if (is120) {
+        val jadeDep = fg.deobf("curse.maven:jade-324717:6855440")
+        implementation(jadeDep)
+        compileOnly(jadeDep)
+    } else {
+        val jadeVersion = commonMod.prop("jade_version_1_21_1")
+        val jadeDep = fg.deobf("maven.modrinth:jade:$jadeVersion+forge")
+        implementation(jadeDep)
+        compileOnly(jadeDep)
+    }
 
-	// Example mod dependency with JEI
-	// The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
-	//compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
-	//compileOnly "mezz.jei:jei-${mc_version}-forge-api:${jei_version}"
-	//runtimeOnly "mezz.jei:jei-${mc_version}-forge:${jei_version}"
+    // Forge 1.21.6+ uses EventBus 7, which shifts most of its runtime validation to compile-time via an annotation processor
+    // to improve performance in production environments. This line is required to enable said compile-time validation
+    // in your development environment, helping you catch issues early.
+    if (stonecutter.eval(stonecutter.current.version, ">=1.21.6"))
+    	annotationProcessor("net.minecraftforge:eventbus-validator:${commonMod.prop("minecraftforge_eventbus_validator_version")}")
 
-	// Example mod dependency using a mod jar from ./libs with a flat dir repository
-	// This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
-	// The group id is ignored when searching -- in this case, it is "blank"
-	// NOTE: Support for deobfuscated dependencies has not yet been added in ForgeGradle 7.
-	//implementation "blank:coolmod-${mc_version}:${coolmod_version}"
-
-	// For more info:
-	// http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-	// http://www.gradle.org/docs/current/userguide/dependency_management.html
+    // Example mod dependency with JEI
+    // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
+    //compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
+    //compileOnly "mezz.jei:jei-${mc_version}-forge-api:${jei_version}"
+    //runtimeOnly "mezz.jei:jei-${mc_version}-forge:${jei_version}"
 }
 
-tasks.withType(JavaCompile::class).configureEach {
+    tasks.withType(JavaCompile::class).configureEach {
 	options.encoding = "UTF-8" // Use the UTF-8 charset for Java compilation
 }
 

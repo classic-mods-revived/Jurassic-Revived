@@ -13,6 +13,7 @@ repositories {
 	maven("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
 	maven("https://maven.blamejared.com/")
 	maven("https://maven.shedaniel.me/")
+	maven("https://api.modrinth.com/maven") { name = "Modrinth" }
 }
 
 java {
@@ -53,6 +54,10 @@ dependencies {
 	compileOnly("mezz.jei:jei-${commonMod.minecraft_version}-common-api:${commonMod.prop("jei_version")}")
 	compileOnly("mezz.jei:jei-${commonMod.minecraft_version}-neoforge-api:${commonMod.prop("jei_version")}")
 	runtimeOnly("mezz.jei:jei-${commonMod.minecraft_version}-neoforge:${commonMod.prop("jei_version")}")
+
+	// Jade
+	val jadeVersion = if (is120) commonMod.prop("jade_version_1_20_1") else commonMod.prop("jade_version_1_21_1")
+	implementation("maven.modrinth:jade:$jadeVersion+neoforge")
 }
 
 neoForge {

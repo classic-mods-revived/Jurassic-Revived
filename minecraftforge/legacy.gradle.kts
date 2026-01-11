@@ -28,6 +28,7 @@ legacyForge {
 
 repositories {
 	mavenCentral()
+    maven("https://api.modrinth.com/maven") { name = "Modrinth" }
 	maven("https://maven.architectury.dev/")
 	maven("https://maven.terraformersmc.com/releases/")
 	maven("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
@@ -49,6 +50,12 @@ dependencies {
     modCompileOnly("mezz.jei:jei-${commonMod.minecraft_version}-common-api:${commonMod.prop("jei_version")}")
     modCompileOnly("mezz.jei:jei-${commonMod.minecraft_version}-forge-api:${commonMod.prop("jei_version")}")
     modRuntimeOnly("mezz.jei:jei-${commonMod.minecraft_version}-forge:${commonMod.prop("jei_version")}")
+
+    // Jade
+    val jadeVersion = if (isForge1201) commonMod.prop("jade_version_1_20_1") else commonMod.prop("jade_version_1_21_1")
+    val jadeDep = "maven.modrinth:jade:$jadeVersion+forge"
+    modImplementation(jadeDep)
+    modCompileOnly(jadeDep)
 }
 
 

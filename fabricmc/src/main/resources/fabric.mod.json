@@ -18,6 +18,9 @@
 		"main": [
 			"net.cmr.jurassicrevived.JRMod"
 		],
+		"client": [
+			"net.cmr.jurassicrevived.JRModClient"
+		],
 		"modmenu": [
 			"net.cmr.jurassicrevived.client.config.JRModMenuIntegration"
 		]
@@ -41,4 +44,3 @@
 		"another-mod": "*"
 	}
 }
-  

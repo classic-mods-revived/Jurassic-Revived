@@ -2,7 +2,9 @@ package net.cmr.jurassicrevived;
 
 import dev.architectury.platform.forge.EventBuses;
 import net.cmr.jurassicrevived.client.config.JRClothConfigScreens;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -23,6 +25,7 @@ public class JRMod {
         Constants.LOG.info("Hello Forge world!");
         CommonClass.init();
 
+		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> CommonClientClass::init);
 
 		ModLoadingContext.get().registerExtensionPoint(
 			ConfigScreenHandler.ConfigScreenFactory.class,

@@ -49,6 +49,7 @@ repositories {
 	maven("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
 	maven("https://maven.blamejared.com/")
 	maven("https://maven.shedaniel.me/")
+	maven("https://api.modrinth.com/maven") { name = "Modrinth" }
 }
 
 dependencies {
@@ -75,6 +76,10 @@ dependencies {
 	modCompileOnly("mezz.jei:jei-${commonMod.minecraft_version}-common-api:${commonMod.prop("jei_version")}")
 	modCompileOnly("mezz.jei:jei-${commonMod.minecraft_version}-fabric-api:${commonMod.prop("jei_version")}")
 	modLocalRuntime("mezz.jei:jei-${commonMod.minecraft_version}-fabric:${commonMod.prop("jei_version")}")
+
+	// Jade
+	val jadeVersion = if (is120) commonMod.prop("jade_version_1_20_1") else commonMod.prop("jade_version_1_21_1")
+	modImplementation("maven.modrinth:jade:$jadeVersion+fabric")
 }
 
 loom {

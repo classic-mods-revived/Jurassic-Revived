@@ -31,6 +31,7 @@ loom {
 
 repositories {
 	mavenCentral()
+	maven("https://api.modrinth.com/maven") { name = "Modrinth" }
 	maven("https://maven.architectury.dev/")
 	maven("https://maven.terraformersmc.com/releases/")
 	maven("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
@@ -59,6 +60,13 @@ dependencies {
 	// JEI (Common API)
 	// We use "modCompileOnly" because we only need the API to write code, not the full mod
 	modCompileOnly("mezz.jei:jei-${commonMod.minecraft_version}-common-api:${commonMod.prop("jei_version")}")
+
+    // Jade (Common API)
+    val jadeVersion = if (is120) commonMod.prop("jade_version_1_20_1") else commonMod.prop("jade_version_1_21_1")
+    val jadeClassifier = if (is120) "forge" else "fabric"
+	
+    // Use modCompileOnly to provide the API for compilation
+    modCompileOnly("maven.modrinth:jade:$jadeVersion+$jadeClassifier")
 }
 
 val commonJava: Configuration by configurations.creating {

@@ -1,11 +1,19 @@
 package net.cmr.jurassicrevived;
 
+import dev.architectury.event.events.common.LifecycleEvent;
 import net.cmr.jurassicrevived.block.ModBlocks;
+import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
 import net.cmr.jurassicrevived.config.JRConfigManager;
 import net.cmr.jurassicrevived.entity.ModEntities;
 import net.cmr.jurassicrevived.item.ModCreativeTabs;
 import net.cmr.jurassicrevived.item.ModItems;
 import net.cmr.jurassicrevived.platform.Services;
+import net.cmr.jurassicrevived.recipe.ModRecipes;
+import net.cmr.jurassicrevived.screen.ModMenuTypes;
+import net.cmr.jurassicrevived.sound.ModSounds;
+import net.cmr.jurassicrevived.util.FenceClimbHandler;
+import net.cmr.jurassicrevived.util.FenceDiagonalHandler;
+import net.cmr.jurassicrevived.util.ModEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Items;
 
@@ -38,8 +46,27 @@ public class CommonClass
 		JRConfigManager.load(Services.PLATFORM.getConfigDir());
 
 		ModBlocks.register();
+		ModEntities.register();
 		ModItems.register();
 		ModCreativeTabs.register();
-		ModEntities.register();
+		ModEntities.registerAttributes();
+
+		ModMenuTypes.register();
+
+		ModRecipes.register();
+
+		LifecycleEvent.SETUP.register(() -> {
+			ModBlocks.setupPots();
+			//ModEntities.registerSpawnPlacements();
+		});
+
+		ModBlockEntities.register();
+
+		FenceClimbHandler.register();
+		FenceDiagonalHandler.init();
+
+		ModEvents.init();
+
+		ModSounds.register();
 	}
 }

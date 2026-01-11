@@ -74,11 +74,10 @@ is mod is in a VERY early stage of development. Expect bugs, missing features, a
 	- Pull the repository to your local machine.
 	- Allow Gradle to sync completely (usually takes ~2 minutes).
 
-2. **Select Version (Code Editing Only)**
-	- If you intend to modify the source code, use the included run configurations to set your workspace and have Java 21 installed and available:
+2. **Select Version**
+	- Use the included run configurations to set your workspace and have Java 21 installed and available:
 		- `Switch to 1.20.1`
 		- `Switch to 1.21.1`
-	- *Note: You can skip this step if you just want to launch the game.*
 	- *Note: With IntelliJ idea, you can install the Stonecutter plugin and it becomes a dropdown at the top left*
 
 3. **Launch the Game**
@@ -86,3 +85,4 @@ is mod is in a VERY early stage of development. Expect bugs, missing features, a
 		- **Fabric:** 1.20.1 & 1.21.1
 		- **NeoForge:** 1.21.1
 		- **Forge:** 1.20.1
+	- *Note: Be sure to have the proper stonecutter version seleted*
