@@ -23,6 +23,9 @@
 		],
 		"modmenu": [
 			"net.cmr.jurassicrevived.client.config.JRModMenuIntegration"
+		],
+		"fabric-datagen": [
+			"net.cmr.jurassicrevived.datagen.DataGenerators"
 		]
 	},
 	"mixins": [

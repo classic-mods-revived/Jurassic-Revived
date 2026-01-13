@@ -87,21 +87,41 @@ loom {
 		common.project.file("../../src/main/resources/accesswideners/${commonMod.minecraft_version}-${mod.id}.accesswidener")
 
 	runs {
-		getByName("client") {
+		named("client") {
 			client()
 			configName = "Fabric Client"
 			ideConfigGenerated(true)
 		}
-		getByName("server") {
+		named("server") {
 			server()
 			configName = "Fabric Server"
 			ideConfigGenerated(true)
+		}
+		create("datagen") {
+			server()
+			configName = "Fabric Data Generation"
+			ideConfigGenerated(true)
+			vmArg("-Dfabric-api.datagen")
+			vmArg("-Dfabric-api.datagen.output-dir=${file("src/main/generated")}")
+			vmArg("-Dfabric-api.datagen.modid=${commonMod.id}")
+			runDir("build/datagen")
+			// Ensure directory exists
+			file("build/datagen").mkdirs()
+		}
+	}
+}
+
+sourceSets {
+	main {
+		resources {
+			srcDir("src/main/generated")
 		}
 	}
 }
 
 tasks.named<ProcessResources>("processResources") {
 	inputs.property("targetBytecode", targetBytecode)
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
 	filesMatching("fabric.mod.json") {
 		expand(mapOf(

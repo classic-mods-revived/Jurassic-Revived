@@ -80,6 +80,13 @@ legacyForge {
 			data()
 			ideName = "MinecraftForge Data (${project.path})"
 			logLevel = Level.TRACE
+			programArguments.addAll(
+				"--mod", commonMod.id,
+				"--all",
+				"--output", file("src/generated/resources").absolutePath,
+				"--existing", file("src/main/resources").absolutePath,
+				"--existing", project(":common").file("src/main/resources").absolutePath
+			)
 		}
 		register("server") {
 			server()

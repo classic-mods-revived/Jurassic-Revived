@@ -84,6 +84,13 @@ neoForge {
 			register("data") {
 				data()
 				ideName = "NeoForge Data (${project.path})"
+				programArguments.addAll(
+					"--mod", commonMod.id,
+					"--all",
+					"--output", file("src/generated/resources").absolutePath,
+					"--existing", file("src/main/resources").absolutePath,
+					"--existing", project(":common").file("src/main/resources").absolutePath
+				)
 			}
 		}
 		register("server") {

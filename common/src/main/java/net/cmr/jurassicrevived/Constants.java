@@ -18,4 +18,12 @@ public class Constants
 		return new ResourceLocation(MOD_ID, path);
 		//?}
 	}
+
+	public static ResourceLocation r2(String path) {
+		//? if >1.20.1 {
+		/*return ResourceLocation.parse(path);
+		 *///?} else {
+		return new ResourceLocation(path);
+		//?}
+	}
 }
