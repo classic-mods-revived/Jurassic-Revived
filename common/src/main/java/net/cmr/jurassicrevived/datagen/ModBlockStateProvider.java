@@ -45,79 +45,22 @@ public class ModBlockStateProvider {
     }
     
     public static void registerBlockStates(BlockStateHelper helper) {
-        //? if >1.20.1 {
-        /*if (ModBlocks.ROYAL_FERN.isPresent()) {
              helper.crossBlock(ModBlocks.ROYAL_FERN.get(), 
                  modLoc("block/" + ModBlocks.ROYAL_FERN.getId().getPath()));
-        }
-        if (ModBlocks.POTTED_ROYAL_FERN.isPresent()) {
              helper.pottedPlantBlock(ModBlocks.POTTED_ROYAL_FERN.get(), 
                  modLoc("block/" + ModBlocks.ROYAL_FERN.getId().getPath()));
-        }
-
-        if (ModBlocks.HORSETAIL_FERN.isPresent()) {
              helper.crossBlock(ModBlocks.HORSETAIL_FERN.get(), 
                  modLoc("block/" + ModBlocks.HORSETAIL_FERN.getId().getPath()));
-        }
-        if (ModBlocks.POTTED_HORSETAIL_FERN.isPresent()) {
              helper.pottedPlantBlock(ModBlocks.POTTED_HORSETAIL_FERN.get(), 
                  modLoc("block/" + ModBlocks.HORSETAIL_FERN.getId().getPath()));
-        }
-
-        if (ModBlocks.WESTERN_SWORD_FERN.isPresent()) {
              helper.crossBlock(ModBlocks.WESTERN_SWORD_FERN.get(), 
                  modLoc("block/" + ModBlocks.WESTERN_SWORD_FERN.getId().getPath()));
-        }
-        if (ModBlocks.POTTED_WESTERN_SWORD_FERN.isPresent()) {
              helper.pottedPlantBlock(ModBlocks.POTTED_WESTERN_SWORD_FERN.get(), 
                  modLoc("block/" + ModBlocks.WESTERN_SWORD_FERN.getId().getPath()));
-        }
-
-        if (ModBlocks.ONYCHIOPSIS.isPresent()) {
              helper.crossBlock(ModBlocks.ONYCHIOPSIS.get(), 
                  modLoc("block/" + ModBlocks.ONYCHIOPSIS.getId().getPath()));
-        }
-        if (ModBlocks.POTTED_ONYCHIOPSIS.isPresent()) {
              helper.pottedPlantBlock(ModBlocks.POTTED_ONYCHIOPSIS.get(), 
                  modLoc("block/" + ModBlocks.ONYCHIOPSIS.getId().getPath()));
-        }
-        *///?} else {
-        if (ModBlocks.ROYAL_FERN.isPresent()) {
-             helper.crossBlock(ModBlocks.ROYAL_FERN.get(), 
-                 modLoc("block/" + ModBlocks.ROYAL_FERN.getId().getPath()));
-        }
-        if (ModBlocks.POTTED_ROYAL_FERN.isPresent()) {
-             helper.pottedPlantBlock(ModBlocks.POTTED_ROYAL_FERN.get(), 
-                 modLoc("block/" + ModBlocks.ROYAL_FERN.getId().getPath()));
-        }
-
-        if (ModBlocks.HORSETAIL_FERN.isPresent()) {
-             helper.crossBlock(ModBlocks.HORSETAIL_FERN.get(), 
-                 modLoc("block/" + ModBlocks.HORSETAIL_FERN.getId().getPath()));
-        }
-        if (ModBlocks.POTTED_HORSETAIL_FERN.isPresent()) {
-             helper.pottedPlantBlock(ModBlocks.POTTED_HORSETAIL_FERN.get(), 
-                 modLoc("block/" + ModBlocks.HORSETAIL_FERN.getId().getPath()));
-        }
-
-        if (ModBlocks.WESTERN_SWORD_FERN.isPresent()) {
-             helper.crossBlock(ModBlocks.WESTERN_SWORD_FERN.get(), 
-                 modLoc("block/" + ModBlocks.WESTERN_SWORD_FERN.getId().getPath()));
-        }
-        if (ModBlocks.POTTED_WESTERN_SWORD_FERN.isPresent()) {
-             helper.pottedPlantBlock(ModBlocks.POTTED_WESTERN_SWORD_FERN.get(), 
-                 modLoc("block/" + ModBlocks.WESTERN_SWORD_FERN.getId().getPath()));
-        }
-
-        if (ModBlocks.ONYCHIOPSIS.isPresent()) {
-             helper.crossBlock(ModBlocks.ONYCHIOPSIS.get(), 
-                 modLoc("block/" + ModBlocks.ONYCHIOPSIS.getId().getPath()));
-        }
-        if (ModBlocks.POTTED_ONYCHIOPSIS.isPresent()) {
-             helper.pottedPlantBlock(ModBlocks.POTTED_ONYCHIOPSIS.get(), 
-                 modLoc("block/" + ModBlocks.ONYCHIOPSIS.getId().getPath()));
-        }
-        //?}
         
         helper.blockWithItem(ModBlocks.GYPSUM_STONE.get());
         helper.blockWithItem(ModBlocks.GYPSUM_COBBLESTONE.get());

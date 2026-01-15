@@ -65,6 +65,10 @@ legacyForge {
 	accessTransformers.from(at.absolutePath)
 	validateAccessTransformers = true
 
+    val commonResources = project(":common").file("src/main/resources").absolutePath
+    val localResources = project.file("src/main/resources").absolutePath
+    val generatedResources = project.file("src/generated/resources").absolutePath
+
 	runs {
 		register("client") {
 			client()
@@ -83,9 +87,9 @@ legacyForge {
 			programArguments.addAll(
 				"--mod", commonMod.id,
 				"--all",
-				"--output", file("src/generated/resources").absolutePath,
-				"--existing", file("src/main/resources").absolutePath,
-				"--existing", project(":common").file("src/main/resources").absolutePath
+				"--output", generatedResources,
+				"--existing", localResources,
+				"--existing", commonResources
 			)
 		}
 		register("server") {
