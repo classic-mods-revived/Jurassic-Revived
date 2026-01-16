@@ -103,7 +103,7 @@ public class ModBlockStateProvider {
         helper.simpleBlockWithExistingModel(ModBlocks.WOOD_CRATE.get(), modLoc("block/wood_crate"));
         helper.simpleBlockWithExistingModel(ModBlocks.IRON_CRATE.get(), modLoc("block/iron_crate"));
 
-        helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.GENERATOR.get());
+        helper.horizontalFacingLitWithItem(ModBlocks.GENERATOR.get());
         helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.DNA_EXTRACTOR.get());
         helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.DNA_ANALYZER.get());
         helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.FOSSIL_GRINDER.get());
@@ -113,7 +113,7 @@ public class ModBlockStateProvider {
         helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.EMBRYO_CALCIFICATION_MACHINE.get());
         helper.horizontalFacingLitWithItem(ModBlocks.INCUBATOR.get());
         
-        helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.WHITE_GENERATOR.get());
+        helper.horizontalFacingLitWithItem(ModBlocks.WHITE_GENERATOR.get());
         helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.WHITE_DNA_EXTRACTOR.get());
         helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.WHITE_DNA_ANALYZER.get());
         helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.WHITE_FOSSIL_GRINDER.get());

@@ -20,6 +20,10 @@ import net.minecraft.client.renderer.entity.NoopRenderer;
 import dev.architectury.event.events.common.LifecycleEvent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
 
 public class CommonClientClass {
 	public static void init() {
@@ -123,35 +127,35 @@ public class CommonClientClass {
 		});
         //?}
 
+		registerSpawnEggColors();
 
         LifecycleEvent.SETUP.register(() -> {
-            // Register Block Entity Renderers (SETUP is fine for these)
             BlockEntityRendererRegistry.register(ModBlockEntities.TANK_BE.get(), TankBlockEntityRenderer::new);
-			registerSpawnEggColors();
 			registerRenderTypes();
 		});
     }
 
-    private static void registerSpawnEggColors() {
-        ModItems.ITEMS.forEach(itemSupplier -> {
-            Item item = itemSupplier.get();
-            if (item instanceof SpawnEggItem egg) {
-                ColorHandlerRegistry.registerItemColors(
-                    (stack, tintIndex) -> {
-                        // SpawnEggItem.getColor returns the raw color from the constructor.
-                        // We apply the alpha mask to ensure it is never transparent.
-                        return egg.getColor(tintIndex) | 0xFF000000;
-                    },
-                    itemSupplier
-                );
-            }
-        });
-    }
-
+	private static void registerSpawnEggColors() {
+		// Iterate through all items in your registry
+		ModItems.ITEMS.forEach(itemSupplier -> {
+			ColorHandlerRegistry.registerItemColors(
+				(stack, tintIndex) -> {
+					if (stack.getItem() instanceof SpawnEggItem egg) {
+						return egg.getColor(tintIndex) | 0xFF000000;
+					}
+					return 0xFFFFFFFF;
+				},
+				itemSupplier
+			);
+		});
+	}
 
 	private static void registerRenderTypes() {
 		// Add all your cross-model blocks here
 		RenderTypeRegistry.register(RenderType.cutout(),
+			ModBlocks.FLUID_PIPE.get(),
+			ModBlocks.POWER_PIPE.get(),
+			ModBlocks.ITEM_PIPE.get(),
 			ModBlocks.ROYAL_FERN.get(),
 			ModBlocks.HORSETAIL_FERN.get(),
 			ModBlocks.WESTERN_SWORD_FERN.get(),

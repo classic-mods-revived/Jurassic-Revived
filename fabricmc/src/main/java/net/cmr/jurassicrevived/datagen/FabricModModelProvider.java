@@ -1,11 +1,14 @@
 package net.cmr.jurassicrevived.datagen;
 
 import net.cmr.jurassicrevived.Constants;
+import net.cmr.jurassicrevived.block.custom.PipeBlock;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.data.models.blockstates.PropertyDispatch;
 import net.minecraft.data.models.blockstates.Variant;
 import net.minecraft.data.models.blockstates.VariantProperties;
 import net.minecraft.data.models.model.ModelLocationUtils;
@@ -20,9 +23,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.core.Direction;
+import net.minecraft.data.models.blockstates.Condition;
 
 import java.util.Optional;
+import java.util.List;
 
 public class FabricModModelProvider extends FabricModelProvider implements ModBlockStateProvider.BlockStateHelper, ModItemModelProvider.ItemModelHelper {
 
@@ -121,21 +129,27 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
         }
     }
 
+    private PropertyDispatch createRotatedHorizontalFacingDispatch() {
+        return PropertyDispatch.property(BlockStateProperties.HORIZONTAL_FACING)
+                .select(Direction.NORTH, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                .select(Direction.EAST, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                .select(Direction.SOUTH, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R0))
+                .select(Direction.WEST, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90));
+    }
+
     @Override
     public void horizontalFacingWithItem(Block block) {
         if (isGeneratingBlocks()) {
-            TextureMapping mapping = TextureMapping.cube(block);
-            ResourceLocation modelLoc = ModelTemplates.CUBE_ALL.create(block, mapping, blockStateGenerator.modelOutput);
-            blockStateGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, modelLoc)).with(BlockModelGenerators.createHorizontalFacingDispatch()));
+            ResourceLocation model = ModelLocationUtils.getModelLocation(block);
+            blockStateGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, model)).with(BlockModelGenerators.createHorizontalFacingDispatch()));
         }
     }
 
     @Override
     public void horizontalFacingLitWithItem(Block block) {
         if (isGeneratingBlocks()) {
-            // Placeholder implementation
              ResourceLocation model = ModelLocationUtils.getModelLocation(block);
-             blockStateGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, model)).with(BlockModelGenerators.createHorizontalFacingDispatch()));
+             blockStateGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, model)).with(createRotatedHorizontalFacingDispatch()));
         }
     }
 
@@ -143,49 +157,161 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
     public void horizontalFacingLitNoBlockstateWithItem(Block block) {
         if (isGeneratingBlocks()) {
              ResourceLocation model = ModelLocationUtils.getModelLocation(block);
-             blockStateGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, model)).with(BlockModelGenerators.createHorizontalFacingDispatch()));
+             blockStateGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, model)).with(createRotatedHorizontalFacingDispatch()));
         }
     }
 
     @Override
     public void eggLike(Block block) {
         if (isGeneratingBlocks()) {
-            // Placeholder
+            ResourceLocation eggModel = Constants.rl("block/egg");
+            blockStateGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, eggModel));
         }
+    }
+
+    private void addDirectionalEnumPart(MultiPartGenerator multipart,
+                                        String modelPath,
+                                        EnumProperty<PipeBlock.ConnectionType> prop,
+                                        PipeBlock.ConnectionType value,
+                                        int rotX,
+                                        int rotY) {
+        Variant variant = Variant.variant()
+                .with(VariantProperties.MODEL, Constants.rl(modelPath))
+                .with(VariantProperties.X_ROT, VariantProperties.Rotation.values()[rotX / 90])
+                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.values()[rotY / 90]);
+        
+        multipart.with(
+                Condition.condition().term(prop, value),
+                variant
+        );
     }
 
     @Override
     public void pipeMultipartWithItem(Block block, String modelBaseName) {
         if (isGeneratingBlocks()) {
-            // Placeholder
+            MultiPartGenerator multipart = MultiPartGenerator.multiPart(block);
+            
+            // Base pipe model always present
+            multipart.with(Variant.variant().with(VariantProperties.MODEL, Constants.rl("block/" + modelBaseName)));
+
+            // Interchange (pipe-to-pipe) connections
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_interchange", PipeBlock.UP,   PipeBlock.ConnectionType.PIPE, 90, 0);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_interchange", PipeBlock.DOWN, PipeBlock.ConnectionType.PIPE, 270, 0);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_interchange", PipeBlock.NORTH, PipeBlock.ConnectionType.PIPE, 0, 180);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_interchange", PipeBlock.EAST,  PipeBlock.ConnectionType.PIPE, 0, 270);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_interchange", PipeBlock.SOUTH, PipeBlock.ConnectionType.PIPE, 0, 0);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_interchange", PipeBlock.WEST,  PipeBlock.ConnectionType.PIPE, 0, 90);
+
+            // Connector (push) connections
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_connector", PipeBlock.UP,   PipeBlock.ConnectionType.CONNECTOR, 90, 0);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_connector", PipeBlock.DOWN, PipeBlock.ConnectionType.CONNECTOR, 270, 0);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_connector", PipeBlock.NORTH, PipeBlock.ConnectionType.CONNECTOR, 0, 180);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_connector", PipeBlock.EAST,  PipeBlock.ConnectionType.CONNECTOR, 0, 270);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_connector", PipeBlock.SOUTH, PipeBlock.ConnectionType.CONNECTOR, 0, 0);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_connector", PipeBlock.WEST,  PipeBlock.ConnectionType.CONNECTOR, 0, 90);
+
+            // Connector pull connections
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_connector_pull", PipeBlock.UP,   PipeBlock.ConnectionType.CONNECTOR_PULL, 90, 0);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_connector_pull", PipeBlock.DOWN, PipeBlock.ConnectionType.CONNECTOR_PULL, 270, 0);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_connector_pull", PipeBlock.NORTH, PipeBlock.ConnectionType.CONNECTOR_PULL, 0, 180);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_connector_pull", PipeBlock.EAST,  PipeBlock.ConnectionType.CONNECTOR_PULL, 0, 270);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_connector_pull", PipeBlock.SOUTH, PipeBlock.ConnectionType.CONNECTOR_PULL, 0, 0);
+            addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_connector_pull", PipeBlock.WEST,  PipeBlock.ConnectionType.CONNECTOR_PULL, 0, 90);
+
+            blockStateGenerator.blockStateOutput.accept(multipart);
         }
     }
 
     @Override
     public void customFenceMultipart(Block block, String base, String straight, String diag, BooleanProperty ne, BooleanProperty se, BooleanProperty sw, BooleanProperty nw) {
         if (isGeneratingBlocks()) {
-            // Placeholder
+            MultiPartGenerator multipart = MultiPartGenerator.multiPart(block);
+
+            multipart.with(Variant.variant().with(VariantProperties.MODEL, Constants.rl("block/" + base)));
+
+            BooleanProperty northProp = (BooleanProperty) block.getStateDefinition().getProperty("north");
+            BooleanProperty eastProp = (BooleanProperty) block.getStateDefinition().getProperty("east");
+            BooleanProperty southProp = (BooleanProperty) block.getStateDefinition().getProperty("south");
+            BooleanProperty westProp = (BooleanProperty) block.getStateDefinition().getProperty("west");
+
+            multipart.with(
+                    Condition.condition().term(northProp, true),
+                    Variant.variant().with(VariantProperties.MODEL, Constants.rl("block/" + straight)).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R0)
+            );
+
+            multipart.with(
+                    Condition.condition().term(eastProp, true),
+                    Variant.variant().with(VariantProperties.MODEL, Constants.rl("block/" + straight)).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+            );
+
+            multipart.with(
+                    Condition.condition().term(southProp, true),
+                    Variant.variant().with(VariantProperties.MODEL, Constants.rl("block/" + straight)).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+            );
+
+            multipart.with(
+                    Condition.condition().term(westProp, true),
+                    Variant.variant().with(VariantProperties.MODEL, Constants.rl("block/" + straight)).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+            );
+
+            multipart.with(
+                    Condition.condition().term(ne, true),
+                    Variant.variant().with(VariantProperties.MODEL, Constants.rl("block/" + diag)).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+            );
+
+            multipart.with(
+                    Condition.condition().term(se, true),
+                    Variant.variant().with(VariantProperties.MODEL, Constants.rl("block/" + diag)).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+            );
+
+            multipart.with(
+                    Condition.condition().term(sw, true),
+                    Variant.variant().with(VariantProperties.MODEL, Constants.rl("block/" + diag)).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+            );
+
+            multipart.with(
+                    Condition.condition().term(nw, true),
+                    Variant.variant().with(VariantProperties.MODEL, Constants.rl("block/" + diag)).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R0)
+            );
+
+            blockStateGenerator.blockStateOutput.accept(multipart);
         }
     }
 
     @Override
     public void stairsBlock(StairBlock block, ResourceLocation texture) {
         if (isGeneratingBlocks()) {
-            // Placeholder
+            TextureMapping mapping = new TextureMapping().put(TextureSlot.BOTTOM, texture).put(TextureSlot.TOP, texture).put(TextureSlot.SIDE, texture);
+            ResourceLocation inner = ModelTemplates.STAIRS_INNER.create(block, mapping, blockStateGenerator.modelOutput);
+            ResourceLocation straight = ModelTemplates.STAIRS_STRAIGHT.create(block, mapping, blockStateGenerator.modelOutput);
+            ResourceLocation outer = ModelTemplates.STAIRS_OUTER.create(block, mapping, blockStateGenerator.modelOutput);
+            blockStateGenerator.blockStateOutput.accept(BlockModelGenerators.createStairs(block, inner, straight, outer));
         }
     }
 
     @Override
     public void slabBlock(SlabBlock block, ResourceLocation texture, ResourceLocation sideTexture) {
         if (isGeneratingBlocks()) {
-            // Placeholder
+            TextureMapping mapping = new TextureMapping()
+                    .put(TextureSlot.BOTTOM, texture)
+                    .put(TextureSlot.TOP, texture)
+                    .put(TextureSlot.SIDE, sideTexture)
+                    .put(TextureSlot.END, texture); // Added END slot for CUBE_COLUMN
+            ResourceLocation bottom = ModelTemplates.SLAB_BOTTOM.create(block, mapping, blockStateGenerator.modelOutput);
+            ResourceLocation top = ModelTemplates.SLAB_TOP.create(block, mapping, blockStateGenerator.modelOutput);
+            ResourceLocation doubleSlab = ModelTemplates.CUBE_COLUMN.createWithSuffix(block, "double", mapping, blockStateGenerator.modelOutput);
+            blockStateGenerator.blockStateOutput.accept(BlockModelGenerators.createSlab(block, bottom, top, doubleSlab));
         }
     }
 
     @Override
     public void wallBlock(WallBlock block, ResourceLocation texture) {
         if (isGeneratingBlocks()) {
-            // Placeholder
+            TextureMapping mapping = new TextureMapping().put(TextureSlot.WALL, texture);
+            ResourceLocation post = ModelTemplates.WALL_POST.create(block, mapping, blockStateGenerator.modelOutput);
+            ResourceLocation side = ModelTemplates.WALL_LOW_SIDE.create(block, mapping, blockStateGenerator.modelOutput);
+            ResourceLocation sideTall = ModelTemplates.WALL_TALL_SIDE.create(block, mapping, blockStateGenerator.modelOutput);
+            blockStateGenerator.blockStateOutput.accept(BlockModelGenerators.createWall(block, post, side, sideTall));
         }
     }
 
@@ -203,33 +329,28 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
         }
     }
 
-    @Override
-    public void spawnEgg(Item item) {
-        if (isGeneratingItems()) {
-            // Create a custom template that defines TWO layers. 
-            // The order of TextureSlots here determines the tintindex (0, 1, etc.)
-            ModelTemplate spawnEggTemplate = new ModelTemplate(
-                Optional.of(Constants.r2("minecraft:item/generated")),
-                Optional.empty(), 
-                TextureSlot.LAYER0, 
-                TextureSlot.LAYER1
-            );
-
-            TextureMapping mapping = new TextureMapping()
-                .put(TextureSlot.LAYER0, Constants.r2("minecraft:item/spawn_egg"))
-                .put(TextureSlot.LAYER1, Constants.r2("minecraft:item/spawn_egg_overlay"));
-
-            spawnEggTemplate.create(ModelLocationUtils.getModelLocation(item), mapping, itemModelGenerator.output);
-        }
-    }
+	@Override
+	public void spawnEgg(Item item) {
+		if (isGeneratingItems()) {
+			// Simple parent inheritance is the most reliable way to ensure
+			// the engine recognizes both tintable layers (0 and 1).
+			itemModelGenerator.output.accept(ModelLocationUtils.getModelLocation(item), () -> {
+				JsonObject json = new JsonObject();
+				json.addProperty("parent", "minecraft:item/template_spawn_egg");
+				return json;
+			});
+		}
+	}
 
     @Override
     public void simpleBlockItemModel(Block block) {
         if (isGeneratingItems()) {
-            // Ensure simple block items also use a clean parent inheritance
             itemModelGenerator.output.accept(ModelLocationUtils.getModelLocation(block.asItem()), () -> {
                 JsonObject json = new JsonObject();
-                json.addProperty("parent", ModelLocationUtils.getModelLocation(block).toString());
+                json.addProperty("parent", "minecraft:item/generated");
+                JsonObject textures = new JsonObject();
+                textures.addProperty("layer0", TextureMapping.getBlockTexture(block).toString());
+                json.add("textures", textures);
                 return json;
             });
         }
@@ -247,28 +368,53 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
     @Override
     public void wallItem(Block block, Block baseBlock) {
         if (isGeneratingItems()) {
-            // Placeholder
+            itemModelGenerator.output.accept(ModelLocationUtils.getModelLocation(block.asItem()), () -> {
+                JsonObject json = new JsonObject();
+                json.addProperty("parent", "minecraft:block/wall_inventory");
+                JsonObject textures = new JsonObject();
+                textures.addProperty("wall", TextureMapping.getBlockTexture(baseBlock).toString());
+                json.add("textures", textures);
+                return json;
+            });
         }
     }
 
     @Override
     public void buttonItem(Block block, Block baseBlock) {
         if (isGeneratingItems()) {
-            // Placeholder
+            itemModelGenerator.output.accept(ModelLocationUtils.getModelLocation(block.asItem()), () -> {
+                JsonObject json = new JsonObject();
+                json.addProperty("parent", "minecraft:block/button_inventory");
+                JsonObject textures = new JsonObject();
+                textures.addProperty("texture", TextureMapping.getBlockTexture(baseBlock).toString());
+                json.add("textures", textures);
+                return json;
+            });
         }
     }
 
     @Override
     public void fenceItem(Block block, Block baseBlock) {
         if (isGeneratingItems()) {
-            // Placeholder
+            itemModelGenerator.output.accept(ModelLocationUtils.getModelLocation(block.asItem()), () -> {
+                JsonObject json = new JsonObject();
+                json.addProperty("parent", "minecraft:block/fence_inventory");
+                JsonObject textures = new JsonObject();
+                textures.addProperty("texture", TextureMapping.getBlockTexture(baseBlock).toString());
+                json.add("textures", textures);
+                return json;
+            });
         }
     }
 
     @Override
     public void withExistingParentModel(Item item, ResourceLocation parent) {
         if (isGeneratingItems()) {
-            // Placeholder
+            itemModelGenerator.output.accept(ModelLocationUtils.getModelLocation(item), () -> {
+                JsonObject json = new JsonObject();
+                json.addProperty("parent", parent.toString());
+                return json;
+            });
         }
     }
 }
