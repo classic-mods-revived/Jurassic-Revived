@@ -1,18 +1,25 @@
 package net.cmr.jurassicrevived;
 
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
+import dev.architectury.registry.client.rendering.ColorHandlerRegistry;
+import dev.architectury.registry.client.rendering.RenderTypeRegistry;
 import dev.architectury.registry.menu.MenuRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
+import net.cmr.jurassicrevived.block.ModBlocks;
 import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
 import net.cmr.jurassicrevived.block.renderer.TankBlockEntityRenderer;
 import net.cmr.jurassicrevived.entity.ModEntities;
 import net.cmr.jurassicrevived.entity.client.*;
+import net.cmr.jurassicrevived.item.ModItems;
 import net.cmr.jurassicrevived.screen.ModMenuTypes;
 import net.cmr.jurassicrevived.screen.custom.*;
 import net.cmr.jurassicrevived.sound.MachineHumSoundHandler;
 import net.cmr.jurassicrevived.util.FenceClimbClientHandler;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import dev.architectury.event.events.common.LifecycleEvent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 
 public class CommonClientClass {
 	public static void init() {
@@ -98,7 +105,7 @@ public class CommonClientClass {
 		EntityRendererRegistry.register(ModEntities.TROODON, TroodonRenderer::new);
 		EntityRendererRegistry.register(ModEntities.UTAHRAPTOR, UtahraptorRenderer::new);
 
-		//? if <=1.20.1 {
+        //? if <=1.20.1 {
 		LifecycleEvent.SETUP.register(() -> {
 			MenuRegistry.registerScreenFactory(ModMenuTypes.GENERATOR_MENU.get(), GeneratorScreen::new);
 			MenuRegistry.registerScreenFactory(ModMenuTypes.DNA_EXTRACTOR_MENU.get(), DNAExtractorScreen::new);
@@ -114,11 +121,45 @@ public class CommonClientClass {
 			MenuRegistry.registerScreenFactory(ModMenuTypes.WOOD_CRATE_MENU.get(), CrateScreen::new);
 			MenuRegistry.registerScreenFactory(ModMenuTypes.IRON_CRATE_MENU.get(), CrateScreen::new);
 		});
-		//?}
+        //?}
 
-		LifecycleEvent.SETUP.register(() -> {
-			// Register Block Entity Renderers (SETUP is fine for these)
-			BlockEntityRendererRegistry.register(ModBlockEntities.TANK_BE.get(), TankBlockEntityRenderer::new);
+
+        LifecycleEvent.SETUP.register(() -> {
+            // Register Block Entity Renderers (SETUP is fine for these)
+            BlockEntityRendererRegistry.register(ModBlockEntities.TANK_BE.get(), TankBlockEntityRenderer::new);
+			registerSpawnEggColors();
+			registerRenderTypes();
 		});
+    }
+
+    private static void registerSpawnEggColors() {
+        ModItems.ITEMS.forEach(itemSupplier -> {
+            Item item = itemSupplier.get();
+            if (item instanceof SpawnEggItem egg) {
+                ColorHandlerRegistry.registerItemColors(
+                    (stack, tintIndex) -> {
+                        // SpawnEggItem.getColor returns the raw color from the constructor.
+                        // We apply the alpha mask to ensure it is never transparent.
+                        return egg.getColor(tintIndex) | 0xFF000000;
+                    },
+                    itemSupplier
+                );
+            }
+        });
+    }
+
+
+	private static void registerRenderTypes() {
+		// Add all your cross-model blocks here
+		RenderTypeRegistry.register(RenderType.cutout(),
+			ModBlocks.ROYAL_FERN.get(),
+			ModBlocks.HORSETAIL_FERN.get(),
+			ModBlocks.WESTERN_SWORD_FERN.get(),
+			ModBlocks.ONYCHIOPSIS.get(),
+			ModBlocks.POTTED_ROYAL_FERN.get(),
+			ModBlocks.POTTED_HORSETAIL_FERN.get(),
+			ModBlocks.POTTED_WESTERN_SWORD_FERN.get(),
+			ModBlocks.POTTED_ONYCHIOPSIS.get()
+		);
 	}
 }

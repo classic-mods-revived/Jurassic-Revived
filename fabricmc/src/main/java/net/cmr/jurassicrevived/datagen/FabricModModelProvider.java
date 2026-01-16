@@ -9,8 +9,10 @@ import net.minecraft.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.data.models.blockstates.Variant;
 import net.minecraft.data.models.blockstates.VariantProperties;
 import net.minecraft.data.models.model.ModelLocationUtils;
+import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TextureMapping;
+import com.google.gson.JsonObject;
 import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -19,6 +21,8 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+
+import java.util.Optional;
 
 public class FabricModModelProvider extends FabricModelProvider implements ModBlockStateProvider.BlockStateHelper, ModItemModelProvider.ItemModelHelper {
 
@@ -202,21 +206,41 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
     @Override
     public void spawnEgg(Item item) {
         if (isGeneratingItems()) {
-            itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
+            // Create a custom template that defines TWO layers. 
+            // The order of TextureSlots here determines the tintindex (0, 1, etc.)
+            ModelTemplate spawnEggTemplate = new ModelTemplate(
+                Optional.of(Constants.r2("minecraft:item/generated")),
+                Optional.empty(), 
+                TextureSlot.LAYER0, 
+                TextureSlot.LAYER1
+            );
+
+            TextureMapping mapping = new TextureMapping()
+                .put(TextureSlot.LAYER0, Constants.r2("minecraft:item/spawn_egg"))
+                .put(TextureSlot.LAYER1, Constants.r2("minecraft:item/spawn_egg_overlay"));
+
+            spawnEggTemplate.create(ModelLocationUtils.getModelLocation(item), mapping, itemModelGenerator.output);
         }
     }
 
     @Override
     public void simpleBlockItemModel(Block block) {
         if (isGeneratingItems()) {
-            // Placeholder
+            // Ensure simple block items also use a clean parent inheritance
+            itemModelGenerator.output.accept(ModelLocationUtils.getModelLocation(block.asItem()), () -> {
+                JsonObject json = new JsonObject();
+                json.addProperty("parent", ModelLocationUtils.getModelLocation(block).toString());
+                return json;
+            });
         }
     }
 
     @Override
     public void flowerItem(Block block) {
         if (isGeneratingItems()) {
-            itemModelGenerator.generateFlatItem(block.asItem(), ModelTemplates.FLAT_ITEM);
+            // Use FLAT_ITEM instead of CROSS for the inventory icon to fix the "shadow" issue
+            TextureMapping mapping = new TextureMapping().put(TextureSlot.LAYER0, TextureMapping.getBlockTexture(block));
+            ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block.asItem()), mapping, itemModelGenerator.output);
         }
     }
 

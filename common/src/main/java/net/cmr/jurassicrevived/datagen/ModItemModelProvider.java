@@ -1,6 +1,5 @@
 package net.cmr.jurassicrevived.datagen;
 
-import net.cmr.jurassicrevived.Constants;
 import net.cmr.jurassicrevived.block.ModBlocks;
 import net.cmr.jurassicrevived.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
@@ -113,11 +112,9 @@ public class ModItemModelProvider {
         helper.basicItemModel(ModItems.CUTTING_BLADES.get());
         helper.basicItemModel(ModItems.WRENCH.get());
         
-        //? if <=1.20.1 {
-        if (ModItems.MAC_N_CHEESE.isPresent()) helper.basicItemModel(ModItems.MAC_N_CHEESE.get());
-        if (ModItems.WALNUT_PUMPKIN_PIE.isPresent()) helper.basicItemModel(ModItems.WALNUT_PUMPKIN_PIE.get());
-        if (ModItems.BANANA_NUT_COOKIE.isPresent()) helper.basicItemModel(ModItems.BANANA_NUT_COOKIE.get());
-        //?}
+		helper.basicItemModel(ModItems.MAC_N_CHEESE.get());
+        helper.basicItemModel(ModItems.WALNUT_PUMPKIN_PIE.get());
+        helper.basicItemModel(ModItems.BANANA_NUT_COOKIE.get());
 
         helper.basicItemModel(ModItems.APATOSAURUS_SKULL_FOSSIL.get());
         helper.basicItemModel(ModItems.ALBERTOSAURUS_SKULL_FOSSIL.get());
@@ -642,9 +639,9 @@ public class ModItemModelProvider {
         helper.simpleBlockItemModel(ModBlocks.INCUBATED_UTAHRAPTOR_EGG.get());
         helper.simpleBlockItemModel(ModBlocks.INCUBATED_ZHENYUANOPTERUS_EGG.get());
 
-		if (ModBlocks.ROYAL_FERN.isPresent()) helper.flowerItem(ModBlocks.ROYAL_FERN.get());
-        if (ModBlocks.HORSETAIL_FERN.isPresent()) helper.flowerItem(ModBlocks.HORSETAIL_FERN.get());
-        if (ModBlocks.WESTERN_SWORD_FERN.isPresent()) helper.flowerItem(ModBlocks.WESTERN_SWORD_FERN.get());
-        if (ModBlocks.ONYCHIOPSIS.isPresent()) helper.flowerItem(ModBlocks.ONYCHIOPSIS.get());
+		helper.flowerItem(ModBlocks.ROYAL_FERN.get());
+        helper.flowerItem(ModBlocks.HORSETAIL_FERN.get());
+        helper.flowerItem(ModBlocks.WESTERN_SWORD_FERN.get());
+        helper.flowerItem(ModBlocks.ONYCHIOPSIS.get());
     }
 }

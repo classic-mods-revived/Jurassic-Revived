@@ -30,155 +30,155 @@ public class ModItems {
 	//?}
 
 	public static final RegistrySupplier<Item> APATOSAURUS_SPAWN_EGG = ITEMS.register("apatosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.APATOSAURUS, 0x7f7d6f, 0x36373b, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.APATOSAURUS, 0xff7f7d6f, 0xff36373b, new Item.Properties()));
 	public static final RegistrySupplier<Item> ALBERTOSAURUS_SPAWN_EGG = ITEMS.register("albertosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.ALBERTOSAURUS, 0x2b2315, 0x7a442d, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.ALBERTOSAURUS, 0xff2b2315, 0xff7a442d, new Item.Properties()));
 	public static final RegistrySupplier<Item> BRACHIOSAURUS_SPAWN_EGG = ITEMS.register("brachiosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.BRACHIOSAURUS, 0x95846D, 0x4B4236, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.BRACHIOSAURUS, 0xff95846D, 0xff4B4236, new Item.Properties()));
 	public static final RegistrySupplier<Item> CERATOSAURUS_SPAWN_EGG = ITEMS.register("ceratosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.CERATOSAURUS, 0x954846, 0x221F1D, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.CERATOSAURUS, 0xff954846, 0xff221F1D, new Item.Properties()));
 	public static final RegistrySupplier<Item> COMPSOGNATHUS_SPAWN_EGG = ITEMS.register("compsognathus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.COMPSOGNATHUS, 0x676D24, 0x373E16, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.COMPSOGNATHUS, 0xff676D24, 0xff373E16, new Item.Properties()));
 	public static final RegistrySupplier<Item> DIPLODOCUS_SPAWN_EGG = ITEMS.register("diplodocus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.DIPLODOCUS, 0xbf9a5e, 0x624d2c, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.DIPLODOCUS, 0xffbf9a5e, 0xff624d2c, new Item.Properties()));
 	public static final RegistrySupplier<Item> DILOPHOSAURUS_SPAWN_EGG = ITEMS.register("dilophosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.DILOPHOSAURUS, 0x575D32, 0x16191C, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.DILOPHOSAURUS, 0xff575D32, 0xff16191C, new Item.Properties()));
 	public static final RegistrySupplier<Item> FDUCK_SPAWN_EGG = ITEMS.register("fduck_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.FDUCK, 0xff8800, 0x421111, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.FDUCK, 0xffff8800, 0xff421111, new Item.Properties()));
 	public static final RegistrySupplier<Item> GALLIMIMUS_SPAWN_EGG = ITEMS.register("gallimimus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.GALLIMIMUS, 0xAD7341, 0x5C3925, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.GALLIMIMUS, 0xffAD7341, 0xff5C3925, new Item.Properties()));
 	public static final RegistrySupplier<Item> INDOMINUS_REX_SPAWN_EGG = ITEMS.register("indominus_rex_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.INDOMINUS_REX, 0x9C9B99, 0x60605F, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.INDOMINUS_REX, 0xff9C9B99, 0xff60605F, new Item.Properties()));
 	public static final RegistrySupplier<Item> OURANOSAURUS_SPAWN_EGG = ITEMS.register("ouranosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.OURANOSAURUS, 0x5e6e49, 0x6c511c, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.OURANOSAURUS, 0xff5e6e49, 0xff6c511c, new Item.Properties()));
 	public static final RegistrySupplier<Item> PARASAUROLOPHUS_SPAWN_EGG = ITEMS.register("parasaurolophus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.PARASAUROLOPHUS, 0x856836, 0x442911, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.PARASAUROLOPHUS, 0xff856836, 0xff442911, new Item.Properties()));
 	public static final RegistrySupplier<Item> SPINOSAURUS_SPAWN_EGG = ITEMS.register("spinosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.SPINOSAURUS, 0x685E5A, 0x5D3831, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.SPINOSAURUS, 0xff685E5A, 0xff5D3831, new Item.Properties()));
 	public static final RegistrySupplier<Item> TRICERATOPS_SPAWN_EGG = ITEMS.register("triceratops_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.TRICERATOPS, 0x353A30, 0x121212, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.TRICERATOPS, 0xff353A30, 0xff121212, new Item.Properties()));
 	public static final RegistrySupplier<Item> TYRANNOSAURUS_REX_SPAWN_EGG = ITEMS.register("tyrannosaurus_rex_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.TYRANNOSAURUS_REX, 0x4C3C2D, 0x241F1E, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.TYRANNOSAURUS_REX, 0xff4C3C2D, 0xff241F1E, new Item.Properties()));
 	public static final RegistrySupplier<Item> VELOCIRAPTOR_SPAWN_EGG = ITEMS.register("velociraptor_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.VELOCIRAPTOR, 0x8A5837, 0x45220D, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.VELOCIRAPTOR, 0xff8A5837, 0xff45220D, new Item.Properties()));
 	public static final RegistrySupplier<Item> BARYONYX_SPAWN_EGG = ITEMS.register("baryonyx_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.BARYONYX, 0x2e5325, 0x7dcf35, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.BARYONYX, 0xff2e5325, 0xff7dcf35, new Item.Properties()));
 	public static final RegistrySupplier<Item> CARNOTAURUS_SPAWN_EGG = ITEMS.register("carnotaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.CARNOTAURUS, 0xa6996e, 0xc36e60, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.CARNOTAURUS, 0xffa6996e, 0xffc36e60, new Item.Properties()));
 	public static final RegistrySupplier<Item> CONCAVENATOR_SPAWN_EGG = ITEMS.register("concavenator_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.CONCAVENATOR, 0xa6a49b, 0x964b22, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.CONCAVENATOR, 0xffa6a49b, 0xff964b22, new Item.Properties()));
 	public static final RegistrySupplier<Item> DEINONYCHUS_SPAWN_EGG = ITEMS.register("deinonychus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.DEINONYCHUS, 0x8d7d51, 0x95c9a2, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.DEINONYCHUS, 0xff8d7d51, 0xff95c9a2, new Item.Properties()));
 	public static final RegistrySupplier<Item> DISTORTUS_REX_SPAWN_EGG = ITEMS.register("distortus_rex_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.DISTORTUS_REX, 0x59422b, 0x33f2e1a, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.DISTORTUS_REX, 0xff59422b, 0xff3f2e1a, new Item.Properties()));
 	public static final RegistrySupplier<Item> EDMONTOSAURUS_SPAWN_EGG = ITEMS.register("edmontosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.EDMONTOSAURUS, 0xeaa569, 0xbe783e, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.EDMONTOSAURUS, 0xffeaa569, 0xffbe783e, new Item.Properties()));
 	public static final RegistrySupplier<Item> GIGANOTOSAURUS_SPAWN_EGG = ITEMS.register("giganotosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.GIGANOTOSAURUS, 0x5c483b, 0x2d2b30, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.GIGANOTOSAURUS, 0xff5c483b, 0xff2d2b30, new Item.Properties()));
 	public static final RegistrySupplier<Item> GUANLONG_SPAWN_EGG = ITEMS.register("guanlong_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.GUANLONG, 0xefe7cb, 0x624e18, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.GUANLONG, 0xffefe7cb, 0xff624e18, new Item.Properties()));
 	public static final RegistrySupplier<Item> HERRERASAURUS_SPAWN_EGG = ITEMS.register("herrerasaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.HERRERASAURUS, 0x93211e, 0x987839, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.HERRERASAURUS, 0xff93211e, 0xff987839, new Item.Properties()));
 	public static final RegistrySupplier<Item> MAJUNGASAURUS_SPAWN_EGG = ITEMS.register("majungasaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.MAJUNGASAURUS, 0x657774, 0xce8039, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.MAJUNGASAURUS, 0xff657774, 0xffce8039, new Item.Properties()));
 	public static final RegistrySupplier<Item> PROCOMPSOGNATHUS_SPAWN_EGG = ITEMS.register("procompsognathus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.PROCOMPSOGNATHUS, 0xe3c775, 0x362c18, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.PROCOMPSOGNATHUS, 0xffe3c775, 0xff362c18, new Item.Properties()));
 	public static final RegistrySupplier<Item> PROTOCERATOPS_SPAWN_EGG = ITEMS.register("protoceratops_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.PROTOCERATOPS, 0xfccdb4, 0xfdc079, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.PROTOCERATOPS, 0xfffccdb4, 0xfffdc079, new Item.Properties()));
 	public static final RegistrySupplier<Item> ARAMBOURGIANIA_SPAWN_EGG = ITEMS.register("arambourgiania_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.ARAMBOURGIANIA, 0xd2c294, 0x95b2c2, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.ARAMBOURGIANIA, 0xffd2c294, 0xff95b2c2, new Item.Properties()));
 	public static final RegistrySupplier<Item> CEARADACTYLUS_SPAWN_EGG = ITEMS.register("cearadactylus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.CEARADACTYLUS, 0x68594e, 0x64a0b3, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.CEARADACTYLUS, 0xff68594e, 0xff64a0b3, new Item.Properties()));
 	public static final RegistrySupplier<Item> DIMORPHODON_SPAWN_EGG = ITEMS.register("dimorphodon_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.DIMORPHODON, 0xb4aba0, 0x674a43, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.DIMORPHODON, 0xffb4aba0, 0xff674a43, new Item.Properties()));
 	public static final RegistrySupplier<Item> GEOSTERNBERGIA_SPAWN_EGG = ITEMS.register("geosternbergia_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.GEOSTERNBERGIA, 0xd8cb8b, 0x3e677f, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.GEOSTERNBERGIA, 0xffd8cb8b, 0xff3e677f, new Item.Properties()));
 	public static final RegistrySupplier<Item> GUIDRACO_SPAWN_EGG = ITEMS.register("guidraco_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.GUIDRACO, 0x19132e, 0x572749, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.GUIDRACO, 0xff19132e, 0xff572749, new Item.Properties()));
 	public static final RegistrySupplier<Item> LUDODACTYLUS_SPAWN_EGG = ITEMS.register("ludodactylus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.LUDODACTYLUS, 0x303133, 0x72502b, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.LUDODACTYLUS, 0xff303133, 0xff72502b, new Item.Properties()));
 	public static final RegistrySupplier<Item> MOGANOPTERUS_SPAWN_EGG = ITEMS.register("moganopterus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.MOGANOPTERUS, 0xdeb7ab, 0x8d5a47, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.MOGANOPTERUS, 0xffdeb7ab, 0xff8d5a47, new Item.Properties()));
 	public static final RegistrySupplier<Item> NYCTOSAURUS_SPAWN_EGG = ITEMS.register("nyctosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.NYCTOSAURUS, 0xf3f1e9, 0x2087b3, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.NYCTOSAURUS, 0xfff3f1e9, 0xff2087b3, new Item.Properties()));
 	public static final RegistrySupplier<Item> PTERANODON_SPAWN_EGG = ITEMS.register("pteranodon_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.PTERANODON, 0x4b4541, 0x173d4a, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.PTERANODON, 0xff4b4541, 0xff173d4a, new Item.Properties()));
 	public static final RegistrySupplier<Item> PTERODAUSTRO_SPAWN_EGG = ITEMS.register("pterodaustro_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.PTERODAUSTRO, 0x2f2f36, 0xf5d33c, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.PTERODAUSTRO, 0xff2f2f36, 0xfff5d33c, new Item.Properties()));
 	public static final RegistrySupplier<Item> QUETZALCOATLUS_SPAWN_EGG = ITEMS.register("quetzalcoatlus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.QUETZALCOATLUS, 0x1c1b1a, 0xa6a69f, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.QUETZALCOATLUS, 0xff1c1b1a, 0xffa6a69f, new Item.Properties()));
 	public static final RegistrySupplier<Item> TAPEJARA_SPAWN_EGG = ITEMS.register("tapejara_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.TAPEJARA, 0xd8dbe4, 0x710b0c, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.TAPEJARA, 0xffd8dbe4, 0xff710b0c, new Item.Properties()));
 	public static final RegistrySupplier<Item> TROPEOGNATHUS_SPAWN_EGG = ITEMS.register("tropeognathus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.TROPEOGNATHUS, 0x4e6067, 0x483141, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.TROPEOGNATHUS, 0xff4e6067, 0xff483141, new Item.Properties()));
 	public static final RegistrySupplier<Item> TUPUXUARA_SPAWN_EGG = ITEMS.register("tupuxuara_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.TUPUXUARA, 0x6b4e40, 0x3a647e, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.TUPUXUARA, 0xff6b4e40, 0xff3a647e, new Item.Properties()));
 	public static final RegistrySupplier<Item> ZHENYUANOPTERUS_SPAWN_EGG = ITEMS.register("zhenyuanopterus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.ZHENYUANOPTERUS, 0x485654, 0xd1cdb6, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.ZHENYUANOPTERUS, 0xff485654, 0xffd1cdb6, new Item.Properties()));
 	public static final RegistrySupplier<Item> RUGOPS_SPAWN_EGG = ITEMS.register("rugops_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.RUGOPS, 0xd3ecf0, 0xafef5a, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.RUGOPS, 0xffd3ecf0, 0xffafef5a, new Item.Properties()));
 	public static final RegistrySupplier<Item> SHANTUNGOSAURUS_SPAWN_EGG = ITEMS.register("shantungosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.SHANTUNGOSAURUS, 0x272727, 0xb57942, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.SHANTUNGOSAURUS, 0xff272727, 0xffb57942, new Item.Properties()));
 	public static final RegistrySupplier<Item> STEGOSAURUS_SPAWN_EGG = ITEMS.register("stegosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.STEGOSAURUS, 0x6b6e29, 0x441500, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.STEGOSAURUS, 0xff6b6e29, 0xff441500, new Item.Properties()));
 	public static final RegistrySupplier<Item> STYRACOSAURUS_SPAWN_EGG = ITEMS.register("styracosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.STYRACOSAURUS, 0x813b2b, 0x6a342c, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.STYRACOSAURUS, 0xff813b2b, 0xff6a342c, new Item.Properties()));
 	public static final RegistrySupplier<Item> THERIZINOSAURUS_SPAWN_EGG = ITEMS.register("therizinosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.THERIZINOSAURUS, 0x787878, 0x454545, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.THERIZINOSAURUS, 0xff787878, 0xff454545, new Item.Properties()));
 	public static final RegistrySupplier<Item> CHICKENOSAURUS_SPAWN_EGG = ITEMS.register("chickenosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.CHICKENOSAURUS, 0x5d3c11, 0x3a2934, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.CHICKENOSAURUS, 0xff5d3c11, 0xff3a2934, new Item.Properties()));
 	public static final RegistrySupplier<Item> ALLOSAURUS_SPAWN_EGG = ITEMS.register("allosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.ALLOSAURUS, 0xc0a086, 0x653333, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.ALLOSAURUS, 0xffc0a086, 0xff653333, new Item.Properties()));
 	public static final RegistrySupplier<Item> ALVAREZSAURUS_SPAWN_EGG = ITEMS.register("alvarezsaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.ALVAREZSAURUS, 0xa8a8a8, 0xf3962a, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.ALVAREZSAURUS, 0xffa8a8a8, 0xfff3962a, new Item.Properties()));
 	public static final RegistrySupplier<Item> ANKYLOSAURUS_SPAWN_EGG = ITEMS.register("ankylosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.ANKYLOSAURUS, 0xaf9f86, 0xa55d52, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.ANKYLOSAURUS, 0xffaf9f86, 0xffa55d52, new Item.Properties()));
 	public static final RegistrySupplier<Item> CARCHARODONTOSAURUS_SPAWN_EGG = ITEMS.register("carcharodontosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.CARCHARODONTOSAURUS, 0x1b1613, 0x9d321d, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.CARCHARODONTOSAURUS, 0xff1b1613, 0xff9d321d, new Item.Properties()));
 	public static final RegistrySupplier<Item> CHASMOSAURUS_SPAWN_EGG = ITEMS.register("chasmosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.CHASMOSAURUS, 0xbab697, 0x825038, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.CHASMOSAURUS, 0xffbab697, 0xff825038, new Item.Properties()));
 	public static final RegistrySupplier<Item> COELOPHYSIS_SPAWN_EGG = ITEMS.register("coelophysis_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.COELOPHYSIS, 0x95a248, 0xa55031, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.COELOPHYSIS, 0xff95a248, 0xffa55031, new Item.Properties()));
 	public static final RegistrySupplier<Item> COELURUS_SPAWN_EGG = ITEMS.register("coelurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.COELURUS, 0x9c7219, 0x2d1b06, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.COELURUS, 0xff9c7219, 0xff2d1b06, new Item.Properties()));
 	public static final RegistrySupplier<Item> CORYTHOSAURUS_SPAWN_EGG = ITEMS.register("corythosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.CORYTHOSAURUS, 0xa2926b, 0xe9c451, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.CORYTHOSAURUS, 0xffa2926b, 0xffe9c451, new Item.Properties()));
 	public static final RegistrySupplier<Item> DRYOSAURUS_SPAWN_EGG = ITEMS.register("dryosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.DRYOSAURUS, 0xb8992b, 0x271c03, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.DRYOSAURUS, 0xffb8992b, 0xff271c03, new Item.Properties()));
 	public static final RegistrySupplier<Item> HADROSAURUS_SPAWN_EGG = ITEMS.register("hadrosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.HADROSAURUS, 0x95b18f, 0xd2ce55, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.HADROSAURUS, 0xff95b18f, 0xffd2ce55, new Item.Properties()));
 	public static final RegistrySupplier<Item> HYPSILOPHODON_SPAWN_EGG = ITEMS.register("hypsilophodon_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.HYPSILOPHODON, 0x1d1e1f, 0x9277f0, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.HYPSILOPHODON, 0xff1d1e1f, 0xff9277f0, new Item.Properties()));
 	public static final RegistrySupplier<Item> INDORAPTOR_SPAWN_EGG = ITEMS.register("indoraptor_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.INDORAPTOR, 0x070707, 0xcfac1c, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.INDORAPTOR, 0xff070707, 0xffcfac1c, new Item.Properties()));
 	public static final RegistrySupplier<Item> INOSTRANCEVIA_SPAWN_EGG = ITEMS.register("inostrancevia_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.INOSTRANCEVIA, 0x6a6b57, 0x484330, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.INOSTRANCEVIA, 0xff6a6b57, 0xff484330, new Item.Properties()));
 	public static final RegistrySupplier<Item> LAMBEOSAURUS_SPAWN_EGG = ITEMS.register("lambeosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.LAMBEOSAURUS, 0x6f8765, 0x5d2855, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.LAMBEOSAURUS, 0xff6f8765, 0xff5d2855, new Item.Properties()));
 	public static final RegistrySupplier<Item> MAMENCHISAURUS_SPAWN_EGG = ITEMS.register("mamenchisaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.MAMENCHISAURUS, 0xe1c77a, 0x979d16, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.MAMENCHISAURUS, 0xffe1c77a, 0xff979d16, new Item.Properties()));
 	public static final RegistrySupplier<Item> METRIACANTHOSAURUS_SPAWN_EGG = ITEMS.register("metriacanthosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.METRIACANTHOSAURUS, 0xb15e1b, 0xe7e92f, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.METRIACANTHOSAURUS, 0xffb15e1b, 0xffe7e92f, new Item.Properties()));
 	public static final RegistrySupplier<Item> ORNITHOLESTES_SPAWN_EGG = ITEMS.register("ornitholestes_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.ORNITHOLESTES, 0x7ac7e6, 0x091d07, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.ORNITHOLESTES, 0xff7ac7e6, 0xff091d07, new Item.Properties()));
 	public static final RegistrySupplier<Item> ORNITHOMIMUS_SPAWN_EGG = ITEMS.register("ornithomimus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.ORNITHOMIMUS, 0x8ea4d3, 0x7ac7e6, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.ORNITHOMIMUS, 0xff8ea4d3, 0xff7ac7e6, new Item.Properties()));
 	public static final RegistrySupplier<Item> OVIRAPTOR_SPAWN_EGG = ITEMS.register("oviraptor_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.OVIRAPTOR, 0xddd9c3, 0x6c3545, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.OVIRAPTOR, 0xffddd9c3, 0xff6c3545, new Item.Properties()));
 	public static final RegistrySupplier<Item> PACHYCEPHALOSAURUS_SPAWN_EGG = ITEMS.register("pachycephalosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.PACHYCEPHALOSAURUS, 0x8a7e61, 0x495156, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.PACHYCEPHALOSAURUS, 0xff8a7e61, 0xff495156, new Item.Properties()));
 	public static final RegistrySupplier<Item> PROCERATOSAURUS_SPAWN_EGG = ITEMS.register("proceratosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.PROCERATOSAURUS, 0x8f8e8a, 0x040203, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.PROCERATOSAURUS, 0xff8f8e8a, 0xff040203, new Item.Properties()));
 	public static final RegistrySupplier<Item> RAJASAURUS_SPAWN_EGG = ITEMS.register("rajasaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.RAJASAURUS, 0x3f3a32, 0x62c6ce, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.RAJASAURUS, 0xff3f3a32, 0xff62c6ce, new Item.Properties()));
 	public static final RegistrySupplier<Item> SEGISAURUS_SPAWN_EGG = ITEMS.register("segisaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.SEGISAURUS, 0x72383a, 0x69abcc, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.SEGISAURUS, 0xff72383a, 0xff69abcc, new Item.Properties()));
 	public static final RegistrySupplier<Item> TITANOSAURUS_SPAWN_EGG = ITEMS.register("titanosaurus_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.TITANOSAURUS, 0x6f6960, 0xd43d13, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.TITANOSAURUS, 0xff6f6960, 0xffd43d13, new Item.Properties()));
 	public static final RegistrySupplier<Item> TROODON_SPAWN_EGG = ITEMS.register("troodon_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.TROODON, 0x414632, 0x640600, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.TROODON, 0xff414632, 0xff640600, new Item.Properties()));
 	public static final RegistrySupplier<Item> UTAHRAPTOR_SPAWN_EGG = ITEMS.register("utahraptor_spawn_egg",
-		() -> new CustomGenderedSpawnEggItem(ModEntities.UTAHRAPTOR, 0x474131, 0xdad8db, new Item.Properties()));
+		() -> new CustomGenderedSpawnEggItem(ModEntities.UTAHRAPTOR, 0xff474131, 0xffdad8db, new Item.Properties()));
 
 
 	public static final RegistrySupplier<Item> TEST_TUBE = ITEMS.register("test_tube", () -> new Item(new Item.Properties().stacksTo(16)));
