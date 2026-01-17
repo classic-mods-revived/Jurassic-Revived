@@ -26,6 +26,10 @@
 		],
 		"fabric-datagen": [
 			"net.cmr.jurassicrevived.datagen.DataGenerators"
+		],
+		"jade": [
+			"net.cmr.jurassicrevived.compat.MachineJadePlugin",
+			"net.cmr.jurassicrevived.compat.EggJadePlugin"
 		]
 	},
 	"mixins": [
