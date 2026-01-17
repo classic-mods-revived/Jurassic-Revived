@@ -131,13 +131,14 @@ public class CommonClientClass {
 
 		if (Platform.isFabric()) {
 			registerSpawnEggColors();
+			registerRenderTypes();
 		} else {
 			ClientLifecycleEvent.CLIENT_SETUP.register(mc -> registerSpawnEggColors());
+			ClientLifecycleEvent.CLIENT_SETUP.register(mc -> registerRenderTypes());
 		}
 
         LifecycleEvent.SETUP.register(() -> {
             BlockEntityRendererRegistry.register(ModBlockEntities.TANK_BE.get(), TankBlockEntityRenderer::new);
-			registerRenderTypes();
 		});
     }
 
