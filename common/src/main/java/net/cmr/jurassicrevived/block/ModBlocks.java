@@ -22,10 +22,6 @@ public class ModBlocks {
 	public static final DeferredRegister<Block> BLOCKS =
 		DeferredRegister.create(Constants.MOD_ID, Registries.BLOCK);
 
-	// --- Examples ---
-	public static final RegistrySupplier<Block> FOSSIL_ORE = registerBlock("fossil_ore",
-		() -> new Block(BlockBehaviour.Properties.of().strength(3.0f)));
-
 	public static final RegistrySupplier<Block> CAT_PLUSHIE = registerBlock("cat_plushie",
 		() -> new DecoBlock(BlockBehaviour.Properties.of().noOcclusion().sound(SoundType.WOOL)));
 

@@ -18,6 +18,8 @@ import net.cmr.jurassicrevived.util.FenceClimbClientHandler;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import dev.architectury.event.events.common.LifecycleEvent;
+import dev.architectury.event.events.client.ClientLifecycleEvent;
+import dev.architectury.platform.Platform;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
@@ -127,7 +129,11 @@ public class CommonClientClass {
 		});
         //?}
 
-		registerSpawnEggColors();
+		if (Platform.isFabric()) {
+			registerSpawnEggColors();
+		} else {
+			ClientLifecycleEvent.CLIENT_SETUP.register(mc -> registerSpawnEggColors());
+		}
 
         LifecycleEvent.SETUP.register(() -> {
             BlockEntityRendererRegistry.register(ModBlockEntities.TANK_BE.get(), TankBlockEntityRenderer::new);
@@ -136,26 +142,19 @@ public class CommonClientClass {
     }
 
 	private static void registerSpawnEggColors() {
-		// Iterate through all items in your registry
 		ModItems.ITEMS.forEach(itemSupplier -> {
-			ColorHandlerRegistry.registerItemColors(
-				(stack, tintIndex) -> {
-					if (stack.getItem() instanceof SpawnEggItem egg) {
-						return egg.getColor(tintIndex) | 0xFF000000;
-					}
-					return 0xFFFFFFFF;
-				},
-				itemSupplier
-			);
+			Item item = itemSupplier.get();
+			if (item instanceof SpawnEggItem) {
+				ColorHandlerRegistry.registerItemColors(
+					(stack, tintIndex) -> ((SpawnEggItem) stack.getItem()).getColor(tintIndex) | 0xFF000000,
+					item
+				);
+			}
 		});
 	}
 
 	private static void registerRenderTypes() {
-		// Add all your cross-model blocks here
 		RenderTypeRegistry.register(RenderType.cutout(),
-			ModBlocks.FLUID_PIPE.get(),
-			ModBlocks.POWER_PIPE.get(),
-			ModBlocks.ITEM_PIPE.get(),
 			ModBlocks.ROYAL_FERN.get(),
 			ModBlocks.HORSETAIL_FERN.get(),
 			ModBlocks.WESTERN_SWORD_FERN.get(),
@@ -164,6 +163,11 @@ public class CommonClientClass {
 			ModBlocks.POTTED_HORSETAIL_FERN.get(),
 			ModBlocks.POTTED_WESTERN_SWORD_FERN.get(),
 			ModBlocks.POTTED_ONYCHIOPSIS.get()
+		);
+		RenderTypeRegistry.register(RenderType.translucent(),
+			ModBlocks.FLUID_PIPE.get(),
+			ModBlocks.POWER_PIPE.get(),
+			ModBlocks.ITEM_PIPE.get()
 		);
 	}
 }
