@@ -39,5 +39,6 @@ public class DataGenerators {
                         new LootTableProvider.SubProviderEntry(ForgeEntityLootTableProvider::new, LootContextParamSets.ENTITY)
                 )
         ));
+        generator.addProvider(event.includeServer(), new ForgeRecipeProvider(packOutput));
     }
 }

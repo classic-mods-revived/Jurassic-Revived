@@ -40,7 +40,6 @@ public class DataGenerators {
 				),
 				lookupProvider
 		));
-
-		generator.addProvider(event.includeServer(), new NeoForgeGlobalLootModifierProvider(packOutput));
+		generator.addProvider(event.includeServer(), new NeoForgeRecipeProvider(packOutput, lookupProvider));
 	}
 }

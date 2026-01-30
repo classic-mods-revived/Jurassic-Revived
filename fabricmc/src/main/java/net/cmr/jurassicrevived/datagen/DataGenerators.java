@@ -13,5 +13,6 @@ public class DataGenerators implements DataGeneratorEntrypoint {
         pack.addProvider(FabricItemTagProvider::new);
         pack.addProvider(FabricBlockLootTableProvider::new);
         pack.addProvider(FabricEntityLootTableProvider::new);
+		pack.addProvider(FabricRecipeProvider::new);
     }
 }

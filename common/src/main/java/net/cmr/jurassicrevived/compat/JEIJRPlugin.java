@@ -28,7 +28,6 @@ public class JEIJRPlugin implements IModPlugin {
         return Constants.rl("jei_plugin");
     }
 
-    // Expose JEI ingredient manager so categories can access all item variants (including mod-provided filled tanks)
     public static @org.jetbrains.annotations.Nullable IIngredientManager INGREDIENT_MANAGER;
 
     @Override
@@ -38,24 +37,6 @@ public class JEIJRPlugin implements IModPlugin {
 
     @Override
     public void registerIngredients(IModIngredientRegistration registration) {
-        // We need to register the FluidStack ingredient type to use it in recipes
-        // However, JEI usually provides its own fluid type on each platform.
-        // In a common environment, we might be defining a duplicate type if we aren't careful.
-        // But since we are using Architectury's FluidStack, we can try to register it as a custom ingredient.
-        // Note: This might not automatically work with JEI's built-in fluid rendering unless we provide a helper.
-        // For now, we register it so we can use it in our custom renderer.
-        
-        // registration.register(FLUID_STACK_TYPE, Collections.emptyList(), new FluidStackHelper(), new FluidStackRenderer());
-        // Implementing the helper and renderer is non-trivial without platform specifics.
-        // If we just want to use it in a custom slot renderer, we might not strictly need to register the *collection* of ingredients,
-        // but we do need the type to be recognized if we pass it to addIngredient.
-        
-        // Actually, addIngredient(IIngredientType<T> type, T ingredient) requires the type to be known?
-        // JEI documentation says: "Custom ingredients must be registered with IModIngredientRegistration"
-        
-        // Given the complexity of cross-platform fluid registration in a common module without a bridge library,
-        // and that we only want to render a static water stack, we might be better off faking it or waiting for a bridge.
-        // But let's try to define the constant at least.
     }
 
     @Override
@@ -74,8 +55,7 @@ public class JEIJRPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
 
-        /*? if >1.20.1 {*/
-        
+        //? if >1.20.1 {
         /*List<DNAExtractorRecipe> dnaExtractorRecipes = recipeManager
                 .getAllRecipesFor(ModRecipes.DNA_EXTRACTOR_RECIPE_TYPE.get()).stream().map(net.minecraft.world.item.crafting.RecipeHolder::value).toList();
         List<DNAAnalyzerRecipe> dnaAnalyzerRecipes = recipeManager
@@ -92,7 +72,7 @@ public class JEIJRPlugin implements IModPlugin {
                 .getAllRecipesFor(ModRecipes.EMBRYO_CALCIFICATION_MACHINE_RECIPE_TYPE.get()).stream().map(net.minecraft.world.item.crafting.RecipeHolder::value).toList();
         List<IncubatorRecipe> incubatorRecipes = recipeManager
                 .getAllRecipesFor(ModRecipes.INCUBATOR_RECIPE_TYPE.get()).stream().map(net.minecraft.world.item.crafting.RecipeHolder::value).toList();
-        *//*?} else {*/
+        *///?} else {
         List<DNAExtractorRecipe> dnaExtractorRecipes = recipeManager.getAllRecipesFor(ModRecipes.DNA_EXTRACTOR_RECIPE_TYPE.get());
         List<DNAAnalyzerRecipe> dnaAnalyzerRecipes = recipeManager.getAllRecipesFor(ModRecipes.DNA_ANALYZER_RECIPE_TYPE.get());
         List<FossilGrinderRecipe> fossilGrinderRecipes = recipeManager.getAllRecipesFor(ModRecipes.FOSSIL_GRINDER_RECIPE_TYPE.get());
@@ -101,7 +81,7 @@ public class JEIJRPlugin implements IModPlugin {
         List<EmbryonicMachineRecipe> embryonicMachineRecipes = recipeManager.getAllRecipesFor(ModRecipes.EMBRYONIC_MACHINE_RECIPE_TYPE.get());
         List<EmbryoCalcificationMachineRecipe> embryoCalcificationMachineRecipes = recipeManager.getAllRecipesFor(ModRecipes.EMBRYO_CALCIFICATION_MACHINE_RECIPE_TYPE.get());
         List<IncubatorRecipe> incubatorRecipes = recipeManager.getAllRecipesFor(ModRecipes.INCUBATOR_RECIPE_TYPE.get());
-        /*?}*/
+        //?}
 
         registration.addRecipes(DNAExtractorRecipeCategory.DNA_EXTRACTOR_RECIPE_RECIPE_TYPE, dnaExtractorRecipes);
         registration.addRecipes(DNAAnalyzerRecipeCategory.DNA_ANALYZER_RECIPE_RECIPE_TYPE, dnaAnalyzerRecipes);
