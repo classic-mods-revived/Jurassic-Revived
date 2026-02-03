@@ -7,6 +7,7 @@ import net.cmr.jurassicrevived.config.JRConfigManager;
 import net.cmr.jurassicrevived.entity.ModEntities;
 import net.cmr.jurassicrevived.item.ModCreativeTabs;
 import net.cmr.jurassicrevived.item.ModItems;
+import net.cmr.jurassicrevived.networking.ModPackets;
 import net.cmr.jurassicrevived.platform.Services;
 import net.cmr.jurassicrevived.recipe.ModRecipes;
 import net.cmr.jurassicrevived.screen.ModMenuTypes;
@@ -68,5 +69,6 @@ public class CommonClass
 		ModEvents.init();
 
 		ModSounds.register();
+		ModPackets.register();
 	}
 }

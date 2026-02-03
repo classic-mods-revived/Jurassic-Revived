@@ -6,7 +6,7 @@ public final class JRConfig {
     public int spawnWeight = 10;
     public boolean requirePower = true;
     public int fePerSecond = 1000;
-    public int itemsPerSecond = 10;
+    public int itemsPerSecond = 100;
     public int milliBucketsPerSecond = 1000;
 
     public JRConfig() {

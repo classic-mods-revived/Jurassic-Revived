@@ -51,7 +51,7 @@ public class TankScreen extends AbstractContainerScreen<TankMenu> {
 		int x = (width - imageWidth) / 2;
 		int y = (height - imageHeight) / 2;
 
-		renderFluidTooltipArea(guiGraphics, pMouseX, pMouseY, x, y, menu.blockEntity.getFluid(), 80, 8, fluidRenderer);
+		renderFluidTooltipArea(guiGraphics, pMouseX, pMouseY, x, y, menu.getFluid(), 80, 8, fluidRenderer);
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class TankScreen extends AbstractContainerScreen<TankMenu> {
 
 		guiGraphics.blit(GUI_TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
 
-		fluidRenderer.render(guiGraphics, x + 80, y + 8, menu.blockEntity.getFluid());
+		fluidRenderer.render(guiGraphics, x + 80, y + 8, menu.getFluid());
 	}
 
 	@Override

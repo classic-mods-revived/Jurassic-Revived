@@ -1,11 +1,16 @@
 package net.cmr.jurassicrevived.block.entity.custom;
 
+import dev.architectury.fluid.FluidStack;
 import net.cmr.jurassicrevived.block.custom.PipeBlock;
 import net.cmr.jurassicrevived.block.custom.PipeBlock.ConnectionType;
 import net.cmr.jurassicrevived.block.custom.PipeBlock.Transport;
 import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyStorage;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyUtil;
+import net.cmr.jurassicrevived.platform.Services;
+import net.cmr.jurassicrevived.platform.transfer.PlatformEnergyHandler;
+import net.cmr.jurassicrevived.platform.transfer.PlatformFluidHandler;
+import net.cmr.jurassicrevived.platform.transfer.PlatformItemHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
@@ -16,7 +21,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.*;
 
-public class PipeBlockEntity extends BlockEntity {
+public class PipeBlockEntity extends BlockEntity
+{
 
 	private final Transport transport;
 
@@ -39,9 +45,8 @@ public class PipeBlockEntity extends BlockEntity {
 
 		PipeBlock block = (PipeBlock) state.getBlock();
 		int itemCap = block.getMaxItemsPerTick();
-		// Fallback caps if Config is not ready
-		int fluidCap = 1000;
-		int energyCap = 1000;
+		int fluidCap = block.getMaxFluidPerTick();
+		int energyCap = block.getMaxEnergyPerTick();
 
 		switch (be.transport) {
 			case ITEMS -> transferItems(level, pos, state, itemCap);
@@ -52,9 +57,12 @@ public class PipeBlockEntity extends BlockEntity {
 
 	// ===== Network discovery =====
 
-	private record PipeEndpoint(BlockPos pipePos, Direction side) {}
+	private record PipeEndpoint(BlockPos pipePos, Direction side)
+	{
+	}
 
-	private static class Network {
+	private static class Network
+	{
 		final List<PipeEndpoint> sources = new ArrayList<>();
 		final List<PipeEndpoint> sinks = new ArrayList<>();
 	}
@@ -99,73 +107,188 @@ public class PipeBlockEntity extends BlockEntity {
 
 	private static void transferItems(Level level, BlockPos pos, BlockState state, int perTickLimit) {
 		Network net = discoverNetwork(level, pos, Transport.ITEMS);
-		List<Container> outputs = new ArrayList<>();
-		for (PipeEndpoint ep : net.sinks) {
-			BlockEntity be = level.getBlockEntity(ep.pipePos.relative(ep.side));
-			if (be instanceof Container c) outputs.add(c);
-		}
-		if (outputs.isEmpty()) return;
+		if (net.sources.isEmpty() || net.sinks.isEmpty()) return;
+
+		Map<BlockPos, List<PipeEndpoint>> sinksByPipe = indexSinksByPipe(net.sinks);
 
 		int remaining = perTickLimit;
-		for (PipeEndpoint ep : net.sources) {
+		for (PipeEndpoint srcEp : net.sources) {
 			if (remaining <= 0) break;
-			BlockEntity be = level.getBlockEntity(ep.pipePos.relative(ep.side));
-			if (!(be instanceof Container src)) continue;
 
-			for (int i = 0; i < src.getContainerSize() && remaining > 0; i++) {
-				ItemStack stack = src.getItem(i);
-				if (stack.isEmpty()) continue;
+			BlockPos srcPos = srcEp.pipePos.relative(srcEp.side);
+			Direction srcSide = srcEp.side.getOpposite();
 
-				ItemStack toMove = stack.copy();
-				toMove.setCount(Math.min(stack.getCount(), remaining));
+			PlatformItemHandler src = Services.TRANSFER
+				.getItemHandler(level, srcPos, srcSide)
+				.orElse(null);
+			if (src == null) continue;
 
-				for (Container out : outputs) {
-					// Logic to insert into vanilla container (simplified)
-					// You might want a helper for this
-				}
-			}
+			PipeEndpoint sinkEp = findNearestSink(level, srcEp.pipePos, sinksByPipe, Transport.ITEMS);
+			if (sinkEp == null) continue;
+
+			BlockPos dstPos = sinkEp.pipePos.relative(sinkEp.side);
+			Direction dstSide = sinkEp.side.getOpposite();
+
+			PlatformItemHandler dst = Services.TRANSFER
+				.getItemHandler(level, dstPos, dstSide)
+				.orElse(null);
+			if (dst == null) continue;
+
+			remaining = moveFromSourceToSingleTarget(src, dst, remaining);
 		}
 	}
 
-	// ===== Energy Transfer (Using Custom Energy System) =====
+	private static PipeEndpoint findNearestSink(
+		Level level,
+		BlockPos startPipe,
+		Map<BlockPos, List<PipeEndpoint>> sinksByPipe,
+		Transport transport
+	) {
+		ArrayDeque<BlockPos> q = new ArrayDeque<>();
+		HashSet<BlockPos> seen = new HashSet<>();
+		q.add(startPipe);
+		seen.add(startPipe);
+
+		while (!q.isEmpty()) {
+			BlockPos p = q.removeFirst();
+
+			List<PipeEndpoint> sinksHere = sinksByPipe.get(p);
+			if (sinksHere != null && !sinksHere.isEmpty()) {
+				return sinksHere.get(0);
+			}
+
+			BlockState st = level.getBlockState(p);
+			if (!(st.getBlock() instanceof PipeBlock pb) || pb.getTransport() != transport) continue;
+
+			for (Direction d : Direction.values()) {
+				if (st.getValue(PipeBlock.getProp(d)) == ConnectionType.PIPE) {
+					BlockPos np = p.relative(d);
+					if (seen.add(np)) q.add(np);
+				}
+			}
+		}
+		return null;
+	}
 
 	private static void transferEnergy(Level level, BlockPos pos, BlockState state, int perTickLimit) {
 		Network net = discoverNetwork(level, pos, Transport.ENERGY);
-		List<ModEnergyStorage> outputs = new ArrayList<>();
-		for (PipeEndpoint ep : net.sinks) {
-			BlockEntity be = level.getBlockEntity(ep.pipePos.relative(ep.side));
-			if (be instanceof ModEnergyUtil.EnergyProvider provider) {
-				ModEnergyStorage storage = provider.getEnergyStorage(ep.side.getOpposite());
-				if (storage != null && storage.canReceive()) outputs.add(storage);
-			}
-		}
-		if (outputs.isEmpty()) return;
+		if (net.sources.isEmpty() || net.sinks.isEmpty()) return;
+
+		Map<BlockPos, List<PipeEndpoint>> sinksByPipe = indexSinksByPipe(net.sinks);
 
 		int remaining = perTickLimit;
-		for (PipeEndpoint ep : net.sources) {
+		for (PipeEndpoint srcEp : net.sources) {
 			if (remaining <= 0) break;
-			BlockEntity be = level.getBlockEntity(ep.pipePos.relative(ep.side));
-			if (be instanceof ModEnergyUtil.EnergyProvider provider) {
-				ModEnergyStorage src = provider.getEnergyStorage(ep.side.getOpposite());
-				if (src == null || !src.canExtract()) continue;
 
-				int canExtract = src.extractEnergy(remaining, true);
-				if (canExtract <= 0) continue;
+			BlockPos srcPos = srcEp.pipePos.relative(srcEp.side);
+			Direction srcSide = srcEp.side.getOpposite();
 
-				for (ModEnergyStorage out : outputs) {
-					int accepted = out.receiveEnergy(canExtract, true);
-					if (accepted > 0) {
-						int actuallyExtracted = src.extractEnergy(accepted, false);
-						out.receiveEnergy(actuallyExtracted, false);
-						remaining -= actuallyExtracted;
-						break;
-					}
-				}
-			}
+			PlatformEnergyHandler src = Services.TRANSFER
+				.getEnergyHandler(level, srcPos, srcSide)
+				.orElse(null);
+			if (src == null) continue;
+
+			PipeEndpoint sinkEp = findNearestSink(level, srcEp.pipePos, sinksByPipe, Transport.ENERGY);
+			if (sinkEp == null) continue;
+
+			BlockPos dstPos = sinkEp.pipePos.relative(sinkEp.side);
+			Direction dstSide = sinkEp.side.getOpposite();
+
+			PlatformEnergyHandler dst = Services.TRANSFER
+				.getEnergyHandler(level, dstPos, dstSide)
+				.orElse(null);
+			if (dst == null) continue;
+
+			int available = src.extract(remaining, true);
+			if (available <= 0) continue;
+
+			int accepted = dst.insert(available, true);
+			if (accepted <= 0) continue;
+
+			int extracted = src.extract(accepted, false);
+			int inserted = dst.insert(extracted, false);
+			remaining -= inserted;
 		}
 	}
 
 	private static void transferFluids(Level level, BlockPos pos, BlockState state, int perTickLimit) {
-		// Implementation would use Architectury FluidStack similarly to energy
+		Network net = discoverNetwork(level, pos, Transport.FLUIDS);
+		if (net.sources.isEmpty() || net.sinks.isEmpty()) return;
+
+		Map<BlockPos, List<PipeEndpoint>> sinksByPipe = indexSinksByPipe(net.sinks);
+
+		long remaining = perTickLimit;
+		for (PipeEndpoint srcEp : net.sources) {
+			if (remaining <= 0) break;
+
+			BlockPos srcPos = srcEp.pipePos.relative(srcEp.side);
+			Direction srcSide = srcEp.side.getOpposite();
+
+			PlatformFluidHandler src = Services.TRANSFER
+				.getFluidHandler(level, srcPos, srcSide)
+				.orElse(null);
+			if (src == null) continue;
+
+			PipeEndpoint sinkEp = findNearestSink(level, srcEp.pipePos, sinksByPipe, Transport.FLUIDS);
+			if (sinkEp == null) continue;
+
+			BlockPos dstPos = sinkEp.pipePos.relative(sinkEp.side);
+			Direction dstSide = sinkEp.side.getOpposite();
+
+			PlatformFluidHandler dst = Services.TRANSFER
+				.getFluidHandler(level, dstPos, dstSide)
+				.orElse(null);
+			if (dst == null) continue;
+
+			for (FluidStack candidate : src.getExtractableFluids()) {
+				if (candidate.isEmpty()) continue;
+
+				long available = src.extract(candidate, remaining, true);
+				if (available <= 0) continue;
+
+				long accepted = dst.insert(candidate, available, true);
+				if (accepted <= 0) continue;
+
+				FluidStack toMove = candidate.copy();
+				toMove.setAmount(accepted);
+
+				long extracted = src.extract(toMove, accepted, false);
+				long inserted = dst.insert(toMove, extracted, false);
+				remaining -= inserted;
+
+				if (remaining <= 0) break;
+			}
+		}
+	}
+
+	private static Map<BlockPos, List<PipeEndpoint>> indexSinksByPipe(List<PipeEndpoint> sinks) {
+		Map<BlockPos, List<PipeEndpoint>> map = new HashMap<>();
+		for (PipeEndpoint ep : sinks) {
+			map.computeIfAbsent(ep.pipePos, k -> new ArrayList<>()).add(ep);
+		}
+		return map;
+	}
+
+	private static int moveFromSourceToSingleTarget(PlatformItemHandler src, PlatformItemHandler dst, int limit) {
+		int remaining = limit;
+
+		for (ItemStack candidate : src.getExtractableStacks()) {
+			if (candidate.isEmpty()) continue;
+
+			int available = src.extract(candidate, remaining, true);
+			if (available <= 0) continue;
+
+			int accepted = dst.insert(candidate, available, true);
+			if (accepted <= 0) continue;
+
+			int extracted = src.extract(candidate, accepted, false);
+			if (extracted <= 0) continue;
+
+			int inserted = dst.insert(candidate, extracted, false);
+			remaining -= inserted;
+
+			if (remaining <= 0) break;
+		}
+		return remaining;
 	}
 }

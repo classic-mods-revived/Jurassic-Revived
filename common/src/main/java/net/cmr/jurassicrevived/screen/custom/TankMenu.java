@@ -1,13 +1,18 @@
 package net.cmr.jurassicrevived.screen.custom;
 
+import dev.architectury.fluid.FluidStack;
 import net.cmr.jurassicrevived.block.ModBlocks;
 import net.cmr.jurassicrevived.block.entity.custom.TankBlockEntity;
+import net.cmr.jurassicrevived.networking.ModPackets;
+import net.cmr.jurassicrevived.platform.Services;
 import net.cmr.jurassicrevived.screen.ModMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -16,6 +21,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public class TankMenu extends AbstractContainerMenu {
 	public final TankBlockEntity blockEntity;
 	private final Level level;
+	private FluidStack fluidStack = FluidStack.empty();
 
 	public TankMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
 		this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()));
@@ -25,20 +31,81 @@ public class TankMenu extends AbstractContainerMenu {
 		super(ModMenuTypes.TANK_MENU.get(), pContainerId);
 		this.blockEntity = ((TankBlockEntity) blockEntity);
 		this.level = inv.player.level();
+		
+		// Initialize fluidStack with the current state of the block entity
+		// This ensures the client sees the correct fluid immediately if the BE is already synced
+		if (this.blockEntity != null) {
+			this.fluidStack = this.blockEntity.getFluid().copy();
+		}
 
 		addPlayerInventory(inv);
 		addPlayerHotbar(inv);
 
 		// Input Slot (0)
-		this.addSlot(new Slot(this.blockEntity.itemHandler, 0, 44, 34));
-
-		// Output Slot (1)
-		this.addSlot(new Slot(this.blockEntity.itemHandler, 1, 116, 34) {
+		this.addSlot(new Slot(this.blockEntity.itemHandler, 0, 44, 34) {
 			@Override
-			public int getMaxStackSize() {
-				return 1;
+			public boolean mayPlace(ItemStack stack) {
+				return Services.ITEM_FLUID.isFluidHandler(stack);
 			}
 		});
+
+		// Output Slot (1)
+		this.addSlot(new Slot(this.blockEntity.itemHandler, 1, 116, 34){
+			@Override
+			public boolean mayPlace(ItemStack stack) {
+				return false;
+			}
+		});
+
+		addDataSlot(new DataSlot() {
+			@Override
+			public int get() {
+				return 0;
+			}
+
+			@Override
+			public void set(int pValue) {
+			}
+		});
+	}
+
+	public void setFluid(FluidStack stack) {
+		this.fluidStack = stack;
+	}
+
+	public FluidStack getFluid() {
+		return this.fluidStack;
+	}
+	public void syncFluidToPlayers() {
+		if (this.level != null && !this.level.isClientSide()) {
+			for (Player player : this.level.players()) {
+				if (player.containerMenu == this && player instanceof ServerPlayer serverPlayer) {
+					ModPackets.sendTankSync(serverPlayer, this.fluidStack);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void sendAllDataToRemote() {
+		super.sendAllDataToRemote();
+		// Ensure we have the latest fluid state from the block entity before syncing
+		if (this.blockEntity != null) {
+			this.fluidStack = this.blockEntity.getFluid().copy();
+		}
+		syncFluidToPlayers();
+	}
+	
+	@Override
+	public void broadcastChanges() {
+		super.broadcastChanges();
+		if (this.blockEntity != null) {
+			FluidStack currentFluid = this.blockEntity.getFluid();
+			if (!currentFluid.equals(this.fluidStack)) {
+				this.fluidStack = currentFluid.copy();
+				syncFluidToPlayers();
+			}
+		}
 	}
 
 	private static final int HOTBAR_SLOT_COUNT = 9;

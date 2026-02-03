@@ -5,6 +5,7 @@ import net.cmr.jurassicrevived.block.entity.custom.PipeBlockEntity;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyUtil;
 import net.cmr.jurassicrevived.config.JRConfigManager;
 import net.cmr.jurassicrevived.item.ModItems;
+import net.cmr.jurassicrevived.platform.Services;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -198,6 +199,15 @@ public class PipeBlock extends Block implements EntityBlock, SimpleWaterloggedBl
 			};
 		}
 
+		if (level instanceof Level lvl) {
+			boolean platformHasHandler = switch (this.transport) {
+				case ITEMS -> Services.TRANSFER.getItemHandler(lvl, neighborPos, dir.getOpposite()).isPresent();
+				case FLUIDS -> Services.TRANSFER.getFluidHandler(lvl, neighborPos, dir.getOpposite()).isPresent();
+				case ENERGY -> Services.TRANSFER.getEnergyHandler(lvl, neighborPos, dir.getOpposite()).isPresent();
+			};
+			hasCommonConnection = hasCommonConnection || platformHasHandler;
+		}
+
 		if (hasCommonConnection) {
 			if (existing == ConnectionType.CONNECTOR_PULL) {
 				return ConnectionType.CONNECTOR_PULL;
@@ -352,14 +362,14 @@ public class PipeBlock extends Block implements EntityBlock, SimpleWaterloggedBl
 	}
 
 	public int getMaxItemsPerTick() {
-		return Math.max(0, JRConfigManager.get().itemsPerSecond / 20);
+		return Math.max(1, JRConfigManager.get().itemsPerSecond / 20);
 	}
 
 	public int getMaxFluidPerTick() {
-		return Math.max(0, JRConfigManager.get().milliBucketsPerSecond / 20);
+		return Math.max(1, JRConfigManager.get().milliBucketsPerSecond / 20);
 	}
 
 	public int getMaxEnergyPerTick() {
-		return Math.max(0, JRConfigManager.get().fePerSecond / 20);
+		return Math.max(1, JRConfigManager.get().fePerSecond / 20);
 	}
 }

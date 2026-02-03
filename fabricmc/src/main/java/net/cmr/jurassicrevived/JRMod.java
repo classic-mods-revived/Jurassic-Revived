@@ -7,6 +7,8 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.cmr.jurassicrevived.platform.FabricEnergyWrapper;
+import team.reborn.energy.api.EnergyStorage;
 
 public class JRMod implements ModInitializer
 {
@@ -22,15 +24,54 @@ public class JRMod implements ModInitializer
 		Constants.LOG.info("Hello Fabric world!");
 		CommonClass.init();
 
-		/*
-		 Items (Fabric Transfer API)
-		ItemStorage.SIDED.registerForBlockEntities((be, side) -> (Storage<ItemVariant>) ((CrateBlockEntity)be).itemHandler, ModBlockEntities.CRATE_BE.get());
+		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
+			new FabricEnergyWrapper(((PowerCellBlockEntity) be).getEnergyStorage(side)),
+			ModBlockEntities.POWER_CELL_BE.get()
+		);
 
-		 Energy (TeamReborn Energy API is standard for Fabric)
-		EnergyStorage.SIDED.registerForBlockEntities((be, side) -> ((PowerCellBlockEntity)be).getEnergyStorage(side), ModBlockEntities.POWER_CELL_BE.get());
+		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
+			new FabricEnergyWrapper(((GeneratorBlockEntity) be).getEnergyStorage(side)),
+			ModBlockEntities.GENERATOR_BE.get()
+		);
 
-		 Fluids (Fabric Transfer API)
-		FluidStorage.SIDED.registerForBlockEntities((be, side) -> ((TankBlockEntity)be).getTank(side), ModBlockEntities.TANK_BE.get());
-		 */
+		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
+			new FabricEnergyWrapper(((DNAExtractorBlockEntity) be).getEnergyStorage(side)),
+			ModBlockEntities.DNA_EXTRACTOR_BE.get()
+		);
+
+		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
+			new FabricEnergyWrapper(((DNAAnalyzerBlockEntity) be).getEnergyStorage(side)),
+			ModBlockEntities.DNA_ANALYZER_BE.get()
+		);
+
+		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
+			new FabricEnergyWrapper(((DNAHybridizerBlockEntity) be).getEnergyStorage(side)),
+			ModBlockEntities.DNA_HYBRIDIZER_BE.get()
+		);
+
+		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
+			new FabricEnergyWrapper(((FossilCleanerBlockEntity) be).getEnergyStorage(side)),
+			ModBlockEntities.FOSSIL_CLEANER_BE.get()
+		);
+
+		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
+			new FabricEnergyWrapper(((FossilGrinderBlockEntity) be).getEnergyStorage(side)),
+			ModBlockEntities.FOSSIL_GRINDER_BE.get()
+		);
+
+		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
+			new FabricEnergyWrapper(((EmbryonicMachineBlockEntity) be).getEnergyStorage(side)),
+			ModBlockEntities.EMBRYONIC_MACHINE_BE.get()
+		);
+
+		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
+			new FabricEnergyWrapper(((EmbryoCalcificationMachineBlockEntity) be).getEnergyStorage(side)),
+			ModBlockEntities.EMBRYO_CALCIFICATION_MACHINE_BE.get()
+		);
+
+		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
+			new FabricEnergyWrapper(((IncubatorBlockEntity) be).getEnergyStorage(side)),
+			ModBlockEntities.INCUBATOR_BE.get()
+		);
 	}
 }

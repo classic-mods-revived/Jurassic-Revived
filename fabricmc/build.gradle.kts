@@ -61,6 +61,14 @@ dependencies {
 		}
 	})
 
+	val energyVersion = if (is120) {
+		commonMod.prop("teamreborn_energy_1_20_1")
+	} else {
+		commonMod.prop("teamreborn_energy_1_21_1")
+	}
+
+	modImplementation("teamreborn:energy:$energyVersion")
+
 	modImplementation("net.fabricmc:fabric-loader:${commonMod.prop("fabric_loader_version")}")
 	modApi("net.fabricmc.fabric-api:fabric-api:${commonMod.prop("fabric_api_version")}")
 
