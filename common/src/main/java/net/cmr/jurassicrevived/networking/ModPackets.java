@@ -2,15 +2,17 @@ package net.cmr.jurassicrevived.networking;
 
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.networking.NetworkManager;
+import dev.architectury.utils.Env;
+import dev.architectury.utils.EnvExecutor;
 import io.netty.buffer.Unpooled;
 import net.cmr.jurassicrevived.Constants;
 import net.cmr.jurassicrevived.screen.custom.TankMenu;
-import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 //? if >1.20.1 {
 /*import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 *///?}
@@ -26,7 +28,7 @@ public class ModPackets {
 
 	public static void register() {
 		//? if >1.20.1 {
-		/*NetworkManager.registerReceiver(NetworkManager.Side.S2C, TANK_SYNC_TYPE, TANK_SYNC_STREAM_CODEC, (payload, context) -> {
+		/*EnvExecutor.runInEnv(Env.CLIENT, () -> () -> NetworkManager.registerReceiver(NetworkManager.Side.S2C, TANK_SYNC_TYPE, TANK_SYNC_STREAM_CODEC, (payload, context) -> {
 			FluidStack fluidStack = payload.fluidStack();
 			context.queue(() -> {
 				Player player = context.getPlayer();
@@ -37,9 +39,9 @@ public class ModPackets {
 					}
 				}
 			});
-		});
+		}));
 		*///?} else {
-		NetworkManager.registerReceiver(NetworkManager.Side.S2C, TANK_SYNC, (buf, context) -> {
+		EnvExecutor.runInEnv(Env.CLIENT, () -> () -> NetworkManager.registerReceiver(NetworkManager.Side.S2C, TANK_SYNC, (buf, context) -> {
 			FluidStack fluidStack = FluidStack.read(buf);
 			context.queue(() -> {
 				Player player = context.getPlayer();
@@ -50,7 +52,7 @@ public class ModPackets {
 					}
 				}
 			});
-		});
+		}));
 		//?}
 	}
 

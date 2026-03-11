@@ -76,4 +76,9 @@ public class ForgeItemFluidHelper implements IItemFluidHelper {
 		}
 		return new TransferResult(0, stack);
 	}
+
+	@Override
+	public boolean isFluidHandler(ItemStack stack) {
+		return FluidUtil.getFluidHandler(stack).isPresent() || stack.is(Items.BUCKET) || stack.is(Items.WATER_BUCKET) || stack.is(Items.LAVA_BUCKET);
+	}
 }

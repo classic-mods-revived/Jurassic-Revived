@@ -51,6 +51,7 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
     public void generateItemModels(ItemModelGenerators itemModelGenerator) {
         this.itemModelGenerator = itemModelGenerator;
         ModItemModelProvider.registerItemModels(this);
+        ModBlockStateProvider.registerBlockStates(this);
     }
     
     // Helper to check mode
@@ -60,6 +61,16 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
 
     private boolean isGeneratingItems() {
         return itemModelGenerator != null;
+    }
+
+    private void generateBlockItemModel(Block block) {
+        if (isGeneratingItems()) {
+            itemModelGenerator.output.accept(ModelLocationUtils.getModelLocation(block.asItem()), () -> {
+                JsonObject json = new JsonObject();
+                json.addProperty("parent", ModelLocationUtils.getModelLocation(block).toString());
+                return json;
+            });
+        }
     }
 
     // --- BlockStateHelper Implementation ---
@@ -84,21 +95,26 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
 
     @Override
     public void simpleBlockItem(Block block, ResourceLocation model) {
-        // This is called from ModBlockStateProvider, intended to register item models for blocks.
-        // Since we are merging, we can potentially handle this here if we are in item generation mode?
-        // But ModBlockStateProvider calls this during registerBlockStates, which is called during generateBlockStateModels.
-        // So we are in block generation mode.
-        // We can't generate item models here because itemModelGenerator is null.
-        // We should probably ignore this here and rely on ModItemModelProvider to register block items?
-        // OR, we can store these requests and run them later?
-        // But ModItemModelProvider seems to have its own logic.
-        // Let's assume ModItemModelProvider handles all item models, including block items.
+        if (isGeneratingItems()) {
+             itemModelGenerator.output.accept(ModelLocationUtils.getModelLocation(block.asItem()), () -> {
+                JsonObject json = new JsonObject();
+                json.addProperty("parent", model.toString());
+                return json;
+            });
+        }
     }
     
     @Override
     public void simpleBlockWithExistingModel(Block block, ResourceLocation model) {
         if (isGeneratingBlocks()) {
              blockStateGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, model));
+        }
+        if (isGeneratingItems()) {
+             itemModelGenerator.output.accept(ModelLocationUtils.getModelLocation(block.asItem()), () -> {
+                JsonObject json = new JsonObject();
+                json.addProperty("parent", model.toString());
+                return json;
+            });
         }
     }
 
@@ -127,6 +143,9 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
         if (isGeneratingBlocks()) {
             blockStateGenerator.createTrivialCube(block);
         }
+        if (isGeneratingItems()) {
+            generateBlockItemModel(block);
+        }
     }
 
     private PropertyDispatch createRotatedHorizontalFacingDispatch() {
@@ -143,6 +162,9 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
             ResourceLocation model = ModelLocationUtils.getModelLocation(block);
             blockStateGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, model)).with(BlockModelGenerators.createHorizontalFacingDispatch()));
         }
+        if (isGeneratingItems()) {
+            generateBlockItemModel(block);
+        }
     }
 
     @Override
@@ -150,6 +172,9 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
         if (isGeneratingBlocks()) {
              ResourceLocation model = ModelLocationUtils.getModelLocation(block);
              blockStateGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, model)).with(createRotatedHorizontalFacingDispatch()));
+        }
+        if (isGeneratingItems()) {
+            generateBlockItemModel(block);
         }
     }
 
@@ -159,13 +184,18 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
              ResourceLocation model = ModelLocationUtils.getModelLocation(block);
              blockStateGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, Variant.variant().with(VariantProperties.MODEL, model)).with(createRotatedHorizontalFacingDispatch()));
         }
+        if (isGeneratingItems()) {
+            generateBlockItemModel(block);
+        }
     }
 
     @Override
     public void eggLike(Block block) {
         if (isGeneratingBlocks()) {
             ResourceLocation eggModel = Constants.rl("block/egg");
-            blockStateGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, eggModel));
+            // Use multipart to ensure it covers all variants (properties)
+            blockStateGenerator.blockStateOutput.accept(MultiPartGenerator.multiPart(block)
+                    .with(Variant.variant().with(VariantProperties.MODEL, eggModel)));
         }
     }
 
@@ -219,6 +249,13 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
             addDirectionalEnumPart(multipart, "block/" + modelBaseName + "_connector_pull", PipeBlock.WEST,  PipeBlock.ConnectionType.CONNECTOR_PULL, 0, 90);
 
             blockStateGenerator.blockStateOutput.accept(multipart);
+        }
+        if (isGeneratingItems()) {
+             itemModelGenerator.output.accept(ModelLocationUtils.getModelLocation(block.asItem()), () -> {
+                JsonObject json = new JsonObject();
+                json.addProperty("parent", Constants.rl("block/" + modelBaseName).toString());
+                return json;
+            });
         }
     }
 
