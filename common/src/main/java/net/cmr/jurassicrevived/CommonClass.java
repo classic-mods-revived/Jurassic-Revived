@@ -13,7 +13,6 @@ import net.cmr.jurassicrevived.recipe.ModRecipes;
 import net.cmr.jurassicrevived.screen.ModMenuTypes;
 import net.cmr.jurassicrevived.sound.ModSounds;
 import net.cmr.jurassicrevived.util.FenceClimbHandler;
-import net.cmr.jurassicrevived.util.FenceDiagonalHandler;
 import net.cmr.jurassicrevived.util.ModEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Items;
@@ -64,7 +63,6 @@ public class CommonClass
 		ModBlockEntities.register();
 
 		FenceClimbHandler.register();
-		FenceDiagonalHandler.init();
 
 		ModEvents.init();
 

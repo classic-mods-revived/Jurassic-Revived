@@ -117,6 +117,34 @@ public class FencePoleBlock extends Block implements SimpleWaterloggedBlock {
         super.neighborChanged(state, level, pos, neighborBlock, neighborPos, movedByPiston);
     }
 
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        if (!state.is(oldState.getBlock())) {
+            if (beginGuard()) {
+                try {
+                    updateDiagonalsAround(level, pos);
+                } finally {
+                    endGuard();
+                }
+            }
+        }
+        super.onPlace(state, level, pos, oldState, isMoving);
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (!state.is(newState.getBlock())) {
+            if (beginGuard()) {
+                try {
+                    updateDiagonalsAround(level, pos);
+                } finally {
+                    endGuard();
+                }
+            }
+        }
+        super.onRemove(state, level, pos, newState, isMoving);
+    }
+
     private static boolean beginGuard() {
         return FenceUpdateGuard.begin();
     }
