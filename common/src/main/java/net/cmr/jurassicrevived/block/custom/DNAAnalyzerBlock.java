@@ -59,7 +59,7 @@ public class DNAAnalyzerBlock extends BaseEntityBlock {
 	);
 
 	private static final VoxelShape SHAPE_SOUTH = rotateShapeY(SHAPE_NORTH, 180);
-	private static final VoxelShape SHAPE_WEST  = rotateShapeY(SHAPE_NORTH, 90);
+	private static final VoxelShape SHAPE_WEST  = rotateShapeY(SHAPE_NORTH, 270);
 	private static final VoxelShape SHAPE_EAST  = rotateShapeY(SHAPE_NORTH, 90);
 
 	private static VoxelShape rotateShapeY(VoxelShape shape, int degrees) {
@@ -94,7 +94,7 @@ public class DNAAnalyzerBlock extends BaseEntityBlock {
 
 	@Override
 	public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
-		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(LIT, false);
+		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite().getOpposite()).setValue(LIT, false);
 	}
 
 	@Override

@@ -74,7 +74,7 @@ public class IncubatorBlock extends BaseEntityBlock {
 
 	@Override
 	public @Nullable BlockState getStateForPlacement(BlockPlaceContext context) {
-		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite()).setValue(LIT, false);
+		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite().getOpposite()).setValue(LIT, false);
 	}
 
 	@Override
