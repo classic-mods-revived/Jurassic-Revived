@@ -17,8 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
-
-import java.util.Objects;
+import net.minecraft.world.level.material.Fluids;
 
 // Credits to TurtyWurty
 // Under MIT-License: https://github.com/DaRealTurtyWurty/1.20-Tutorial-Mod?tab=MIT-1-ov-file#readme
@@ -36,49 +35,119 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
         if (level == null)
             return;
 
-        BlockPos pos = pBlockEntity.getBlockPos();
-
-        // Use Architectury Hooks instead of IClientFluidTypeExtensions
-        ResourceLocation stillTexture = Objects.requireNonNull(FluidStackHooks.getStillTexture(fluidStack)).atlasLocation();
+        TextureAtlasSprite sprite = FluidStackHooks.getStillTexture(fluidStack);
+        if (isMissing(sprite)) {
+            sprite = FluidStackHooks.getStillTexture(fluidStack.getFluid());
+        }
+        if (isMissing(sprite)) {
+             if (fluidStack.getFluid() == Fluids.WATER) {
+                 sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+                     .apply(new ResourceLocation("block/water_still"));
+             }
+        }
+        
+        if (isMissing(sprite)) return;
+        
         int tintColor = FluidStackHooks.getColor(fluidStack);
-
         FluidState state = fluidStack.getFluid().defaultFluidState();
-
-        TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(stillTexture);
-
-        // Adjust height calculation to be platform-independent
-        // (Assuming you'll update TankBlockEntity to use a multi-loader tank system)
-        float height = (((float) fluidStack.getAmount() / 64000f) * 0.625f) + 0.25f;
-
         VertexConsumer builder = pBuffer.getBuffer(ItemBlockRenderTypes.getRenderLayer(state));
 
-        // Top Texture
-        drawQuad(builder, pPoseStack, 0.1f, height, 0.1f, 0.9f, height, 0.9f, sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1(), pPackedLight, tintColor);
-        drawQuad(builder, pPoseStack, 0.1f, 0, 0.1f, 0.9f, height, 0.1f, sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1(), pPackedLight, tintColor);
+        // Adjust Y bounds to match tank model (2 pixels from bottom, 2 pixels from top)
+        float MIN_Y = 0.125f; // 2/16
+        float MAX_Y = 0.875f; // 14/16
+        float MIN_X = 0.1f;
+        float MAX_X = 0.9f;
+        float MIN_Z = 0.1f;
+        float MAX_Z = 0.9f;
 
-        pPoseStack.pushPose();
-        pPoseStack.mulPose(Axis.XP.rotationDegrees(180));
-        pPoseStack.translate(0, -0.9f, -1f);
-        drawQuad(builder, pPoseStack, 0.1f, height, 0.1f, 0.9f, height, 0.9f, sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1(), pPackedLight, tintColor);
-        pPoseStack.popPose();
+        float fluidHeight = ((float) fluidStack.getAmount() / 64000f) * (MAX_Y - MIN_Y);
+        float yTop = MIN_Y + fluidHeight;
 
-        pPoseStack.pushPose();
-        pPoseStack.mulPose(Axis.YP.rotationDegrees(180));
-        pPoseStack.translate(-1f, 0, -1.8f);
-        drawQuad(builder, pPoseStack, 0.1f, 0, 0.9f, 0.9f, height, 0.9f, sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1(), pPackedLight, tintColor);
-        pPoseStack.popPose();
+        // UV coordinates mapping
+        float uMin = sprite.getU(MIN_X * 16);
+        float uMax = sprite.getU(MAX_X * 16);
+        float vMinZ = sprite.getV(MIN_Z * 16);
+        float vMaxZ = sprite.getV(MAX_Z * 16);
+        
+        // V coords for sides
+        float vTop = sprite.getV((1 - yTop) * 16);
+        float vBottom = sprite.getV((1 - MIN_Y) * 16);
 
-        pPoseStack.pushPose();
-        pPoseStack.mulPose(Axis.YP.rotationDegrees(90));
-        pPoseStack.translate(-1f, 0, 0);
-        drawQuad(builder, pPoseStack, 0.1f, 0, 0.1f, 0.9f, height, 0.1f, sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1(), pPackedLight, tintColor);
-        pPoseStack.popPose();
+        // Top Face (visible from above)
+        // Normal +Y
+        // CCW: (MIN_X, MAX_Z) -> (MAX_X, MAX_Z) -> (MAX_X, MIN_Z) -> (MIN_X, MIN_Z)
+        addQuad(builder, pPoseStack, 
+            MIN_X, yTop, MAX_Z, uMin, vMaxZ,
+            MAX_X, yTop, MAX_Z, uMax, vMaxZ,
+            MAX_X, yTop, MIN_Z, uMax, vMinZ,
+            MIN_X, yTop, MIN_Z, uMin, vMinZ,
+            pPackedLight, tintColor);
 
-        pPoseStack.pushPose();
-        pPoseStack.mulPose(Axis.YN.rotationDegrees(90));
-        pPoseStack.translate(0, 0, -1f);
-        drawQuad(builder, pPoseStack, 0.1f, 0, 0.1f, 0.9f, height, 0.1f, sprite.getU0(), sprite.getV0(), sprite.getU1(), sprite.getV1(), pPackedLight, tintColor);
-        pPoseStack.popPose();
+        // Bottom Face (visible from below)
+        // Normal -Y
+        // CCW looking from below: (MIN_X, MIN_Z) -> (MAX_X, MIN_Z) -> (MAX_X, MAX_Z) -> (MIN_X, MAX_Z)
+        addQuad(builder, pPoseStack, 
+            MIN_X, MIN_Y, MIN_Z, uMin, vMinZ,
+            MAX_X, MIN_Y, MIN_Z, uMax, vMinZ,
+            MAX_X, MIN_Y, MAX_Z, uMax, vMaxZ,
+            MIN_X, MIN_Y, MAX_Z, uMin, vMaxZ,
+            pPackedLight, tintColor);
+
+        // North Face (Z=MIN_Z) - Visible from North (-Z)
+        // Normal -Z
+        // Vertices: (MAX_X, yTop) -> (MAX_X, MIN_Y) -> (MIN_X, MIN_Y) -> (MIN_X, yTop)
+        addQuad(builder, pPoseStack, 
+            MAX_X, yTop, MIN_Z, uMax, vTop,
+            MAX_X, MIN_Y, MIN_Z, uMax, vBottom,
+            MIN_X, MIN_Y, MIN_Z, uMin, vBottom,
+            MIN_X, yTop, MIN_Z, uMin, vTop,
+            pPackedLight, tintColor);
+
+        // South Face (Z=MAX_Z) - Visible from South (+Z)
+        // Normal +Z
+        // Vertices: (MIN_X, yTop) -> (MIN_X, MIN_Y) -> (MAX_X, MIN_Y) -> (MAX_X, yTop)
+        addQuad(builder, pPoseStack, 
+            MIN_X, yTop, MAX_Z, uMin, vTop,
+            MIN_X, MIN_Y, MAX_Z, uMin, vBottom,
+            MAX_X, MIN_Y, MAX_Z, uMax, vBottom,
+            MAX_X, yTop, MAX_Z, uMax, vTop,
+            pPackedLight, tintColor);
+
+        // West Face (X=MIN_X) - Visible from West (-X)
+        // Normal -X
+        // Vertices: (MIN_X, yTop, MIN_Z) -> (MIN_X, MIN_Y, MIN_Z) -> (MIN_X, MIN_Y, MAX_Z) -> (MIN_X, yTop, MAX_Z)
+        addQuad(builder, pPoseStack, 
+            MIN_X, yTop, MIN_Z, uMin, vTop,
+            MIN_X, MIN_Y, MIN_Z, uMin, vBottom,
+            MIN_X, MIN_Y, MAX_Z, uMax, vBottom,
+            MIN_X, yTop, MAX_Z, uMax, vTop,
+            pPackedLight, tintColor);
+
+        // East Face (X=MAX_X) - Visible from East (+X)
+        // Normal +X
+        // Vertices: (MAX_X, yTop, MAX_Z) -> (MAX_X, MIN_Y, MAX_Z) -> (MAX_X, MIN_Y, MIN_Z) -> (MAX_X, yTop, MIN_Z)
+        addQuad(builder, pPoseStack, 
+            MAX_X, yTop, MAX_Z, uMax, vTop,
+            MAX_X, MIN_Y, MAX_Z, uMax, vBottom,
+            MAX_X, MIN_Y, MIN_Z, uMin, vBottom,
+            MAX_X, yTop, MIN_Z, uMin, vTop,
+            pPackedLight, tintColor);
+    }
+    
+    private static boolean isMissing(TextureAtlasSprite sprite) {
+        return sprite == null || sprite.atlasLocation().getPath().contains("missingno");
+    }
+
+    private static void addQuad(VertexConsumer builder, PoseStack poseStack, 
+                                float x0, float y0, float z0, float u0, float v0,
+                                float x1, float y1, float z1, float u1, float v1,
+                                float x2, float y2, float z2, float u2, float v2,
+                                float x3, float y3, float z3, float u3, float v3,
+                                int packedLight, int color) {
+        drawVertex(builder, poseStack, x0, y0, z0, u0, v0, packedLight, color);
+        drawVertex(builder, poseStack, x1, y1, z1, u1, v1, packedLight, color);
+        drawVertex(builder, poseStack, x2, y2, z2, u2, v2, packedLight, color);
+        drawVertex(builder, poseStack, x3, y3, z3, u3, v3, packedLight, color);
     }
 
 	//? if >1.20.1 {
@@ -104,11 +173,4 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
 			.endVertex();
 	}
 	//?}
-
-    private static void drawQuad(VertexConsumer builder, PoseStack poseStack, float x0, float y0, float z0, float x1, float y1, float z1, float u0, float v0, float u1, float v1, int packedLight, int color) {
-        drawVertex(builder, poseStack, x0, y0, z0, u0, v0, packedLight, color);
-        drawVertex(builder, poseStack, x0, y1, z1, u0, v1, packedLight, color);
-        drawVertex(builder, poseStack, x1, y1, z1, u1, v1, packedLight, color);
-        drawVertex(builder, poseStack, x1, y0, z0, u1, v0, packedLight, color);
-    }
 }

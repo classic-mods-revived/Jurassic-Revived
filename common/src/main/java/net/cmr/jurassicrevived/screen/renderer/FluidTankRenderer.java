@@ -79,6 +79,8 @@ public class FluidTankRenderer {
 		}
 
 		TextureAtlasSprite fluidStillSprite = getStillFluidSprite(fluidStack);
+		if (fluidStillSprite == null) return;
+		
 		int fluidColor = (int) FluidStackHooks.getColor(fluidStack);
 
 		long amount = fluidStack.getAmount();
@@ -91,34 +93,49 @@ public class FluidTankRenderer {
 			scaledAmount = height;
 		}
 
-		drawTiledSprite(guiGraphics, width, height, fluidColor, scaledAmount, fluidStillSprite);
+		drawTiledSprite(guiGraphics, width, height, fluidColor, (int) scaledAmount, fluidStillSprite);
 	}
 
 	private TextureAtlasSprite getStillFluidSprite(FluidStack fluidStack) {
-		ResourceLocation fluidStill = FluidStackHooks.getStillTexture(fluidStack).atlasLocation();
-		return Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidStill);
+		TextureAtlasSprite sprite = FluidStackHooks.getStillTexture(fluidStack);
+		if (isMissing(sprite)) {
+			sprite = FluidStackHooks.getStillTexture(fluidStack.getFluid());
+		}
+		if (isMissing(sprite)) {
+			// Fallback for water
+			if (fluidStack.getFluid() == Fluids.WATER) {
+				sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
+					.apply(new ResourceLocation("block/water_still"));
+			}
+		}
+		
+		return sprite;
+	}
+	
+	private static boolean isMissing(TextureAtlasSprite sprite) {
+		return sprite == null || sprite.atlasLocation().getPath().contains("missingno");
 	}
 
-	private static void drawTiledSprite(GuiGraphics guiGraphics, final int tiledWidth, final int tiledHeight, int color, long scaledAmount, TextureAtlasSprite sprite) {
+	private static void drawTiledSprite(GuiGraphics guiGraphics, final int tiledWidth, final int tiledHeight, int color, int scaledAmount, TextureAtlasSprite sprite) {
 		RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
 		Matrix4f matrix = guiGraphics.pose().last().pose();
 		setGLColorFromInt(color);
 
 		final int xTileCount = tiledWidth / TEXTURE_SIZE;
 		final int xRemainder = tiledWidth - (xTileCount * TEXTURE_SIZE);
-		final long yTileCount = scaledAmount / TEXTURE_SIZE;
-		final long yRemainder = scaledAmount - (yTileCount * TEXTURE_SIZE);
+		final int yTileCount = scaledAmount / TEXTURE_SIZE;
+		final int yRemainder = scaledAmount - (yTileCount * TEXTURE_SIZE);
 
 		final int yStart = tiledHeight;
 
 		for (int xTile = 0; xTile <= xTileCount; xTile++) {
 			for (int yTile = 0; yTile <= yTileCount; yTile++) {
 				int width = (xTile == xTileCount) ? xRemainder : TEXTURE_SIZE;
-				long height = (yTile == yTileCount) ? yRemainder : TEXTURE_SIZE;
+				int height = (yTile == yTileCount) ? yRemainder : TEXTURE_SIZE;
 				int x = (xTile * TEXTURE_SIZE);
 				int y = yStart - ((yTile + 1) * TEXTURE_SIZE);
 				if (width > 0 && height > 0) {
-					long maskTop = TEXTURE_SIZE - height;
+					int maskTop = TEXTURE_SIZE - height;
 					int maskRight = TEXTURE_SIZE - width;
 
 					drawTextureWithMasking(matrix, x, y, sprite, maskTop, maskRight, 100);
@@ -136,7 +153,7 @@ public class FluidTankRenderer {
 		RenderSystem.setShaderColor(red, green, blue, alpha);
 	}
 
-	private static void drawTextureWithMasking(Matrix4f matrix, float xCoord, float yCoord, TextureAtlasSprite textureSprite, long maskTop, long maskRight, float zLevel) {
+	private static void drawTextureWithMasking(Matrix4f matrix, float xCoord, float yCoord, TextureAtlasSprite textureSprite, int maskTop, int maskRight, float zLevel) {
 		float uMin = textureSprite.getU0();
 		float uMax = textureSprite.getU1();
 		float vMin = textureSprite.getV0();
@@ -171,8 +188,6 @@ public class FluidTankRenderer {
 		Fluid fluidType = fluidStack.getFluid();
 		try {
 			if (fluidType.isSame(Fluids.EMPTY)) {
-				tooltip.add(Component.literal("Empty"));
-				tooltip.add(Component.translatable("jurassicrevived.tooltip.liquid.amount.with.capacity", 0, nf.format(capacity)).withStyle(ChatFormatting.GRAY));
 				return tooltip;
 			}
 

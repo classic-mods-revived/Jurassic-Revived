@@ -270,18 +270,9 @@ public class TankBlockEntity extends BlockEntity implements ExtendedMenuProvider
 	protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
 		super.saveAdditional(pTag, pRegistries);
 		pTag.put("Inventory", itemHandler.createTag(pRegistries));
-		if (!fluidStack.isEmpty()) {
-			// Manually save fluid stack to avoid issues with Architectury's default serialization
-			CompoundTag fluidTag = new CompoundTag();
-			fluidTag.putString("id", BuiltInRegistries.FLUID.getKey(fluidStack.getFluid()).toString());
-			fluidTag.putLong("amount", fluidStack.getAmount());
-			if (fluidStack.getPatch() != null && !fluidStack.getPatch().isEmpty()) {
-				// Fallback to standard save if components are present
-				pTag.put("Fluid", FluidStack.CODEC.encodeStart(NbtOps.INSTANCE, fluidStack).getOrThrow());
-			} else {
-				pTag.put("Fluid", fluidTag);
-			}
-		}
+		CompoundTag fluidTag = new CompoundTag();
+		fluidStack.write(fluidTag, pRegistries);
+		pTag.put("Fluid", fluidTag);
 	}
 
 	@Override
@@ -289,21 +280,7 @@ public class TankBlockEntity extends BlockEntity implements ExtendedMenuProvider
 		super.loadAdditional(pTag, pRegistries);
 		itemHandler.fromTag(pTag.getList("Inventory", 10), pRegistries);
 		if (pTag.contains("Fluid")) {
-			CompoundTag fluidTag = pTag.getCompound("Fluid");
-			if (fluidTag.contains("id") && fluidTag.contains("amount")) {
-				// Manual load
-				try {
-					// Use ResourceLocation.parse for 1.21.1
-					net.minecraft.world.level.material.Fluid fluid = BuiltInRegistries.FLUID.get(ResourceLocation.parse(fluidTag.getString("id")));
-					long amount = fluidTag.getLong("amount");
-					this.fluidStack = FluidStack.create(fluid, amount);
-				} catch (Exception e) {
-					this.fluidStack = FluidStack.empty();
-				}
-			} else {
-				// Standard load
-				this.fluidStack = FluidStack.CODEC.parse(NbtOps.INSTANCE, fluidTag).result().orElse(FluidStack.empty());
-			}
+			this.fluidStack = FluidStack.read(pTag.getCompound("Fluid"), pRegistries);
 		} else {
 			this.fluidStack = FluidStack.empty();
 		}
