@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import dev.architectury.fluid.FluidStack;
 import dev.architectury.hooks.fluid.FluidStackHooks;
+import net.cmr.jurassicrevived.Constants;
 import net.cmr.jurassicrevived.block.entity.custom.TankBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -42,7 +43,7 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
         if (isMissing(sprite)) {
              if (fluidStack.getFluid() == Fluids.WATER) {
                  sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-                     .apply(new ResourceLocation("block/water_still"));
+                     .apply(Constants.r2("block/water_still"));
              }
         }
         

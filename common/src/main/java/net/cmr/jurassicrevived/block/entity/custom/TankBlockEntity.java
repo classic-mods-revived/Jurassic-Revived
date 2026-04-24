@@ -125,7 +125,7 @@ public class TankBlockEntity extends BlockEntity implements ExtendedMenuProvider
 	}
 
 	public void setFluid(FluidStack stack) {
-		this.fluidStack = stack;
+		this.fluidStack = stack == null || stack.isEmpty() ? FluidStack.empty() : stack;
 		setChanged();
 		if (level != null && !level.isClientSide()) {
 			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);

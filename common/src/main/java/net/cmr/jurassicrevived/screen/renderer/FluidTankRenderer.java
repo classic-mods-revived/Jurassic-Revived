@@ -105,7 +105,7 @@ public class FluidTankRenderer {
 			// Fallback for water
 			if (fluidStack.getFluid() == Fluids.WATER) {
 				sprite = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS)
-					.apply(new ResourceLocation("block/water_still"));
+					.apply(Constants.r2("block/water_still"));
 			}
 		}
 		

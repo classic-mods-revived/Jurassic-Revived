@@ -122,6 +122,10 @@ public class FossilCleanerBlockEntity extends BlockEntity implements ExtendedMen
 		return fluidStack;
 	}
 
+	private void setFluid(FluidStack stack) {
+		this.fluidStack = stack == null || stack.isEmpty() ? FluidStack.empty() : stack;
+	}
+
 	@Override
 	public Component getDisplayName() {
 		return Component.translatable("block.jurassicrevived.fossil_cleaner");
