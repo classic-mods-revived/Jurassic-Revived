@@ -154,9 +154,12 @@ public class FossilCleanerBlockEntity extends BlockEntity implements ExtendedMen
 		tag.putInt("Prog", this.progress);
 		tag.putInt("MaxProg", this.maxProgress);
 		tag.put("Energy", energyStorage.saveNBT());
-		CompoundTag fluidTag = new CompoundTag();
-		fluidStack.write(registries, fluidTag);
-		tag.put("Fluid", fluidTag);
+		tag.remove("Fluid");
+		if (!fluidStack.isEmpty()) {
+			CompoundTag fluidTag = new CompoundTag();
+			fluidStack.write(registries, fluidTag);
+			tag.put("Fluid", fluidTag);
+		}
 	}
 
 	@Override
@@ -166,7 +169,16 @@ public class FossilCleanerBlockEntity extends BlockEntity implements ExtendedMen
 		progress = tag.getInt("Prog");
 		maxProgress = tag.getInt("MaxProg");
 		if (tag.contains("Energy")) energyStorage.loadNBT(tag.getCompound("Energy"));
-		if (tag.contains("Fluid")) fluidStack = FluidStack.read(registries, tag.getCompound("Fluid")).orElse(FluidStack.empty());
+		if (tag.contains("Fluid", 10)) {
+			CompoundTag fluidTag = tag.getCompound("Fluid");
+			if (fluidTag.contains("id") && fluidTag.contains("amount")) {
+				fluidStack = FluidStack.read(registries, fluidTag).orElse(FluidStack.empty());
+			} else {
+				fluidStack = FluidStack.empty();
+			}
+		} else {
+			fluidStack = FluidStack.empty();
+		}
 	}
 	*///?} else {
 	@Override

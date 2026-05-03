@@ -270,17 +270,25 @@ public class TankBlockEntity extends BlockEntity implements ExtendedMenuProvider
 	protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
 		super.saveAdditional(pTag, pRegistries);
 		pTag.put("Inventory", itemHandler.createTag(pRegistries));
-		CompoundTag fluidTag = new CompoundTag();
-		fluidStack.write(fluidTag, pRegistries);
-		pTag.put("Fluid", fluidTag);
+		pTag.remove("Fluid");
+		if (!fluidStack.isEmpty()) {
+			CompoundTag fluidTag = new CompoundTag();
+			fluidStack.write(pRegistries, fluidTag);
+			pTag.put("Fluid", fluidTag);
+		}
 	}
 
 	@Override
 	protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
 		super.loadAdditional(pTag, pRegistries);
 		itemHandler.fromTag(pTag.getList("Inventory", 10), pRegistries);
-		if (pTag.contains("Fluid")) {
-			this.fluidStack = FluidStack.read(pTag.getCompound("Fluid"), pRegistries);
+		if (pTag.contains("Fluid", 10)) {
+			CompoundTag fluidTag = pTag.getCompound("Fluid");
+			if (fluidTag.contains("id") && fluidTag.contains("amount")) {
+				this.fluidStack = FluidStack.read(pRegistries, fluidTag).orElse(FluidStack.empty());
+			} else {
+				this.fluidStack = FluidStack.empty();
+			}
 		} else {
 			this.fluidStack = FluidStack.empty();
 		}

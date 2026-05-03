@@ -153,8 +153,17 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
 
 	//? if >1.20.1 {
     /*private static void drawVertex(VertexConsumer builder, PoseStack poseStack, float x, float y, float z, float u, float v, int packedLight, int color) {
+        int a = (color >> 24) & 0xFF;
+        int r = (color >> 16) & 0xFF;
+        int g = (color >> 8) & 0xFF;
+        int b = color & 0xFF;
+
+        if (a == 0) {
+            a = 255;
+        }
+
         builder.addVertex(poseStack.last().pose(), x, y, z)
-                .setColor(color)
+                .setColor(r, g, b, a)
                 .setUv(u, v)
                 .setLight(packedLight)
                 .setNormal(1, 0, 0);
