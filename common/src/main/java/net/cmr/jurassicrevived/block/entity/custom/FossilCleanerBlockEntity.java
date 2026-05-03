@@ -154,11 +154,8 @@ public class FossilCleanerBlockEntity extends BlockEntity implements ExtendedMen
 		tag.putInt("Prog", this.progress);
 		tag.putInt("MaxProg", this.maxProgress);
 		tag.put("Energy", energyStorage.saveNBT());
-		tag.remove("Fluid");
 		if (!fluidStack.isEmpty()) {
-			CompoundTag fluidTag = new CompoundTag();
-			fluidStack.write(registries, fluidTag);
-			tag.put("Fluid", fluidTag);
+			tag.put("Fluid", fluidStack.write(registries, new CompoundTag()));
 		}
 	}
 

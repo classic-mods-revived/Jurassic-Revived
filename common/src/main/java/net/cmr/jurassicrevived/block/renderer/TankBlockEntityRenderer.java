@@ -65,14 +65,14 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
         float yTop = MIN_Y + fluidHeight;
 
         // UV coordinates mapping
-        float uMin = sprite.getU(MIN_X * 16);
-        float uMax = sprite.getU(MAX_X * 16);
-        float vMinZ = sprite.getV(MIN_Z * 16);
-        float vMaxZ = sprite.getV(MAX_Z * 16);
-        
+        float uMin = spriteU(sprite, MIN_X);
+        float uMax = spriteU(sprite, MAX_X);
+        float vMinZ = spriteV(sprite, MIN_Z);
+        float vMaxZ = spriteV(sprite, MAX_Z);
+    
         // V coords for sides
-        float vTop = sprite.getV((1 - yTop) * 16);
-        float vBottom = sprite.getV((1 - MIN_Y) * 16);
+        float vTop = spriteV(sprite, 1 - yTop);
+        float vBottom = spriteV(sprite, 1 - MIN_Y);
 
         // Top Face (visible from above)
         // Normal +Y
@@ -138,6 +138,24 @@ public class TankBlockEntityRenderer implements BlockEntityRenderer<TankBlockEnt
     private static boolean isMissing(TextureAtlasSprite sprite) {
         return sprite == null || sprite.atlasLocation().getPath().contains("missingno");
     }
+
+	//? if >1.20.1 {
+    /*private static float spriteU(TextureAtlasSprite sprite, float normalizedU) {
+        return sprite.getU0() + (sprite.getU1() - sprite.getU0()) * normalizedU;
+    }
+
+    private static float spriteV(TextureAtlasSprite sprite, float normalizedV) {
+        return sprite.getV0() + (sprite.getV1() - sprite.getV0()) * normalizedV;
+    }
+	*///?} else {
+	private static float spriteU(TextureAtlasSprite sprite, float normalizedU) {
+		return sprite.getU(normalizedU * 16);
+	}
+
+	private static float spriteV(TextureAtlasSprite sprite, float normalizedV) {
+		return sprite.getV(normalizedV * 16);
+	}
+	//?}
 
     private static void addQuad(VertexConsumer builder, PoseStack poseStack, 
                                 float x0, float y0, float z0, float u0, float v0,
