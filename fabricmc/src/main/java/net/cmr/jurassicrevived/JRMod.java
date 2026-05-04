@@ -4,10 +4,10 @@ import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
 import net.cmr.jurassicrevived.block.entity.custom.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.cmr.jurassicrevived.platform.FabricEnergyWrapper;
+import net.cmr.jurassicrevived.platform.FabricTransferHelper;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import team.reborn.energy.api.EnergyStorage;
 
 public class JRMod implements ModInitializer
@@ -23,6 +23,11 @@ public class JRMod implements ModInitializer
 		// Use Fabric to bootstrap the Common mod.
 		Constants.LOG.info("Hello Fabric world!");
 		CommonClass.init();
+
+		FluidStorage.SIDED.registerForBlockEntities((be, side) ->
+			new FabricTransferHelper.InternalFluidStorage(((TankBlockEntity) be).getFluidHandler(side)),
+			ModBlockEntities.TANK_BE.get()
+		);
 
 		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
 			new FabricEnergyWrapper(((PowerCellBlockEntity) be).getEnergyStorage(side)),

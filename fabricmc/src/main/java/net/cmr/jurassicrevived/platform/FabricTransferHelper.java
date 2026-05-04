@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +26,7 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 //import team.reborn.energy.api.EnergyStorage;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,10 +52,93 @@ public class FabricTransferHelper implements ITransferHelper {
 		return Optional.empty();
 	}
 
-	private static class FabricFluidHandler implements PlatformFluidHandler {
-		private final net.fabricmc.fabric.api.transfer.v1.storage.Storage<FluidVariant> storage;
+	public static class InternalFluidStorage implements Storage<FluidVariant> {
+		private final net.cmr.jurassicrevived.platform.transfer.InternalFluidHandler handler;
 
-		private FabricFluidHandler(net.fabricmc.fabric.api.transfer.v1.storage.Storage<FluidVariant> storage) {
+		public InternalFluidStorage(net.cmr.jurassicrevived.platform.transfer.InternalFluidHandler handler) {
+			this.handler = handler;
+		}
+
+		@Override
+		public long insert(FluidVariant resource, long maxAmount, TransactionContext transaction) {
+			if (resource.isBlank() || maxAmount <= 0) {
+				return 0;
+			}
+
+			FluidStack stack = FluidStack.create(resource.getFluid(), maxAmount);
+			long inserted = handler.fill(stack, true);
+
+			if (inserted > 0) {
+				transaction.addCloseCallback((tx, result) -> {
+					if (result.wasCommitted()) {
+						handler.fill(FluidStack.create(resource.getFluid(), inserted), false);
+					}
+				});
+			}
+
+			return inserted;
+		}
+
+		@Override
+		public long extract(FluidVariant resource, long maxAmount, TransactionContext transaction) {
+			if (resource.isBlank() || maxAmount <= 0) {
+				return 0;
+			}
+
+			FluidStack stored = handler.getFluid();
+			if (stored.isEmpty() || stored.getFluid() != resource.getFluid()) {
+				return 0;
+			}
+
+			long extracted = Math.min(maxAmount, stored.getAmount());
+
+			if (extracted > 0) {
+				transaction.addCloseCallback((tx, result) -> {
+					if (result.wasCommitted()) {
+						handler.drain(extracted, false);
+					}
+				});
+			}
+
+			return extracted;
+		}
+
+		@Override
+		public Iterator<StorageView<FluidVariant>> iterator() {
+			FluidStack stored = handler.getFluid();
+			return List.<StorageView<FluidVariant>>of(new StorageView<>() {
+				@Override
+				public FluidVariant getResource() {
+					return stored.isEmpty() ? FluidVariant.blank() : FluidVariant.of(stored.getFluid());
+				}
+
+				@Override
+				public long getAmount() {
+					return stored.getAmount();
+				}
+
+				@Override
+				public long getCapacity() {
+					return handler.getCapacity();
+				}
+
+				@Override
+				public boolean isResourceBlank() {
+					return stored.isEmpty();
+				}
+
+				@Override
+				public long extract(FluidVariant resource, long maxAmount, TransactionContext transaction) {
+					return InternalFluidStorage.this.extract(resource, maxAmount, transaction);
+				}
+			}).iterator();
+		}
+	}
+
+	private static class FabricFluidHandler implements PlatformFluidHandler {
+		private final Storage<FluidVariant> storage;
+
+		private FabricFluidHandler(Storage<FluidVariant> storage) {
 			this.storage = storage;
 		}
 
