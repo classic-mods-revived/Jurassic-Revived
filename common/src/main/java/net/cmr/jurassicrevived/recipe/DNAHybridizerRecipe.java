@@ -31,6 +31,11 @@ import net.minecraft.core.RegistryAccess;
 public record DNAHybridizerRecipe(NonNullList<Ingredient> inputs, ItemStack output) implements Recipe<DNAHybridizerRecipeInput> {
 
 	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		return inputs;
+	}
+
+	@Override
 	public boolean matches(DNAHybridizerRecipeInput recipeInput, Level level) {
 		if (level.isClientSide) return false;
 

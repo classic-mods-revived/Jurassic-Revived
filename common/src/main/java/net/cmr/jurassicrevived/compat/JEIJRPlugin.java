@@ -25,6 +25,7 @@ public class JEIJRPlugin implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
+        Constants.LOG.info("Registering Jurassic Revived JEI plugin");
         return Constants.rl("jei_plugin");
     }
 
@@ -32,6 +33,7 @@ public class JEIJRPlugin implements IModPlugin {
 
     @Override
     public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+        Constants.LOG.info("Jurassic Revived JEI runtime available");
         INGREDIENT_MANAGER = jeiRuntime.getIngredientManager();
     }
 
@@ -41,6 +43,7 @@ public class JEIJRPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
+        Constants.LOG.info("Registering Jurassic Revived JEI recipe categories");
         registration.addRecipeCategories(new DNAExtractorRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new DNAAnalyzerRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new FossilGrinderRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
@@ -185,7 +188,7 @@ public class JEIJRPlugin implements IModPlugin {
                 ModMenuTypes.EMBRYONIC_MACHINE_MENU.get(),
                 EmbryonicMachineRecipeCategory.EMBRYONIC_MACHINE_RECIPE_RECIPE_TYPE,
                 36, // The index of the FIRST recipe input slot in your Menu (slot 36)
-                2,  // The NUMBER of recipe input slots (slots 36, 37)
+                3,  // The NUMBER of recipe input slots (slots 36, 37, 38)
                 0,  // The index where the player inventory slots START (slot 0)
                 36  // The NUMBER of player inventory slots to check (slots 0-35)
         );

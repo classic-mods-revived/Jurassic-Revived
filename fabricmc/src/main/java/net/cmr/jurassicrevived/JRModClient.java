@@ -13,5 +13,10 @@ public class JRModClient implements ClientModInitializer {
 		CommonClientClass.init();
 
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.TANK.get(), RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.INCUBATOR.get(), RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DNA_EXTRACTOR.get(), RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FOSSIL_GRINDER.get(), RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FOSSIL_CLEANER.get(), RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DNA_HYBRIDIZER.get(), RenderType.translucent());
 	}
 }

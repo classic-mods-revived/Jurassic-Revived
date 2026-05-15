@@ -38,6 +38,11 @@ public record DNAExtractorRecipe(
 ) implements Recipe<DNAExtractorRecipeInput> {
 
 	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		return inputs;
+	}
+
+	@Override
 	public boolean matches(DNAExtractorRecipeInput input, Level level) {
 		if (level.isClientSide) return false;
 		ItemStack in0 = input.getItem(0);

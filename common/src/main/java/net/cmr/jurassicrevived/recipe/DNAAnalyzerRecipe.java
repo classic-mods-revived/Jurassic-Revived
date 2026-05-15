@@ -35,6 +35,11 @@ public record DNAAnalyzerRecipe(
 ) implements Recipe<DNAAnalyzerRecipeInput> {
 
 	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		return inputs;
+	}
+
+	@Override
 	public boolean matches(DNAAnalyzerRecipeInput input, Level level) {
 		if (level.isClientSide) return false;
 		ItemStack in0 = input.getItem(0);

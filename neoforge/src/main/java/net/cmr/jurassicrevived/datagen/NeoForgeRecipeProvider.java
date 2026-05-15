@@ -55,16 +55,6 @@ public class NeoForgeRecipeProvider extends RecipeProvider implements ModRecipeP
     }
 
     @Override
-    public void buildShapeless(RecipeCategory category, ItemLike result, int count, ItemLike... ingredients) {
-        ShapelessRecipeBuilder builder = ShapelessRecipeBuilder.shapeless(category, result, count);
-        for (ItemLike ingredient : ingredients) {
-            builder.requires(ingredient);
-        }
-        builder.unlockedBy("has_item", has(result));
-        builder.save(output);
-    }
-
-    @Override
     public void buildShapeless(RecipeCategory category, ItemLike result, int count, String name, ItemLike... ingredients) {
         ShapelessRecipeBuilder builder = ShapelessRecipeBuilder.shapeless(category, result, count);
         for (ItemLike ingredient : ingredients) {

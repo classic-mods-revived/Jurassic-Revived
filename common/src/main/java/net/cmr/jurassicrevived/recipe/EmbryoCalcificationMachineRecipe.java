@@ -29,6 +29,11 @@ public record EmbryoCalcificationMachineRecipe(NonNullList<Ingredient> inputs, I
 	implements Recipe<EmbryoCalcificationMachineRecipeInput> {
 
 	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		return inputs;
+	}
+
+	@Override
 	public boolean matches(EmbryoCalcificationMachineRecipeInput recipeInput, Level level) {
 		if (level.isClientSide) return false;
 		if (recipeInput.size() < 2 || inputs.size() < 2) return false;

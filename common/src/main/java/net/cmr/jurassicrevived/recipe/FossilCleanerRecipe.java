@@ -52,6 +52,8 @@ public class FossilCleanerRecipe implements Recipe<FossilCleanerRecipeInput> {
 	}
 	//?}
 
+
+
 	@Override
 	public boolean matches(@NotNull FossilCleanerRecipeInput input, Level level) {
 		if (level.isClientSide()) return false;

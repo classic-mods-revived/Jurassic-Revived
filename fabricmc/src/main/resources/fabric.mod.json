@@ -30,6 +30,9 @@
 		"jade": [
 			"net.cmr.jurassicrevived.compat.MachineJadePlugin",
 			"net.cmr.jurassicrevived.compat.EggJadePlugin"
+		],
+		"jei_mod_plugin": [
+			"net.cmr.jurassicrevived.compat.JEIJRPlugin"
 		]
 	},
 	"mixins": [

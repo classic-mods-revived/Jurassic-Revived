@@ -1,6 +1,7 @@
 package net.cmr.jurassicrevived.platform;
 
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import team.reborn.energy.api.EnergyStorage;
 
@@ -13,12 +14,30 @@ public class FabricEnergyWrapper implements EnergyStorage {
 
 	@Override
 	public long insert(long maxAmount, TransactionContext transaction) {
-		return storage.receiveEnergy((int) maxAmount, true);
+		int accepted = storage.receiveEnergy((int) Math.min(Integer.MAX_VALUE, maxAmount), true);
+		if (accepted <= 0) {
+			return 0;
+		}
+
+		try (Transaction nested = transaction.openNested()) {
+			int inserted = storage.receiveEnergy(accepted, false);
+			nested.commit();
+			return inserted;
+		}
 	}
 
 	@Override
 	public long extract(long maxAmount, TransactionContext transaction) {
-		return storage.extractEnergy((int) maxAmount, true);
+		int extracted = storage.extractEnergy((int) Math.min(Integer.MAX_VALUE, maxAmount), true);
+		if (extracted <= 0) {
+			return 0;
+		}
+
+		try (Transaction nested = transaction.openNested()) {
+			int removed = storage.extractEnergy(extracted, false);
+			nested.commit();
+			return removed;
+		}
 	}
 
 	@Override

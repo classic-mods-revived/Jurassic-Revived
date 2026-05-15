@@ -80,42 +80,60 @@ public class FossilCleanerRecipeCategory implements IRecipeCategory<FossilCleane
     }
 
     @Override
-    public void draw(FossilCleanerRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        background.draw(guiGraphics);
-        guiGraphics.blit(BUBBLES_TEXTURE,  73, 37, 0, 0, 24, 16, 24, 12);
-        if (JRConfigManager.get().requirePower) {
-            guiGraphics.blit(POWER_BAR_TEXTURE,  159, 10, 0, 0, 10, 66, 10, 66);
-            // Fill amount for JEI: show total required energy (2000 FE) relative to 64000 FE capacity
-            // Our simple fill is purely visual for JEI, not tied to any BE
-            int barX = 160;
-            int barY = 11;
-            int barW = 8;
-            int barH = 64;
+	public void draw(FossilCleanerRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+		background.draw(guiGraphics);
 
-            int maxTicks = 200;
-            long now = System.currentTimeMillis();
-            int progress = (int)((now / 50L) % maxTicks); // ~20 TPS
-            int arrowPixels = 29;
-            int progFilled = progress * arrowPixels / maxTicks;
-            if (progFilled > 0) {
-                guiGraphics.blit(WHITE_BUBBLES_TEXTURE, 73, 37, 0, 0, progFilled, 16, 29, 12);
-            }
+		FluidStack water = FluidStack.create(Fluids.WATER, 250);
+		fluidRenderer.render(guiGraphics, 7, 8, water);
 
-            int requiredFE = 2000;
-            int capacityFE = 64000;
-            int filled = (int)(barH * (requiredFE / (float)capacityFE));
-            // Render red fill similar to EnergyDisplayTooltipArea
-            guiGraphics.fillGradient(barX, barY + (barH - filled), barX + barW, barY + barH, 0xffb51500, 0xff600b00);
+		int tankX = 7;
+		int tankY = 8;
+		int tankW = fluidRenderer.getWidth();
+		int tankH = fluidRenderer.getHeight();
+		int mx = (int) mouseX;
+		int my = (int) mouseY;
+		if (mx >= tankX && mx < tankX + tankW && my >= tankY && my < tankY + tankH) {
+			guiGraphics.renderTooltip(
+				Minecraft.getInstance().font,
+				fluidRenderer.getTooltip(water, Minecraft.getInstance().options.advancedItemTooltips ? net.minecraft.world.item.TooltipFlag.Default.ADVANCED : net.minecraft.world.item.TooltipFlag.Default.NORMAL),
+				java.util.Optional.empty(),
+				mx,
+				my
+			);
+		}
 
-            // Tooltip "2000 / 64000 FE" on hover over the energy area
-            int mx = (int) mouseX;
-            int my = (int) mouseY;
-            if (mx >= barX && mx < barX + barW && my >= barY && my < barY + barH) {
-                List<Component> tips = List.of(Component.literal("2000 / 64000 FE"));
-                guiGraphics.renderTooltip(Minecraft.getInstance().font, tips, java.util.Optional.empty(), mx, my);
-            }
-        }
-    }
+		guiGraphics.blit(BUBBLES_TEXTURE,  73, 37, 0, 0, 29, 12, 29, 12);
+		if (JRConfigManager.get().requirePower) {
+			guiGraphics.blit(POWER_BAR_TEXTURE,  159, 10, 0, 0, 10, 66, 10, 66);
+			// Fill amount for JEI: show total required energy (2000 FE) relative to 64000 FE capacity
+			// Our simple fill is purely visual for JEI, not tied to any BE
+			int barX = 160;
+			int barY = 11;
+			int barW = 8;
+			int barH = 64;
+
+			int maxTicks = 200;
+			long now = System.currentTimeMillis();
+			int progress = (int)((now / 50L) % maxTicks); // ~20 TPS
+			int arrowPixels = 29;
+			int progFilled = progress * arrowPixels / maxTicks;
+			if (progFilled > 0) {
+				guiGraphics.blit(WHITE_BUBBLES_TEXTURE, 73, 37, 0, 0, progFilled, 12, 29, 12);
+			}
+
+			int requiredFE = 2000;
+			int capacityFE = 64000;
+			int filled = (int)(barH * (requiredFE / (float)capacityFE));
+			// Render red fill similar to EnergyDisplayTooltipArea
+			guiGraphics.fillGradient(barX, barY + (barH - filled), barX + barW, barY + barH, 0xffb51500, 0xff600b00);
+
+			// Tooltip "2000 / 64000 FE" on hover over the energy area
+			if (mx >= barX && mx < barX + barW && my >= barY && my < barY + barH) {
+				List<Component> tips = List.of(Component.literal("2000 / 64000 FE"));
+				guiGraphics.renderTooltip(Minecraft.getInstance().font, tips, java.util.Optional.empty(), mx, my);
+			}
+		}
+	}
 
     @Override
     public @Nullable IDrawable getIcon() {
@@ -123,51 +141,46 @@ public class FossilCleanerRecipeCategory implements IRecipeCategory<FossilCleane
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, FossilCleanerRecipe recipe, IFocusGroup focuses) {
+	public void setRecipe(IRecipeLayoutBuilder builder, FossilCleanerRecipe recipe, IFocusGroup focuses) {
 
-        // Single consumable input (fossil block)
-        builder.addSlot(RecipeIngredientRole.INPUT, 57, 35).addIngredients(recipe.getIngredients().get(0));
+		// Single consumable input (fossil block)
+		builder.addSlot(RecipeIngredientRole.INPUT, 57, 35).addIngredients(recipe.getIngredients().get(0));
 
-        // Fluid "tank" visualization using custom renderer at (7, 8)
-        IRecipeSlotBuilder tankSlot = builder.addSlot(RecipeIngredientRole.RENDER_ONLY, 7, 8);
-        tankSlot.setCustomRenderer(JEIJRPlugin.FLUID_STACK_TYPE, new FluidStackSlotRenderer(fluidRenderer));
-        tankSlot.addIngredient(JEIJRPlugin.FLUID_STACK_TYPE, FluidStack.create(Fluids.WATER, 250));
+		// Water container acceptance list at (7, 61), discovered dynamically
+		var waterItems = builder.addSlot(RecipeIngredientRole.INPUT, 7, 61).addItemStacks(WATER_CONTAINERS_CACHE);
+		waterItems.addRichTooltipCallback((view, tooltip) -> {
+			tooltip.add(Component.translatable("jurassicrevived.tooltip.accepts_any_water_container"));
+		});
 
-        // Water container acceptance list at (57, 61), discovered dynamically
-        var waterItems = builder.addSlot(RecipeIngredientRole.INPUT, 7, 61).addItemStacks(WATER_CONTAINERS_CACHE);
-        waterItems.addRichTooltipCallback((view, tooltip) -> {
-            tooltip.add(Component.translatable("jurassicrevived.tooltip.accepts_any_water_container"));
-        });
+		// Output list: all fossils from the tag, tooltip shows per-item weight from the recipe
+		var level = Minecraft.getInstance().level;
+		if (level != null) {
+			var itemRegistry = level.registryAccess().registryOrThrow(Registries.ITEM);
+			var fossilsTagOpt = itemRegistry.getTag(ModTags.Items.FOSSILS);
+			List<ItemStack> fossilOutputs = fossilsTagOpt.map(holderSet ->
+				holderSet.stream()
+					.map(h -> new ItemStack(h.value(), Math.max(1, recipe.output().getCount())))
+					.collect(Collectors.toList())
+			).orElse(List.of());
 
-        // Output list: all fossils from the tag, tooltip shows per-item weight from the recipe
-        var level = Minecraft.getInstance().level;
-        if (level != null) {
-            var itemRegistry = level.registryAccess().registryOrThrow(Registries.ITEM);
-            var fossilsTagOpt = itemRegistry.getTag(ModTags.Items.FOSSILS);
-            List<ItemStack> fossilOutputs = fossilsTagOpt.map(holderSet ->
-                    holderSet.stream()
-                            .map(h -> new ItemStack(h.value(), Math.max(1, recipe.output().getCount())))
-                            .collect(Collectors.toList())
-            ).orElse(List.of());
+			// Hide zero-weight fossils
+			fossilOutputs = fossilOutputs.stream()
+				.filter(stack -> recipe.getWeightFor(stack.getItem()) > 0)
+				.collect(Collectors.toList());
 
-            // Hide zero-weight fossils
-            fossilOutputs = fossilOutputs.stream()
-                    .filter(stack -> recipe.getWeightFor(stack.getItem()) > 0)
-                    .collect(Collectors.toList());
+			var slot = builder.addSlot(RecipeIngredientRole.OUTPUT, 103, 35).addItemStacks(fossilOutputs);
+			slot.addRichTooltipCallback((view, tooltip) -> {
+				var opt = view.getDisplayedItemStack();
+				if (opt.isPresent()) {
+					int weight = recipe.getWeightFor(opt.get().getItem());
+					//tooltip.add(Component.literal("Weight: " + weight));
+				}
+			});
+			return;
+		}
 
-            var slot = builder.addSlot(RecipeIngredientRole.OUTPUT, 103, 35).addItemStacks(fossilOutputs);
-            slot.addRichTooltipCallback((view, tooltip) -> {
-                var opt = view.getDisplayedItemStack();
-                if (opt.isPresent()) {
-                    int weight = recipe.getWeightFor(opt.get().getItem());
-                    //tooltip.add(Component.literal("Weight: " + weight));
-                }
-            });
-            return;
-        }
-
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 103, 35).addItemStack(recipe.output());
-    }
+		builder.addSlot(RecipeIngredientRole.OUTPUT, 103, 35).addItemStack(recipe.output());
+	}
 
     private static List<ItemStack> buildWaterContainersList() {
         var list = new ArrayList<ItemStack>();
