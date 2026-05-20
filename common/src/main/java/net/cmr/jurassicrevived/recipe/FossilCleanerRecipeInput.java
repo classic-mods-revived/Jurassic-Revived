@@ -10,12 +10,12 @@ import net.minecraft.world.SimpleContainer;
 import java.util.List;
 
 //? if >1.20.1 {
-/*public record FossilCleanerRecipeInput(ItemStack material, ItemStack fuel) implements RecipeInput {
+/*public record FossilCleanerRecipeInput(ItemStack fossil, ItemStack waterSlot) implements RecipeInput {
     @Override
     public ItemStack getItem(int index) {
         return switch (index) {
-            case 0 -> material;
-            case 1 -> fuel;
+            case 0 -> fossil;
+            case 1 -> waterSlot;
             default -> throw new IllegalArgumentException("Unexpected slot index: " + index);
         };
     }
@@ -27,8 +27,8 @@ import java.util.List;
 }
 *///?} else {
 public class FossilCleanerRecipeInput extends SimpleContainer {
-	public FossilCleanerRecipeInput(ItemStack material, ItemStack fuel) {
-		super(material, fuel);
+	public FossilCleanerRecipeInput(ItemStack fossil, ItemStack waterSlot) {
+		super(fossil, waterSlot);
 	}
 }
 //?}

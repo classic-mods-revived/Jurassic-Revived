@@ -59,8 +59,8 @@ public class FossilCleanerRecipe implements Recipe<FossilCleanerRecipeInput> {
 		if (level.isClientSide()) return false;
 		if (inputs.isEmpty()) return false;
 
-		// Single fossil block ingredient lives in machine slot 1 (input.getItem(1))
-		return inputs.get(0).test(input.getItem(1));
+		// Single fossil block ingredient lives in machine slot 0 (input.getItem(0))
+		return inputs.get(0).test(input.getItem(0));
 	}
 
 	//? if >1.20.1 {
