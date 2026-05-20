@@ -12,6 +12,7 @@ import net.cmr.jurassicrevived.screen.custom.IncubatorMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
@@ -163,7 +164,7 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 	@Override
 	protected void saveAdditional(CompoundTag tag) {
 		super.saveAdditional(tag);
-		tag.put("Inventory", itemHandler.createTag());
+		tag.put("Inventory", saveInventory());
 		tag.putInt("Prog0", this.progress[0]);
 		tag.putInt("Prog1", this.progress[1]);
 		tag.putInt("Prog2", this.progress[2]);
@@ -176,7 +177,7 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 	@Override
 	public void load(CompoundTag tag) {
 		super.load(tag);
-		itemHandler.fromTag(tag.getList("Inventory", 10));
+		loadInventory(tag.getList("Inventory", 10));
 		if (tag.contains("Energy")) {
 			energyStorage.loadNBT(tag.getCompound("Energy"));
 		}
@@ -188,6 +189,35 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 		maxProgress[2] = tag.getInt("Max2");
 	}
 	//?}
+
+	private ListTag saveInventory() {
+		ListTag listTag = new ListTag();
+
+		for (int slot = 0; slot < itemHandler.getContainerSize(); slot++) {
+			ItemStack stack = itemHandler.getItem(slot);
+			if (!stack.isEmpty()) {
+				CompoundTag stackTag = new CompoundTag();
+				stackTag.putByte("Slot", (byte) slot);
+				stack.save(stackTag);
+				listTag.add(stackTag);
+			}
+		}
+
+		return listTag;
+	}
+
+	private void loadInventory(ListTag listTag) {
+		itemHandler.clearContent();
+
+		for (int i = 0; i < listTag.size(); i++) {
+			CompoundTag stackTag = listTag.getCompound(i);
+			int slot = stackTag.getByte("Slot") & 255;
+
+			if (slot >= 0 && slot < itemHandler.getContainerSize()) {
+				itemHandler.setItem(slot, ItemStack.of(stackTag));
+			}
+		}
+	}
 
 	public void tick(Level level, BlockPos pos, BlockState state) {
 		if (level.isClientSide) return;

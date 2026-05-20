@@ -18,7 +18,7 @@ public class GeneratorScreen extends AbstractContainerScreen<GeneratorMenu> {
 	private static final ResourceLocation GUI_TEXTURE =
 		Constants.rl("textures/gui/generator/generator_gui.png");
 	private static final ResourceLocation LIT_PROGRESS_TEXTURE =
-		Constants.rl("container/furnace/lit_progress");
+		Constants.rl("textures/gui/generator/lit_progress.png");
 	private EnergyDisplayTooltipArea energyInfoArea;
 
 	public GeneratorScreen(GeneratorMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
