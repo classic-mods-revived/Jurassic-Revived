@@ -25,7 +25,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.core.RegistryAccess;
 /*?}*/
 
-public record EmbryoCalcificationMachineRecipe(NonNullList<Ingredient> inputs, ItemStack output)
+public record EmbryoCalcificationMachineRecipe(ResourceLocation id, NonNullList<Ingredient> inputs, ItemStack output)
 	implements Recipe<EmbryoCalcificationMachineRecipeInput> {
 
 	@Override
@@ -53,7 +53,7 @@ public record EmbryoCalcificationMachineRecipe(NonNullList<Ingredient> inputs, I
 	*//*?} else {*/
 	@Override public ItemStack assemble(EmbryoCalcificationMachineRecipeInput input, RegistryAccess a) { return output.copy(); }
 	@Override public ItemStack getResultItem(RegistryAccess a) { return output.copy(); }
-	@Override public ResourceLocation getId() { return Constants.rl("embryonic_machining"); }
+	@Override public ResourceLocation getId() { return id; }
 	/*?}*/
 
 	@Override public boolean canCraftInDimensions(int width, int height) { return true; }
@@ -91,12 +91,12 @@ public record EmbryoCalcificationMachineRecipe(NonNullList<Ingredient> inputs, I
 			NonNullList<Ingredient> inputs = NonNullList.withSize(2, Ingredient.EMPTY);
 			for (int i = 0; i < 2; i++) inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-			return new EmbryoCalcificationMachineRecipe(inputs, output);
+			return new EmbryoCalcificationMachineRecipe(id, inputs, output);
 		}
 		@Override public EmbryoCalcificationMachineRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
 			NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
 			for (int i = 0; i < inputs.size(); i++) inputs.set(i, Ingredient.fromNetwork(buf));
-			return new EmbryoCalcificationMachineRecipe(inputs, buf.readItem());
+			return new EmbryoCalcificationMachineRecipe(id, inputs, buf.readItem());
 		}
 		@Override public void toNetwork(FriendlyByteBuf buf, EmbryoCalcificationMachineRecipe recipe) {
 			buf.writeInt(recipe.inputs().size());

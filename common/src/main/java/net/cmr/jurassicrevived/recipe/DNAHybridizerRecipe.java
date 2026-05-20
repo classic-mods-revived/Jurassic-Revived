@@ -28,7 +28,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.core.RegistryAccess;
 /*?}*/
 
-public record DNAHybridizerRecipe(NonNullList<Ingredient> inputs, ItemStack output) implements Recipe<DNAHybridizerRecipeInput> {
+public record DNAHybridizerRecipe(ResourceLocation id, NonNullList<Ingredient> inputs, ItemStack output) implements Recipe<DNAHybridizerRecipeInput> {
 
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
@@ -78,7 +78,7 @@ public record DNAHybridizerRecipe(NonNullList<Ingredient> inputs, ItemStack outp
 	*//*?} else {*/
 	@Override public ItemStack assemble(DNAHybridizerRecipeInput input, RegistryAccess a) { return output.copy(); }
 	@Override public ItemStack getResultItem(RegistryAccess a) { return output.copy(); }
-	@Override public ResourceLocation getId() { return Constants.rl("dna_hybridizing"); }
+	@Override public ResourceLocation getId() { return id; }
 	/*?}*/
 
 	@Override public boolean canCraftInDimensions(int w, int h) { return true; }
@@ -117,12 +117,12 @@ public record DNAHybridizerRecipe(NonNullList<Ingredient> inputs, ItemStack outp
 			NonNullList<Ingredient> inputs = NonNullList.withSize(9, Ingredient.EMPTY);
 			for (int i = 0; i < Math.min(ings.size(), 8); i++) inputs.set(i, Ingredient.fromJson(ings.get(i)));
 			if (json.has("catalyst")) inputs.set(8, Ingredient.fromJson(json.get("catalyst")));
-			return new DNAHybridizerRecipe(inputs, ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result")));
+			return new DNAHybridizerRecipe(id, inputs, ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result")));
 		}
 		@Override public DNAHybridizerRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
 			NonNullList<Ingredient> inputs = NonNullList.withSize(9, Ingredient.EMPTY);
 			for (int i = 0; i < 9; i++) inputs.set(i, Ingredient.fromNetwork(buf));
-			return new DNAHybridizerRecipe(inputs, buf.readItem());
+			return new DNAHybridizerRecipe(id, inputs, buf.readItem());
 		}
 		@Override public void toNetwork(FriendlyByteBuf buf, DNAHybridizerRecipe r) {
 			for (int i = 0; i < 9; i++) (i < r.inputs().size() ? r.inputs().get(i) : Ingredient.EMPTY).toNetwork(buf);

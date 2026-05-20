@@ -29,6 +29,7 @@ import net.minecraft.core.RegistryAccess;
 /*?}*/
 
 public record DNAAnalyzerRecipe(
+	ResourceLocation id,
 	NonNullList<Ingredient> inputs,
 	ItemStack output,
 	java.util.Map<ResourceLocation, Integer> weights
@@ -73,7 +74,7 @@ public record DNAAnalyzerRecipe(
 	public ResourceLocation getId() {
 		// In 1.20.1, the ID was stored. In 1.21.1, it's handled by the registry.
 		// If you need the ID specifically in 1.20.1, you'd need to add it to the record.
-		return Constants.rl("dna_analyzing");
+		return id;
 	}
 	/*?}*/
 
@@ -126,14 +127,14 @@ public record DNAAnalyzerRecipe(
 			NonNullList<Ingredient> inputs = NonNullList.withSize(2, Ingredient.EMPTY);
 			for (int i = 0; i < 2; i++) inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-			return new DNAAnalyzerRecipe(inputs, output, java.util.Map.of()); // Weights logic can be added here
+			return new DNAAnalyzerRecipe(id, inputs, output, java.util.Map.of()); // Weights logic can be added here
 		}
 
 		@Override
 		public DNAAnalyzerRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
 			NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
 			for (int i = 0; i < inputs.size(); i++) inputs.set(i, Ingredient.fromNetwork(buf));
-			return new DNAAnalyzerRecipe(inputs, buf.readItem(), java.util.Map.of());
+			return new DNAAnalyzerRecipe(id, inputs, buf.readItem(), java.util.Map.of());
 		}
 
 		@Override

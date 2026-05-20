@@ -32,6 +32,7 @@ import net.minecraft.core.RegistryAccess;
 /*?}*/
 
 public record DNAExtractorRecipe(
+	ResourceLocation id,
 	NonNullList<Ingredient> inputs,
 	ItemStack output,
 	java.util.Map<ResourceLocation, Integer> weights
@@ -86,7 +87,7 @@ public record DNAExtractorRecipe(
 	*//*?} else {*/
 	@Override public ItemStack assemble(DNAExtractorRecipeInput input, RegistryAccess a) { return handleAmberExtraction(input); }
 	@Override public ItemStack getResultItem(RegistryAccess a) { return output.copy(); }
-	@Override public ResourceLocation getId() { return Constants.rl("dna_extracting"); }
+	@Override public ResourceLocation getId() { return id; }
 	/*?}*/
 
 	@Override public boolean canCraftInDimensions(int w, int h) { return true; }
@@ -130,12 +131,12 @@ public record DNAExtractorRecipe(
 			JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
 			NonNullList<Ingredient> inputs = NonNullList.withSize(2, Ingredient.EMPTY);
 			for (int i = 0; i < 2; i++) inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
-			return new DNAExtractorRecipe(inputs, ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result")), java.util.Map.of());
+			return new DNAExtractorRecipe(id, inputs, ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result")), java.util.Map.of());
 		}
 		@Override public DNAExtractorRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
 			NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
 			for (int i = 0; i < inputs.size(); i++) inputs.set(i, Ingredient.fromNetwork(buf));
-			return new DNAExtractorRecipe(inputs, buf.readItem(), java.util.Map.of());
+			return new DNAExtractorRecipe(id, inputs, buf.readItem(), java.util.Map.of());
 		}
 		@Override public void toNetwork(FriendlyByteBuf buf, DNAExtractorRecipe recipe) {
 			buf.writeInt(recipe.inputs().size());
