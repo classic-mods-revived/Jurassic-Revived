@@ -40,5 +40,6 @@ public class DataGenerators {
                 )
         ));
         generator.addProvider(event.includeServer(), new ForgeRecipeProvider(packOutput));
+		generator.addProvider(event.includeServer(), new ModWorldgenProvider(packOutput));
     }
 }

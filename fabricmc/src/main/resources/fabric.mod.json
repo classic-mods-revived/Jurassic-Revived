@@ -48,7 +48,8 @@
 		"architectury": ">=${architectury_version}",
 		"cloth-config": ">=${cloth_config_version}",
 		"geckolib": ">=${geckolib_version}",
-		"modmenu": ">=${modmenu_version}"
+		"modmenu": ">=${modmenu_version}",
+		"team_reborn_energy": "*"
 	},
 	"suggests": {
 		"another-mod": "*"

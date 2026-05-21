@@ -5,7 +5,7 @@ public final class JRConfig {
 	 * When false, machines do not require/consume power, machine GUIs hide their power bars,
 	 * and energy pipes do not connect to machines. Generator and power cell behavior is unchanged.
 	 */
-	public boolean requirePower = true;
+	public boolean requirePower = false;
 
 	/**
 	 * Controls whether dinosaurs should naturally spawn.

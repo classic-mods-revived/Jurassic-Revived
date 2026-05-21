@@ -67,7 +67,7 @@ dependencies {
 		commonMod.prop("teamreborn_energy_1_21_1")
 	}
 
-	modImplementation("teamreborn:energy:$energyVersion")
+	modImplementation(include("teamreborn:energy:$energyVersion")!!)
 
 	modImplementation("net.fabricmc:fabric-loader:${commonMod.prop("fabric_loader_version")}")
 	modApi("net.fabricmc.fabric-api:fabric-api:${commonMod.prop("fabric_api_version")}")
@@ -93,6 +93,10 @@ dependencies {
 loom {
 	accessWidenerPath =
 		common.project.file("../../src/main/resources/accesswideners/${commonMod.minecraft_version}-${mod.id}.accesswidener")
+
+	mixin {
+		defaultRefmapName.set("${commonMod.id}.refmap.json")
+	}
 
 	runs {
 		named("client") {

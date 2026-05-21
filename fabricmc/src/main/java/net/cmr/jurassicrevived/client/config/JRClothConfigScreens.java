@@ -24,7 +24,7 @@ public final class JRClothConfigScreens {
 
         general.addEntry(
                 eb.startBooleanToggle(Component.literal("Require Power"), cfg.requirePower)
-                        .setDefaultValue(true)
+                        .setDefaultValue(false)
                         .setTooltip(Component.literal("When disabled, machines do not consume power, hide power bars, and energy pipes do not connect to machines."))
                         .setSaveConsumer(v -> cfg.requirePower = v)
 						.requireRestart()

@@ -67,6 +67,9 @@ public class CommonClass
 		ModSounds.register();
 		ModPackets.register();
 
-		ModWorldGeneration.generateWorldGen();
+
+		if (Services.PLATFORM.getPlatformName().equals("FabricMC")) {
+			ModWorldGeneration.generateWorldGen();
+		}
 	}
 }

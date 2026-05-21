@@ -41,5 +41,6 @@ public class DataGenerators {
 				lookupProvider
 		));
 		generator.addProvider(event.includeServer(), new NeoForgeRecipeProvider(packOutput, lookupProvider));
+		generator.addProvider(event.includeServer(), new ModWorldgenProvider(packOutput));
 	}
 }

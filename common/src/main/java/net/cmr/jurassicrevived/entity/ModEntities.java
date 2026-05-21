@@ -495,10 +495,10 @@ public class ModEntities {
 	private static <T extends Animal> void registerGroundAnimalSpawn(RegistrySupplier<EntityType<T>> entityType) {
 /*? if >1.20.1 {*/
 		/*SpawnPlacementsRegistry.register(entityType, SpawnPlacementTypes.ON_GROUND,
-			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> true);
 *//*?} else {*/
 		SpawnPlacementsRegistry.register(entityType, SpawnPlacements.Type.ON_GROUND,
-			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> true);
 /*?}*/
 	}
 

@@ -1,6 +1,7 @@
 package net.cmr.jurassicrevived;
 
 import net.cmr.jurassicrevived.client.config.JRClothConfigScreens;
+import net.cmr.jurassicrevived.worldgen.NeoForgeBiomeModifiers;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
@@ -13,6 +14,8 @@ import java.util.function.Supplier;
 public class JRMod {
 
     public JRMod(IEventBus eventBus) {
+		NeoForgeBiomeModifiers.register(eventBus);
+
         CommonClass.init();
 
         ModLoadingContext.get().getActiveContainer().registerExtensionPoint(

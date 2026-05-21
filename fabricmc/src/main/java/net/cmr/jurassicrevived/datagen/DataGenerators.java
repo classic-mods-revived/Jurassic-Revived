@@ -14,5 +14,6 @@ public class DataGenerators implements DataGeneratorEntrypoint {
         pack.addProvider(FabricBlockLootTableProvider::new);
         pack.addProvider(FabricEntityLootTableProvider::new);
 		pack.addProvider(FabricRecipeProvider::new);
+		pack.addProvider((output, registriesFuture) -> new ModWorldgenProvider(output));
     }
 }
