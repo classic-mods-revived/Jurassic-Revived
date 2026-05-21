@@ -174,7 +174,11 @@ public class FossilGrinderRecipe implements Recipe<FossilGrinderRecipeInput> {
                 buf -> {
                     NonNullList<Ingredient> inputs = ByteBufCodecs.collection(NonNullList::createWithCapacity, Ingredient.CONTENTS_STREAM_CODEC).decode(buf);
                     ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
-                    Map<ResourceLocation, Integer> weights = buf.readMap(ResourceLocation.STREAM_CODEC, ByteBufCodecs.VAR_INT);
+                    Map<ResourceLocation, Integer> weights = buf.readMap(
+                                HashMap<ResourceLocation, Integer>::new,
+                                ResourceLocation.STREAM_CODEC,
+                                ByteBufCodecs.VAR_INT
+                        );
                     return new FossilGrinderRecipe(inputs, output, weights);
                 }
         );

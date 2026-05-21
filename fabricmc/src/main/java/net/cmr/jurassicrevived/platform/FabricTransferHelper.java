@@ -12,18 +12,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 import dev.architectury.fluid.FluidStack;
+import net.cmr.jurassicrevived.platform.transfer.InternalFluidHandler;
+import net.cmr.jurassicrevived.platform.transfer.InternalFluidProvider;
 import team.reborn.energy.api.EnergyStorage;
 import net.cmr.jurassicrevived.platform.transfer.PlatformEnergyHandler;
 import net.cmr.jurassicrevived.platform.transfer.PlatformFluidHandler;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
-//import net.fabricmc.fabric.api.transfer.v1.energy.EnergyStorage;
-//import team.reborn.energy.api.EnergyStorage;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,6 +29,17 @@ import java.util.List;
 import java.util.Optional;
 
 public class FabricTransferHelper implements ITransferHelper {
+	private static final long MB_PER_BUCKET = 1000L;
+
+	private static long dropletsToMb(long droplets) {
+		if (droplets <= 0) return 0;
+		return Math.max(1, droplets * MB_PER_BUCKET / FluidConstants.BUCKET);
+	}
+
+	private static long mbToDroplets(long mb) {
+		if (mb <= 0) return 0;
+		return mb * FluidConstants.BUCKET / MB_PER_BUCKET;
+	}
 
 	@Override
 	public Optional<PlatformItemHandler> getItemHandler(Level level, BlockPos pos, Direction side) {
@@ -41,6 +50,13 @@ public class FabricTransferHelper implements ITransferHelper {
 
 	@Override
 	public Optional<PlatformFluidHandler> getFluidHandler(Level level, BlockPos pos, Direction side) {
+		if (level.getBlockEntity(pos) instanceof InternalFluidProvider provider) {
+			InternalFluidHandler handler = provider.getFluidHandler(side);
+			if (handler != null) {
+				return Optional.of(new DirectInternalFluidHandler(handler));
+			}
+		}
+
 		var storage = FluidStorage.SIDED.find(level, pos, side);
 		if (storage == null) return Optional.empty();
 		return Optional.of(new FabricFluidHandler(storage));
@@ -49,7 +65,8 @@ public class FabricTransferHelper implements ITransferHelper {
 	@Override
 	public Optional<PlatformEnergyHandler> getEnergyHandler(Level level, BlockPos pos, Direction side) {
 		EnergyStorage storage = EnergyStorage.SIDED.find(level, pos, side);
-		return Optional.empty();
+		if (storage == null) return Optional.empty();
+		return Optional.of(new FabricEnergyHandler(storage));
 	}
 
 	public static class InternalFluidStorage implements Storage<FluidVariant> {
@@ -65,18 +82,19 @@ public class FabricTransferHelper implements ITransferHelper {
 				return 0;
 			}
 
-			FluidStack stack = FluidStack.create(resource.getFluid(), maxAmount);
-			long inserted = handler.fill(stack, true);
+			long maxAmountMb = dropletsToMb(maxAmount);
+			FluidStack stack = FluidStack.create(resource.getFluid(), maxAmountMb);
+			long insertedMb = handler.fill(stack, true);
 
-			if (inserted > 0) {
+			if (insertedMb > 0) {
 				transaction.addCloseCallback((tx, result) -> {
 					if (result.wasCommitted()) {
-						handler.fill(FluidStack.create(resource.getFluid(), inserted), false);
+						handler.fill(FluidStack.create(resource.getFluid(), insertedMb), false);
 					}
 				});
 			}
 
-			return inserted;
+			return Math.min(maxAmount, mbToDroplets(insertedMb));
 		}
 
 		@Override
@@ -90,17 +108,18 @@ public class FabricTransferHelper implements ITransferHelper {
 				return 0;
 			}
 
-			long extracted = Math.min(maxAmount, stored.getAmount());
+			long maxAmountMb = dropletsToMb(maxAmount);
+			long extractedMb = Math.min(maxAmountMb, stored.getAmount());
 
-			if (extracted > 0) {
+			if (extractedMb > 0) {
 				transaction.addCloseCallback((tx, result) -> {
 					if (result.wasCommitted()) {
-						handler.drain(extracted, false);
+						handler.drain(extractedMb, false);
 					}
 				});
 			}
 
-			return extracted;
+			return Math.min(maxAmount, mbToDroplets(extractedMb));
 		}
 
 		@Override
@@ -114,12 +133,12 @@ public class FabricTransferHelper implements ITransferHelper {
 
 				@Override
 				public long getAmount() {
-					return stored.getAmount();
+					return mbToDroplets(stored.getAmount());
 				}
 
 				@Override
 				public long getCapacity() {
-					return handler.getCapacity();
+					return mbToDroplets(handler.getCapacity());
 				}
 
 				@Override
@@ -132,6 +151,44 @@ public class FabricTransferHelper implements ITransferHelper {
 					return InternalFluidStorage.this.extract(resource, maxAmount, transaction);
 				}
 			}).iterator();
+		}
+	}
+
+	private static class DirectInternalFluidHandler implements PlatformFluidHandler {
+		private final InternalFluidHandler handler;
+
+		private DirectInternalFluidHandler(InternalFluidHandler handler) {
+			this.handler = handler;
+		}
+
+		@Override
+		public Iterable<FluidStack> getExtractableFluids() {
+			FluidStack stored = handler.getFluid();
+			if (stored.isEmpty()) {
+				return List.of();
+			}
+			return List.of(stored.copy());
+		}
+
+		@Override
+		public long extract(FluidStack stack, long amount, boolean simulate) {
+			FluidStack stored = handler.getFluid();
+			if (stored.isEmpty() || stored.getFluid() != stack.getFluid()) {
+				return 0;
+			}
+
+			return handler.drain(amount, simulate).getAmount();
+		}
+
+		@Override
+		public long insert(FluidStack stack, long amount, boolean simulate) {
+			if (stack.isEmpty() || amount <= 0) {
+				return 0;
+			}
+
+			FluidStack toInsert = stack.copy();
+			toInsert.setAmount(amount);
+			return handler.fill(toInsert, simulate);
 		}
 	}
 
@@ -148,7 +205,7 @@ public class FabricTransferHelper implements ITransferHelper {
 			for (StorageView<FluidVariant> view : storage) {
 				if (view.isResourceBlank()) continue;
 				FluidVariant v = view.getResource();
-				long amt = view.getAmount();
+				long amt = dropletsToMb(view.getAmount());
 				if (amt > 0) {
 					FluidStack stack = FluidStack.create(v.getFluid(), amt);
 					stacks.add(stack);
@@ -160,34 +217,57 @@ public class FabricTransferHelper implements ITransferHelper {
 		@Override
 		public long extract(FluidStack stack, long amount, boolean simulate) {
 			try (Transaction tx = Transaction.openOuter()) {
-				long extracted = storage.extract(FluidVariant.of(stack.getFluid()), amount, tx);
+				long extractedDroplets = storage.extract(FluidVariant.of(stack.getFluid()), mbToDroplets(amount), tx);
 				if (!simulate) tx.commit();
-				return extracted;
+				return dropletsToMb(extractedDroplets);
 			}
 		}
 
 		@Override
 		public long insert(FluidStack stack, long amount, boolean simulate) {
 			try (Transaction tx = Transaction.openOuter()) {
-				long inserted = storage.insert(FluidVariant.of(stack.getFluid()), amount, tx);
+				long insertedDroplets = storage.insert(FluidVariant.of(stack.getFluid()), mbToDroplets(amount), tx);
 				if (!simulate) tx.commit();
-				return inserted;
+				return dropletsToMb(insertedDroplets);
 			}
 		}
 	}
 
 	private static class FabricEnergyHandler implements PlatformEnergyHandler {
-		private FabricEnergyHandler() {
+		private final EnergyStorage storage;
+
+		private FabricEnergyHandler(EnergyStorage storage) {
+			this.storage = storage;
 		}
 
 		@Override
 		public int extract(int amount, boolean simulate) {
-			return 0;
+			if (amount <= 0) {
+				return 0;
+			}
+
+			try (Transaction tx = Transaction.openOuter()) {
+				long extracted = storage.extract(amount, tx);
+				if (!simulate) {
+					tx.commit();
+				}
+				return (int) Math.min(Integer.MAX_VALUE, extracted);
+			}
 		}
 
 		@Override
 		public int insert(int amount, boolean simulate) {
-			return 0;
+			if (amount <= 0) {
+				return 0;
+			}
+
+			try (Transaction tx = Transaction.openOuter()) {
+				long inserted = storage.insert(amount, tx);
+				if (!simulate) {
+					tx.commit();
+				}
+				return (int) Math.min(Integer.MAX_VALUE, inserted);
+			}
 		}
 	}
 

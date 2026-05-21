@@ -171,23 +171,27 @@ public class FossilCleanerRecipe implements Recipe<FossilCleanerRecipeInput> {
                 WEIGHTS_CODEC.optionalFieldOf("fossil_weights", Map.of()).forGetter(FossilCleanerRecipe::weights)
         ).apply(inst, FossilCleanerRecipe::new));
 
-        public static final StreamCodec<RegistryFriendlyByteBuf, FossilCleanerRecipe> STREAM_CODEC = StreamCodec.of(
-                (buf, recipe) -> {
-                    ByteBufCodecs.collection(NonNullList::createWithCapacity, Ingredient.CONTENTS_STREAM_CODEC).encode(buf, recipe.inputs());
-                    ItemStack.STREAM_CODEC.encode(buf, recipe.output());
-                    buf.writeMap(recipe.weights(), ResourceLocation.STREAM_CODEC, ByteBufCodecs.VAR_INT);
-                },
-                buf -> {
-                    NonNullList<Ingredient> inputs = ByteBufCodecs.collection(NonNullList::createWithCapacity, Ingredient.CONTENTS_STREAM_CODEC).decode(buf);
-                    ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
-                    Map<ResourceLocation, Integer> weights = buf.readMap(ResourceLocation.STREAM_CODEC, ByteBufCodecs.VAR_INT);
-                    return new FossilCleanerRecipe(inputs, output, weights);
-                }
-        );
+            public static final StreamCodec<RegistryFriendlyByteBuf, FossilCleanerRecipe> STREAM_CODEC = StreamCodec.of(
+                    (buf, recipe) -> {
+                        ByteBufCodecs.collection(NonNullList::createWithCapacity, Ingredient.CONTENTS_STREAM_CODEC).encode(buf, recipe.inputs());
+                        ItemStack.STREAM_CODEC.encode(buf, recipe.output());
+                        buf.writeMap(recipe.weights(), ResourceLocation.STREAM_CODEC, ByteBufCodecs.VAR_INT);
+                    },
+                    buf -> {
+                        NonNullList<Ingredient> inputs = ByteBufCodecs.collection(NonNullList::createWithCapacity, Ingredient.CONTENTS_STREAM_CODEC).decode(buf);
+                        ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
+                        Map<ResourceLocation, Integer> weights = buf.readMap(
+                                HashMap<ResourceLocation, Integer>::new,
+                                ResourceLocation.STREAM_CODEC,
+                                ByteBufCodecs.VAR_INT
+                        );
+                        return new FossilCleanerRecipe(inputs, output, weights);
+                    }
+            );
 
-        @Override public MapCodec<FossilCleanerRecipe> codec() { return CODEC; }
-        @Override public StreamCodec<RegistryFriendlyByteBuf, FossilCleanerRecipe> streamCodec() { return STREAM_CODEC; }
-        *///?} else {
+            @Override public MapCodec<FossilCleanerRecipe> codec() { return CODEC; }
+            @Override public StreamCodec<RegistryFriendlyByteBuf, FossilCleanerRecipe> streamCodec() { return STREAM_CODEC; }
+            *///?} else {
 		@Override
 		public FossilCleanerRecipe fromJson(ResourceLocation id, JsonObject json) {
 			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));

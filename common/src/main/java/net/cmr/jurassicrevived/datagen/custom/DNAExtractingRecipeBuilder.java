@@ -1,5 +1,6 @@
 package net.cmr.jurassicrevived.datagen.custom;
 
+import net.cmr.jurassicrevived.Constants;
 import net.cmr.jurassicrevived.recipe.DNAExtractorRecipe;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
@@ -77,7 +78,7 @@ public class DNAExtractingRecipeBuilder {
         inputs.add(Ingredient.of(secondItem.orElseThrow()));
         ItemStack result = new ItemStack(resultItem.orElseThrow(), this.count);
 
-        DNAExtractorRecipe recipe = new DNAExtractorRecipe(inputs, result, java.util.Map.copyOf(this.weights));
+        DNAExtractorRecipe recipe = new DNAExtractorRecipe(Constants.rl("dna_extractor"), inputs, result, java.util.Map.copyOf(this.weights));
 
         AdvancementHolder advancementHolder = null;
         if (!this.criteria.isEmpty()) {

@@ -94,7 +94,7 @@ public record DNAHybridizerRecipe(ResourceLocation id, NonNullList<Ingredient> i
 				l -> DataResult.success(List.copyOf(l))
 			).forGetter(DNAHybridizerRecipe::inputs),
 			ItemStack.CODEC.fieldOf("result").forGetter(DNAHybridizerRecipe::output)
-		).apply(inst, DNAHybridizerRecipe::new));
+		).apply(inst, (inputs, output) -> new DNAHybridizerRecipe(Constants.rl("dna_hybridizer"), inputs, output)));
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, DNAHybridizerRecipe> STREAM_CODEC = StreamCodec.of(
 			(buf, r) -> {
@@ -106,7 +106,8 @@ public record DNAHybridizerRecipe(ResourceLocation id, NonNullList<Ingredient> i
 				int size = buf.readVarInt();
 				NonNullList<Ingredient> ins = NonNullList.create();
 				for(int i=0; i<size; i++) ins.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
-				return new DNAHybridizerRecipe(ins, ItemStack.STREAM_CODEC.decode(buf));
+				ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
+				return new DNAHybridizerRecipe(Constants.rl("dna_hybridizer"), ins, output);
 			}
 		);
 		@Override public MapCodec<DNAHybridizerRecipe> codec() { return CODEC; }

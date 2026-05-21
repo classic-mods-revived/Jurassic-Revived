@@ -68,7 +68,7 @@ public record EmbryoCalcificationMachineRecipe(ResourceLocation id, NonNullList<
 				list -> DataResult.success(List.copyOf(list))
 			).forGetter(EmbryoCalcificationMachineRecipe::inputs),
 			ItemStack.CODEC.fieldOf("result").forGetter(EmbryoCalcificationMachineRecipe::output)
-		).apply(instance, EmbryoCalcificationMachineRecipe::new));
+		).apply(instance, (inputs, output) -> new EmbryoCalcificationMachineRecipe(Constants.rl("embryo_calcification_machine"), inputs, output)));
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, EmbryoCalcificationMachineRecipe> STREAM_CODEC = StreamCodec.of(
 			(buf, recipe) -> {
@@ -80,7 +80,7 @@ public record EmbryoCalcificationMachineRecipe(ResourceLocation id, NonNullList<
 				int size = buf.readVarInt();
 				NonNullList<Ingredient> ins = NonNullList.create();
 				for(int i=0; i<size; i++) ins.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
-				return new EmbryoCalcificationMachineRecipe(ins, ItemStack.STREAM_CODEC.decode(buf));
+				return new EmbryoCalcificationMachineRecipe(Constants.rl("embryo_calcification_machine"), ins, ItemStack.STREAM_CODEC.decode(buf));
 			}
 		);
 		@Override public MapCodec<EmbryoCalcificationMachineRecipe> codec() { return CODEC; }

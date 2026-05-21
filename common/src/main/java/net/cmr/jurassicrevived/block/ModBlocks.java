@@ -677,7 +677,16 @@ public class ModBlocks {
 	}
 
 	private static <T extends Block> void registerBlockItem(String name, RegistrySupplier<T> block) {
-		ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+		ModItems.ITEMS.register(name, () -> {
+			T blockInstance = block.get();
+			Item.Properties properties = new Item.Properties();
+
+			if (blockInstance instanceof EggBlock || blockInstance instanceof IncubatedEggBlock) {
+				properties.stacksTo(1);
+			}
+
+			return new BlockItem(blockInstance, properties);
+		});
 	}
 
 	public static void register() {

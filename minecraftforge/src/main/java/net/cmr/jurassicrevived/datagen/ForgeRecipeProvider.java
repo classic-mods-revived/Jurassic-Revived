@@ -112,16 +112,15 @@ public class ForgeRecipeProvider extends RecipeProvider implements ModRecipeProv
                 .save(output);
     }
 
-    @Override
-    public void dnaHybridizing(ItemLike result, int count, ItemLike catalyst, ItemLike... ingredients) {
-        DNAHybridizingRecipeBuilder builder = new DNAHybridizingRecipeBuilder(result, count)
-                .setCatalyst(catalyst);
-        for (ItemLike ingredient : ingredients) {
-            builder.addIngredient(ingredient);
-        }
-        builder.unlockedBy("has_catalyst", has(catalyst))
-                .save(output);
-    }
+	@Override
+	public void dnaHybridizing(ItemLike result, int count, ItemLike... ingredients) {
+		DNAHybridizingRecipeBuilder builder = new DNAHybridizingRecipeBuilder(result, count);
+		for (ItemLike ingredient : ingredients) {
+			builder.addIngredient(ingredient);
+		}
+		builder.unlockedBy("has_dna", has(ingredients[0]))
+			.save(output);
+	}
 
     @Override
     public void embryonicMachine(ItemLike syringe, ItemLike dna, ItemLike catalyst, ItemLike result, int count) {

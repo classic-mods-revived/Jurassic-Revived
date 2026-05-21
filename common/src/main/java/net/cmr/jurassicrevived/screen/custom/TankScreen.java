@@ -75,7 +75,21 @@ public class TankScreen extends AbstractContainerScreen<TankMenu> {
 		renderBackground(guiGraphics);
 		//?}
 		super.render(guiGraphics, mouseX, mouseY, delta);
+
+		int x = (width - imageWidth) / 2;
+		int y = (height - imageHeight) / 2;
+		if (MouseUtil.isMouseOver(mouseX, mouseY, x + 80, y + 8, fluidRenderer.getWidth(), fluidRenderer.getHeight())) {
+			renderHoverHighlight(guiGraphics, x + 80, y + 8, fluidRenderer.getWidth(), fluidRenderer.getHeight());
+		}
+
 		renderTooltip(guiGraphics, mouseX, mouseY);
+	}
+
+	private static void renderHoverHighlight(GuiGraphics guiGraphics, int x, int y, int width, int height) {
+		guiGraphics.pose().pushPose();
+		guiGraphics.pose().translate(0, 0, 200);
+		guiGraphics.fillGradient(x, y, x + width, y + height, 0x80FFFFFF, 0x80FFFFFF);
+		guiGraphics.pose().popPose();
 	}
 
 	public static boolean isMouseAboveArea(int pMouseX, int pMouseY, int x, int y, int offsetX, int offsetY, FluidTankRenderer renderer) {

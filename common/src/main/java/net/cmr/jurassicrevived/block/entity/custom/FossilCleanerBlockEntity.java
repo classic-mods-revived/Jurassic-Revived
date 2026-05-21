@@ -151,7 +151,7 @@ public class FossilCleanerBlockEntity extends BlockEntity implements ExtendedMen
 	/*@Override
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.saveAdditional(tag, registries);
-		tag.put("Inventory", itemHandler.createTag(registries));
+		tag.put("Inventory", saveInventory(registries));
 		tag.putInt("Prog", this.progress);
 		tag.putInt("MaxProg", this.maxProgress);
 		tag.put("Energy", energyStorage.saveNBT());
@@ -163,7 +163,7 @@ public class FossilCleanerBlockEntity extends BlockEntity implements ExtendedMen
 	@Override
 	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.loadAdditional(tag, registries);
-		itemHandler.fromTag(tag.getList("Inventory", 10), registries);
+		loadInventory(tag.getList("Inventory", 10), registries);
 		progress = tag.getInt("Prog");
 		maxProgress = tag.getInt("MaxProg");
 		if (tag.contains("Energy")) energyStorage.loadNBT(tag.getCompound("Energy"));
@@ -178,6 +178,35 @@ public class FossilCleanerBlockEntity extends BlockEntity implements ExtendedMen
 			fluidStack = FluidStack.empty();
 		}
 	}
+
+	private ListTag saveInventory(HolderLookup.Provider registries) {
+		ListTag listTag = new ListTag();
+
+		for (int slot = 0; slot < itemHandler.getContainerSize(); slot++) {
+			ItemStack stack = itemHandler.getItem(slot);
+			if (!stack.isEmpty()) {
+				CompoundTag stackTag = new CompoundTag();
+				stackTag.putByte("Slot", (byte) slot);
+				listTag.add(stack.save(registries, stackTag));
+			}
+		}
+
+		return listTag;
+	}
+
+	private void loadInventory(ListTag listTag, HolderLookup.Provider registries) {
+		itemHandler.clearContent();
+
+		for (int i = 0; i < listTag.size(); i++) {
+			CompoundTag stackTag = listTag.getCompound(i);
+			int slot = stackTag.getByte("Slot") & 255;
+
+			if (slot >= 0 && slot < itemHandler.getContainerSize()) {
+				itemHandler.setItem(slot, ItemStack.parseOptional(registries, stackTag));
+			}
+		}
+	}
+
 	*///?} else {
 	@Override
 	protected void saveAdditional(CompoundTag tag) {

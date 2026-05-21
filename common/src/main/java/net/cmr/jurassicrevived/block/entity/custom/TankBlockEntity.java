@@ -270,7 +270,7 @@ public class TankBlockEntity extends BlockEntity implements ExtendedMenuProvider
 	/*@Override
 	protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
 		super.saveAdditional(pTag, pRegistries);
-		pTag.put("Inventory", itemHandler.createTag(pRegistries));
+		pTag.put("Inventory", saveInventory(pRegistries));
 		if (!fluidStack.isEmpty()) {
 			pTag.put("Fluid", fluidStack.write(pRegistries, new CompoundTag()));
 		}
@@ -279,7 +279,7 @@ public class TankBlockEntity extends BlockEntity implements ExtendedMenuProvider
 	@Override
 	protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
 		super.loadAdditional(pTag, pRegistries);
-		itemHandler.fromTag(pTag.getList("Inventory", 10), pRegistries);
+		loadInventory(pTag.getList("Inventory", 10), pRegistries);
 		if (pTag.contains("Fluid", 10)) {
 			CompoundTag fluidTag = pTag.getCompound("Fluid");
 			if (fluidTag.contains("id") && fluidTag.contains("amount")) {
@@ -291,6 +291,35 @@ public class TankBlockEntity extends BlockEntity implements ExtendedMenuProvider
 			this.fluidStack = FluidStack.empty();
 		}
 	}
+
+	private ListTag saveInventory(HolderLookup.Provider registries) {
+		ListTag listTag = new ListTag();
+
+		for (int slot = 0; slot < itemHandler.getContainerSize(); slot++) {
+			ItemStack stack = itemHandler.getItem(slot);
+			if (!stack.isEmpty()) {
+				CompoundTag stackTag = new CompoundTag();
+				stackTag.putByte("Slot", (byte) slot);
+				listTag.add(stack.save(registries, stackTag));
+			}
+		}
+
+		return listTag;
+	}
+
+	private void loadInventory(ListTag listTag, HolderLookup.Provider registries) {
+		itemHandler.clearContent();
+
+		for (int i = 0; i < listTag.size(); i++) {
+			CompoundTag stackTag = listTag.getCompound(i);
+			int slot = stackTag.getByte("Slot") & 255;
+
+			if (slot >= 0 && slot < itemHandler.getContainerSize()) {
+				itemHandler.setItem(slot, ItemStack.parseOptional(registries, stackTag));
+			}
+		}
+	}
+
 	*///?} else {
 	@Override
 	protected void saveAdditional(CompoundTag pTag) {

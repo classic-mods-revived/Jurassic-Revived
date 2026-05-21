@@ -111,24 +111,6 @@ public class CommonClientClass {
 		EntityRendererRegistry.register(ModEntities.TROODON, TroodonRenderer::new);
 		EntityRendererRegistry.register(ModEntities.UTAHRAPTOR, UtahraptorRenderer::new);
 
-        //? if <=1.20.1 {
-		ClientLifecycleEvent.CLIENT_SETUP.register(minecraft -> {
-			MenuRegistry.registerScreenFactory(ModMenuTypes.GENERATOR_MENU.get(), GeneratorScreen::new);
-			MenuRegistry.registerScreenFactory(ModMenuTypes.DNA_EXTRACTOR_MENU.get(), DNAExtractorScreen::new);
-			MenuRegistry.registerScreenFactory(ModMenuTypes.DNA_ANALYZER_MENU.get(), DNAAnalyzerScreen::new);
-			MenuRegistry.registerScreenFactory(ModMenuTypes.FOSSIL_GRINDER_MENU.get(), FossilGrinderScreen::new);
-			MenuRegistry.registerScreenFactory(ModMenuTypes.FOSSIL_CLEANER_MENU.get(), FossilCleanerScreen::new);
-			MenuRegistry.registerScreenFactory(ModMenuTypes.DNA_HYBRIDIZER_MENU.get(), DNAHybridizerScreen::new);
-			MenuRegistry.registerScreenFactory(ModMenuTypes.EMBRYONIC_MACHINE_MENU.get(), EmbryonicMachineScreen::new);
-			MenuRegistry.registerScreenFactory(ModMenuTypes.EMBRYO_CALCIFICATION_MACHINE_MENU.get(), EmbryoCalcificationMachineScreen::new);
-			MenuRegistry.registerScreenFactory(ModMenuTypes.INCUBATOR_MENU.get(), IncubatorScreen::new);
-			MenuRegistry.registerScreenFactory(ModMenuTypes.TANK_MENU.get(), TankScreen::new);
-			MenuRegistry.registerScreenFactory(ModMenuTypes.POWER_CELL_MENU.get(), PowerCellScreen::new);
-			MenuRegistry.registerScreenFactory(ModMenuTypes.WOOD_CRATE_MENU.get(), CrateScreen::new);
-			MenuRegistry.registerScreenFactory(ModMenuTypes.IRON_CRATE_MENU.get(), CrateScreen::new);
-		});
-        //?}
-
 		if (Platform.isFabric()) {
 			registerSpawnEggColors();
 			registerRenderTypes();
@@ -141,6 +123,24 @@ public class CommonClientClass {
             BlockEntityRendererRegistry.register(ModBlockEntities.TANK_BE.get(), TankBlockEntityRenderer::new);
 		});
     }
+
+	//? if <=1.20.1 {
+	public static void registerScreens() {
+		MenuRegistry.registerScreenFactory(ModMenuTypes.GENERATOR_MENU.get(), GeneratorScreen::new);
+		MenuRegistry.registerScreenFactory(ModMenuTypes.DNA_EXTRACTOR_MENU.get(), DNAExtractorScreen::new);
+		MenuRegistry.registerScreenFactory(ModMenuTypes.DNA_ANALYZER_MENU.get(), DNAAnalyzerScreen::new);
+		MenuRegistry.registerScreenFactory(ModMenuTypes.FOSSIL_GRINDER_MENU.get(), FossilGrinderScreen::new);
+		MenuRegistry.registerScreenFactory(ModMenuTypes.FOSSIL_CLEANER_MENU.get(), FossilCleanerScreen::new);
+		MenuRegistry.registerScreenFactory(ModMenuTypes.DNA_HYBRIDIZER_MENU.get(), DNAHybridizerScreen::new);
+		MenuRegistry.registerScreenFactory(ModMenuTypes.EMBRYONIC_MACHINE_MENU.get(), EmbryonicMachineScreen::new);
+		MenuRegistry.registerScreenFactory(ModMenuTypes.EMBRYO_CALCIFICATION_MACHINE_MENU.get(), EmbryoCalcificationMachineScreen::new);
+		MenuRegistry.registerScreenFactory(ModMenuTypes.INCUBATOR_MENU.get(), IncubatorScreen::new);
+		MenuRegistry.registerScreenFactory(ModMenuTypes.TANK_MENU.get(), TankScreen::new);
+		MenuRegistry.registerScreenFactory(ModMenuTypes.POWER_CELL_MENU.get(), PowerCellScreen::new);
+		MenuRegistry.registerScreenFactory(ModMenuTypes.WOOD_CRATE_MENU.get(), CrateScreen::new);
+		MenuRegistry.registerScreenFactory(ModMenuTypes.IRON_CRATE_MENU.get(), CrateScreen::new);
+	}
+	//?}
 
 	private static void registerSpawnEggColors() {
 		ModItems.ITEMS.forEach(itemSupplier -> {

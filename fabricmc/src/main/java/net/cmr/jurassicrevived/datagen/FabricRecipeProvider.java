@@ -188,26 +188,24 @@ public class FabricRecipeProvider extends net.fabricmc.fabric.api.datagen.v1.pro
         //?}
     }
 
-    @Override
-    public void dnaHybridizing(ItemLike result, int count, ItemLike catalyst, ItemLike... ingredients) {
-        //? if >1.20.1 {
-        /*DNAHybridizingRecipeBuilder builder = new DNAHybridizingRecipeBuilder(result, count)
-                .setCatalyst(catalyst);
+	@Override
+	public void dnaHybridizing(ItemLike result, int count, ItemLike... ingredients) {
+		//? if >1.20.1 {
+		/*DNAHybridizingRecipeBuilder builder = new DNAHybridizingRecipeBuilder(result, count);
+		for (ItemLike ingredient : ingredients) {
+			builder.addIngredient(ingredient);
+		}
+		builder.unlockedBy("has_dna", has(ingredients[0]))
+			.save(output);
+		*///?} else {
+        DNAHybridizingRecipeBuilder builder = new DNAHybridizingRecipeBuilder(result, count);
         for (ItemLike ingredient : ingredients) {
             builder.addIngredient(ingredient);
         }
-        builder.unlockedBy("has_catalyst", has(catalyst))
-                .save(output);
-        *///?} else {
-        DNAHybridizingRecipeBuilder builder = new DNAHybridizingRecipeBuilder(result, count)
-                .setCatalyst(catalyst);
-        for (ItemLike ingredient : ingredients) {
-            builder.addIngredient(ingredient);
-        }
-        builder.unlockedBy("has_catalyst", has(catalyst))
+        builder.unlockedBy("has_dna", has(ingredients[0]))
                 .save(output);
         //?}
-    }
+	}
 
     @Override
     public void embryonicMachine(ItemLike syringe, ItemLike dna, ItemLike catalyst, ItemLike result, int count) {

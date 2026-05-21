@@ -7,6 +7,7 @@ import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Constants.MOD_ID)
@@ -21,10 +22,12 @@ public class JRMod {
 
 		EventBuses.registerModEventBus(Constants.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
 
-        // Use Forge to bootstrap the Common mod.
+		// Use Forge to bootstrap the Common mod.
         CommonClass.init();
 
 		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> CommonClientClass::init);
+
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
 
 		ModLoadingContext.get().registerExtensionPoint(
 			ConfigScreenHandler.ConfigScreenFactory.class,
@@ -34,4 +37,8 @@ public class JRMod {
 		);
 
     }
+
+	private void clientSetup(FMLClientSetupEvent event) {
+		event.enqueueWork(CommonClientClass::registerScreens);
+	}
 }

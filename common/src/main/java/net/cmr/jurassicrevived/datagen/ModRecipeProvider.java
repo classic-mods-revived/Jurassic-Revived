@@ -25,7 +25,7 @@ public class ModRecipeProvider {
         // Custom
         void dnaExtracting(ItemLike testTube, ItemLike tissue, ItemLike dna, int count);
         void dnaAnalyzing(ItemLike testTube, ItemLike material, ItemLike dna, int count);
-        void dnaHybridizing(ItemLike result, int count, ItemLike catalyst, ItemLike... ingredients);
+        void dnaHybridizing(ItemLike result, int count, ItemLike... ingredients);
         void embryonicMachine(ItemLike syringe, ItemLike dna, ItemLike catalyst, ItemLike result, int count);
         void embryoCalcification(ItemLike syringe, ItemLike egg, ItemLike result, int count);
         void incubating(ItemLike egg, ItemLike result, int count);
@@ -345,24 +345,21 @@ public class ModRecipeProvider {
 
 		helper.dnaAnalyzing(ModItems.TEST_TUBE.get(), ModItems.FROG_MATERIAL.get(), ModItems.FROG_DNA.get(), 1);
 
-
-		helper.dnaHybridizing(ModItems.INDOMINUS_REX_DNA.get(), 1, ModItems.FROG_DNA.get(),
-                ModItems.TYRANNOSAURUS_REX_DNA.get(),
-                ModItems.VELOCIRAPTOR_DNA.get(),
-                ModItems.CARNOTAURUS_DNA.get(),
-                ModItems.THERIZINOSAURUS_DNA.get(),
-                ModItems.MAJUNGASAURUS_DNA.get(),
-                ModItems.RUGOPS_DNA.get(),
-                ModItems.GIGANOTOSAURUS_DNA.get());
-
-        helper.dnaHybridizing(ModItems.DISTORTUS_REX_DNA.get(), 1, ModItems.FROG_DNA.get(),
-                ModItems.TYRANNOSAURUS_REX_DNA.get(),
-                ModItems.BRACHIOSAURUS_DNA.get(),
-                ModItems.VELOCIRAPTOR_DNA.get());
-
-        helper.dnaHybridizing(ModItems.INDORAPTOR_DNA.get(), 1, ModItems.FROG_DNA.get(),
-                ModItems.INDOMINUS_REX_DNA.get(),
-                ModItems.VELOCIRAPTOR_DNA.get());
+		helper.dnaHybridizing(ModItems.INDOMINUS_REX_DNA.get(), 1,
+			ModItems.TYRANNOSAURUS_REX_DNA.get(),
+			ModItems.VELOCIRAPTOR_DNA.get(),
+			ModItems.CARNOTAURUS_DNA.get(),
+			ModItems.THERIZINOSAURUS_DNA.get(),
+			ModItems.MAJUNGASAURUS_DNA.get(),
+			ModItems.RUGOPS_DNA.get(),
+			ModItems.GIGANOTOSAURUS_DNA.get());
+		helper.dnaHybridizing(ModItems.DISTORTUS_REX_DNA.get(), 1,
+			ModItems.TYRANNOSAURUS_REX_DNA.get(),
+			ModItems.BRACHIOSAURUS_DNA.get(),
+			ModItems.VELOCIRAPTOR_DNA.get());
+		helper.dnaHybridizing(ModItems.INDORAPTOR_DNA.get(), 1,
+			ModItems.INDOMINUS_REX_DNA.get(),
+			ModItems.VELOCIRAPTOR_DNA.get());
 
         helper.embryonicMachine(ModItems.SYRINGE.get(), ModItems.APATOSAURUS_DNA.get(), ModItems.FROG_DNA.get(), ModItems.APATOSAURUS_SYRINGE.get(), 1);
         helper.embryonicMachine(ModItems.SYRINGE.get(), ModItems.ALBERTOSAURUS_DNA.get(), ModItems.FROG_DNA.get(), ModItems.ALBERTOSAURUS_SYRINGE.get(), 1);

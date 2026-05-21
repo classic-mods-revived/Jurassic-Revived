@@ -108,7 +108,7 @@ public record DNAExtractorRecipe(
 			).forGetter(DNAExtractorRecipe::inputs),
 			ItemStack.CODEC.fieldOf("result").forGetter(DNAExtractorRecipe::output),
 			Codec.unboundedMap(ResourceLocation.CODEC, Codec.INT).optionalFieldOf("weights", java.util.Map.of()).forGetter(DNAExtractorRecipe::weights)
-		).apply(inst, DNAExtractorRecipe::new));
+		).apply(inst, (inputs, output, weights) -> new DNAExtractorRecipe(Constants.rl("dna_extractor"), inputs, output, weights)));
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, DNAExtractorRecipe> STREAM_CODEC = StreamCodec.of(
 			(buf, r) -> {
@@ -121,7 +121,13 @@ public record DNAExtractorRecipe(
 				int size = buf.readVarInt();
 				NonNullList<Ingredient> ins = NonNullList.create();
 				for(int i=0; i<size; i++) ins.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
-				return new DNAExtractorRecipe(ins, ItemStack.STREAM_CODEC.decode(buf), buf.readMap(m -> new java.util.HashMap<>(), ResourceLocation.STREAM_CODEC, ByteBufCodecs.VAR_INT));
+				ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
+				java.util.Map<ResourceLocation, Integer> weights = buf.readMap(
+					java.util.HashMap<ResourceLocation, Integer>::new,
+					ResourceLocation.STREAM_CODEC,
+					ByteBufCodecs.VAR_INT
+				);
+				return new DNAExtractorRecipe(Constants.rl("dna_extractor"), ins, output, weights);
 			}
 		);
 		@Override public MapCodec<DNAExtractorRecipe> codec() { return CODEC; }

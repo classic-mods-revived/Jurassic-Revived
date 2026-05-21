@@ -2,11 +2,8 @@ package net.cmr.jurassicrevived.event;
 
 import net.cmr.jurassicrevived.Constants;
 import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
-import net.cmr.jurassicrevived.block.entity.custom.FossilCleanerBlockEntity;
-import net.cmr.jurassicrevived.block.entity.custom.GeneratorBlockEntity;
+import net.cmr.jurassicrevived.block.entity.custom.*;
 import net.cmr.jurassicrevived.config.JRConfigManager;
-import net.cmr.jurassicrevived.block.entity.custom.PowerCellBlockEntity;
-import net.cmr.jurassicrevived.block.entity.custom.TankBlockEntity;
 import net.cmr.jurassicrevived.neoforge.capabilities.NeoForgeEnergyStorage;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -40,12 +37,33 @@ public class NeoForgeEvents
 		event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.GENERATOR_BE.get(),
 			(be, side) -> new NeoForgeEnergyStorage(((GeneratorBlockEntity) be).getEnergyStorage(side)));
 
+		event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.DNA_ANALYZER_BE.get(),
+			(be, side) -> new NeoForgeEnergyStorage(((DNAAnalyzerBlockEntity) be).getEnergyStorage(side)));
+
+		event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.DNA_EXTRACTOR_BE.get(),
+			(be, side) -> new NeoForgeEnergyStorage(((DNAExtractorBlockEntity) be).getEnergyStorage(side)));
+
+		event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.DNA_HYBRIDIZER_BE.get(),
+			(be, side) -> new NeoForgeEnergyStorage(((DNAHybridizerBlockEntity) be).getEnergyStorage(side)));
+
+		event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.EMBRYO_CALCIFICATION_MACHINE_BE.get(),
+			(be, side) -> new NeoForgeEnergyStorage(((EmbryoCalcificationMachineBlockEntity) be).getEnergyStorage(side)));
+
+		event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.EMBRYONIC_MACHINE_BE.get(),
+			(be, side) -> new NeoForgeEnergyStorage(((EmbryonicMachineBlockEntity) be).getEnergyStorage(side)));
+
+		event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.FOSSIL_CLEANER_BE.get(),
+			(be, side) -> new NeoForgeEnergyStorage(((FossilCleanerBlockEntity) be).getEnergyStorage(side)));
+
+		event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.FOSSIL_GRINDER_BE.get(),
+			(be, side) -> new NeoForgeEnergyStorage(((FossilGrinderBlockEntity) be).getEnergyStorage(side)));
+
+		event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.INCUBATOR_BE.get(),
+			(be, side) -> new NeoForgeEnergyStorage(((IncubatorBlockEntity) be).getEnergyStorage(side)));
+
 		// Fluids
 		event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, ModBlockEntities.TANK_BE.get(),
 			(be, side) -> new TankFluidAdapter(((TankBlockEntity) be).getTank(side)));
-
-		//event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, ModBlockEntities.FOSSIL_CLEANER_BE.get(),
-		//	(be, side) -> new TankFluidAdapter(((FossilCleanerBlockEntity) be).getTank(side)));
 	}
 
 	private record TankFluidAdapter(TankBlockEntity.TankFluidHandler tank) implements IFluidHandler {

@@ -101,7 +101,7 @@ public record DNAAnalyzerRecipe(
 			).forGetter(DNAAnalyzerRecipe::inputs),
 			ItemStack.CODEC.fieldOf("result").forGetter(DNAAnalyzerRecipe::output),
 			Codec.unboundedMap(ResourceLocation.CODEC, Codec.INT).optionalFieldOf("weights", java.util.Map.of()).forGetter(DNAAnalyzerRecipe::weights)
-		).apply(inst, DNAAnalyzerRecipe::new));
+		).apply(inst, (inputs, output, weights) -> new DNAAnalyzerRecipe(Constants.rl("dna_analyzer"), inputs, output, weights)));
 
 		public static final StreamCodec<RegistryFriendlyByteBuf, DNAAnalyzerRecipe> STREAM_CODEC = StreamCodec.of(
 			(buf, r) -> {
@@ -114,7 +114,13 @@ public record DNAAnalyzerRecipe(
 				int size = buf.readVarInt();
 				NonNullList<Ingredient> ins = NonNullList.create();
 				for(int i=0; i<size; i++) ins.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
-				return new DNAAnalyzerRecipe(ins, ItemStack.STREAM_CODEC.decode(buf), buf.readMap(m -> new java.util.HashMap<>(), ResourceLocation.STREAM_CODEC, ByteBufCodecs.VAR_INT));
+				ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
+				java.util.Map<ResourceLocation, Integer> weights = buf.readMap(
+					java.util.HashMap<ResourceLocation, Integer>::new,
+					ResourceLocation.STREAM_CODEC,
+					ByteBufCodecs.VAR_INT
+				);
+				return new DNAAnalyzerRecipe(Constants.rl("dna_analyzer"), ins, output, weights);
 			}
 		);
 

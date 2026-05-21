@@ -1,5 +1,6 @@
 package net.cmr.jurassicrevived.datagen.custom;
 
+import net.cmr.jurassicrevived.Constants;
 import net.cmr.jurassicrevived.recipe.EmbryoCalcificationMachineRecipe;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
@@ -64,7 +65,7 @@ public class EmbryoCalcificationMachiningRecipeBuilder {
         inputs.add(Ingredient.of(secondItem.orElseThrow()));
         ItemStack result = new ItemStack(resultItem.orElseThrow(), this.count);
 
-        EmbryoCalcificationMachineRecipe recipe = new EmbryoCalcificationMachineRecipe(inputs, result);
+        EmbryoCalcificationMachineRecipe recipe = new EmbryoCalcificationMachineRecipe(Constants.rl("embryo_calcification_machine"), inputs, result);
 
         AdvancementHolder advancementHolder = null;
         if (!this.criteria.isEmpty()) {

@@ -67,15 +67,7 @@ public class GeneratorScreen extends AbstractContainerScreen<GeneratorMenu> {
 
 		renderFuelBurning(guiGraphics, x, y);
 	}
-	//? if >1.20.1 {
-	/*private void renderFuelBurning(GuiGraphics guiGraphics, int x, int y) {
-		if(this.menu.isBurning()) {
-			int l = Mth.ceil(this.menu.getFuelProgress() * 13.0F) + 1;
-			guiGraphics.blitSprite(LIT_PROGRESS_TEXTURE, 14, 14, 0, 14 - l,
-				x + 80, y + 18 + 14 - l, 14, l);
-		}
-	}
-	*///?} else {
+
 	private void renderFuelBurning(GuiGraphics guiGraphics, int x, int y) {
 		if (this.menu.isBurning()) {
 			float progress = Mth.clamp(this.menu.getFuelProgress(), 0.0F, 1.0F);
@@ -95,7 +87,6 @@ public class GeneratorScreen extends AbstractContainerScreen<GeneratorMenu> {
 			guiGraphics.blit(LIT_PROGRESS_TEXTURE, destX, destY, srcU, srcV, width, height, texW, texH);
 		}
 	}
-	//?}
 
 	@Override
 	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {

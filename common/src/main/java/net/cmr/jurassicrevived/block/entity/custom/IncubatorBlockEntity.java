@@ -136,7 +136,7 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 	/*@Override
 	protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.saveAdditional(tag, registries);
-		tag.put("Inventory", itemHandler.createTag(registries));
+		tag.put("Inventory", saveInventory(registries));
 		tag.putInt("Prog0", this.progress[0]);
 		tag.putInt("Prog1", this.progress[1]);
 		tag.putInt("Prog2", this.progress[2]);
@@ -149,7 +149,7 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 	@Override
 	protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
 		super.loadAdditional(tag, registries);
-		itemHandler.fromTag(tag.getList("Inventory", 10), registries);
+		loadInventory(tag.getList("Inventory", 10), registries);
 		if (tag.contains("Energy")) {
 			energyStorage.loadNBT(tag.getCompound("Energy"));
 		}
@@ -160,6 +160,35 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 		maxProgress[1] = tag.getInt("Max1");
 		maxProgress[2] = tag.getInt("Max2");
 	}
+
+	private ListTag saveInventory(HolderLookup.Provider registries) {
+		ListTag listTag = new ListTag();
+
+		for (int slot = 0; slot < itemHandler.getContainerSize(); slot++) {
+			ItemStack stack = itemHandler.getItem(slot);
+			if (!stack.isEmpty()) {
+				CompoundTag stackTag = new CompoundTag();
+				stackTag.putByte("Slot", (byte) slot);
+				listTag.add(stack.save(registries, stackTag));
+			}
+		}
+
+		return listTag;
+	}
+
+	private void loadInventory(ListTag listTag, HolderLookup.Provider registries) {
+		itemHandler.clearContent();
+
+		for (int i = 0; i < listTag.size(); i++) {
+			CompoundTag stackTag = listTag.getCompound(i);
+			int slot = stackTag.getByte("Slot") & 255;
+
+			if (slot >= 0 && slot < itemHandler.getContainerSize()) {
+				itemHandler.setItem(slot, ItemStack.parseOptional(registries, stackTag));
+			}
+		}
+	}
+
 	*///?} else {
 	@Override
 	protected void saveAdditional(CompoundTag tag) {

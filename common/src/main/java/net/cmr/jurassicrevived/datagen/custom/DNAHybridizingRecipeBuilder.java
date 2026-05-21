@@ -1,5 +1,6 @@
 package net.cmr.jurassicrevived.datagen.custom;
 
+import net.cmr.jurassicrevived.Constants;
 import net.cmr.jurassicrevived.recipe.DNAHybridizerRecipe;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
@@ -38,7 +39,6 @@ public class DNAHybridizingRecipeBuilder {
     private final Map<String, InventoryChangeTrigger.TriggerInstance> criteria;
     //?}
     private final NonNullList<Ingredient> ingredients = NonNullList.create();
-    private java.util.Optional<ItemLike> catalyst = java.util.Optional.empty();
 
     public DNAHybridizingRecipeBuilder(ItemLike result, int count) {
         this.resultItem = java.util.Optional.of(result.asItem());
@@ -51,23 +51,18 @@ public class DNAHybridizingRecipeBuilder {
     }
 
     public DNAHybridizingRecipeBuilder addIngredient(ItemLike item) {
-        if (this.ingredients.size() >= 9) {
-            throw new IllegalStateException("DNAHybridizer supports at most 9 input ingredients");
+        if (this.ingredients.size() >= 8) {
+            throw new IllegalStateException("DNAHybridizer supports at most 8 input ingredients");
         }
         this.ingredients.add(Ingredient.of(item));
         return this;
     }
 
     public DNAHybridizingRecipeBuilder addIngredient(Ingredient ingredient) {
-        if (this.ingredients.size() >= 9) {
-            throw new IllegalStateException("DNAHybridizer supports at most 9 input ingredients");
+        if (this.ingredients.size() >= 8) {
+            throw new IllegalStateException("DNAHybridizer supports at most 8 input ingredients");
         }
         this.ingredients.add(ingredient);
-        return this;
-    }
-
-    public DNAHybridizingRecipeBuilder setCatalyst(ItemLike item) {
-        this.catalyst = java.util.Optional.of(item);
         return this;
     }
 
@@ -88,20 +83,9 @@ public class DNAHybridizingRecipeBuilder {
         NonNullList<Ingredient> inputs = NonNullList.create();
         inputs.addAll(this.ingredients);
 
-        if (inputs.size() > 8 && catalyst.isPresent()) {
-            throw new IllegalStateException("When a catalyst is set, at most 8 regular ingredients are allowed (slot 9 is reserved).");
-        }
-
-        if (catalyst.isPresent()) {
-            while (inputs.size() < 8) {
-                inputs.add(Ingredient.EMPTY);
-            }
-            inputs.add(Ingredient.of(catalyst.get()));
-        }
-
         ItemStack result = new ItemStack(resultItem.orElseThrow(), this.count);
 
-        DNAHybridizerRecipe recipe = new DNAHybridizerRecipe(inputs, result);
+        DNAHybridizerRecipe recipe = new DNAHybridizerRecipe(Constants.rl("dna_hybridizer"), inputs, result);
 
         AdvancementHolder advancementHolder = null;
         if (!this.criteria.isEmpty()) {
@@ -132,17 +116,6 @@ public class DNAHybridizingRecipeBuilder {
         }
         NonNullList<Ingredient> inputs = NonNullList.create();
         inputs.addAll(this.ingredients);
-
-        if (inputs.size() > 8 && catalyst.isPresent()) {
-            throw new IllegalStateException("When a catalyst is set, at most 8 regular ingredients are allowed (slot 9 is reserved).");
-        }
-
-        if (catalyst.isPresent()) {
-            while (inputs.size() < 8) {
-                inputs.add(Ingredient.EMPTY);
-            }
-            inputs.add(Ingredient.of(catalyst.get()));
-        }
 
         Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
         advancementBuilder.parent(new ResourceLocation("recipes/root"))
