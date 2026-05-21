@@ -23,18 +23,53 @@ public final class JRClothConfigScreens {
         ConfigEntryBuilder eb = builder.entryBuilder();
 
         general.addEntry(
-                eb.startBooleanToggle(Component.literal("Enable Dinosaurs"), cfg.enableDinosaurs)
+                eb.startBooleanToggle(Component.literal("Require Power"), cfg.requirePower)
                         .setDefaultValue(true)
-                        .setSaveConsumer(v -> cfg.enableDinosaurs = v)
+                        .setTooltip(Component.literal("When disabled, machines do not consume power, hide power bars, and energy pipes do not connect to machines."))
+                        .setSaveConsumer(v -> cfg.requirePower = v)
+						.requireRestart()
                         .build()
         );
 
         general.addEntry(
-                eb.startIntField(Component.literal("Spawn Weight"), cfg.spawnWeight)
-                        .setDefaultValue(10)
-                        .setMin(0)
-                        .setMax(1000)
-                        .setSaveConsumer(v -> cfg.spawnWeight = v)
+                eb.startBooleanToggle(Component.literal("Naturally Spawning Dinosaurs"), cfg.naturallySpawning)
+                        .setDefaultValue(false)
+                        .setTooltip(Component.literal("Controls whether dinosaurs naturally spawn once entity spawning is implemented."))
+                        .setSaveConsumer(v -> cfg.naturallySpawning = v)
+						.requireRestart()
+                        .build()
+        );
+
+        general.addEntry(
+                eb.startIntField(Component.literal("FE Per Second"), cfg.fePerSecond)
+                        .setDefaultValue(1000)
+                        .setMin(1)
+                        .setMax(Integer.MAX_VALUE)
+                        .setTooltip(Component.literal("Energy pipe transfer rate in FE per second."))
+                        .setSaveConsumer(v -> cfg.fePerSecond = Math.max(1, v))
+						.requireRestart()
+                        .build()
+        );
+
+        general.addEntry(
+                eb.startIntField(Component.literal("Items Per Second"), cfg.itemsPerSecond)
+                        .setDefaultValue(100)
+                        .setMin(1)
+                        .setMax(Integer.MAX_VALUE)
+                        .setTooltip(Component.literal("Item pipe transfer rate in items per second."))
+                        .setSaveConsumer(v -> cfg.itemsPerSecond = Math.max(1, v))
+						.requireRestart()
+                        .build()
+        );
+
+        general.addEntry(
+                eb.startIntField(Component.literal("MilliBuckets Per Second"), cfg.milliBucketsPerSecond)
+                        .setDefaultValue(1000)
+                        .setMin(1)
+                        .setMax(Integer.MAX_VALUE)
+                        .setTooltip(Component.literal("Fluid pipe transfer rate in milliBuckets per second."))
+                        .setSaveConsumer(v -> cfg.milliBucketsPerSecond = Math.max(1, v))
+						.requireRestart()
                         .build()
         );
 

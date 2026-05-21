@@ -5,6 +5,7 @@ import net.cmr.jurassicrevived.block.custom.DNAHybridizerBlock;
 import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyStorage;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyUtil;
+import net.cmr.jurassicrevived.config.JRConfigManager;
 import net.cmr.jurassicrevived.recipe.DNAHybridizerRecipe;
 import net.cmr.jurassicrevived.recipe.DNAHybridizerRecipeInput;
 import net.cmr.jurassicrevived.recipe.ModRecipes;
@@ -274,8 +275,10 @@ public class DNAHybridizerBlockEntity extends BlockEntity implements ExtendedMen
 		boolean canProceed = exactMatch != null && !lockedOutput.isEmpty() && canInsertOutput(lockedOutput);
 
 		if (canProceed) {
-			if (energyStorage.getEnergyStored() < 10) return;
-			energyStorage.extractEnergy(10, false);
+			if (JRConfigManager.get().requirePower) {
+				if (energyStorage.getEnergyStored() < 10) return;
+				energyStorage.extractEnergy(10, false);
+			}
 
 			progress++;
 			level.setBlockAndUpdate(pos, state.setValue(DNAHybridizerBlock.LIT, true));

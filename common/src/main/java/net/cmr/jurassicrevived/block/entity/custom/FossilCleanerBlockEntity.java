@@ -6,6 +6,7 @@ import net.cmr.jurassicrevived.block.custom.FossilCleanerBlock;
 import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyStorage;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyUtil;
+import net.cmr.jurassicrevived.config.JRConfigManager;
 import net.cmr.jurassicrevived.recipe.FossilCleanerRecipe;
 import net.cmr.jurassicrevived.recipe.FossilCleanerRecipeInput;
 import net.cmr.jurassicrevived.recipe.ModRecipes;
@@ -289,8 +290,10 @@ public class FossilCleanerBlockEntity extends BlockEntity implements ExtendedMen
 		}
 
 		if (!lockedOutput.isEmpty() && canInsertOutput(lockedOutput) && fluidStack.getAmount() >= WATER_CRAFT_AMOUNT) {
-			if (energyStorage.getEnergyStored() < 10) return;
-			energyStorage.extractEnergy(10, false);
+			if (JRConfigManager.get().requirePower) {
+				if (energyStorage.getEnergyStored() < 10) return;
+				energyStorage.extractEnergy(10, false);
+			}
 
 			progress++;
 			level.setBlockAndUpdate(pos, state.setValue(FossilCleanerBlock.LIT, true));

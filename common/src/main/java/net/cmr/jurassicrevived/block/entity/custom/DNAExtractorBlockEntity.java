@@ -5,6 +5,7 @@ import net.cmr.jurassicrevived.block.custom.DNAExtractorBlock;
 import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyStorage;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyUtil;
+import net.cmr.jurassicrevived.config.JRConfigManager;
 import net.cmr.jurassicrevived.item.ModItems;
 import net.cmr.jurassicrevived.recipe.DNAExtractorRecipe;
 import net.cmr.jurassicrevived.recipe.DNAExtractorRecipeInput;
@@ -263,8 +264,10 @@ public class DNAExtractorBlockEntity extends BlockEntity implements ExtendedMenu
 		}
 
 		if (!lockedOutput.isEmpty() && canInsertOutput(lockedOutput)) {
-			if (energyStorage.getEnergyStored() < 10) return;
-			energyStorage.extractEnergy(10, false);
+			if (JRConfigManager.get().requirePower) {
+				if (energyStorage.getEnergyStored() < 10) return;
+				energyStorage.extractEnergy(10, false);
+			}
 
 			progress++;
 			level.setBlockAndUpdate(pos, state.setValue(DNAExtractorBlock.LIT, true));

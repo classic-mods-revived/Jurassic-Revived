@@ -5,6 +5,7 @@ import net.cmr.jurassicrevived.block.custom.FossilGrinderBlock;
 import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyStorage;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyUtil;
+import net.cmr.jurassicrevived.config.JRConfigManager;
 import net.cmr.jurassicrevived.recipe.FossilGrinderRecipe;
 import net.cmr.jurassicrevived.recipe.FossilGrinderRecipeInput;
 import net.cmr.jurassicrevived.recipe.ModRecipes;
@@ -271,8 +272,10 @@ public class FossilGrinderBlockEntity extends BlockEntity implements ExtendedMen
 		boolean canOutput = !output.isEmpty() && canInsertOutput(output);
 
 		if (canOutput) {
-			if (energyStorage.getEnergyStored() < 10) return;
-			energyStorage.extractEnergy(10, false);
+			if (JRConfigManager.get().requirePower) {
+				if (energyStorage.getEnergyStored() < 10) return;
+				energyStorage.extractEnergy(10, false);
+			}
 
 			progress++;
 			level.setBlockAndUpdate(pos, state.setValue(FossilGrinderBlock.LIT, true));

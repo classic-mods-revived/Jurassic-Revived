@@ -5,6 +5,7 @@ import net.cmr.jurassicrevived.block.custom.DNAAnalyzerBlock;
 import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyStorage;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyUtil;
+import net.cmr.jurassicrevived.config.JRConfigManager;
 import net.cmr.jurassicrevived.item.ModItems;
 import net.cmr.jurassicrevived.recipe.DNAAnalyzerRecipe;
 import net.cmr.jurassicrevived.recipe.DNAAnalyzerRecipeInput;
@@ -265,8 +266,10 @@ public class DNAAnalyzerBlockEntity extends BlockEntity implements ExtendedMenuP
 		}
 
 		if (!lockedOutput.isEmpty() && canInsertOutput(lockedOutput)) {
-			if (energyStorage.getEnergyStored() < 10) return;
-			energyStorage.extractEnergy(10, false);
+			if (JRConfigManager.get().requirePower) {
+				if (energyStorage.getEnergyStored() < 10) return;
+				energyStorage.extractEnergy(10, false);
+			}
 
 			progress++;
 			level.setBlockAndUpdate(pos, state.setValue(DNAAnalyzerBlock.LIT, true));

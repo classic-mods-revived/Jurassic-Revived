@@ -5,6 +5,7 @@ import net.cmr.jurassicrevived.block.custom.IncubatorBlock;
 import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyStorage;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyUtil;
+import net.cmr.jurassicrevived.config.JRConfigManager;
 import net.cmr.jurassicrevived.recipe.IncubatorRecipe;
 import net.cmr.jurassicrevived.recipe.IncubatorRecipeInput;
 import net.cmr.jurassicrevived.recipe.ModRecipes;
@@ -280,8 +281,10 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 		}
 
 		if (anyActive) {
-			if (energyStorage.getEnergyStored() < 10) return;
-			energyStorage.extractEnergy(10, false);
+			if (JRConfigManager.get().requirePower) {
+				if (energyStorage.getEnergyStored() < 10) return;
+				energyStorage.extractEnergy(10, false);
+			}
 		}
 
 		for (int s = 0; s < 3; s++) {

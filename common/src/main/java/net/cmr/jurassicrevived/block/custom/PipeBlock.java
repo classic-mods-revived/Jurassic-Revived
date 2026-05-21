@@ -1,7 +1,9 @@
 package net.cmr.jurassicrevived.block.custom;
 
 import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
+import net.cmr.jurassicrevived.block.entity.custom.GeneratorBlockEntity;
 import net.cmr.jurassicrevived.block.entity.custom.PipeBlockEntity;
+import net.cmr.jurassicrevived.block.entity.custom.PowerCellBlockEntity;
 import net.cmr.jurassicrevived.block.entity.energy.ModEnergyUtil;
 import net.cmr.jurassicrevived.config.JRConfigManager;
 import net.cmr.jurassicrevived.item.ModItems;
@@ -195,7 +197,7 @@ public class PipeBlock extends Block implements EntityBlock, SimpleWaterloggedBl
 			hasCommonConnection = switch (this.transport) {
 				case ITEMS -> be instanceof Container;
 				case FLUIDS -> false;
-				case ENERGY -> be instanceof ModEnergyUtil.EnergyProvider;
+				case ENERGY -> be instanceof ModEnergyUtil.EnergyProvider && canEnergyPipeConnectTo(be);
 			};
 		}
 
@@ -203,7 +205,7 @@ public class PipeBlock extends Block implements EntityBlock, SimpleWaterloggedBl
 			boolean platformHasHandler = switch (this.transport) {
 				case ITEMS -> Services.TRANSFER.getItemHandler(lvl, neighborPos, dir.getOpposite()).isPresent();
 				case FLUIDS -> Services.TRANSFER.getFluidHandler(lvl, neighborPos, dir.getOpposite()).isPresent();
-				case ENERGY -> Services.TRANSFER.getEnergyHandler(lvl, neighborPos, dir.getOpposite()).isPresent();
+				case ENERGY -> canEnergyPipeConnectTo(be) && Services.TRANSFER.getEnergyHandler(lvl, neighborPos, dir.getOpposite()).isPresent();
 			};
 			hasCommonConnection = hasCommonConnection || platformHasHandler;
 		}
@@ -216,6 +218,17 @@ public class PipeBlock extends Block implements EntityBlock, SimpleWaterloggedBl
 		}
 
 		return ConnectionType.NONE;
+	}
+
+	private boolean canEnergyPipeConnectTo(@Nullable BlockEntity be) {
+		if (JRConfigManager.get().requirePower) {
+			return true;
+		}
+
+		return !(be instanceof ModEnergyUtil.EnergyProvider)
+			|| be instanceof GeneratorBlockEntity
+			|| be instanceof PowerCellBlockEntity
+			|| be instanceof PipeBlockEntity;
 	}
 
 	public static EnumProperty<ConnectionType> getProp(Direction dir) {
