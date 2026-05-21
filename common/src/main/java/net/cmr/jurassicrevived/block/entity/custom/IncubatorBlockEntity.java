@@ -188,7 +188,6 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 		maxProgress[1] = tag.getInt("Max1");
 		maxProgress[2] = tag.getInt("Max2");
 	}
-	//?}
 
 	private ListTag saveInventory() {
 		ListTag listTag = new ListTag();
@@ -218,6 +217,7 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 			}
 		}
 	}
+	//?}
 
 	public void tick(Level level, BlockPos pos, BlockState state) {
 		if (level.isClientSide) return;

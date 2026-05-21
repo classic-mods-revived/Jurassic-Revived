@@ -174,7 +174,6 @@ public class DNAExtractorBlockEntity extends BlockEntity implements ExtendedMenu
 			energyStorage.loadNBT(tag.getCompound("Energy"));
 		}
 	}
-	//?}
 
 	private ListTag saveInventory() {
 		ListTag listTag = new ListTag();
@@ -204,6 +203,7 @@ public class DNAExtractorBlockEntity extends BlockEntity implements ExtendedMenu
 			}
 		}
 	}
+	//?}
 
 	public void tick(Level level, BlockPos pos, BlockState state) {
 		if (level.isClientSide) return;

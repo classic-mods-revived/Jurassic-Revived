@@ -200,7 +200,6 @@ public class FossilCleanerBlockEntity extends BlockEntity implements ExtendedMen
 		if (tag.contains("Energy")) energyStorage.loadNBT(tag.getCompound("Energy"));
 		if (tag.contains("Fluid")) fluidStack = FluidStack.read(tag.getCompound("Fluid"));
 	}
-	//?}
 
 	private ListTag saveInventory() {
 		ListTag listTag = new ListTag();
@@ -230,6 +229,7 @@ public class FossilCleanerBlockEntity extends BlockEntity implements ExtendedMen
 			}
 		}
 	}
+	//?}
 
 	public void tick(Level level, BlockPos pos, BlockState state) {
 		if (level.isClientSide) return;

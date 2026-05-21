@@ -163,7 +163,6 @@ public class EmbryonicMachineBlockEntity extends BlockEntity implements Extended
 		loadInventory(tag.getList("Inventory", 10));
 		loadCommonData(tag);
 	}
-	//?}
 
 	private ListTag saveInventory() {
 		ListTag listTag = new ListTag();
@@ -193,6 +192,7 @@ public class EmbryonicMachineBlockEntity extends BlockEntity implements Extended
 			}
 		}
 	}
+	//?}
 
 	private void saveCommonData(CompoundTag tag) {
 		tag.putInt("Prog", this.progress);

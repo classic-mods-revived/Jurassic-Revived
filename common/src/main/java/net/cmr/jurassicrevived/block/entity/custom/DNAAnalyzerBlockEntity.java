@@ -174,7 +174,6 @@ public class DNAAnalyzerBlockEntity extends BlockEntity implements ExtendedMenuP
 			energyStorage.loadNBT(tag.getCompound("Energy"));
 		}
 	}
-	//?}
 
 	private ListTag saveInventory() {
 		ListTag listTag = new ListTag();
@@ -204,6 +203,7 @@ public class DNAAnalyzerBlockEntity extends BlockEntity implements ExtendedMenuP
 			}
 		}
 	}
+	//?}
 
 	public void tick(Level level, BlockPos pos, BlockState state) {
 		if (level.isClientSide) return;

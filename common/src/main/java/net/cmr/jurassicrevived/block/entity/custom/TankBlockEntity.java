@@ -313,7 +313,6 @@ public class TankBlockEntity extends BlockEntity implements ExtendedMenuProvider
 			this.fluidStack = FluidStack.empty();
 		}
 	}
-	//?}
 
 	private ListTag saveInventory() {
 		ListTag listTag = new ListTag();
@@ -343,6 +342,7 @@ public class TankBlockEntity extends BlockEntity implements ExtendedMenuProvider
 			}
 		}
 	}
+	//?}
 
 	@Nullable
 	@Override

@@ -159,7 +159,6 @@ public class EmbryoCalcificationMachineBlockEntity extends BlockEntity implement
 		loadInventory(tag.getList("Inventory", 10));
 		loadCommonData(tag);
 	}
-	//?}
 
 	private ListTag saveInventory() {
 		ListTag listTag = new ListTag();
@@ -189,6 +188,7 @@ public class EmbryoCalcificationMachineBlockEntity extends BlockEntity implement
 			}
 		}
 	}
+	//?}
 
 	private void saveCommonData(CompoundTag tag) {
 		tag.putInt("Prog", this.progress);
