@@ -28,7 +28,7 @@ public class ModEntities {
 				.sized(0.001f, 0.001f)
 				.clientTrackingRange(16)
 				.updateInterval(1)
-				.build("jurassicrevived:seat")
+				.build("seat")
 		);
 
 	public static final RegistrySupplier<EntityType<AlbertosaurusEntity>> ALBERTOSAURUS =

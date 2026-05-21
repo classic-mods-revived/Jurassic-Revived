@@ -22,7 +22,6 @@ public class JRMod {
 		EventBuses.registerModEventBus(Constants.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
 
         // Use Forge to bootstrap the Common mod.
-        Constants.LOG.info("Hello Forge world!");
         CommonClass.init();
 
 		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> CommonClientClass::init);

@@ -12,6 +12,7 @@ import net.cmr.jurassicrevived.platform.services.IItemFluidHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -294,7 +295,7 @@ public class TankBlockEntity extends BlockEntity implements ExtendedMenuProvider
 	@Override
 	protected void saveAdditional(CompoundTag pTag) {
 		super.saveAdditional(pTag);
-		pTag.put("Inventory", itemHandler.createTag());
+		pTag.put("Inventory", saveInventory());
 		if (!fluidStack.isEmpty()) {
 			CompoundTag fluidTag = new CompoundTag();
 			fluidStack.write(fluidTag);
@@ -305,7 +306,7 @@ public class TankBlockEntity extends BlockEntity implements ExtendedMenuProvider
 	@Override
 	public void load(CompoundTag pTag) {
 		super.load(pTag);
-		itemHandler.fromTag(pTag.getList("Inventory", 10));
+		loadInventory(pTag.getList("Inventory", 10));
 		if (pTag.contains("Fluid")) {
 			this.fluidStack = FluidStack.read(pTag.getCompound("Fluid"));
 		} else {
@@ -313,6 +314,35 @@ public class TankBlockEntity extends BlockEntity implements ExtendedMenuProvider
 		}
 	}
 	//?}
+
+	private ListTag saveInventory() {
+		ListTag listTag = new ListTag();
+
+		for (int slot = 0; slot < itemHandler.getContainerSize(); slot++) {
+			ItemStack stack = itemHandler.getItem(slot);
+			if (!stack.isEmpty()) {
+				CompoundTag stackTag = new CompoundTag();
+				stackTag.putByte("Slot", (byte) slot);
+				stack.save(stackTag);
+				listTag.add(stackTag);
+			}
+		}
+
+		return listTag;
+	}
+
+	private void loadInventory(ListTag listTag) {
+		itemHandler.clearContent();
+
+		for (int i = 0; i < listTag.size(); i++) {
+			CompoundTag stackTag = listTag.getCompound(i);
+			int slot = stackTag.getByte("Slot") & 255;
+
+			if (slot >= 0 && slot < itemHandler.getContainerSize()) {
+				itemHandler.setItem(slot, ItemStack.of(stackTag));
+			}
+		}
+	}
 
 	@Nullable
 	@Override

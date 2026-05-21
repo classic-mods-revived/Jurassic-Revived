@@ -180,7 +180,7 @@ public class FossilGrindingRecipeBuilder {
             if (!weights.isEmpty()) {
                 JsonObject weightsObj = new JsonObject();
                 weights.forEach((k, v) -> weightsObj.addProperty(k.toString(), v));
-                json.add("weights", weightsObj);
+                json.add("weighted_outputs", weightsObj);
             }
         }
 

@@ -13,7 +13,6 @@ import java.util.function.Supplier;
 public class JRMod {
 
     public JRMod(IEventBus eventBus) {
-        Constants.LOG.info("Hello NeoForge world!");
         CommonClass.init();
 
         ModLoadingContext.get().getActiveContainer().registerExtensionPoint(

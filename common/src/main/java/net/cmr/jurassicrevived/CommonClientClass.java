@@ -112,7 +112,7 @@ public class CommonClientClass {
 		EntityRendererRegistry.register(ModEntities.UTAHRAPTOR, UtahraptorRenderer::new);
 
         //? if <=1.20.1 {
-		LifecycleEvent.SETUP.register(() -> {
+		ClientLifecycleEvent.CLIENT_SETUP.register(minecraft -> {
 			MenuRegistry.registerScreenFactory(ModMenuTypes.GENERATOR_MENU.get(), GeneratorScreen::new);
 			MenuRegistry.registerScreenFactory(ModMenuTypes.DNA_EXTRACTOR_MENU.get(), DNAExtractorScreen::new);
 			MenuRegistry.registerScreenFactory(ModMenuTypes.DNA_ANALYZER_MENU.get(), DNAAnalyzerScreen::new);
