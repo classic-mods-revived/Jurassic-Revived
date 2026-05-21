@@ -14,6 +14,7 @@ import net.cmr.jurassicrevived.screen.ModMenuTypes;
 import net.cmr.jurassicrevived.sound.ModSounds;
 import net.cmr.jurassicrevived.util.FenceClimbHandler;
 import net.cmr.jurassicrevived.util.ModEvents;
+import net.cmr.jurassicrevived.worldgen.ModWorldGeneration;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Items;
 
@@ -54,7 +55,7 @@ public class CommonClass
 
 		LifecycleEvent.SETUP.register(() -> {
 			ModBlocks.setupPots();
-			//ModEntities.registerSpawnPlacements();
+			ModEntities.registerSpawnPlacements();
 		});
 
 		ModBlockEntities.register();
@@ -65,5 +66,7 @@ public class CommonClass
 
 		ModSounds.register();
 		ModPackets.register();
+
+		ModWorldGeneration.generateWorldGen();
 	}
 }

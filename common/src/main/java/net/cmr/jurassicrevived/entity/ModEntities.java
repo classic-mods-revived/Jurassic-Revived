@@ -409,18 +409,97 @@ public class ModEntities {
 		EntityAttributeRegistry.register(TROODON, TroodonEntity::createAttributes);
 		EntityAttributeRegistry.register(UTAHRAPTOR, UtahraptorEntity::createAttributes);
 	}
-	
+
 	public static void registerSpawnPlacements() {
-		if (!JRConfigManager.get().enableDinosaurs) {
-/*? if >1.20.1 {*/
-			/*SpawnPlacementsRegistry.register(ALBERTOSAURUS, SpawnPlacementTypes.ON_GROUND,
-				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
-*//*?} else {*/
-			SpawnPlacementsRegistry.register(ALBERTOSAURUS, SpawnPlacements.Type.ON_GROUND,
-				Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
-/*?}*/
-			// ... repeat for all your dinos ...
+		Constants.LOG.info("Natural dinosaur spawn placement config loaded as: {}", JRConfigManager.get().naturallySpawning);
+
+		if (!JRConfigManager.get().naturallySpawning) {
+			Constants.LOG.info("Skipping dinosaur spawn placement registration");
+			return;
 		}
+
+		Constants.LOG.info("Registering dinosaur spawn placements");
+
+		registerGroundAnimalSpawn(ALBERTOSAURUS);
+		registerGroundAnimalSpawn(ALLOSAURUS);
+		registerGroundAnimalSpawn(ALVAREZSAURUS);
+		registerGroundAnimalSpawn(ANKYLOSAURUS);
+		registerGroundAnimalSpawn(APATOSAURUS);
+		registerGroundAnimalSpawn(ARAMBOURGIANIA);
+		registerGroundAnimalSpawn(BARYONYX);
+		registerGroundAnimalSpawn(BRACHIOSAURUS);
+		registerGroundAnimalSpawn(CARCHARODONTOSAURUS);
+		registerGroundAnimalSpawn(CARNOTAURUS);
+		registerGroundAnimalSpawn(CEARADACTYLUS);
+		registerGroundAnimalSpawn(CERATOSAURUS);
+		registerGroundAnimalSpawn(CHASMOSAURUS);
+		registerGroundAnimalSpawn(COELOPHYSIS);
+		registerGroundAnimalSpawn(COELURUS);
+		registerGroundAnimalSpawn(COMPSOGNATHUS);
+		registerGroundAnimalSpawn(CONCAVENATOR);
+		registerGroundAnimalSpawn(CORYTHOSAURUS);
+		registerGroundAnimalSpawn(DEINONYCHUS);
+		registerGroundAnimalSpawn(DILOPHOSAURUS);
+		registerGroundAnimalSpawn(DIMORPHODON);
+		registerGroundAnimalSpawn(DIPLODOCUS);
+		registerGroundAnimalSpawn(DRYOSAURUS);
+		registerGroundAnimalSpawn(EDMONTOSAURUS);
+		registerGroundAnimalSpawn(GALLIMIMUS);
+		registerGroundAnimalSpawn(GEOSTERNBERGIA);
+		registerGroundAnimalSpawn(GIGANOTOSAURUS);
+		registerGroundAnimalSpawn(GUANLONG);
+		registerGroundAnimalSpawn(GUIDRACO);
+		registerGroundAnimalSpawn(HADROSAURUS);
+		registerGroundAnimalSpawn(HERRERASAURUS);
+		registerGroundAnimalSpawn(HYPSILOPHODON);
+		registerGroundAnimalSpawn(INOSTRANCEVIA);
+		registerGroundAnimalSpawn(LAMBEOSAURUS);
+		registerGroundAnimalSpawn(LUDODACTYLUS);
+		registerGroundAnimalSpawn(MAJUNGASAURUS);
+		registerGroundAnimalSpawn(MAMENCHISAURUS);
+		registerGroundAnimalSpawn(METRIACANTHOSAURUS);
+		registerGroundAnimalSpawn(MOGANOPTERUS);
+		registerGroundAnimalSpawn(NYCTOSAURUS);
+		registerGroundAnimalSpawn(ORNITHOLESTES);
+		registerGroundAnimalSpawn(ORNITHOMIMUS);
+		registerGroundAnimalSpawn(OURANOSAURUS);
+		registerGroundAnimalSpawn(OVIRAPTOR);
+		registerGroundAnimalSpawn(PACHYCEPHALOSAURUS);
+		registerGroundAnimalSpawn(PARASAUROLOPHUS);
+		registerGroundAnimalSpawn(PROCERATOSAURUS);
+		registerGroundAnimalSpawn(PROCOMPSOGNATHUS);
+		registerGroundAnimalSpawn(PROTOCERATOPS);
+		registerGroundAnimalSpawn(PTERANODON);
+		registerGroundAnimalSpawn(PTERODAUSTRO);
+		registerGroundAnimalSpawn(QUETZALCOATLUS);
+		registerGroundAnimalSpawn(RAJASAURUS);
+		registerGroundAnimalSpawn(RUGOPS);
+		registerGroundAnimalSpawn(SEGISAURUS);
+		registerGroundAnimalSpawn(SHANTUNGOSAURUS);
+		registerGroundAnimalSpawn(SPINOSAURUS);
+		registerGroundAnimalSpawn(STEGOSAURUS);
+		registerGroundAnimalSpawn(STYRACOSAURUS);
+		registerGroundAnimalSpawn(TAPEJARA);
+		registerGroundAnimalSpawn(THERIZINOSAURUS);
+		registerGroundAnimalSpawn(TITANOSAURUS);
+		registerGroundAnimalSpawn(TRICERATOPS);
+		registerGroundAnimalSpawn(TROODON);
+		registerGroundAnimalSpawn(TROPEOGNATHUS);
+		registerGroundAnimalSpawn(TUPUXUARA);
+		registerGroundAnimalSpawn(TYRANNOSAURUS_REX);
+		registerGroundAnimalSpawn(UTAHRAPTOR);
+		registerGroundAnimalSpawn(VELOCIRAPTOR);
+		registerGroundAnimalSpawn(ZHENYUANOPTERUS);
+	}
+
+	private static <T extends Animal> void registerGroundAnimalSpawn(RegistrySupplier<EntityType<T>> entityType) {
+/*? if >1.20.1 {*/
+		/*SpawnPlacementsRegistry.register(entityType, SpawnPlacementTypes.ON_GROUND,
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+*//*?} else {*/
+		SpawnPlacementsRegistry.register(entityType, SpawnPlacements.Type.ON_GROUND,
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+/*?}*/
 	}
 
 	public static void register() {
