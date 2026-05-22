@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.corythosaurus.idle": {
+		"anim.corythosaurus.idle": {
 			"loop": true,
 			"animation_length": 3,
 			"bones": {
@@ -223,7 +223,7 @@
 				}
 			}
 		},
-		"animation.corythosaurus.walk": {
+		"anim.corythosaurus.walk": {
 			"loop": true,
 			"animation_length": 2.5,
 			"bones": {
@@ -1677,7 +1677,7 @@
 				}
 			}
 		},
-		"animation.corythosaurus.run": {
+		"anim.corythosaurus.run": {
 			"loop": true,
 			"animation_length": 0.7917,
 			"bones": {
@@ -2658,7 +2658,7 @@
 				}
 			}
 		},
-		"animation.corythosaurus.mouth": {
+		"anim.corythosaurus.mouth": {
 			"animation_length": 1.5,
 			"bones": {
 				"Neck": {
@@ -2875,7 +2875,7 @@
 				}
 			}
 		},
-		"animation.corythosaurus.attack ": {
+		"anim.corythosaurus.attack ": {
 			"animation_length": 1,
 			"bones": {
 				"Body1": {
