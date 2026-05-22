@@ -98,7 +98,7 @@ public class FDuckEntity extends DinoEntityBase implements GeoEntity {
 
     @Override
     public Block getEggBlock() {
-        return ModBlocks.INCUBATED_FDUCK_EGG.get();
+        return null;
     }
 
     @Override

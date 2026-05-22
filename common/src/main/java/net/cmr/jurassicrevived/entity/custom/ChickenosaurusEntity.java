@@ -98,7 +98,7 @@ public class ChickenosaurusEntity extends DinoEntityBase implements GeoEntity {
 
     @Override
     public Block getEggBlock() {
-        return ModBlocks.INCUBATED_CHICKENOSAURUS_EGG.get();
+        return null;
     }
 
     @Override
