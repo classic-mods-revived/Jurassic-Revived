@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class DryosaurusRenderer extends GeoEntityRenderer<DryosaurusEntity> {
-    private final float animalScale = 0.35F;
+    private final float animalScale = 0.45F;
     public DryosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new DryosaurusModel());
     }

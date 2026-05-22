@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class CorythosaurusRenderer extends GeoEntityRenderer<CorythosaurusEntity> {
-    private final float animalScale = 1.25F;
+    private final float animalScale = 1.7F;
     public CorythosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new CorythosaurusModel());
     }

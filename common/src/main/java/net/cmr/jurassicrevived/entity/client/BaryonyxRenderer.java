@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class BaryonyxRenderer extends GeoEntityRenderer<BaryonyxEntity> {
-    private final float animalScale = 1.5F;
+    private final float animalScale = 1.3F;
     public BaryonyxRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new BaryonyxModel());
     }

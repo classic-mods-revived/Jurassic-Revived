@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class RugopsRenderer extends GeoEntityRenderer<RugopsEntity> {
-    private final float animalScale = 1.2F;
+    private final float animalScale = 0.9F;
     public RugopsRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new RugopsModel());
     }

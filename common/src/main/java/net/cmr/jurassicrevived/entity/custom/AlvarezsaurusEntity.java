@@ -1,6 +1,10 @@
 package net.cmr.jurassicrevived.entity.custom;
 
+import net.cmr.jurassicrevived.block.ModBlocks;
 import net.cmr.jurassicrevived.entity.ModEntities;
+import net.cmr.jurassicrevived.entity.ai.DinoData;
+import net.cmr.jurassicrevived.entity.ai.DinoEntityBase;
+import net.cmr.jurassicrevived.entity.ai.IDinoData;
 import net.cmr.jurassicrevived.entity.ai.SprintingMeleeAttackGoal;
 import net.cmr.jurassicrevived.entity.ai.SprintingPanicGoal;
 import net.cmr.jurassicrevived.entity.client.AlvarezsaurusVariant;
@@ -29,6 +33,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 /*? if <=1.20.1 {*/
@@ -45,7 +50,7 @@ import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceC
 import software.bernie.geckolib.animation.*;
 *//*?}*/
 
-public class AlvarezsaurusEntity extends Animal implements GeoEntity {
+public class AlvarezsaurusEntity extends DinoEntityBase implements GeoEntity {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     private static final EntityDataAccessor<Integer> VARIANT =
@@ -60,40 +65,47 @@ public class AlvarezsaurusEntity extends Animal implements GeoEntity {
 
     public AlvarezsaurusEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+
+        this.dinoData = new DinoData(
+            getAIConfig().maxHunger(),
+            getAIConfig().maxThirst(),
+            IDinoData.Mood.NEUTRAL,
+            IDinoData.Aggression.TERRITORIAL,
+            0.75f,
+            IDinoData.DietaryClassification.CARNIVORE,
+            IDinoData.Type.TERRESTRIAL,
+            IDinoData.Group.THEROPOD,
+            IDinoData.BirthType.EGG_LAYING,
+            IDinoData.ActivityPattern.CATHEMERAL
+        );
     }
 
     @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new SprintingPanicGoal(this, 1.15) {
-        @Override
-        public boolean canUse() {
-            return AlvarezsaurusEntity.this.isBaby() && super.canUse();
-        }
-    });
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
-        this.goalSelector.addGoal(2, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, SpinosaurusEntity.class, (float) 20, 1, 1));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, TyrannosaurusRexEntity.class, (float) 20, 1.2, 1.2));
-        this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, VelociraptorEntity.class, (float) 20, 1, 1));
-        this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, ParasaurolophusEntity.class, (float) 20, 1, 1));
-        this.goalSelector.addGoal(7, new AvoidEntityGoal<>(this, CeratosaurusEntity.class, (float) 20, 1, 1));
-        this.goalSelector.addGoal(8, new AvoidEntityGoal<>(this, TriceratopsEntity.class, (float) 20, 1, 1));
-        this.goalSelector.addGoal(9, new AvoidEntityGoal<>(this, BrachiosaurusEntity.class, (float) 20, 1, 1));
-        this.goalSelector.addGoal(10, new SprintingMeleeAttackGoal(this, 1.1, false));
-        this.goalSelector.addGoal(11, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(12, new FollowParentGoal(this, 1.25));
-        this.goalSelector.addGoal(13, new WaterAvoidingRandomStrollGoal(this, 1.0));
-        this.goalSelector.addGoal(14, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(15, new FollowMobGoal(this, 1, (float) 20, (float) 10));
-        this.targetSelector.addGoal(16, new NearestAttackableTargetGoal<>(this, Animal.class, 10, false, false,
-                target -> target.getType() != this.getType()));
-        this.targetSelector.addGoal(17, new NearestAttackableTargetGoal(this, GallimimusEntity.class, false, false));
-        this.targetSelector.addGoal(18, new NearestAttackableTargetGoal(this, Player.class, false, false));
-        this.targetSelector.addGoal(19, new NearestAttackableTargetGoal(this, CompsognathusEntity.class, false, false));
-        this.goalSelector.addGoal(20, new RandomLookAroundGoal(this));
+    public boolean isCarnivore() {
+        return true;
     }
 
-    public static AttributeSupplier.Builder createAttributes() {
+    @Override
+    public boolean isMarine() {
+        return false;
+    }
+
+    @Override
+    public boolean isAmphibious() {
+        return false;
+    }
+
+    @Override
+    public Block getEggBlock() {
+        return ModBlocks.INCUBATED_ALVAREZSAURUS_EGG.get();
+    }
+
+    @Override
+    public DinoAIConfig getAIConfig() {
+        return new DinoAIConfig(0.3D, 1.1D, 1.5D, 100, 100, 0.05f, 0.1f, 20);
+    }
+
+	public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 5D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)
@@ -104,10 +116,6 @@ public class AlvarezsaurusEntity extends Animal implements GeoEntity {
                 .add(Attributes.ATTACK_DAMAGE, 2D);
     }
 
-    @Override
-    public boolean isFood(ItemStack pStack) {
-        return pStack.is(Items.BEEF);
-    }
 
     @Nullable
     @Override
@@ -133,17 +141,17 @@ public class AlvarezsaurusEntity extends Animal implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Walk/Run/Idle", state -> {
+        controllers.add(new AnimationController<>(this, "Walk/Run/Idle", 5, state -> {
             if (state.isMoving())
                 return state.setAndContinue(AlvarezsaurusEntity.this.isSprinting() ? RawAnimation.begin().then("anim.alvarezsaurus.run", Animation.LoopType.LOOP) : RawAnimation.begin().then("anim.alvarezsaurus.walk", Animation.LoopType.LOOP));
 
             return state.setAndContinue(RawAnimation.begin().then("anim.alvarezsaurus.idle", Animation.LoopType.LOOP));
         }));
 
-        controllers.add(new AnimationController<>(this, "attackController", state -> PlayState.STOP)
+        controllers.add(new AnimationController<>(this, "attackController", 5, state -> PlayState.STOP)
                 .triggerableAnim("attack", RawAnimation.begin().then("anim.alvarezsaurus.attack", Animation.LoopType.PLAY_ONCE)));
 
-        controllers.add(new AnimationController<>(this, "mouthController", state -> PlayState.STOP)
+        controllers.add(new AnimationController<>(this, "mouthController", 5, state -> PlayState.STOP)
                 .triggerableAnim("mouth", RawAnimation.begin().then("anim.alvarezsaurus.mouth", Animation.LoopType.PLAY_ONCE)));
     }
 
@@ -310,4 +318,9 @@ public class AlvarezsaurusEntity extends Animal implements GeoEntity {
     protected @Nullable SoundEvent getDeathSound() {
         return ModSounds.ALVAREZSAURUS_DEATH.get();
     }
+
+	@Override
+	protected @Nullable SoundEvent getAmbientSound() {
+		return ModSounds.ALVAREZSAURUS_CALL.get();
+	}
 }

@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class AlbertosaurusRenderer extends GeoEntityRenderer<AlbertosaurusEntity> {
-    private final float animalScale = 1.5F;
+    private final float animalScale = 1.7F;
     public AlbertosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new AlbertosaurusModel());
     }

@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class MamenchisaurusRenderer extends GeoEntityRenderer<MamenchisaurusEntity> {
-    private final float animalScale = 1.85F;
+    private final float animalScale = 1.7F;
     public MamenchisaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MamenchisaurusModel());
     }

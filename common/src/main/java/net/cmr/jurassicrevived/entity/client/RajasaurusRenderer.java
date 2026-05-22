@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class RajasaurusRenderer extends GeoEntityRenderer<RajasaurusEntity> {
-    private final float animalScale = 1.45F;
+    private final float animalScale = 1.5F;
     public RajasaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new RajasaurusModel());
     }

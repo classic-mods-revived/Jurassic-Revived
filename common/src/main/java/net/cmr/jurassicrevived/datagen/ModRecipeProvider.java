@@ -355,7 +355,7 @@ public class ModRecipeProvider {
 			ModItems.GIGANOTOSAURUS_DNA.get());
 		helper.dnaHybridizing(ModItems.DISTORTUS_REX_DNA.get(), 1,
 			ModItems.TYRANNOSAURUS_REX_DNA.get(),
-			ModItems.BRACHIOSAURUS_DNA.get(),
+			ModItems.TITANOSAURUS_DNA.get(),
 			ModItems.VELOCIRAPTOR_DNA.get());
 		helper.dnaHybridizing(ModItems.INDORAPTOR_DNA.get(), 1,
 			ModItems.INDOMINUS_REX_DNA.get(),

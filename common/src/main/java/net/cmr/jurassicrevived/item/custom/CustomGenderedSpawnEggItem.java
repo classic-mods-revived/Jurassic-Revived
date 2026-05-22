@@ -11,6 +11,9 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+//? if >1.20.1 {
+/*import net.minecraft.core.registries.BuiltInRegistries;
+*///?}
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.TooltipFlag;
@@ -42,17 +45,21 @@ public class CustomGenderedSpawnEggItem extends SpawnEggItem {
 		int backgroundColor,
 		int highlightColor,
 		Item.Properties properties) {
-		//? if >1.20.1 {
-		/*super(EntityType.PIG, backgroundColor, highlightColor, properties);
-		 *///?} else {
 		super(EntityType.PIG, backgroundColor, highlightColor, properties);
-		//?}
 		this.typeSupplier = type;
 	}
 
+	//? if >1.20.1 {
+	/*@Override
+	public EntityType<?> getType(ItemStack stack) {
+		return typeSupplier.get();
+	}
+	*///?} else {
+	@Override
 	public EntityType<?> getType(@Nullable CompoundTag nbt) {
 		return typeSupplier.get();
 	}
+	//?}
 
 	private static int getSelectedVariant(ItemStack stack) {
 		//? if >1.20.1 {
@@ -85,11 +92,12 @@ public class CustomGenderedSpawnEggItem extends SpawnEggItem {
 		setSelectedVariant(stack, (getSelectedVariant(stack) + 1) % VARIANT_COUNT);
 	}
 
-	private static void ensureEntityDataHasVariant(ItemStack stack) {
+	private void ensureEntityDataHasVariant(ItemStack stack) {
 		final int variant = getSelectedVariant(stack);
 		//? if >1.20.1 {
         /*stack.update(DataComponents.ENTITY_DATA, CustomData.EMPTY, existing -> {
             CompoundTag tag = existing.copyTag();
+            tag.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(typeSupplier.get()).toString());
             tag.putInt(KEY_VARIANT, variant);
             return CustomData.of(tag);
         });

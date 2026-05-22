@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class FDuckRenderer extends GeoEntityRenderer<FDuckEntity> {
-    private final float animalScale = 1.0F;
+    private final float animalScale = 1.4F;
     public FDuckRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new FDuckModel());
     }

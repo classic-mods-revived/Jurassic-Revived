@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class TupuxuaraRenderer extends GeoEntityRenderer<TupuxuaraEntity> {
-    private final float animalScale = 0.8F;
+    private final float animalScale = 1.0F;
     public TupuxuaraRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new TupuxuaraModel());
     }

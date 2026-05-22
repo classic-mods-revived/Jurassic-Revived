@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class ConcavenatorRenderer extends GeoEntityRenderer<ConcavenatorEntity> {
-    private final float animalScale = 1.2F;
+    private final float animalScale = 0.9F;
     public ConcavenatorRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new ConcavenatorModel());
     }

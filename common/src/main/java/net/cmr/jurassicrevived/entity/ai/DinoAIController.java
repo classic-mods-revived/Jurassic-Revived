@@ -1,5 +1,7 @@
 package net.cmr.jurassicrevived.entity.ai;
 
+import net.cmr.jurassicrevived.config.JRConfig;
+import net.cmr.jurassicrevived.config.JRConfigManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
@@ -21,6 +23,9 @@ import java.util.Comparator;
 import java.util.List;
 
 public class DinoAIController {
+
+	private static final float VITAL_DECAY_MULTIPLIER = 0.05f;
+	private static final double TERRITORIAL_ROAM_SPEED_MULTIPLIER = 2.0D;
 
     private final DinoEntityBase dino;
     private State currentState = State.IDLE;
@@ -131,8 +136,10 @@ public class DinoAIController {
 
         // 2. Vitals Update
         if (dino.dinoData != null) {
-            float hungerDecay = config.hungerDecay();
-            float thirstDecay = config.thirstDecay();
+            JRConfig jrConfig = JRConfigManager.get();
+
+            float hungerDecay = jrConfig.hungerConsumption ? config.hungerDecay() * VITAL_DECAY_MULTIPLIER : 0.0f;
+            float thirstDecay = jrConfig.waterConsumption ? config.thirstDecay() * VITAL_DECAY_MULTIPLIER : 0.0f;
 
             if (currentState == State.SLEEPING) {
                 hungerDecay *= 0.5f;
@@ -142,9 +149,14 @@ public class DinoAIController {
                 }
             }
 
-            dino.dinoData.modifyHunger(-hungerDecay);
-            float currentThirst = dino.dinoData.getThirst();
-            dino.dinoData.setThirst(Math.max(0, currentThirst - thirstDecay));
+            if (hungerDecay > 0.0f) {
+                dino.dinoData.modifyHunger(-hungerDecay);
+            }
+
+            if (thirstDecay > 0.0f) {
+                float currentThirst = dino.dinoData.getThirst();
+                dino.dinoData.setThirst(Math.max(0, currentThirst - thirstDecay));
+            }
 
             float hunger = dino.dinoData.getHunger();
             float thirst = dino.dinoData.getThirst();
@@ -155,7 +167,6 @@ public class DinoAIController {
                 }
 
                 if (stateTimer % 20 == 0) {
-                    dino.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 1));
                     if (hunger <= 0) {
                         dino.hurt(dino.damageSources().starve(), 1.0f);
                         dino.dinoData.addCondition(IDinoData.Condition.STARVING);
@@ -230,13 +241,19 @@ public class DinoAIController {
 
         // 5. Hunt check
         if ((currentState == State.IDLE || currentState == State.ROAMING || currentState == State.TERRITORIAL_ROAMING) && dino.isCarnivore()) {
-            boolean hungry = dino.dinoData != null && dino.dinoData.getHunger() < 70;
+            boolean hungerConsumptionEnabled = JRConfigManager.get().hungerConsumption;
             boolean territorial = dino.dinoData != null && dino.dinoData.getAggression() == IDinoData.Aggression.TERRITORIAL;
+            boolean shouldHunt;
 
-            if (hungry || (territorial && dino.dinoData.getHunger() < 90)) {
-                if (stateTimer % 10 == 0) {
-                    findTarget();
-                }
+            if (hungerConsumptionEnabled) {
+                boolean hungry = dino.dinoData != null && dino.dinoData.getHunger() < 70;
+                shouldHunt = hungry || (territorial && dino.dinoData != null && dino.dinoData.getHunger() < 90);
+            } else {
+                shouldHunt = stateTimer % 100 == 0 && dino.getRandom().nextFloat() < (territorial ? 0.35f : 0.15f);
+            }
+
+            if (shouldHunt && stateTimer % 10 == 0) {
+                findTarget();
             }
         }
 
@@ -628,7 +645,12 @@ public class DinoAIController {
 
             boolean resumed = false;
             if (roamTarget != null) {
-                resumed = dino.getNavigation().moveTo(roamTarget.x, roamTarget.y, roamTarget.z, dino.getAIConfig().walkSpeed());
+                resumed = dino.getNavigation().moveTo(
+                        roamTarget.x,
+                        roamTarget.y,
+                        roamTarget.z,
+                        getTerritorialRoamSpeed()
+                );
             }
 
             if (!resumed) {
@@ -638,6 +660,10 @@ public class DinoAIController {
                 }
             }
         }
+    }
+
+    private double getTerritorialRoamSpeed() {
+        return dino.getAIConfig().walkSpeed() * TERRITORIAL_ROAM_SPEED_MULTIPLIER;
     }
 
     private void findAndSetTerritorialTarget() {
@@ -655,7 +681,7 @@ public class DinoAIController {
             }
 
             if (candidate != null && dino.distanceToSqr(candidate) > 25.0) {
-                if (dino.getNavigation().moveTo(candidate.x, candidate.y, candidate.z, dino.getAIConfig().walkSpeed())) {
+                if (dino.getNavigation().moveTo(candidate.x, candidate.y, candidate.z, getTerritorialRoamSpeed())) {
                     this.roamTarget = candidate;
                     return;
                 }
@@ -664,7 +690,7 @@ public class DinoAIController {
 
         Vec3 fallback = DefaultRandomPos.getPos(dino, 10, 5);
         if (fallback != null) {
-            if (dino.getNavigation().moveTo(fallback.x, fallback.y, fallback.z, dino.getAIConfig().walkSpeed())) {
+            if (dino.getNavigation().moveTo(fallback.x, fallback.y, fallback.z, getTerritorialRoamSpeed())) {
                 this.roamTarget = fallback;
             }
         }

@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class ArambourgianiaRenderer extends GeoEntityRenderer<ArambourgianiaEntity> {
-    private final float animalScale = 1.75F;
+    private final float animalScale = 1.9F;
     public ArambourgianiaRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new ArambourgianiaModel());
     }

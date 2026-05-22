@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class OrnitholestesRenderer extends GeoEntityRenderer<OrnitholestesEntity> {
-    private final float animalScale = 1.0F;
+    private final float animalScale = 0.6F;
     public OrnitholestesRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new OrnitholestesModel());
     }

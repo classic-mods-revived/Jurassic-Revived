@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class GuidracoRenderer extends GeoEntityRenderer<GuidracoEntity> {
-    private final float animalScale = 0.55F;
+    private final float animalScale = 0.8F;
     public GuidracoRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new GuidracoModel());
     }

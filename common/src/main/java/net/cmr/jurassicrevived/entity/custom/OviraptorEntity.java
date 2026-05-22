@@ -1,6 +1,10 @@
 package net.cmr.jurassicrevived.entity.custom;
 
+import net.cmr.jurassicrevived.block.ModBlocks;
 import net.cmr.jurassicrevived.entity.ModEntities;
+import net.cmr.jurassicrevived.entity.ai.DinoData;
+import net.cmr.jurassicrevived.entity.ai.DinoEntityBase;
+import net.cmr.jurassicrevived.entity.ai.IDinoData;
 import net.cmr.jurassicrevived.entity.ai.SprintingMeleeAttackGoal;
 import net.cmr.jurassicrevived.entity.ai.SprintingPanicGoal;
 import net.cmr.jurassicrevived.entity.client.AlbertosaurusVariant;
@@ -28,6 +32,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 /*? if <=1.20.1 {*/
@@ -44,7 +49,7 @@ import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceC
 import software.bernie.geckolib.animation.*;
 *//*?}*/
 
-public class OviraptorEntity extends Animal implements GeoEntity {
+public class OviraptorEntity extends DinoEntityBase implements GeoEntity {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     private static final EntityDataAccessor<Integer> VARIANT =
@@ -59,25 +64,44 @@ public class OviraptorEntity extends Animal implements GeoEntity {
 
     public OviraptorEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+
+        this.dinoData = new DinoData(
+            getAIConfig().maxHunger(),
+            getAIConfig().maxThirst(),
+            IDinoData.Mood.NEUTRAL,
+            IDinoData.Aggression.SCAVENGER,
+            0.75f,
+            IDinoData.DietaryClassification.OMNIVORE,
+            IDinoData.Type.TERRESTRIAL,
+            IDinoData.Group.THEROPOD,
+            IDinoData.BirthType.EGG_LAYING,
+            IDinoData.ActivityPattern.CATHEMERAL
+        );
     }
 
     @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new SprintingPanicGoal(this, 1.15) {
-            @Override
-            public boolean canUse() {
-                return OviraptorEntity.this.isBaby() && super.canUse();
-            }
-        });
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
-        this.goalSelector.addGoal(2, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new SprintingMeleeAttackGoal(this, 1.1, false));
-        this.goalSelector.addGoal(4, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.25));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(8, new FollowMobGoal(this, 1, (float) 20, (float) 10));
-        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+    public boolean isCarnivore() {
+        return false;
+    }
+
+    @Override
+    public boolean isMarine() {
+        return false;
+    }
+
+    @Override
+    public boolean isAmphibious() {
+        return false;
+    }
+
+    @Override
+    public Block getEggBlock() {
+        return ModBlocks.INCUBATED_OVIRAPTOR_EGG.get();
+    }
+
+    @Override
+    public DinoAIConfig getAIConfig() {
+        return new DinoAIConfig(0.3D, 1.1D, 1.5D, 100, 100, 0.05f, 0.1f, 20);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -91,10 +115,6 @@ public class OviraptorEntity extends Animal implements GeoEntity {
                 .add(Attributes.ATTACK_KNOCKBACK, 0D);
     }
 
-    @Override
-    public boolean isFood(ItemStack pStack) {
-        return pStack.is(Items.BEEF);
-    }
 
     @Nullable
     @Override
@@ -120,17 +140,17 @@ public class OviraptorEntity extends Animal implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Walk/Run/Idle", state -> {
+        controllers.add(new AnimationController<>(this, "Walk/Run/Idle", 5, state -> {
             if (state.isMoving())
                 return state.setAndContinue(OviraptorEntity.this.isSprinting() ? RawAnimation.begin().then("anim.oviraptor.run", Animation.LoopType.LOOP) : RawAnimation.begin().then("anim.oviraptor.walk", Animation.LoopType.LOOP));
 
             return state.setAndContinue(RawAnimation.begin().then("anim.oviraptor.idle", Animation.LoopType.LOOP));
         }));
 
-        controllers.add(new AnimationController<>(this, "attackController", state -> PlayState.STOP)
+        controllers.add(new AnimationController<>(this, "attackController", 5, state -> PlayState.STOP)
                 .triggerableAnim("attack", RawAnimation.begin().then("anim.oviraptor.attack", Animation.LoopType.PLAY_ONCE)));
 
-        controllers.add(new AnimationController<>(this, "mouthController", state -> PlayState.STOP)
+        controllers.add(new AnimationController<>(this, "mouthController", 5, state -> PlayState.STOP)
                 .triggerableAnim("mouth", RawAnimation.begin().then("anim.oviraptor.mouth", Animation.LoopType.PLAY_ONCE)));
     }
 
@@ -297,4 +317,9 @@ public class OviraptorEntity extends Animal implements GeoEntity {
     protected @Nullable SoundEvent getDeathSound() {
         return ModSounds.OVIRAPTOR_DEATH.get();
     }
+
+	@Override
+	protected @Nullable SoundEvent getAmbientSound() {
+		return ModSounds.OVIRAPTOR_CALL.get();
+	}
 }

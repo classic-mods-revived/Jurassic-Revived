@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class InostranceviaRenderer extends GeoEntityRenderer<InostranceviaEntity> {
-    private final float animalScale = 1.0F;
+    private final float animalScale = 1.1F;
     public InostranceviaRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new InostranceviaModel());
     }

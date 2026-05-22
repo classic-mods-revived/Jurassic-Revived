@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class LambeosaurusRenderer extends GeoEntityRenderer<LambeosaurusEntity> {
-    private final float animalScale = 1.65F;
+    private final float animalScale = 1.8F;
     public LambeosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new LambeosaurusModel());
     }

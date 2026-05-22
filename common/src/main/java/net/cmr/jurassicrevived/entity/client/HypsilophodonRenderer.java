@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class HypsilophodonRenderer extends GeoEntityRenderer<HypsilophodonEntity> {
-    private final float animalScale = 0.6F;
+    private final float animalScale = 0.5F;
     public HypsilophodonRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new HypsilophodonModel());
     }

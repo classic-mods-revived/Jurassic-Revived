@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class ZhenyuanopterusRenderer extends GeoEntityRenderer<ZhenyuanopterusEntity> {
-    private final float animalScale = 0.7F;
+    private final float animalScale = 1.1F;
     public ZhenyuanopterusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new ZhenyuanopterusModel());
     }

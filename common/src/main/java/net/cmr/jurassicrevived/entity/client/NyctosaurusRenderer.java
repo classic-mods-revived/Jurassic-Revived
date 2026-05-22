@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class NyctosaurusRenderer extends GeoEntityRenderer<NyctosaurusEntity> {
-    private final float animalScale = 0.45F;
+    private final float animalScale = 0.3F;
     public NyctosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new NyctosaurusModel());
     }

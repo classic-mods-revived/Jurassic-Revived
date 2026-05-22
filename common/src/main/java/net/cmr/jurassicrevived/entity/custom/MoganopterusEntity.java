@@ -1,6 +1,10 @@
 package net.cmr.jurassicrevived.entity.custom;
 
+import net.cmr.jurassicrevived.block.ModBlocks;
 import net.cmr.jurassicrevived.entity.ModEntities;
+import net.cmr.jurassicrevived.entity.ai.DinoData;
+import net.cmr.jurassicrevived.entity.ai.DinoEntityBase;
+import net.cmr.jurassicrevived.entity.ai.IDinoData;
 import net.cmr.jurassicrevived.entity.ai.SprintingMeleeAttackGoal;
 import net.cmr.jurassicrevived.entity.ai.SprintingPanicGoal;
 import net.cmr.jurassicrevived.entity.client.MoganopterusVariant;
@@ -35,6 +39,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
@@ -54,7 +59,7 @@ import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceC
 import software.bernie.geckolib.animation.*;
 *//*?}*/
 
-public class MoganopterusEntity extends Animal implements GeoEntity, FlyingAnimal {
+public class MoganopterusEntity extends DinoEntityBase implements GeoEntity, FlyingAnimal {
     private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     private static final EntityDataAccessor<Integer> VARIANT =
@@ -70,95 +75,44 @@ public class MoganopterusEntity extends Animal implements GeoEntity, FlyingAnima
     public MoganopterusEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new FlyingMoveControl(this, 20, true);
+
+        this.dinoData = new DinoData(
+            getAIConfig().maxHunger(),
+            getAIConfig().maxThirst(),
+            IDinoData.Mood.NEUTRAL,
+            IDinoData.Aggression.TERRITORIAL,
+            0.75f,
+            IDinoData.DietaryClassification.CARNIVORE,
+            IDinoData.Type.AVIAN,
+            IDinoData.Group.PTEROSAUR,
+            IDinoData.BirthType.EGG_LAYING,
+            IDinoData.ActivityPattern.CATHEMERAL
+        );
     }
 
     @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new SprintingPanicGoal(this, 1.15) {
-            @Override
-            public boolean canUse() {
-                return MoganopterusEntity.this.isBaby() && super.canUse();
-            }
-        });
-        this.goalSelector.addGoal(2, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, BrachiosaurusEntity.class, (float) 20, 1, 1));
-        this.goalSelector.addGoal(4, new SprintingMeleeAttackGoal(this, 1.1, false));
-        this.goalSelector.addGoal(5, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.25));
+    public boolean isCarnivore() {
+        return true;
+    }
 
-        // Goal 7: Wander on ground (Walk) - Only when on ground
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0) {
-            @Override
-            public boolean canUse() {
-                return MoganopterusEntity.this.onGround() && super.canUse();
-            }
-        });
+    @Override
+    public boolean isMarine() {
+        return false;
+    }
 
-        // Goal 8: Wander in air (Fly) - Handles takeoff, flying, and landing
-        this.goalSelector.addGoal(8, new WaterAvoidingRandomStrollGoal(this, 1.0, 20) {
-            @Override
-            public boolean canUse() {
-                boolean isFlying = !MoganopterusEntity.this.onGround();
-                // If flying, keep flying. If on ground, small chance (1/400 ticks) to take off.
-                return (isFlying || MoganopterusEntity.this.getRandom().nextInt(400) == 0) && super.canUse();
-            }
+    @Override
+    public boolean isAmphibious() {
+        return false;
+    }
 
-            @Override
-            protected Vec3 getPosition() {
-                Vec3 pos = MoganopterusEntity.this.position();
-                RandomSource random = MoganopterusEntity.this.getRandom();
+    @Override
+    public Block getEggBlock() {
+        return ModBlocks.INCUBATED_MOGANOPTERUS_EGG.get();
+    }
 
-                double x = pos.x + (random.nextFloat() * 2 - 1) * 32;
-                double z = pos.z + (random.nextFloat() * 2 - 1) * 32;
-
-                // Get ground height at the random destination (returns Y of first air block)
-                int groundY = MoganopterusEntity.this.level().getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (int)x, (int)z);
-                double y;
-
-                if (MoganopterusEntity.this.onGround()) {
-                    // Takeoff: Target well above ground to ensure liftoff
-                    y = pos.y + 15 + random.nextInt(10);
-                } else {
-                    // Flying: 5% chance to land, otherwise stay airborne but capped height
-                    if (random.nextFloat() < 0.05f) {
-                        y = groundY; // Land
-                    } else if (pos.y > groundY + 20) {
-                        // Too high: Force descent
-                        y = pos.y - 5 - random.nextInt(10);
-                    } else {
-                        // Just wander up or down a bit
-                        y = pos.y + (random.nextFloat() * 2 - 1) * 10;
-                    }
-                }
-
-                // Don't target below the ground (blocks)
-                if (y < groundY) y = groundY;
-
-                return new Vec3(x, y, z);
-            }
-        });
-
-        this.goalSelector.addGoal(9, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(10, new FollowMobGoal(this, 0.8, (float) 20, (float) 10));
-        this.targetSelector.addGoal(11, new NearestAttackableTargetGoal<>(this, Animal.class, 10, false, false,
-                target -> {
-                    // 1. Don't eat your own species
-                    if (target.getType() == this.getType()) return false;
-
-                    // 2. Don't eat Flying Animals
-                    if (target instanceof FlyingAnimal) return false;
-
-                    // 3. SIZE CHECK: specific height and width limits
-                    // Example: Height < 1.0 blocks AND Width < 1.0 blocks
-                    boolean isSmallEnough = target.getBbHeight() <= 1.0F && target.getBbWidth() <= 1.0F;
-
-                    return isSmallEnough;
-                }
-        ));
-        this.targetSelector.addGoal(12, new NearestAttackableTargetGoal<>(this, Player.class, false, false));
-        this.targetSelector.addGoal(13, new HurtByTargetGoal(this));
-        this.goalSelector.addGoal(14, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(15, new FloatGoal(this));
+    @Override
+    public DinoAIConfig getAIConfig() {
+        return new DinoAIConfig(0.3D, 1.1D, 1.5D, 100, 100, 0.05f, 0.1f, 20);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -196,10 +150,6 @@ public class MoganopterusEntity extends Animal implements GeoEntity, FlyingAnima
     protected void checkFallDamage(double pY, boolean pOnGround, BlockState pState, BlockPos pPos) {
     }
 
-    @Override
-    public boolean isFood(ItemStack pStack) {
-        return pStack.is(Items.BEEF);
-    }
 
     @Nullable
     @Override
@@ -226,7 +176,7 @@ public class MoganopterusEntity extends Animal implements GeoEntity, FlyingAnima
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Walk/Run/Idle", state -> {
+        controllers.add(new AnimationController<>(this, "Walk/Run/Idle", 5, state -> {
             if (!MoganopterusEntity.this.onGround()) {
                 return state.setAndContinue(RawAnimation.begin().then("anim.moganopterus.fly", Animation.LoopType.LOOP));
             }
@@ -237,10 +187,10 @@ public class MoganopterusEntity extends Animal implements GeoEntity, FlyingAnima
             return state.setAndContinue(RawAnimation.begin().then("anim.moganopterus.idle", Animation.LoopType.LOOP));
         }));
 
-        controllers.add(new AnimationController<>(this, "attackController", state -> PlayState.STOP)
+        controllers.add(new AnimationController<>(this, "attackController", 5, state -> PlayState.STOP)
                 .triggerableAnim("attack", RawAnimation.begin().then("anim.moganopterus.attack", Animation.LoopType.PLAY_ONCE)));
 
-        controllers.add(new AnimationController<>(this, "mouthController", state -> PlayState.STOP)
+        controllers.add(new AnimationController<>(this, "mouthController", 5, state -> PlayState.STOP)
                 .triggerableAnim("mouth", RawAnimation.begin().then("anim.moganopterus.mouth", Animation.LoopType.PLAY_ONCE)));
     }
 
@@ -408,4 +358,9 @@ public class MoganopterusEntity extends Animal implements GeoEntity, FlyingAnima
     protected @Nullable SoundEvent getDeathSound() {
         return ModSounds.MOGANOPTERUS_DEATH.get();
     }
+
+	@Override
+	protected @Nullable SoundEvent getAmbientSound() {
+		return ModSounds.MOGANOPTERUS_CALL.get();
+	}
 }

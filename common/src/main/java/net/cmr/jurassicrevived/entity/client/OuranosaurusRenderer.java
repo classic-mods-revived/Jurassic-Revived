@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class OuranosaurusRenderer extends GeoEntityRenderer<OuranosaurusEntity> {
-    private final float animalScale = 1.0F;
+    private final float animalScale = 1.2F;
     public OuranosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new OuranosaurusModel());
     }

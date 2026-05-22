@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class IndominusRexRenderer extends GeoEntityRenderer<IndominusRexEntity> {
-    private final float animalScale = 2.77F;
+    private final float animalScale = 3.0F;
     public IndominusRexRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new IndominusRexModel());
     }

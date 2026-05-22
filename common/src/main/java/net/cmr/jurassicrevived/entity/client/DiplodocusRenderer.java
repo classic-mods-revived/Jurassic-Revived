@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class DiplodocusRenderer extends GeoEntityRenderer<DiplodocusEntity> {
-    private final float animalScale = 2.5F;
+    private final float animalScale = 2.8F;
     public DiplodocusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new DiplodocusModel());
     }

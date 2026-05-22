@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class DimorphodonRenderer extends GeoEntityRenderer<DimorphodonEntity> {
-    private final float animalScale = 0.4F;
+    private final float animalScale = 0.7F;
     public DimorphodonRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new DimorphodonModel());
     }

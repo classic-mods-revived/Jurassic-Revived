@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class DilophosaurusRenderer extends GeoEntityRenderer<DilophosaurusEntity> {
-    private final float animalScale = 1.0F;
+    private final float animalScale = 1.2F;
     public DilophosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new DilophosaurusModel());
     }

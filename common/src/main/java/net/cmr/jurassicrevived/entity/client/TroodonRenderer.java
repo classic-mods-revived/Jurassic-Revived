@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class TroodonRenderer extends GeoEntityRenderer<TroodonEntity> {
-    private final float animalScale = 0.5F;
+    private final float animalScale = 0.3F;
     public TroodonRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new TroodonModel());
     }

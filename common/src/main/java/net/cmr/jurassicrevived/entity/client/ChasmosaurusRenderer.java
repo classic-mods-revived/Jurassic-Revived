@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class ChasmosaurusRenderer extends GeoEntityRenderer<ChasmosaurusEntity> {
-    private final float animalScale = 1.25F;
+    private final float animalScale = 1.3F;
     public ChasmosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new ChasmosaurusModel());
     }

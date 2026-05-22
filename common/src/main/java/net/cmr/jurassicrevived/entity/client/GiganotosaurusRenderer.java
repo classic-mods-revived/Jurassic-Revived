@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class GiganotosaurusRenderer extends GeoEntityRenderer<GiganotosaurusEntity> {
-    private final float animalScale = 2.1F;
+    private final float animalScale = 2.2F;
     public GiganotosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new GiganotosaurusModel());
     }

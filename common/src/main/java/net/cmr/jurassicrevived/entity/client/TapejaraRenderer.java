@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class TapejaraRenderer extends GeoEntityRenderer<TapejaraEntity> {
-    private final float animalScale = 0.45F;
+    private final float animalScale = 0.6F;
     public TapejaraRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new TapejaraModel());
     }

@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class SpinosaurusRenderer extends GeoEntityRenderer<SpinosaurusEntity> {
-    private final float animalScale = 2.77F;
+    private final float animalScale = 2.2F;
     public SpinosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new SpinosaurusModel());
     }

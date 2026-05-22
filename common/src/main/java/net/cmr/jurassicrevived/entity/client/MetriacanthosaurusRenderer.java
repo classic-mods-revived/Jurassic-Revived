@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class MetriacanthosaurusRenderer extends GeoEntityRenderer<MetriacanthosaurusEntity> {
-    private final float animalScale = 1.75F;
+    private final float animalScale = 1.5F;
     public MetriacanthosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MetriacanthosaurusModel());
     }

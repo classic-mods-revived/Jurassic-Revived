@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class MoganopterusRenderer extends GeoEntityRenderer<MoganopterusEntity> {
-    private final float animalScale = 0.75F;
+    private final float animalScale = 0.8F;
     public MoganopterusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MoganopterusModel());
     }

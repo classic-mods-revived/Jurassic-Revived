@@ -14,6 +14,16 @@ public final class JRConfig {
 	public boolean naturallySpawning = false;
 
 	/**
+	 * Controls whether dinosaurs lose hunger over time.
+	 */
+	public boolean hungerConsumption = false;
+
+	/**
+	 * Controls whether dinosaurs lose thirst/water over time.
+	 */
+	public boolean waterConsumption = false;
+
+	/**
 	 * Energy pipe transfer rate in FE per second.
 	 */
 	public int fePerSecond = 1000;

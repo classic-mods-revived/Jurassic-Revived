@@ -41,6 +41,24 @@ public final class JRClothConfigScreens {
         );
 
         general.addEntry(
+                eb.startBooleanToggle(Component.literal("Dinosaur Hunger Consumption"), cfg.hungerConsumption)
+                        .setDefaultValue(false)
+                        .setTooltip(Component.literal("When enabled, dinosaurs slowly lose hunger over time. Disabled by default."))
+                        .setSaveConsumer(v -> cfg.hungerConsumption = v)
+						.requireRestart()
+                        .build()
+        );
+
+        general.addEntry(
+                eb.startBooleanToggle(Component.literal("Dinosaur Water Consumption"), cfg.waterConsumption)
+                        .setDefaultValue(false)
+                        .setTooltip(Component.literal("When enabled, dinosaurs slowly lose thirst/water over time. Disabled by default."))
+                        .setSaveConsumer(v -> cfg.waterConsumption = v)
+						.requireRestart()
+                        .build()
+        );
+
+        general.addEntry(
                 eb.startIntField(Component.literal("FE Per Second"), cfg.fePerSecond)
                         .setDefaultValue(1000)
                         .setMin(1)

@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class BrachiosaurusRenderer extends GeoEntityRenderer<BrachiosaurusEntity> {
-    private final float animalScale = 1.6F;
+    private final float animalScale = 2.0F;
     public BrachiosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new BrachiosaurusModel());
     }

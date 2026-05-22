@@ -1,8 +1,8 @@
 package net.cmr.jurassicrevived.entity.custom;
 
+import net.cmr.jurassicrevived.block.ModBlocks;
 import net.cmr.jurassicrevived.entity.ModEntities;
-import net.cmr.jurassicrevived.entity.ai.SprintingMeleeAttackGoal;
-import net.cmr.jurassicrevived.entity.ai.SprintingPanicGoal;
+import net.cmr.jurassicrevived.entity.ai.*;
 import net.cmr.jurassicrevived.entity.client.ConcavenatorVariant;
 import net.cmr.jurassicrevived.entity.client.ConcavenatorVariant;
 import net.cmr.jurassicrevived.sound.ModSounds;
@@ -29,6 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 /*? if <=1.20.1 {*/
@@ -45,7 +46,7 @@ import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceC
 import software.bernie.geckolib.animation.*;
 *//*?}*/
 
-public class ConcavenatorEntity extends Animal implements GeoEntity {
+public class ConcavenatorEntity extends DinoEntityBase implements GeoEntity {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
     private static final EntityDataAccessor<Integer> VARIANT =
@@ -60,39 +61,45 @@ public class ConcavenatorEntity extends Animal implements GeoEntity {
 
     public ConcavenatorEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+
+		this.dinoData = new DinoData(
+			getAIConfig().maxHunger(),
+			getAIConfig().maxThirst(),
+			IDinoData.Mood.NEUTRAL,
+			IDinoData.Aggression.TERRITORIAL,
+			0.75f,
+			IDinoData.DietaryClassification.CARNIVORE,
+			IDinoData.Type.TERRESTRIAL,
+			IDinoData.Group.THEROPOD,
+			IDinoData.BirthType.EGG_LAYING,
+			IDinoData.ActivityPattern.CATHEMERAL
+		);
     }
 
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new SprintingPanicGoal(this, 1.15) {
-        @Override
-        public boolean canUse() {
-            return ConcavenatorEntity.this.isBaby() && super.canUse();
-        }
-    });
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers());
-        this.goalSelector.addGoal(2, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, TriceratopsEntity.class, (float) 20, 1, 1));
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, SpinosaurusEntity.class, (float) 20, 1, 1));
-        this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, TyrannosaurusRexEntity.class, (float) 20, 1.2, 1.2));
-        this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, IndominusRexEntity.class, (float) 20, 1, 1));
-        this.goalSelector.addGoal(7, new AvoidEntityGoal<>(this, BrachiosaurusEntity.class, (float) 20, 1, 1));
-        this.goalSelector.addGoal(8, new SprintingMeleeAttackGoal(this, 1.1, false));
-        this.goalSelector.addGoal(9, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(10, new FollowParentGoal(this, 1.25));
-        this.goalSelector.addGoal(11, new WaterAvoidingRandomStrollGoal(this, 1.0));
-        this.goalSelector.addGoal(12, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(13, new FollowMobGoal(this, 1, (float) 20, (float) 10));
-        this.targetSelector.addGoal(14, new NearestAttackableTargetGoal<>(this, Animal.class, 10, false, false,
-                target -> target.getType() != this.getType()));
-        this.targetSelector.addGoal(15, new NearestAttackableTargetGoal(this, GallimimusEntity.class, false, false));
-        this.targetSelector.addGoal(16, new NearestAttackableTargetGoal(this, DilophosaurusEntity.class, false, false));
-        this.targetSelector.addGoal(17, new NearestAttackableTargetGoal(this, CeratosaurusEntity.class, false, false));
-        this.targetSelector.addGoal(18, new NearestAttackableTargetGoal(this, ParasaurolophusEntity.class, false, false));
-        this.targetSelector.addGoal(19, new NearestAttackableTargetGoal(this, Player.class, false, false));
-        this.targetSelector.addGoal(20, new NearestAttackableTargetGoal(this, CompsognathusEntity.class, false, false));
-        this.goalSelector.addGoal(21, new RandomLookAroundGoal(this));
-    }
+	@Override
+	public boolean isCarnivore() {
+		return true;
+	}
+
+	@Override
+	public boolean isMarine() {
+		return false;
+	}
+
+	@Override
+	public boolean isAmphibious() {
+		return false;
+	}
+
+	@Override
+	public Block getEggBlock() {
+		return ModBlocks.INCUBATED_CONCAVENATOR_EGG.get();
+	}
+
+	@Override
+	public DinoAIConfig getAIConfig() {
+		return new DinoAIConfig(0.3D, 1.1D, 1.5D, 100, 100, 0.05f, 0.1f, 20);
+	}
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
@@ -103,11 +110,6 @@ public class ConcavenatorEntity extends Animal implements GeoEntity {
                 .add(Attributes.ATTACK_DAMAGE, 14D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.3D)
                 .add(Attributes.ATTACK_KNOCKBACK, 0D);
-    }
-
-    @Override
-    public boolean isFood(ItemStack pStack) {
-        return pStack.is(Items.BEEF);
     }
 
     @Nullable
@@ -135,17 +137,17 @@ public class ConcavenatorEntity extends Animal implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Walk/Run/Idle", state -> {
+        controllers.add(new AnimationController<>(this, "Walk/Run/Idle", 5, state -> {
             if (state.isMoving())
                 return state.setAndContinue(ConcavenatorEntity.this.isSprinting() ? RawAnimation.begin().then("anim.concavenator.run", Animation.LoopType.LOOP) : RawAnimation.begin().then("anim.concavenator.walk", Animation.LoopType.LOOP));
 
             return state.setAndContinue(RawAnimation.begin().then("anim.concavenator.idle", Animation.LoopType.LOOP));
         }));
 
-        controllers.add(new AnimationController<>(this, "attackController", state -> PlayState.STOP)
+        controllers.add(new AnimationController<>(this, "attackController", 5, state -> PlayState.STOP)
                 .triggerableAnim("attack", RawAnimation.begin().then("anim.concavenator.attack", Animation.LoopType.PLAY_ONCE)));
 
-        controllers.add(new AnimationController<>(this, "mouthController", state -> PlayState.STOP)
+        controllers.add(new AnimationController<>(this, "mouthController", 5, state -> PlayState.STOP)
                 .triggerableAnim("mouth", RawAnimation.begin().then("anim.concavenator.mouth", Animation.LoopType.PLAY_ONCE)));
     }
 
@@ -312,4 +314,9 @@ public class ConcavenatorEntity extends Animal implements GeoEntity {
     protected @Nullable SoundEvent getDeathSound() {
         return ModSounds.CONCAVENATOR_DEATH.get();
     }
+
+	@Override
+	protected @Nullable SoundEvent getAmbientSound() {
+		return ModSounds.CONCAVENATOR_CALL.get();
+	}
 }

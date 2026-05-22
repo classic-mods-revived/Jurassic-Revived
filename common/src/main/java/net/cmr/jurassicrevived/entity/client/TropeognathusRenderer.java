@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class TropeognathusRenderer extends GeoEntityRenderer<TropeognathusEntity> {
-    private final float animalScale = 1.0F;
+    private final float animalScale = 1.4F;
     public TropeognathusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new TropeognathusModel());
     }

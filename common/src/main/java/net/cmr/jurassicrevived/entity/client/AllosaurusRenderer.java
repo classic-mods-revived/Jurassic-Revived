@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class AllosaurusRenderer extends GeoEntityRenderer<AllosaurusEntity> {
-    private final float animalScale = 1.65F;
+    private final float animalScale = 1.9F;
     public AllosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new AllosaurusModel());
     }

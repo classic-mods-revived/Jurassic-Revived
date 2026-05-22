@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class CoelophysisRenderer extends GeoEntityRenderer<CoelophysisEntity> {
-    private final float animalScale = 0.9F;
+    private final float animalScale = 0.7F;
     public CoelophysisRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new CoelophysisModel());
     }

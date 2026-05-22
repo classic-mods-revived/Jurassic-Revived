@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class StyracosaurusRenderer extends GeoEntityRenderer<StyracosaurusEntity> {
-    private final float animalScale = 1.28F;
+    private final float animalScale = 0.7F;
     public StyracosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new StyracosaurusModel());
     }

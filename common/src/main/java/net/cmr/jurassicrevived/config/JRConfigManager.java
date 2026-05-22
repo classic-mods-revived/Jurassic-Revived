@@ -32,6 +32,8 @@ public final class JRConfigManager {
 
             loaded.requirePower = readBoolean(text, "requirePower", loaded.requirePower);
             loaded.naturallySpawning = readBoolean(text, "naturallySpawning", loaded.naturallySpawning);
+            loaded.hungerConsumption = readBoolean(text, "hungerConsumption", loaded.hungerConsumption);
+            loaded.waterConsumption = readBoolean(text, "waterConsumption", loaded.waterConsumption);
             loaded.fePerSecond = readPositiveInt(text, "fePerSecond", loaded.fePerSecond);
             loaded.itemsPerSecond = readPositiveInt(text, "itemsPerSecond", loaded.itemsPerSecond);
             loaded.milliBucketsPerSecond = readPositiveInt(text, "milliBucketsPerSecond", loaded.milliBucketsPerSecond);
@@ -51,6 +53,8 @@ public final class JRConfigManager {
             String text = "{\n" +
                     "  \"requirePower\": " + config.requirePower + ",\n" +
                     "  \"naturallySpawning\": " + config.naturallySpawning + ",\n" +
+                    "  \"hungerConsumption\": " + config.hungerConsumption + ",\n" +
+                    "  \"waterConsumption\": " + config.waterConsumption + ",\n" +
                     "  \"fePerSecond\": " + config.fePerSecond + ",\n" +
                     "  \"itemsPerSecond\": " + config.itemsPerSecond + ",\n" +
                     "  \"milliBucketsPerSecond\": " + config.milliBucketsPerSecond + "\n" +

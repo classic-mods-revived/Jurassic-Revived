@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class ParasaurolophusRenderer extends GeoEntityRenderer<ParasaurolophusEntity> {
-    private final float animalScale = 1.5F;
+    private final float animalScale = 1.7F;
     public ParasaurolophusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new ParasaurolophusModel());
     }

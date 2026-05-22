@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class DistortusRexRenderer extends GeoEntityRenderer<DistortusRexEntity> {
-    private final float animalScale = 2.75F;
+    private final float animalScale = 3.4F;
     public DistortusRexRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new DistortusRexModel());
     }

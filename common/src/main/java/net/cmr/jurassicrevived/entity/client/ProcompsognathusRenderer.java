@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class ProcompsognathusRenderer extends GeoEntityRenderer<ProcompsognathusEntity> {
-    private final float animalScale = 0.44F;
+    private final float animalScale = 0.2F;
     public ProcompsognathusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new ProcompsognathusModel());
     }

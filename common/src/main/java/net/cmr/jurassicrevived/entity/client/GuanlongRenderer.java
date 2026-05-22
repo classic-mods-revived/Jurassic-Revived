@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class GuanlongRenderer extends GeoEntityRenderer<GuanlongEntity> {
-    private final float animalScale = 0.75F;
+    private final float animalScale = 0.6F;
     public GuanlongRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new GuanlongModel());
     }

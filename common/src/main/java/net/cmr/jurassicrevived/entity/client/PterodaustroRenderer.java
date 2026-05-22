@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class PterodaustroRenderer extends GeoEntityRenderer<PterodaustroEntity> {
-    private final float animalScale = 0.65F;
+    private final float animalScale = 0.7F;
     public PterodaustroRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new PterodaustroModel());
     }

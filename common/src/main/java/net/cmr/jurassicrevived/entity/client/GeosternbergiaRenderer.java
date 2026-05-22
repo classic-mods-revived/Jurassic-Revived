@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class GeosternbergiaRenderer extends GeoEntityRenderer<GeosternbergiaEntity> {
-    private final float animalScale = 1.0F;
+    private final float animalScale = 1.4F;
     public GeosternbergiaRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new GeosternbergiaModel());
     }

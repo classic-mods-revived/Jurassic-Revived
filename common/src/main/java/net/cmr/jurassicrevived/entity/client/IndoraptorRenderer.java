@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class IndoraptorRenderer extends GeoEntityRenderer<IndoraptorEntity> {
-    private final float animalScale = 1.0F;
+    private final float animalScale = 1.8F;
     public IndoraptorRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new IndoraptorModel());
     }

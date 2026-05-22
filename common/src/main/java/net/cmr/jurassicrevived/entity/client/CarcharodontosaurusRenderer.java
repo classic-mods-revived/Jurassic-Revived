@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class CarcharodontosaurusRenderer extends GeoEntityRenderer<CarcharodontosaurusEntity> {
-    private final float animalScale = 2.25F;
+    private final float animalScale = 2.0F;
     public CarcharodontosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new CarcharodontosaurusModel());
     }

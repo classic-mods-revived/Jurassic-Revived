@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class DeinonychusRenderer extends GeoEntityRenderer<DeinonychusEntity> {
-    private final float animalScale = 1.0F;
+    private final float animalScale = 0.9F;
     public DeinonychusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new DeinonychusModel());
     }

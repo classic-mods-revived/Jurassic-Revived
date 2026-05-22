@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class EdmontosaurusRenderer extends GeoEntityRenderer<EdmontosaurusEntity> {
-    private final float animalScale = 1.5F;
+    private final float animalScale = 2.0F;
     public EdmontosaurusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new EdmontosaurusModel());
     }
