@@ -11,12 +11,6 @@ Jurassic Revived is a fan-made dinosaur mod for Minecraft 1.20.1 and 1.21.1, ins
 
 - 🏞️ Park-Building Tools Create enclosures, labs, research zones, and viewing areas.
 
-## 💡 Why Jurassic Revived?
-When JurassiCraft went private and its downloads disappeared, this mod was made to continue the legacy — for the community, by the community. Jurassic Revived offers the same immersive dinosaur gameplay — without restrictions.
-
-⚠️ Disclaimer:
-This is a fan project and is not affiliated with the newer JurassiCraft team (everything that appears in this mod comes either from the assets that the former team members have provided us with or was directly created by us) or any associated franchises. The mod is non-commercial and only inspired by the legacy of JurassiCraft.
-
 ## 💾 Installation (if not using a launcher):
 Requires Minecraft Forge for 1.20.1 or Neoforge for 1.21.1
 
