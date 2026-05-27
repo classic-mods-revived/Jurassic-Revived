@@ -11,42 +11,6 @@ Jurassic Revived is a fan-made dinosaur mod for Minecraft 1.20.1 and 1.21.1, ins
 
 - 🏞️ Park-Building Tools Create enclosures, labs, research zones, and viewing areas.
 
-## 🦕 Dinosaurs (with more to come in the future):
-- Albertosaurus
-- Apatosaurus
-- Baryonyx
-- Brachiosaurus
-- Carnotaurus
-- Ceratosaurus
-- Compsognathus
-- Concavenator
-- Deinonychus
-- Dilophosaurus
-- Diplodocus
-- D Rex
-- Edmontosaurus
-- Gallimimus
-- Giganotosuarus
-- Guanlong
-- Herrerasaurus
-- Indominus Rex
-- Majungasaurus
-- Ouranosaurus
-- Parasaurolophus
-- Procompsognathus
-- Protoceratops
-- Rugops
-- Shantungosaurus
-- Spinosaurus
-- Stegosaurus
-- Styracosaurus
-- Theriznosarus
-- Triceratops
-- Tyrannosaurus Rex
-- Velociraptor
-
-More species may be added over time.
-
 ## 💡 Why Jurassic Revived?
 When JurassiCraft went private and its downloads disappeared, this mod was made to continue the legacy — for the community, by the community. Jurassic Revived offers the same immersive dinosaur gameplay — without restrictions.
 
