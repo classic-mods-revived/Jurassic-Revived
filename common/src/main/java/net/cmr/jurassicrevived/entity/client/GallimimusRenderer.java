@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class GallimimusRenderer extends GeoEntityRenderer<GallimimusEntity> {
-    private final float animalScale = 0.8F;
+    private final float animalScale = 1.0F;
     public GallimimusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new GallimimusModel());
     }

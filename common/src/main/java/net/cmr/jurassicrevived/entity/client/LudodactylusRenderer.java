@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class LudodactylusRenderer extends GeoEntityRenderer<LudodactylusEntity> {
-    private final float animalScale = 0.9F;
+    private final float animalScale = 1.5F;
     public LudodactylusRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new LudodactylusModel());
     }
