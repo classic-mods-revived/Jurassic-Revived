@@ -142,7 +142,8 @@ public class ModBlockTagProvider {
                 ModBlocks.INCUBATED_TROPEOGNATHUS_EGG.get(),
                 ModBlocks.INCUBATED_TUPUXUARA_EGG.get(),
                 ModBlocks.INCUBATED_UTAHRAPTOR_EGG.get(),
-                ModBlocks.INCUBATED_ZHENYUANOPTERUS_EGG.get()
+                ModBlocks.INCUBATED_ZHENYUANOPTERUS_EGG.get(),
+                ModBlocks.INCUBATED_ACHILLOBATOR_EGG.get()
         );
 
         helper.tag(BlockTags.MINEABLE_WITH_SHOVEL);

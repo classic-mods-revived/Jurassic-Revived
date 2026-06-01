@@ -196,6 +196,7 @@ public class ModBlockStateProvider {
         helper.eggLike(ModBlocks.TUPUXUARA_EGG.get());
         helper.eggLike(ModBlocks.UTAHRAPTOR_EGG.get());
         helper.eggLike(ModBlocks.ZHENYUANOPTERUS_EGG.get());
+        helper.eggLike(ModBlocks.ACHILLOBATOR_EGG.get());
 
         helper.eggLike(ModBlocks.INCUBATED_VELOCIRAPTOR_EGG.get());
         helper.eggLike(ModBlocks.INCUBATED_TYRANNOSAURUS_REX_EGG.get());
@@ -270,6 +271,7 @@ public class ModBlockStateProvider {
         helper.eggLike(ModBlocks.INCUBATED_TUPUXUARA_EGG.get());
         helper.eggLike(ModBlocks.INCUBATED_UTAHRAPTOR_EGG.get());
         helper.eggLike(ModBlocks.INCUBATED_ZHENYUANOPTERUS_EGG.get());
+        helper.eggLike(ModBlocks.INCUBATED_ACHILLOBATOR_EGG.get());
 
         helper.customFenceMultipart(
                 ModBlocks.LOW_SECURITY_FENCE_POLE.get(),

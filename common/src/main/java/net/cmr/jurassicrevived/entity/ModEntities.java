@@ -331,6 +331,10 @@ public class ModEntities {
 		ENTITIES.register("utahraptor", () -> EntityType.Builder.of(UtahraptorEntity::new, MobCategory.CREATURE)
 			.sized(1.0f, 2.0f).build("utahraptor"));
 
+	public static final RegistrySupplier<EntityType<AchillobatorEntity>> ACHILLOBATOR =
+		ENTITIES.register("achillobator", () -> EntityType.Builder.of(AchillobatorEntity::new, MobCategory.CREATURE)
+			.sized(1.0f, 2.0f).build("achillobator"));
+
 	public static void registerAttributes() {
 		EntityAttributeRegistry.register(APATOSAURUS, ApatosaurusEntity::createAttributes);
 		EntityAttributeRegistry.register(ALBERTOSAURUS, AlbertosaurusEntity::createAttributes);
@@ -407,6 +411,7 @@ public class ModEntities {
 		EntityAttributeRegistry.register(TITANOSAURUS, TitanosaurusEntity::createAttributes);
 		EntityAttributeRegistry.register(TROODON, TroodonEntity::createAttributes);
 		EntityAttributeRegistry.register(UTAHRAPTOR, UtahraptorEntity::createAttributes);
+		EntityAttributeRegistry.register(ACHILLOBATOR, AchillobatorEntity::createAttributes);
 	}
 
 	public static void registerSpawnPlacements() {
@@ -489,6 +494,7 @@ public class ModEntities {
 		registerGroundAnimalSpawn(UTAHRAPTOR);
 		registerGroundAnimalSpawn(VELOCIRAPTOR);
 		registerGroundAnimalSpawn(ZHENYUANOPTERUS);
+		registerGroundAnimalSpawn(ACHILLOBATOR);
 	}
 
 	private static <T extends Animal> void registerGroundAnimalSpawn(RegistrySupplier<EntityType<T>> entityType) {

@@ -124,6 +124,7 @@ public class ModCreativeTabs {
 			builder.icon(() -> new ItemStack(ModItems.TYRANNOSAURUS_REX_DNA.get().asItem()));
 			builder.displayItems((params, output) -> {
 				// Skull fossils (alphabetical)
+				output.accept(ModItems.ACHILLOBATOR_SKULL_FOSSIL.get());
 				output.accept(ModItems.ALBERTOSAURUS_SKULL_FOSSIL.get());
 				output.accept(ModItems.ALLOSAURUS_SKULL_FOSSIL.get());
 				output.accept(ModItems.ALVAREZSAURUS_SKULL_FOSSIL.get());
@@ -196,6 +197,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.ZHENYUANOPTERUS_SKULL_FOSSIL.get());
 
 // Fresh skulls (alphabetical)
+				output.accept(ModItems.FRESH_ACHILLOBATOR_SKULL.get());
 				output.accept(ModItems.FRESH_ALBERTOSAURUS_SKULL.get());
 				output.accept(ModItems.FRESH_ALLOSAURUS_SKULL.get());
 				output.accept(ModItems.FRESH_ALVAREZSAURUS_SKULL.get());
@@ -270,6 +272,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.FRESH_ZHENYUANOPTERUS_SKULL.get());
 
 // Tissue (alphabetical)
+				output.accept(ModItems.ACHILLOBATOR_TISSUE.get());
 				output.accept(ModItems.ALBERTOSAURUS_TISSUE.get());
 				output.accept(ModItems.ALLOSAURUS_TISSUE.get());
 				output.accept(ModItems.ALVAREZSAURUS_TISSUE.get());
@@ -345,6 +348,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.ZHENYUANOPTERUS_TISSUE.get());
 
 // DNA (alphabetical)
+				output.accept(ModItems.ACHILLOBATOR_DNA.get());
 				output.accept(ModItems.ALBERTOSAURUS_DNA.get());
 				output.accept(ModItems.ALLOSAURUS_DNA.get());
 				output.accept(ModItems.ALVAREZSAURUS_DNA.get());
@@ -420,6 +424,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.ZHENYUANOPTERUS_DNA.get());
 
 // Syringes (alphabetical)
+				output.accept(ModItems.ACHILLOBATOR_SYRINGE.get());
 				output.accept(ModItems.ALBERTOSAURUS_SYRINGE.get());
 				output.accept(ModItems.ALLOSAURUS_SYRINGE.get());
 				output.accept(ModItems.ALVAREZSAURUS_SYRINGE.get());
@@ -495,6 +500,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.ZHENYUANOPTERUS_SYRINGE.get());
 
 // Eggs (alphabetical)
+				output.accept(ModBlocks.ACHILLOBATOR_EGG.get());
 				output.accept(ModBlocks.ALBERTOSAURUS_EGG.get());
 				output.accept(ModBlocks.ALLOSAURUS_EGG.get());
 				output.accept(ModBlocks.ALVAREZSAURUS_EGG.get());
@@ -575,6 +581,7 @@ public class ModCreativeTabs {
 			builder.title(Component.translatable("itemGroup." + Constants.MOD_ID + ".dino_tab"));
 			builder.icon(() -> new ItemStack(ModItems.TYRANNOSAURUS_REX_SPAWN_EGG.get().asItem()));
 			builder.displayItems((params, output) -> {
+				output.accept(ModItems.ACHILLOBATOR_SPAWN_EGG.get());
 				output.accept(ModItems.ALBERTOSAURUS_SPAWN_EGG.get());
 				output.accept(ModItems.ALLOSAURUS_SPAWN_EGG.get());
 				output.accept(ModItems.ALVAREZSAURUS_SPAWN_EGG.get());
