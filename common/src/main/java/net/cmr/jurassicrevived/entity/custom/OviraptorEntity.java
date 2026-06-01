@@ -322,4 +322,9 @@ public class OviraptorEntity extends DinoEntityBase implements GeoEntity {
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.OVIRAPTOR_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

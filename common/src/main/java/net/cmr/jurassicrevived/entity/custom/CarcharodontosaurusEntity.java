@@ -332,4 +332,9 @@ public class CarcharodontosaurusEntity extends DinoEntityBase implements GeoEnti
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.CARCHARODONTOSAURUS_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

@@ -363,4 +363,9 @@ public class DimorphodonEntity extends DinoEntityBase implements GeoEntity, Flyi
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.DIMORPHODON_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

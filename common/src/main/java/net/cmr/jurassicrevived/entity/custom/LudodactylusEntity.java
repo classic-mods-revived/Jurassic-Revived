@@ -363,4 +363,9 @@ public class LudodactylusEntity extends DinoEntityBase implements GeoEntity, Fly
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.LUDODACTYLUS_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

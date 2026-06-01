@@ -363,4 +363,9 @@ public class NyctosaurusEntity extends DinoEntityBase implements GeoEntity, Flyi
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.NYCTOSAURUS_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

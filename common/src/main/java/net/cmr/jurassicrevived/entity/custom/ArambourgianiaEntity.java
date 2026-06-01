@@ -363,4 +363,9 @@ public class ArambourgianiaEntity extends DinoEntityBase implements GeoEntity, F
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.ARAMBOURGIANIA_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

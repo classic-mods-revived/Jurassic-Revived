@@ -363,4 +363,9 @@ public class TapejaraEntity extends DinoEntityBase implements GeoEntity, FlyingA
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.TAPEJARA_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

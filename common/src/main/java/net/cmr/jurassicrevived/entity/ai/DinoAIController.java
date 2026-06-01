@@ -67,6 +67,8 @@ public class DinoAIController {
     public void tick() {
         if (homePos == null) homePos = dino.blockPosition();
 
+        handleFloating();
+
         updateSensors();
 
         switch (currentState) {
@@ -83,6 +85,27 @@ public class DinoAIController {
         stateTimer++;
         if (attackCooldown > 0) attackCooldown--;
     }
+
+	private void handleFloating() {
+		if (!dino.isInWater()) {
+			return;
+		}
+
+		double fluidHeight = dino.getFluidHeight(FluidTags.WATER);
+		if (fluidHeight <= dino.getFluidJumpThreshold()) {
+			return;
+		}
+
+		Vec3 velocity = dino.getDeltaMovement();
+
+		if (velocity.y < 0.08D) {
+			dino.setDeltaMovement(
+				velocity.x,
+				Math.min(velocity.y + 0.03D, 0.08D),
+				velocity.z
+			);
+		}
+	}
 
     public void onHurtBy(LivingEntity attacker) {
         // Retaliate if we are capable of attacking (have damage attribute > 0)

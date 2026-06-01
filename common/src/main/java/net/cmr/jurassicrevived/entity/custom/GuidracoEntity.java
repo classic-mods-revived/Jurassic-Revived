@@ -363,4 +363,9 @@ public class GuidracoEntity extends DinoEntityBase implements GeoEntity, FlyingA
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.GUIDRACO_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

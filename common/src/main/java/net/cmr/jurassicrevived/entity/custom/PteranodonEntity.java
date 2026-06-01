@@ -363,4 +363,9 @@ public class PteranodonEntity extends DinoEntityBase implements GeoEntity, Flyin
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.PTERANODON_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

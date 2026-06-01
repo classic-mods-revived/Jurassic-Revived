@@ -363,4 +363,9 @@ public class TropeognathusEntity extends DinoEntityBase implements GeoEntity, Fl
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.TROPEOGNATHUS_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }
