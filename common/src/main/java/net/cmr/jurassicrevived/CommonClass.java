@@ -53,10 +53,9 @@ public class CommonClass
 
 		ModRecipes.register();
 
-		LifecycleEvent.SETUP.register(() -> {
-			ModBlocks.setupPots();
-			ModEntities.registerSpawnPlacements();
-		});
+		LifecycleEvent.SETUP.register(ModBlocks::setupPots);
+
+		ModEntities.registerSpawnPlacements();
 
 		ModBlockEntities.register();
 
