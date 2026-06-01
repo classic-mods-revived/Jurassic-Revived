@@ -149,7 +149,11 @@ public class DilophosaurusEntity extends DinoEntityBase implements GeoEntity {
             return state.setAndContinue(RawAnimation.begin().then("anim.dilophosaurus.idle", Animation.LoopType.LOOP));
         }));
 
-        controllers.add(new AnimationController<>(this, "attackController", 5, state -> PlayState.STOP)
+		controllers.add(new AnimationController<>(this, "frillOverlayController", 5, state ->
+			state.setAndContinue(RawAnimation.begin().then("anim.dilophosaurus.frill.overlay", Animation.LoopType.LOOP))));
+
+
+		controllers.add(new AnimationController<>(this, "attackController", 5, state -> PlayState.STOP)
                 .triggerableAnim("attack", RawAnimation.begin().then("anim.dilophosaurus.attack", Animation.LoopType.PLAY_ONCE)));
 
         controllers.add(new AnimationController<>(this, "mouthController", 5, state -> PlayState.STOP)
