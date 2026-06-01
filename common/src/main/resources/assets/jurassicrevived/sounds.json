@@ -1756,5 +1756,41 @@
     "sounds": [
       "jurassicrevived:zhenyuanopterus/zhenyuanopterus_death"
     ]
+  },
+  "achillobator_call": {
+    "subtitle": "sounds.jurassicrevived.achillobator_call",
+    "sounds": [
+      "jurassicrevived:achillobator/achillobator_living_1",
+      "jurassicrevived:achillobator/achillobator_living_2",
+      "jurassicrevived:achillobator/achillobator_living_3",
+      "jurassicrevived:achillobator/achillobator_living_4",
+      "jurassicrevived:achillobator/achillobator_living_5",
+      "jurassicrevived:achillobator/achillobator_living_6",
+      "jurassicrevived:achillobator/achillobator_living_7",
+      "jurassicrevived:achillobator/achillobator_bark_1",
+      "jurassicrevived:achillobator/achillobator_bark_2",
+      "jurassicrevived:achillobator/achillobator_bark_3"
+    ]
+  },
+  "achillobator_attack": {
+    "subtitle": "sounds.jurassicrevived.achillobator_call",
+    "sounds": [
+      "jurassicrevived:achillobator/achillobator_attack_1",
+      "jurassicrevived:achillobator/achillobator_attack_2",
+      "jurassicrevived:achillobator/achillobator_attack_3"
+    ]
+  },
+  "achillobator_hurt": {
+    "subtitle": "sounds.jurassicrevived.achillobator_hurt",
+    "sounds": [
+      "jurassicrevived:achillobator/achillobator_hurt_1",
+      "jurassicrevived:achillobator/achillobator_hurt_2"
+    ]
+  },
+  "achillobator_death": {
+    "subtitle": "sounds.jurassicrevived.achillobator_death",
+    "sounds": [
+      "jurassicrevived:achillobator/achillobator_death_1"
+    ]
   }
 }

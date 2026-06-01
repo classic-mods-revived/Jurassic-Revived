@@ -83,7 +83,8 @@ public final class ModSpawnDefinitions {
 		spawn("tyrannosaurus_rex", ModEntities.TYRANNOSAURUS_REX, 5, 1, 2, BiomeTags.IS_TAIGA, BiomeTags.IS_OVERWORLD),
 		spawn("utahraptor", ModEntities.UTAHRAPTOR, 16, 1, 3, BiomeTags.IS_TAIGA, BiomeTags.IS_FOREST),
 		spawn("velociraptor", ModEntities.VELOCIRAPTOR, 26, 2, 4, BiomeTags.IS_BADLANDS, BiomeTags.IS_OVERWORLD),
-		spawn("zhenyuanopterus", ModEntities.ZHENYUANOPTERUS, 7, 2, 5, BiomeTags.IS_BEACH, BiomeTags.IS_MOUNTAIN)
+		spawn("zhenyuanopterus", ModEntities.ZHENYUANOPTERUS, 7, 2, 5, BiomeTags.IS_BEACH, BiomeTags.IS_MOUNTAIN),
+		spawn("achillobator", ModEntities.ACHILLOBATOR, 12, 1, 2, BiomeTags.IS_TAIGA)
 	);
 
 	@SafeVarargs

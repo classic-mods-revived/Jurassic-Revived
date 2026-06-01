@@ -496,5 +496,12 @@ public class ModEntityLootTableProvider {
                         .add(LootItem.lootTableItem(ModItems.FRESH_ZHENYUANOPTERUS_SKULL.get()))
                 )
         );
+
+        helper.add(ModEntities.ACHILLOBATOR.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(ModItems.FRESH_ACHILLOBATOR_SKULL.get()))
+                )
+        );
     }
 }

@@ -87,7 +87,8 @@ public class ModItemTagProvider {
                 ModItems.TROPEOGNATHUS_TISSUE.get(),
                 ModItems.TUPUXUARA_TISSUE.get(),
                 ModItems.UTAHRAPTOR_TISSUE.get(),
-                ModItems.ZHENYUANOPTERUS_TISSUE.get()
+                ModItems.ZHENYUANOPTERUS_TISSUE.get(),
+                ModItems.ACHILLOBATOR_TISSUE.get()
         );
 
         helper.tag(ModTags.Items.DNA,
@@ -164,7 +165,8 @@ public class ModItemTagProvider {
                 ModItems.TROPEOGNATHUS_DNA.get(),
                 ModItems.TUPUXUARA_DNA.get(),
                 ModItems.UTAHRAPTOR_DNA.get(),
-                ModItems.ZHENYUANOPTERUS_DNA.get()
+                ModItems.ZHENYUANOPTERUS_DNA.get(),
+                ModItems.ACHILLOBATOR_DNA.get()
         );
 
         helper.tag(ModTags.Items.SYRINGES,
@@ -241,7 +243,8 @@ public class ModItemTagProvider {
                 ModItems.TROPEOGNATHUS_SYRINGE.get(),
                 ModItems.TUPUXUARA_SYRINGE.get(),
                 ModItems.UTAHRAPTOR_SYRINGE.get(),
-                ModItems.ZHENYUANOPTERUS_SYRINGE.get()
+                ModItems.ZHENYUANOPTERUS_SYRINGE.get(),
+                ModItems.ACHILLOBATOR_SYRINGE.get()
         );
 
         helper.tag(ModTags.Items.EGGS,
@@ -317,7 +320,8 @@ public class ModItemTagProvider {
                 Item.byBlock(ModBlocks.TROPEOGNATHUS_EGG.get()),
                 Item.byBlock(ModBlocks.TUPUXUARA_EGG.get()),
                 Item.byBlock(ModBlocks.UTAHRAPTOR_EGG.get()),
-                Item.byBlock(ModBlocks.ZHENYUANOPTERUS_EGG.get())
+                Item.byBlock(ModBlocks.ZHENYUANOPTERUS_EGG.get()),
+                Item.byBlock(ModBlocks.ACHILLOBATOR_EGG.get())
         );
 
         helper.tag(ModTags.Items.FOSSILS,
@@ -391,7 +395,8 @@ public class ModItemTagProvider {
                 ModItems.TROPEOGNATHUS_SKULL_FOSSIL.get(),
                 ModItems.TUPUXUARA_SKULL_FOSSIL.get(),
                 ModItems.UTAHRAPTOR_SKULL_FOSSIL.get(),
-                ModItems.ZHENYUANOPTERUS_SKULL_FOSSIL.get()
+                ModItems.ZHENYUANOPTERUS_SKULL_FOSSIL.get(),
+                ModItems.ACHILLOBATOR_SKULL_FOSSIL.get()
         );
 
         helper.tag(ModTags.Items.SKULLS,
@@ -468,7 +473,8 @@ public class ModItemTagProvider {
                 ModItems.FRESH_TROPEOGNATHUS_SKULL.get(),
                 ModItems.FRESH_TUPUXUARA_SKULL.get(),
                 ModItems.FRESH_UTAHRAPTOR_SKULL.get(),
-                ModItems.FRESH_ZHENYUANOPTERUS_SKULL.get()
+                ModItems.FRESH_ZHENYUANOPTERUS_SKULL.get(),
+                ModItems.FRESH_ACHILLOBATOR_SKULL.get()
         );
     }
 }

@@ -80,6 +80,7 @@
   "item.jurassicrevived.tropeognathus_spawn_egg": "Tropeognathus Spawn Egg",
   "item.jurassicrevived.tupuxuara_spawn_egg": "Tupuxuara Spawn Egg",
   "item.jurassicrevived.zhenyuanopterus_spawn_egg": "Zhenyuanopterus Spawn Egg",
+  "item.jurassicrevived.achillobator_spawn_egg": "Achillobator Spawn Egg",
 
   "entity.jurassicrevived.apatosaurus": "Apatosaurus",
   "entity.jurassicrevived.albertosaurus": "Albertosaurus",
@@ -156,6 +157,7 @@
   "entity.jurassicrevived.tropeognathus": "Tropeognathus",
   "entity.jurassicrevived.tupuxuara": "Tupuxuara",
   "entity.jurassicrevived.zhenyuanopterus": "Zhenyuanopterus",
+  "entity.jurassicrevived.achillobator": "Achillobator",
 
   "block.jurassicrevived.cat_plushie": "Cat Plushie",
   "block.jurassicrevived.trash_can": "Trash Can",
@@ -302,6 +304,7 @@
   "item.jurassicrevived.tupuxuara_skull_fossil": "Tupuxuara Skull Fossil",
   "item.jurassicrevived.utahraptor_skull_fossil": "Utahraptor Skull Fossil",
   "item.jurassicrevived.zhenyuanopterus_skull_fossil": "Zhenyuanopterus Skull Fossil",
+  "item.jurassicrevived.achillobator_skull_fossil": "Achillobator Skull Fossil",
 
   "item.jurassicrevived.fresh_velociraptor_skull": "Fresh Velociraptor Skull",
   "item.jurassicrevived.fresh_tyrannosaurus_rex_skull": "Fresh Tyrannosaurus Rex Skull",
@@ -376,6 +379,7 @@
   "item.jurassicrevived.fresh_tupuxuara_skull": "Fresh Tupuxuara Skull",
   "item.jurassicrevived.fresh_utahraptor_skull": "Fresh Utahraptor Skull",
   "item.jurassicrevived.fresh_zhenyuanopterus_skull": "Fresh Zhenyuanopterus Skull",
+  "item.jurassicrevived.fresh_achillobator_skull": "Fresh Achillobator Skull",
 
   "item.jurassicrevived.test_tube": "Test Tube",
   "item.jurassicrevived.syringe": "Syringe",
@@ -465,6 +469,7 @@
   "item.jurassicrevived.tupuxuara_tissue": "Tupuxuara Tissue",
   "item.jurassicrevived.utahraptor_tissue": "Utahraptor Tissue",
   "item.jurassicrevived.zhenyuanopterus_tissue": "Zhenyuanopterus Tissue",
+  "item.jurassicrevived.achillobator_tissue": "Achillobator Tissue",
 
   "item.jurassicrevived.velociraptor_dna": "Velociraptor DNA",
   "item.jurassicrevived.tyrannosaurus_rex_dna": "Tyrannosaurus Rex DNA",
@@ -539,6 +544,7 @@
   "item.jurassicrevived.tupuxuara_dna": "Tupuxuara DNA",
   "item.jurassicrevived.utahraptor_dna": "Utahraptor DNA",
   "item.jurassicrevived.zhenyuanopterus_dna": "Zhenyuanopterus DNA",
+  "item.jurassicrevived.achillobator_dna": "Achillobator DNA",
 
   "item.jurassicrevived.velociraptor_syringe": "Velociraptor Syringe",
   "item.jurassicrevived.tyrannosaurus_rex_syringe": "Tyrannosaurus Rex Syringe",
@@ -613,6 +619,7 @@
   "item.jurassicrevived.tupuxuara_syringe": "Tupuxuara Syringe",
   "item.jurassicrevived.utahraptor_syringe": "Utahraptor Syringe",
   "item.jurassicrevived.zhenyuanopterus_syringe": "Zhenyuanopterus Syringe",
+  "item.jurassicrevived.achillobator_syringe": "Achillobator Syringe",
 
   "block.jurassicrevived.velociraptor_egg": "Velociraptor Egg",
   "block.jurassicrevived.tyrannosaurus_rex_egg": "Tyrannosaurus Rex Egg",
@@ -687,6 +694,7 @@
   "block.jurassicrevived.tupuxuara_egg": "Tupuxuara Egg",
   "block.jurassicrevived.utahraptor_egg": "Utahraptor Egg",
   "block.jurassicrevived.zhenyuanopterus_egg": "Zhenyuanopterus Egg",
+  "block.jurassicrevived.achillobator_egg": "Achillobator Egg",
 
   "block.jurassicrevived.incubated_velociraptor_egg": "§aIncubated Velociraptor Egg",
   "block.jurassicrevived.incubated_tyrannosaurus_rex_egg": "§aIncubated Tyrannosaurus Rex Egg",
@@ -761,6 +769,7 @@
   "block.jurassicrevived.incubated_tupuxuara_egg": "§aIncubated Tupuxuara Egg",
   "block.jurassicrevived.incubated_utahraptor_egg": "§aIncubated Utahraptor Egg",
   "block.jurassicrevived.incubated_zhenyuanopterus_egg": "§aIncubated Zhenyuanopterus Egg",
+  "block.jurassicrevived.incubated_achillobator_egg": "§aIncubated Achillobator Egg",
 
   "tooltip.jurassicrevived.gender": "Gender: %s",
   "tooltip.jurassicrevived.gender.hint": "Hint: %s to change",
@@ -1033,6 +1042,10 @@
   "sounds.jurassicrevived.zhenyuanopterus_call": "Zhenyuanopterus Call",
   "sounds.jurassicrevived.zhenyuanopterus_hurt": "Zhenyuanopterus Hurt",
   "sounds.jurassicrevived.zhenyuanopterus_death": "Zhenyuanopterus Death",
+  "sounds.jurassicrevived.achillobator_call": "Achillobator Call",
+  "sounds.jurassicrevived.achillobator_attack": "Achillobator Attack",
+  "sounds.jurassicrevived.achillobator_hurt": "Achillobator Hurt",
+  "sounds.jurassicrevived.achillobator_death": "Achillobator Death",
 
   "jurassicrevived.tooltip.liquid.amount.with.capacity": "%s / %s mB",
   "jurassicrevived.tooltip.liquid.amount": "%s mB",

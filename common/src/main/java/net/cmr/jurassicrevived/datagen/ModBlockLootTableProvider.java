@@ -134,6 +134,7 @@ public class ModBlockLootTableProvider {
         helper.dropSelf(ModBlocks.TUPUXUARA_EGG.get());
         helper.dropSelf(ModBlocks.UTAHRAPTOR_EGG.get());
         helper.dropSelf(ModBlocks.ZHENYUANOPTERUS_EGG.get());
+        helper.dropSelf(ModBlocks.ACHILLOBATOR_EGG.get());
 
         helper.dropSelf(ModBlocks.INCUBATED_APATOSAURUS_EGG.get());
         helper.dropSelf(ModBlocks.INCUBATED_ALBERTOSAURUS_EGG.get());
@@ -208,6 +209,7 @@ public class ModBlockLootTableProvider {
         helper.dropSelf(ModBlocks.INCUBATED_TUPUXUARA_EGG.get());
         helper.dropSelf(ModBlocks.INCUBATED_UTAHRAPTOR_EGG.get());
         helper.dropSelf(ModBlocks.INCUBATED_ZHENYUANOPTERUS_EGG.get());
+        helper.dropSelf(ModBlocks.INCUBATED_ACHILLOBATOR_EGG.get());
 
         helper.dropSelf(ModBlocks.ROYAL_FERN.get());
         helper.add(ModBlocks.POTTED_ROYAL_FERN.get(), helper.createPotFlowerItemTable(ModBlocks.ROYAL_FERN.get()));

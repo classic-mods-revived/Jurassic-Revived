@@ -110,6 +110,7 @@ public class CommonClientClass {
 		EntityRendererRegistry.register(ModEntities.TITANOSAURUS, TitanosaurusRenderer::new);
 		EntityRendererRegistry.register(ModEntities.TROODON, TroodonRenderer::new);
 		EntityRendererRegistry.register(ModEntities.UTAHRAPTOR, UtahraptorRenderer::new);
+		EntityRendererRegistry.register(ModEntities.ACHILLOBATOR, AchillobatorRenderer::new);
 
 		if (Platform.isFabric()) {
 			registerSpawnEggColors();

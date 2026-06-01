@@ -442,6 +442,9 @@ public class ModBlocks {
 	public static final RegistrySupplier<Block> ZHENYUANOPTERUS_EGG = registerBlock("zhenyuanopterus_egg",
 		() -> new EggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.ZHENYUANOPTERUS));
 
+	public static final RegistrySupplier<Block> ACHILLOBATOR_EGG = registerBlock("achillobator_egg",
+		() -> new EggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.ACHILLOBATOR));
+
 
 
 	public static final RegistrySupplier<Block> INCUBATED_APATOSAURUS_EGG = registerBlock("incubated_apatosaurus_egg",
@@ -662,6 +665,9 @@ public class ModBlocks {
 
 	public static final RegistrySupplier<Block> INCUBATED_ZHENYUANOPTERUS_EGG = registerBlock("incubated_zhenyuanopterus_egg",
 		() -> new IncubatedEggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.ZHENYUANOPTERUS));
+
+	public static final RegistrySupplier<Block> INCUBATED_ACHILLOBATOR_EGG = registerBlock("incubated_achillobator_egg",
+		() -> new IncubatedEggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.ACHILLOBATOR));
 
 
 	// --- Helper Methods ---

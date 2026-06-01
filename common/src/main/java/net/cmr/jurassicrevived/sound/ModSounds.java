@@ -351,6 +351,11 @@ public class ModSounds {
     public static final Supplier<SoundEvent> ZHENYUANOPTERUS_HURT = registerSoundEvent("zhenyuanopterus_hurt");
     public static final Supplier<SoundEvent> ZHENYUANOPTERUS_DEATH = registerSoundEvent("zhenyuanopterus_death");
 
+    public static final Supplier<SoundEvent> ACHILLOBATOR_CALL = registerSoundEvent("achillobator_call");
+    public static final Supplier<SoundEvent> ACHILLOBATOR_ATTACK = registerSoundEvent("achillobator_attack");
+    public static final Supplier<SoundEvent> ACHILLOBATOR_HURT = registerSoundEvent("achillobator_hurt");
+    public static final Supplier<SoundEvent> ACHILLOBATOR_DEATH = registerSoundEvent("achillobator_death");
+
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {
         ResourceLocation id = Constants.rl(name);
