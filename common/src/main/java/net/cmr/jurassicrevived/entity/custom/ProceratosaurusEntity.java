@@ -323,4 +323,9 @@ public class ProceratosaurusEntity extends DinoEntityBase implements GeoEntity {
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.PROCERATOSAURUS_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

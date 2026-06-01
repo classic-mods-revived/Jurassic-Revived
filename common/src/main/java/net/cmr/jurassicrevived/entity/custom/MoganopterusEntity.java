@@ -363,4 +363,9 @@ public class MoganopterusEntity extends DinoEntityBase implements GeoEntity, Fly
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.MOGANOPTERUS_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

@@ -363,4 +363,9 @@ public class TupuxuaraEntity extends DinoEntityBase implements GeoEntity, Flying
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.TUPUXUARA_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

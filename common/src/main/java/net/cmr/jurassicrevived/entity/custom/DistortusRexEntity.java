@@ -332,4 +332,9 @@ public class DistortusRexEntity extends DinoEntityBase implements GeoEntity {
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.DISTORTUS_REX_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

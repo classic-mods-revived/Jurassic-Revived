@@ -363,4 +363,9 @@ public class CearadactylusEntity extends DinoEntityBase implements GeoEntity, Fl
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.CEARADACTYLUS_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

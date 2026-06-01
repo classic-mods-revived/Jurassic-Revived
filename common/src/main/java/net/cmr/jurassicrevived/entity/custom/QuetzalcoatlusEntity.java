@@ -363,4 +363,9 @@ public class QuetzalcoatlusEntity extends DinoEntityBase implements GeoEntity, F
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.QUETZALCOATLUS_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

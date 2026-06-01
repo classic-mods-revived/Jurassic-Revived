@@ -320,4 +320,9 @@ public class MetriacanthosaurusEntity extends DinoEntityBase implements GeoEntit
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.METRIACANTHOSAURUS_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

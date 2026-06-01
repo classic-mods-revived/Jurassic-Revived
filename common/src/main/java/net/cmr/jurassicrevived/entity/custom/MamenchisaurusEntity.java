@@ -331,4 +331,9 @@ public class MamenchisaurusEntity extends DinoEntityBase implements GeoEntity {
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.MAMENCHISAURUS_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

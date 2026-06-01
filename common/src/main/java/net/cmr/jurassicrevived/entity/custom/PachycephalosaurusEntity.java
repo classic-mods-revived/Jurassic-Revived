@@ -322,4 +322,9 @@ public class PachycephalosaurusEntity extends DinoEntityBase implements GeoEntit
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.PACHYCEPHALOSAURUS_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }

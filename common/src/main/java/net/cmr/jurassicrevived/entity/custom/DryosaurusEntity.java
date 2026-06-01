@@ -320,4 +320,9 @@ public class DryosaurusEntity extends DinoEntityBase implements GeoEntity {
 	protected @Nullable SoundEvent getAmbientSound() {
 		return ModSounds.DRYOSAURUS_CALL.get();
 	}
+
+	@Override
+	public double getFluidJumpThreshold() {
+		return this.getEyeHeight();
+	}
 }
