@@ -11,6 +11,7 @@ import net.cmr.jurassicrevived.entity.client.GiganotosaurusVariant;
 import net.cmr.jurassicrevived.entity.client.GiganotosaurusVariant;
 import net.cmr.jurassicrevived.sound.ModSounds;
 import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -35,6 +36,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 /*? if <=1.20.1 {*/
@@ -315,6 +317,11 @@ public class GiganotosaurusEntity extends DinoEntityBase implements GeoEntity {
     protected @Nullable SoundEvent getHurtSound(DamageSource damageSource) {
         return ModSounds.GIGANOTOSAURUS_HURT.get();
     }
+
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState blockIn) {
+		this.playSound(ModSounds.STOMP.get(), 0.5F, 1.0F);
+	}
 
     @Override
     protected @Nullable SoundEvent getDeathSound() {
