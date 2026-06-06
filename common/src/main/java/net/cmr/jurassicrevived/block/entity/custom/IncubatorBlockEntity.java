@@ -10,6 +10,7 @@ import net.cmr.jurassicrevived.recipe.IncubatorRecipe;
 import net.cmr.jurassicrevived.recipe.IncubatorRecipeInput;
 import net.cmr.jurassicrevived.recipe.ModRecipes;
 import net.cmr.jurassicrevived.screen.custom.IncubatorMenu;
+import net.cmr.jurassicrevived.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -19,14 +20,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,6 +45,8 @@ import java.util.Optional;
 
 public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuProvider, ModEnergyUtil.EnergyProvider {
 
+	private boolean allowInternalExtraction = false;
+
 	public final SimpleContainer itemHandler = new SimpleContainer(3) {
 		@Override
 		public void setChanged() {
@@ -49,6 +55,33 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 			if (level != null && !level.isClientSide()) {
 				level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 			}
+		}
+
+		@Override
+		public boolean canPlaceItem(int slot, ItemStack stack) {
+			return stack.is(net.cmr.jurassicrevived.util.ModTags.Items.EGGS);
+		}
+
+		@Override
+		public ItemStack removeItem(int slot, int amount) {
+			ItemStack stack = getItem(slot);
+			if (!stack.isEmpty()) {
+				boolean isIncubated = stack.getItem() instanceof net.minecraft.world.item.BlockItem blockItem
+				                      && blockItem.getBlock().defaultBlockState().is(net.cmr.jurassicrevived.util.ModTags.Blocks.INCUBATED_EGGS);
+
+				if (!isIncubated && !allowInternalExtraction) {
+					boolean isPlayer = false;
+					for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+						String className = element.getClassName();
+						if (className.contains("inventory") || className.contains("player") || className.contains("ServerGamePacketListenerImpl")) {
+							isPlayer = true;
+							break;
+						}
+					}
+					if (!isPlayer) return ItemStack.EMPTY;
+				}
+			}
+			return super.removeItem(slot, amount);
 		}
 	};
 
@@ -104,6 +137,16 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 				if (level != null && !level.isClientSide()) {
 					level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 				}
+			}
+
+			@Override
+			public boolean canExtract() {
+				return false;
+			}
+
+			@Override
+			public int extractEnergy(int maxExtract, boolean simulate) {
+				return 0;
 			}
 		};
 	}
@@ -253,6 +296,7 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 		if (level.isClientSide) return;
 
 		pullEnergyFromNeighbors();
+		pushOutputsToHoppers();
 
 		boolean changed = false;
 		boolean anyActive = false;
@@ -310,7 +354,12 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 				ItemStack out = recipeOpt.get().assemble(new IncubatorRecipeInput(stack), level.registryAccess());
 				//?}
 				if (!out.isEmpty()) {
-					itemHandler.setItem(s, out.copy());
+					allowInternalExtraction = true;
+					try {
+						itemHandler.setItem(s, out.copy());
+					} finally {
+						allowInternalExtraction = false;
+					}
 					progress[s] = 0;
 					maxProgress[s] = DEFAULT_MAX_PROGRESS;
 					changed = true;
@@ -345,6 +394,36 @@ public class IncubatorBlockEntity extends BlockEntity implements ExtendedMenuPro
 				}
 			}
 		}
+	}
+
+	private void pushOutputsToHoppers() {
+		for (int slot = 0; slot < itemHandler.getContainerSize(); slot++) {
+			pushSlotToHoppers(slot);
+		}
+	}
+
+	private void pushSlotToHoppers(int slot) {
+		ItemStack stack = itemHandler.getItem(slot);
+		if (!isIncubatedEgg(stack)) return;
+
+		for (Direction dir : Direction.values()) {
+			BlockEntity be = level.getBlockEntity(worldPosition.relative(dir));
+			if (!(be instanceof Container target)) continue;
+
+			ItemStack toMove = stack.copy();
+			ItemStack remainder = HopperBlockEntity.addItem(itemHandler, target, toMove, dir);
+
+			if (remainder.getCount() != stack.getCount()) {
+				itemHandler.setItem(slot, remainder);
+				setChanged();
+				return;
+			}
+		}
+	}
+
+	private boolean isIncubatedEgg(ItemStack stack) {
+		return stack.getItem() instanceof BlockItem blockItem
+		       && blockItem.getBlock().defaultBlockState().is(ModTags.Blocks.INCUBATED_EGGS);
 	}
 
 	@Nullable

@@ -1792,5 +1792,113 @@
     "sounds": [
       "jurassicrevived:achillobator/achillobator_death_1"
     ]
+  },
+  "suchomimus_call": {
+    "subtitle": "sounds.jurassicrevived.suchomimus_call",
+    "sounds": [
+      "jurassicrevived:suchomimus/suchomimus_living_1",
+      "jurassicrevived:suchomimus/suchomimus_living_2",
+      "jurassicrevived:suchomimus/suchomimus_living_3",
+      "jurassicrevived:suchomimus/suchomimus_living_4",
+      "jurassicrevived:suchomimus/suchomimus_living_5",
+      "jurassicrevived:suchomimus/suchomimus_living_6",
+      "jurassicrevived:suchomimus/suchomimus_living_7",
+      "jurassicrevived:suchomimus/suchomimus_living_8"
+    ]
+  },
+  "suchomimus_attack": {
+    "subtitle": "sounds.jurassicrevived.suchomimus_call",
+    "sounds": [
+      "jurassicrevived:suchomimus/suchomimus_attack_1",
+      "jurassicrevived:suchomimus/suchomimus_attack_2"
+    ]
+  },
+  "suchomimus_hurt": {
+    "subtitle": "sounds.jurassicrevived.suchomimus_hurt",
+    "sounds": [
+      "jurassicrevived:suchomimus/suchomimus_hurt_1",
+      "jurassicrevived:suchomimus/suchomimus_hurt_2",
+      "jurassicrevived:suchomimus/suchomimus_hurt_3"
+    ]
+  },
+  "suchomimus_death": {
+    "subtitle": "sounds.jurassicrevived.suchomimus_death",
+    "sounds": [
+      "jurassicrevived:suchomimus/suchomimus_death_1"
+    ]
+  },
+  "chilesaurus_call": {
+    "subtitle": "sounds.jurassicrevived.chilesaurus_call",
+    "sounds": [
+      "jurassicrevived:chilesaurus/chilesaurus_living_1",
+      "jurassicrevived:chilesaurus/chilesaurus_living_2",
+      "jurassicrevived:chilesaurus/chilesaurus_living_3",
+      "jurassicrevived:chilesaurus/chilesaurus_living_4",
+      "jurassicrevived:chilesaurus/chilesaurus_living_5"
+    ]
+  },
+  "chilesaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.chilesaurus_hurt",
+    "sounds": [
+      "jurassicrevived:chilesaurus/chilesaurus_hurt_1",
+      "jurassicrevived:chilesaurus/chilesaurus_hurt_2",
+      "jurassicrevived:chilesaurus/chilesaurus_hurt_3"
+    ]
+  },
+  "chilesaurus_death": {
+    "subtitle": "sounds.jurassicrevived.chilesaurus_death",
+    "sounds": [
+      "jurassicrevived:chilesaurus/chilesaurus_death_1"
+    ]
+  },
+  "mussaurus_call": {
+    "subtitle": "sounds.jurassicrevived.mussaurus_call",
+    "sounds": [
+      "jurassicrevived:mussaurus/mussaurus_living_1",
+      "jurassicrevived:mussaurus/mussaurus_living_2",
+      "jurassicrevived:mussaurus/mussaurus_living_3",
+      "jurassicrevived:mussaurus/mussaurus_living_4",
+      "jurassicrevived:mussaurus/mussaurus_living_5",
+      "jurassicrevived:mussaurus/mussaurus_living_6"
+    ]
+  },
+  "mussaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.mussaurus_hurt",
+    "sounds": [
+      "jurassicrevived:mussaurus/mussaurus_hurt_1",
+      "jurassicrevived:mussaurus/mussaurus_hurt_2"
+    ]
+  },
+  "mussaurus_death": {
+    "subtitle": "sounds.jurassicrevived.mussaurus_death",
+    "sounds": [
+      "jurassicrevived:mussaurus/mussaurus_death_1"
+    ]
+  },
+  "thescelosaurus_call": {
+    "subtitle": "sounds.jurassicrevived.thescelosaurus_call",
+    "sounds": [
+      "jurassicrevived:thescelosaurus/thescelosaurus_living_1",
+      "jurassicrevived:thescelosaurus/thescelosaurus_living_2",
+      "jurassicrevived:thescelosaurus/thescelosaurus_living_3",
+      "jurassicrevived:thescelosaurus/thescelosaurus_living_4",
+      "jurassicrevived:thescelosaurus/thescelosaurus_living_5",
+      "jurassicrevived:thescelosaurus/thescelosaurus_living_6",
+      "jurassicrevived:thescelosaurus/thescelosaurus_living_7",
+      "jurassicrevived:thescelosaurus/thescelosaurus_living_8"
+    ]
+  },
+  "thescelosaurus_hurt": {
+    "subtitle": "sounds.jurassicrevived.thescelosaurus_hurt",
+    "sounds": [
+      "jurassicrevived:thescelosaurus/thescelosaurus_hurt_1",
+      "jurassicrevived:thescelosaurus/thescelosaurus_hurt_2"
+    ]
+  },
+  "thescelosaurus_death": {
+    "subtitle": "sounds.jurassicrevived.thescelosaurus_death",
+    "sounds": [
+      "jurassicrevived:thescelosaurus/thescelosaurus_death_1"
+    ]
   }
 }

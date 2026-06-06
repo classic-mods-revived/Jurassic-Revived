@@ -123,27 +123,30 @@ public class PipeBlockEntity extends BlockEntity
 				.orElse(null);
 			if (src == null) continue;
 
-			PipeEndpoint sinkEp = findNearestSink(level, srcEp.pipePos, sinksByPipe, Transport.ITEMS);
-			if (sinkEp == null) continue;
+			List<PipeEndpoint> sinkEndpoints = findReachableSinks(level, srcEp.pipePos, sinksByPipe, Transport.ITEMS);
+			for (PipeEndpoint sinkEp : sinkEndpoints) {
+				if (remaining <= 0) break;
 
-			BlockPos dstPos = sinkEp.pipePos.relative(sinkEp.side);
-			Direction dstSide = sinkEp.side.getOpposite();
+				BlockPos dstPos = sinkEp.pipePos.relative(sinkEp.side);
+				Direction dstSide = sinkEp.side.getOpposite();
 
-			PlatformItemHandler dst = Services.TRANSFER
-				.getItemHandler(level, dstPos, dstSide)
-				.orElse(null);
-			if (dst == null) continue;
+				PlatformItemHandler dst = Services.TRANSFER
+					.getItemHandler(level, dstPos, dstSide)
+					.orElse(null);
+				if (dst == null) continue;
 
-			remaining = moveFromSourceToSingleTarget(src, dst, remaining);
+				remaining = moveFromSourceToSingleTarget(src, dst, remaining);
+			}
 		}
 	}
 
-	private static PipeEndpoint findNearestSink(
+	private static List<PipeEndpoint> findReachableSinks(
 		Level level,
 		BlockPos startPipe,
 		Map<BlockPos, List<PipeEndpoint>> sinksByPipe,
 		Transport transport
 	) {
+		List<PipeEndpoint> result = new ArrayList<>();
 		ArrayDeque<BlockPos> q = new ArrayDeque<>();
 		HashSet<BlockPos> seen = new HashSet<>();
 		q.add(startPipe);
@@ -154,7 +157,7 @@ public class PipeBlockEntity extends BlockEntity
 
 			List<PipeEndpoint> sinksHere = sinksByPipe.get(p);
 			if (sinksHere != null && !sinksHere.isEmpty()) {
-				return sinksHere.get(0);
+				result.addAll(sinksHere);
 			}
 
 			BlockState st = level.getBlockState(p);
@@ -167,7 +170,7 @@ public class PipeBlockEntity extends BlockEntity
 				}
 			}
 		}
-		return null;
+		return result;
 	}
 
 	private static void transferEnergy(Level level, BlockPos pos, BlockState state, int perTickLimit) {
@@ -188,26 +191,28 @@ public class PipeBlockEntity extends BlockEntity
 				.orElse(null);
 			if (src == null) continue;
 
-			PipeEndpoint sinkEp = findNearestSink(level, srcEp.pipePos, sinksByPipe, Transport.ENERGY);
-			if (sinkEp == null) continue;
+			List<PipeEndpoint> sinkEndpoints = findReachableSinks(level, srcEp.pipePos, sinksByPipe, Transport.ENERGY);
+			for (PipeEndpoint sinkEp : sinkEndpoints) {
+				if (remaining <= 0) break;
 
-			BlockPos dstPos = sinkEp.pipePos.relative(sinkEp.side);
-			Direction dstSide = sinkEp.side.getOpposite();
+				BlockPos dstPos = sinkEp.pipePos.relative(sinkEp.side);
+				Direction dstSide = sinkEp.side.getOpposite();
 
-			PlatformEnergyHandler dst = Services.TRANSFER
-				.getEnergyHandler(level, dstPos, dstSide)
-				.orElse(null);
-			if (dst == null) continue;
+				PlatformEnergyHandler dst = Services.TRANSFER
+					.getEnergyHandler(level, dstPos, dstSide)
+					.orElse(null);
+				if (dst == null) continue;
 
-			int available = src.extract(remaining, true);
-			if (available <= 0) continue;
+				int available = src.extract(remaining, true);
+				if (available <= 0) break;
 
-			int accepted = dst.insert(available, true);
-			if (accepted <= 0) continue;
+				int accepted = dst.insert(available, true);
+				if (accepted <= 0) continue;
 
-			int extracted = src.extract(accepted, false);
-			int inserted = dst.insert(extracted, false);
-			remaining -= inserted;
+				int extracted = src.extract(accepted, false);
+				int inserted = dst.insert(extracted, false);
+				remaining -= inserted;
+			}
 		}
 	}
 
@@ -229,34 +234,45 @@ public class PipeBlockEntity extends BlockEntity
 				.orElse(null);
 			if (src == null) continue;
 
-			PipeEndpoint sinkEp = findNearestSink(level, srcEp.pipePos, sinksByPipe, Transport.FLUIDS);
-			if (sinkEp == null) continue;
-
-			BlockPos dstPos = sinkEp.pipePos.relative(sinkEp.side);
-			Direction dstSide = sinkEp.side.getOpposite();
-
-			PlatformFluidHandler dst = Services.TRANSFER
-				.getFluidHandler(level, dstPos, dstSide)
-				.orElse(null);
-			if (dst == null) continue;
-
-			for (FluidStack candidate : src.getExtractableFluids()) {
-				if (candidate.isEmpty()) continue;
-
-				long available = src.extract(candidate, remaining, true);
-				if (available <= 0) continue;
-
-				long accepted = dst.insert(candidate, available, true);
-				if (accepted <= 0) continue;
-
-				FluidStack toMove = candidate.copy();
-				toMove.setAmount(accepted);
-
-				long extracted = src.extract(toMove, accepted, false);
-				long inserted = dst.insert(toMove, extracted, false);
-				remaining -= inserted;
-
+			List<PipeEndpoint> sinkEndpoints = findReachableSinks(level, srcEp.pipePos, sinksByPipe, Transport.FLUIDS);
+			for (PipeEndpoint sinkEp : sinkEndpoints) {
 				if (remaining <= 0) break;
+
+				BlockPos dstPos = sinkEp.pipePos.relative(sinkEp.side);
+				Direction dstSide = sinkEp.side.getOpposite();
+
+				PlatformFluidHandler dst = Services.TRANSFER
+					.getFluidHandler(level, dstPos, dstSide)
+					.orElse(null);
+				if (dst == null) continue;
+
+				for (FluidStack candidate : src.getExtractableFluids()) {
+					if (remaining <= 0) break;
+					if (candidate.isEmpty()) continue;
+
+					long available = src.extract(candidate, remaining, true);
+					if (available <= 0) continue;
+
+					long accepted = dst.insert(candidate, available, true);
+					if (accepted <= 0) continue;
+
+					FluidStack toMove = candidate.copy();
+					toMove.setAmount(accepted);
+
+					long extracted = src.extract(toMove, accepted, false);
+					if (extracted <= 0) continue;
+
+					toMove.setAmount(extracted);
+
+					long inserted = dst.insert(toMove, extracted, false);
+					remaining -= inserted;
+
+					if (inserted < extracted) {
+						FluidStack remainder = toMove.copy();
+						remainder.setAmount(extracted - inserted);
+						src.insert(remainder, extracted - inserted, false);
+					}
+				}
 			}
 		}
 	}

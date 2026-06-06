@@ -445,6 +445,18 @@ public class ModBlocks {
 	public static final RegistrySupplier<Block> ACHILLOBATOR_EGG = registerBlock("achillobator_egg",
 		() -> new EggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.ACHILLOBATOR));
 
+	public static final RegistrySupplier<Block> SUCHOMIMUS_EGG = registerBlock("suchomimus_egg",
+		() -> new EggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.SUCHOMIMUS));
+
+	public static final RegistrySupplier<Block> CHILESAURUS_EGG = registerBlock("chilesaurus_egg",
+		() -> new EggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.CHILESAURUS));
+
+	public static final RegistrySupplier<Block> THESCELOSAURUS_EGG = registerBlock("thescelosaurus_egg",
+		() -> new EggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.THESCELOSAURUS));
+
+	public static final RegistrySupplier<Block> MUSSASAURUS_EGG = registerBlock("mussasaurus_egg",
+		() -> new EggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.MUSSASAURUS));
+
 
 
 	public static final RegistrySupplier<Block> INCUBATED_APATOSAURUS_EGG = registerBlock("incubated_apatosaurus_egg",
@@ -668,6 +680,18 @@ public class ModBlocks {
 
 	public static final RegistrySupplier<Block> INCUBATED_ACHILLOBATOR_EGG = registerBlock("incubated_achillobator_egg",
 		() -> new IncubatedEggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.ACHILLOBATOR));
+
+	public static final RegistrySupplier<Block> INCUBATED_SUCHOMIMUS_EGG = registerBlock("incubated_suchomimus_egg",
+		() -> new IncubatedEggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.SUCHOMIMUS));
+
+	public static final RegistrySupplier<Block> INCUBATED_CHILESAURUS_EGG = registerBlock("incubated_chilesaurus_egg",
+		() -> new IncubatedEggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.CHILESAURUS));
+
+	public static final RegistrySupplier<Block> INCUBATED_THESCELOSAURUS_EGG = registerBlock("incubated_thescelosaurus_egg",
+		() -> new IncubatedEggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.THESCELOSAURUS));
+
+	public static final RegistrySupplier<Block> INCUBATED_MUSSASAURUS_EGG = registerBlock("incubated_mussasaurus_egg",
+		() -> new IncubatedEggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.MUSSASAURUS));
 
 
 	// --- Helper Methods ---

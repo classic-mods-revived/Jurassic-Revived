@@ -41,11 +41,7 @@ public class GeosternbergiaModel extends GeoModel<GeosternbergiaEntity> {
 
     @Override
     public ResourceLocation getAnimationResource(GeosternbergiaEntity animatable) {
-        //? if >1.20.1 {
-        /*return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "animations/geosternbergia.animation.json");
-        *///?} else {
-        return new ResourceLocation(Constants.MOD_ID, "animations/geosternbergia.animation.json");
-        //?}
+		return Constants.rl("animations/geosternbergia.animation.json");
     }
     public void setCustomAnimations(GeosternbergiaEntity entity, long id, AnimationState<GeosternbergiaEntity> state) {
         super.setCustomAnimations(entity, id, state);

@@ -6,6 +6,7 @@ import net.cmr.jurassicrevived.entity.ai.DinoData;
 import net.cmr.jurassicrevived.entity.ai.DinoEntityBase;
 import net.cmr.jurassicrevived.entity.ai.IDinoData;
 import net.cmr.jurassicrevived.entity.client.AlbertosaurusVariant;
+import net.cmr.jurassicrevived.item.ModItems;
 import net.cmr.jurassicrevived.sound.ModSounds;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
@@ -71,6 +72,10 @@ public class AlbertosaurusEntity extends DinoEntityBase implements GeoEntity {
 			IDinoData.BirthType.EGG_LAYING,
 			IDinoData.ActivityPattern.CATHEMERAL
 		);
+	}
+	@Override
+	public ItemStack getPickResult() {
+		return new ItemStack(ModItems.ALBERTOSAURUS_SPAWN_EGG.get());
 	}
 
 	@Override

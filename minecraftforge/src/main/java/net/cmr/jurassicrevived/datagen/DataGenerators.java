@@ -32,8 +32,9 @@ public class DataGenerators {
         BlockTagsProvider blockTagsProvider = new ForgeBlockTagProvider(packOutput, lookupProvider, existingFileHelper);
         generator.addProvider(event.includeServer(), blockTagsProvider);
         generator.addProvider(event.includeServer(), new ForgeItemTagProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+		generator.addProvider(event.includeServer(), new ForgeEntityTagProvider(packOutput, lookupProvider, existingFileHelper));
 
-        generator.addProvider(event.includeServer(), new LootTableProvider(packOutput, Collections.emptySet(),
+		generator.addProvider(event.includeServer(), new LootTableProvider(packOutput, Collections.emptySet(),
                 List.of(
                         new LootTableProvider.SubProviderEntry(ForgeBlockLootTableProvider::new, LootContextParamSets.BLOCK),
                         new LootTableProvider.SubProviderEntry(ForgeEntityLootTableProvider::new, LootContextParamSets.ENTITY)

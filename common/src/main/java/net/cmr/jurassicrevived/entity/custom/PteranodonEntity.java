@@ -9,6 +9,7 @@ import net.cmr.jurassicrevived.entity.ai.SprintingMeleeAttackGoal;
 import net.cmr.jurassicrevived.entity.ai.SprintingPanicGoal;
 import net.cmr.jurassicrevived.entity.client.AlbertosaurusVariant;
 import net.cmr.jurassicrevived.entity.client.PteranodonVariant;
+import net.cmr.jurassicrevived.item.ModItems;
 import net.cmr.jurassicrevived.sound.ModSounds;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -89,6 +90,11 @@ public class PteranodonEntity extends DinoEntityBase implements GeoEntity, Flyin
             IDinoData.ActivityPattern.CATHEMERAL
         );
     }
+
+	@Override
+	public ItemStack getPickResult() {
+		return new ItemStack(ModItems.PTERANODON_SPAWN_EGG.get());
+	}
 
     @Override
     public boolean isCarnivore() {

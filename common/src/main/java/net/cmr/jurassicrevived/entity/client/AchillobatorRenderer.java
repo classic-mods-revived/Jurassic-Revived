@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class AchillobatorRenderer extends GeoEntityRenderer<AchillobatorEntity> {
-    private final float animalScale = 1.3F;
+    private final float animalScale = 1.0F;
     public AchillobatorRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new AchillobatorModel());
     }

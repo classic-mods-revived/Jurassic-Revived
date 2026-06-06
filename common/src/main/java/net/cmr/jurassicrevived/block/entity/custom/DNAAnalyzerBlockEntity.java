@@ -23,6 +23,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -31,6 +32,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,7 +47,9 @@ import java.util.Optional;
 
 public class DNAAnalyzerBlockEntity extends BlockEntity implements ExtendedMenuProvider, ModEnergyUtil.EnergyProvider {
 
-	public final SimpleContainer itemHandler = new SimpleContainer(5) {
+	private boolean allowInternalExtraction = false;
+
+	public final SimpleContainer itemHandler = new SimpleContainer(3) {
 		@Override
 		public void setChanged() {
 			super.setChanged();
@@ -53,6 +57,30 @@ public class DNAAnalyzerBlockEntity extends BlockEntity implements ExtendedMenuP
 			if (level != null && !level.isClientSide()) {
 				level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 			}
+		}
+
+		@Override
+		public boolean canPlaceItem(int slot, ItemStack stack) {
+			if (slot == 2) return false;
+			if (slot == 0) return stack.is(net.cmr.jurassicrevived.item.ModItems.TEST_TUBE.get());
+			if (slot == 1) return stack.is(net.cmr.jurassicrevived.item.ModItems.FROG_MATERIAL.get());
+			return false;
+		}
+
+		@Override
+		public ItemStack removeItem(int slot, int amount) {
+			if ((slot == TEST_TUBE_SLOT || slot == MATERIAL_SLOT) && !allowInternalExtraction) {
+				boolean isPlayer = false;
+				for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+					String className = element.getClassName();
+					if (className.contains("inventory") || className.contains("player") || className.contains("ServerGamePacketListenerImpl")) {
+						isPlayer = true;
+						break;
+					}
+				}
+				if (!isPlayer) return ItemStack.EMPTY;
+			}
+			return super.removeItem(slot, amount);
 		}
 	};
 
@@ -106,6 +134,16 @@ public class DNAAnalyzerBlockEntity extends BlockEntity implements ExtendedMenuP
 				if (level != null && !level.isClientSide()) {
 					level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 				}
+			}
+
+			@Override
+			public boolean canExtract() {
+				return false;
+			}
+
+			@Override
+			public int extractEnergy(int maxExtract, boolean simulate) {
+				return 0;
 			}
 		};
 	}
@@ -239,6 +277,7 @@ public class DNAAnalyzerBlockEntity extends BlockEntity implements ExtendedMenuP
 		if (level.isClientSide) return;
 
 		pullEnergyFromNeighbors();
+		pushOutputsToHoppers();
 
 		//? if >1.20.1 {
 		/*Optional<RecipeHolder<DNAAnalyzerRecipe>> recipeOpt = getCurrentRecipe();
@@ -288,14 +327,19 @@ public class DNAAnalyzerBlockEntity extends BlockEntity implements ExtendedMenuP
 	}
 
 	private void craftItem(ItemStack output) {
-		ItemStack current = itemHandler.getItem(OUTPUT_SLOT_1);
-		if (current.isEmpty()) {
-			itemHandler.setItem(OUTPUT_SLOT_1, output.copy());
-		} else {
-			current.grow(output.getCount());
+		allowInternalExtraction = true;
+		try {
+			ItemStack current = itemHandler.getItem(OUTPUT_SLOT_1);
+			if (current.isEmpty()) {
+				itemHandler.setItem(OUTPUT_SLOT_1, output.copy());
+			} else {
+				current.grow(output.getCount());
+			}
+			itemHandler.removeItem(0, 1);
+			itemHandler.removeItem(1, 1);
+		} finally {
+			allowInternalExtraction = false;
 		}
-		itemHandler.removeItem(TEST_TUBE_SLOT, 1);
-		itemHandler.removeItem(MATERIAL_SLOT, 1);
 	}
 
 	private boolean canInsertOutput(ItemStack output) {
@@ -388,6 +432,29 @@ public class DNAAnalyzerBlockEntity extends BlockEntity implements ExtendedMenuP
 						energyStorage.receiveEnergy(source.extractEnergy(accepted, false), false);
 					}
 				}
+			}
+		}
+	}
+
+	private void pushOutputsToHoppers() {
+		pushSlotToHoppers(OUTPUT_SLOT_1);
+	}
+
+	private void pushSlotToHoppers(int slot) {
+		ItemStack stack = itemHandler.getItem(slot);
+		if (stack.isEmpty()) return;
+
+		for (Direction dir : Direction.values()) {
+			BlockEntity be = level.getBlockEntity(worldPosition.relative(dir));
+			if (!(be instanceof Container target)) continue;
+
+			ItemStack toMove = stack.copy();
+			ItemStack remainder = HopperBlockEntity.addItem(itemHandler, target, toMove, dir);
+
+			if (remainder.getCount() != stack.getCount()) {
+				itemHandler.setItem(slot, remainder);
+				setChanged();
+				return;
 			}
 		}
 	}

@@ -23,6 +23,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -31,6 +32,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,6 +47,8 @@ import java.util.Optional;
 
 public class EmbryonicMachineBlockEntity extends BlockEntity implements ExtendedMenuProvider, ModEnergyUtil.EnergyProvider {
 
+	private boolean allowInternalExtraction = false;
+
 	public final SimpleContainer itemHandler = new SimpleContainer(4) {
 		@Override
 		public void setChanged() {
@@ -53,6 +57,31 @@ public class EmbryonicMachineBlockEntity extends BlockEntity implements Extended
 			if (level != null && !level.isClientSide()) {
 				level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 			}
+		}
+
+		@Override
+		public boolean canPlaceItem(int slot, ItemStack stack) {
+			if (slot == OUTPUT_SLOT) return false;
+			if (slot == SYRINGE_SLOT) return stack.is(ModItems.SYRINGE.get());
+			if (slot == MATERIAL_SLOT) return stack.is(ModTags.Items.DNA);
+			if (slot == FROG_SLOT) return stack.is(ModItems.FROG_DNA.get());
+			return false;
+		}
+
+		@Override
+		public ItemStack removeItem(int slot, int amount) {
+			if ((slot == SYRINGE_SLOT || slot == MATERIAL_SLOT || slot == FROG_SLOT) && !allowInternalExtraction) {
+				boolean isPlayer = false;
+				for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+					String className = element.getClassName();
+					if (className.contains("inventory") || className.contains("player") || className.contains("ServerGamePacketListenerImpl")) {
+						isPlayer = true;
+						break;
+					}
+				}
+				if (!isPlayer) return ItemStack.EMPTY;
+			}
+			return super.removeItem(slot, amount);
 		}
 	};
 
@@ -107,6 +136,16 @@ public class EmbryonicMachineBlockEntity extends BlockEntity implements Extended
 				if (level != null && !level.isClientSide()) {
 					level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 				}
+			}
+
+			@Override
+			public boolean canExtract() {
+				return false;
+			}
+
+			@Override
+			public int extractEnergy(int maxExtract, boolean simulate) {
+				return 0;
 			}
 		};
 	}
@@ -242,6 +281,7 @@ public class EmbryonicMachineBlockEntity extends BlockEntity implements Extended
 		if (level.isClientSide) return;
 
 		pullEnergyFromNeighbors();
+		pushOutputsToHoppers();
 
 		//? if >1.20.1 {
 		/*Optional<RecipeHolder<EmbryonicMachineRecipe>> recipeOpt = getCurrentRecipe();
@@ -293,15 +333,20 @@ public class EmbryonicMachineBlockEntity extends BlockEntity implements Extended
 	}
 
 	private void craftItem(ItemStack output) {
-		ItemStack current = itemHandler.getItem(OUTPUT_SLOT);
-		if (current.isEmpty()) {
-			itemHandler.setItem(OUTPUT_SLOT, output.copy());
-		} else {
-			current.grow(output.getCount());
+		allowInternalExtraction = true;
+		try {
+			ItemStack current = itemHandler.getItem(OUTPUT_SLOT);
+			if (current.isEmpty()) {
+				itemHandler.setItem(OUTPUT_SLOT, output.copy());
+			} else {
+				current.grow(output.getCount());
+			}
+			itemHandler.removeItem(SYRINGE_SLOT, 1);
+			itemHandler.removeItem(MATERIAL_SLOT, 1);
+			itemHandler.removeItem(FROG_SLOT, 1);
+		} finally {
+			allowInternalExtraction = false;
 		}
-		itemHandler.removeItem(SYRINGE_SLOT, 1);
-		itemHandler.removeItem(MATERIAL_SLOT, 1);
-		itemHandler.removeItem(FROG_SLOT, 1);
 	}
 
 	private boolean canInsertOutput(ItemStack output) {
@@ -394,6 +439,29 @@ public class EmbryonicMachineBlockEntity extends BlockEntity implements Extended
 						energyStorage.receiveEnergy(source.extractEnergy(accepted, false), false);
 					}
 				}
+			}
+		}
+	}
+
+	private void pushOutputsToHoppers() {
+		pushSlotToHoppers(OUTPUT_SLOT);
+	}
+
+	private void pushSlotToHoppers(int slot) {
+		ItemStack stack = itemHandler.getItem(slot);
+		if (stack.isEmpty()) return;
+
+		for (Direction dir : Direction.values()) {
+			BlockEntity be = level.getBlockEntity(worldPosition.relative(dir));
+			if (!(be instanceof Container target)) continue;
+
+			ItemStack toMove = stack.copy();
+			ItemStack remainder = HopperBlockEntity.addItem(itemHandler, target, toMove, dir);
+
+			if (remainder.getCount() != stack.getCount()) {
+				itemHandler.setItem(slot, remainder);
+				setChanged();
+				return;
 			}
 		}
 	}

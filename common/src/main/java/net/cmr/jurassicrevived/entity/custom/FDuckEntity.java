@@ -81,6 +81,11 @@ public class FDuckEntity extends DinoEntityBase implements GeoEntity {
         );
     }
 
+	@Override
+	public ItemStack getPickResult() {
+		return new ItemStack(ModItems.FDUCK_SPAWN_EGG.get());
+	}
+
     @Override
     public boolean isCarnivore() {
         return false;

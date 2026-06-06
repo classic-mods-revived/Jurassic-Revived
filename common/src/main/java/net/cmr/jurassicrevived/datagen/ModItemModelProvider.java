@@ -96,6 +96,10 @@ public class ModItemModelProvider {
         helper.spawnEgg(ModItems.TROODON_SPAWN_EGG.get());
         helper.spawnEgg(ModItems.UTAHRAPTOR_SPAWN_EGG.get());
         helper.spawnEgg(ModItems.ACHILLOBATOR_SPAWN_EGG.get());
+        helper.spawnEgg(ModItems.SUCHOMIMUS_SPAWN_EGG.get());
+        helper.spawnEgg(ModItems.CHILESAURUS_SPAWN_EGG.get());
+        helper.spawnEgg(ModItems.THESCELOSAURUS_SPAWN_EGG.get());
+        helper.spawnEgg(ModItems.MUSSASAURUS_SPAWN_EGG.get());
 
         helper.basicItemModel(ModItems.FROG_MATERIAL.get());
         helper.basicItemModel(ModItems.FROG_DNA.get());
@@ -187,6 +191,10 @@ public class ModItemModelProvider {
         helper.basicItemModel(ModItems.UTAHRAPTOR_SKULL_FOSSIL.get());
         helper.basicItemModel(ModItems.ZHENYUANOPTERUS_SKULL_FOSSIL.get());
         helper.basicItemModel(ModItems.ACHILLOBATOR_SKULL_FOSSIL.get());
+        helper.basicItemModel(ModItems.SUCHOMIMUS_SKULL_FOSSIL.get());
+        helper.basicItemModel(ModItems.CHILESAURUS_SKULL_FOSSIL.get());
+        helper.basicItemModel(ModItems.THESCELOSAURUS_SKULL_FOSSIL.get());
+        helper.basicItemModel(ModItems.MUSSASAURUS_SKULL_FOSSIL.get());
 
         helper.basicItemModel(ModItems.FRESH_APATOSAURUS_SKULL.get());
         helper.basicItemModel(ModItems.FRESH_ALBERTOSAURUS_SKULL.get());
@@ -262,6 +270,10 @@ public class ModItemModelProvider {
         helper.basicItemModel(ModItems.FRESH_UTAHRAPTOR_SKULL.get());
         helper.basicItemModel(ModItems.FRESH_ZHENYUANOPTERUS_SKULL.get());
         helper.basicItemModel(ModItems.FRESH_ACHILLOBATOR_SKULL.get());
+        helper.basicItemModel(ModItems.FRESH_SUCHOMIMUS_SKULL.get());
+        helper.basicItemModel(ModItems.FRESH_CHILESAURUS_SKULL.get());
+        helper.basicItemModel(ModItems.FRESH_THESCELOSAURUS_SKULL.get());
+        helper.basicItemModel(ModItems.FRESH_MUSSASAURUS_SKULL.get());
 
         helper.basicItemModel(ModItems.APATOSAURUS_TISSUE.get());
         helper.basicItemModel(ModItems.ALBERTOSAURUS_TISSUE.get());
@@ -337,6 +349,10 @@ public class ModItemModelProvider {
         helper.basicItemModel(ModItems.UTAHRAPTOR_TISSUE.get());
         helper.basicItemModel(ModItems.ZHENYUANOPTERUS_TISSUE.get());
         helper.basicItemModel(ModItems.ACHILLOBATOR_TISSUE.get());
+        helper.basicItemModel(ModItems.SUCHOMIMUS_TISSUE.get());
+        helper.basicItemModel(ModItems.CHILESAURUS_TISSUE.get());
+        helper.basicItemModel(ModItems.THESCELOSAURUS_TISSUE.get());
+        helper.basicItemModel(ModItems.MUSSASAURUS_TISSUE.get());
 
         helper.basicItemModel(ModItems.APATOSAURUS_DNA.get());
         helper.basicItemModel(ModItems.ALBERTOSAURUS_DNA.get());
@@ -412,6 +428,10 @@ public class ModItemModelProvider {
         helper.basicItemModel(ModItems.UTAHRAPTOR_DNA.get());
         helper.basicItemModel(ModItems.ZHENYUANOPTERUS_DNA.get());
         helper.basicItemModel(ModItems.ACHILLOBATOR_DNA.get());
+        helper.basicItemModel(ModItems.SUCHOMIMUS_DNA.get());
+        helper.basicItemModel(ModItems.CHILESAURUS_DNA.get());
+        helper.basicItemModel(ModItems.THESCELOSAURUS_DNA.get());
+        helper.basicItemModel(ModItems.MUSSASAURUS_DNA.get());
 
         helper.basicItemModel(ModItems.APATOSAURUS_SYRINGE.get());
         helper.basicItemModel(ModItems.ALBERTOSAURUS_SYRINGE.get());
@@ -487,6 +507,10 @@ public class ModItemModelProvider {
         helper.basicItemModel(ModItems.UTAHRAPTOR_SYRINGE.get());
         helper.basicItemModel(ModItems.ZHENYUANOPTERUS_SYRINGE.get());
         helper.basicItemModel(ModItems.ACHILLOBATOR_SYRINGE.get());
+        helper.basicItemModel(ModItems.SUCHOMIMUS_SYRINGE.get());
+        helper.basicItemModel(ModItems.CHILESAURUS_SYRINGE.get());
+        helper.basicItemModel(ModItems.THESCELOSAURUS_SYRINGE.get());
+        helper.basicItemModel(ModItems.MUSSASAURUS_SYRINGE.get());
 
         helper.simpleBlockItemModel(ModBlocks.APATOSAURUS_EGG.get());
         helper.simpleBlockItemModel(ModBlocks.ALBERTOSAURUS_EGG.get());
@@ -562,6 +586,10 @@ public class ModItemModelProvider {
         helper.simpleBlockItemModel(ModBlocks.UTAHRAPTOR_EGG.get());
         helper.simpleBlockItemModel(ModBlocks.ZHENYUANOPTERUS_EGG.get());
         helper.simpleBlockItemModel(ModBlocks.ACHILLOBATOR_EGG.get());
+        helper.simpleBlockItemModel(ModBlocks.SUCHOMIMUS_EGG.get());
+        helper.simpleBlockItemModel(ModBlocks.CHILESAURUS_EGG.get());
+        helper.simpleBlockItemModel(ModBlocks.THESCELOSAURUS_EGG.get());
+        helper.simpleBlockItemModel(ModBlocks.MUSSASAURUS_EGG.get());
 
         helper.basicItemModel(ModBlocks.LOW_SECURITY_FENCE_POLE.get().asItem());
         helper.basicItemModel(ModBlocks.LOW_SECURITY_FENCE_WIRE.get().asItem());
@@ -645,6 +673,10 @@ public class ModItemModelProvider {
         helper.simpleBlockItemModel(ModBlocks.INCUBATED_UTAHRAPTOR_EGG.get());
         helper.simpleBlockItemModel(ModBlocks.INCUBATED_ZHENYUANOPTERUS_EGG.get());
         helper.simpleBlockItemModel(ModBlocks.INCUBATED_ACHILLOBATOR_EGG.get());
+        helper.simpleBlockItemModel(ModBlocks.INCUBATED_SUCHOMIMUS_EGG.get());
+        helper.simpleBlockItemModel(ModBlocks.INCUBATED_CHILESAURUS_EGG.get());
+        helper.simpleBlockItemModel(ModBlocks.INCUBATED_THESCELOSAURUS_EGG.get());
+        helper.simpleBlockItemModel(ModBlocks.INCUBATED_MUSSASAURUS_EGG.get());
 
 		helper.flowerItem(ModBlocks.ROYAL_FERN.get());
         helper.flowerItem(ModBlocks.HORSETAIL_FERN.get());

@@ -1,10 +1,14 @@
 package net.cmr.jurassicrevived.entity.ai;
 
+import net.cmr.jurassicrevived.config.JRConfigManager;
 import net.cmr.jurassicrevived.entity.ai.navigation.CustomDinoNavigation;
+import net.cmr.jurassicrevived.util.ModTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -21,6 +25,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class DinoEntityBase extends Animal {
@@ -83,6 +88,17 @@ public abstract class DinoEntityBase extends Animal {
 
     public IDinoData getDinoData() { return this.dinoData; }
 
+	public List<TagKey<EntityType<?>>> getDinoTags() {
+		ResourceLocation id = EntityType.getKey(this.getType());
+		String path = id.getPath();
+
+		return List.of(
+			ModTags.EntityTypes.forgeDino(path),
+			ModTags.EntityTypes.neoforgeDino(path),
+			ModTags.EntityTypes.fabricDino(path)
+		);
+	}
+
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         if (!this.level().isClientSide && hand == InteractionHand.MAIN_HAND && player.isShiftKeyDown() && player.getMainHandItem().isEmpty()) {
@@ -118,41 +134,106 @@ public abstract class DinoEntityBase extends Animal {
                 }
 
                 player.sendSystemMessage(Component.literal(sb.toString()));
-                return InteractionResult.SUCCESS;
-            }
-        }
-        return super.mobInteract(player, hand);
-    }
+				return InteractionResult.SUCCESS;
+			}
+		}
 
-    @Override
-    public boolean isFood(ItemStack stack) {
-        if (dinoData == null) return false;
-        IDinoData.DietaryClassification diet = dinoData.getDiet();
+		ItemStack stack = player.getItemInHand(hand);
+		if (this.isFood(stack)) {
+			if (!this.level().isClientSide) {
+				feedDino(player, stack);
+			}
 
-        // 1. Carnivores: All meat
-        if (diet == IDinoData.DietaryClassification.CARNIVORE || diet == IDinoData.DietaryClassification.PISCIVORE) {
-            // WOLF_FOOD includes beef, pork, chicken, rabbit, mutton, rotten flesh
-            //if (stack.is(ItemTags.WOLF_FOOD)) return true;
-            // Fallback for fish items
-            if (stack.is(ItemTags.FISHES)) return true;
-        }
+			return InteractionResult.sidedSuccess(this.level().isClientSide);
+		}
 
-        // 3. Herbivores: Leaves, Fruits, Vegetables
-        if (diet == IDinoData.DietaryClassification.HERBIVORE) {
-            if (stack.is(ItemTags.LEAVES)) return true;
-            if (stack.is(ItemTags.FLOWERS)) return true;
-            if (stack.is(Items.APPLE) || stack.is(Items.MELON_SLICE) || stack.is(Items.SWEET_BERRIES) || stack.is(Items.GLOW_BERRIES)) return true;
-            if (stack.is(Items.SEAGRASS) || stack.is(Items.KELP)) return true;
-        }
+		return super.mobInteract(player, hand);
+	}
 
-        // 4. Omnivores: Both
-        if (diet == IDinoData.DietaryClassification.OMNIVORE) {
-            //if (stack.is(ItemTags.WOLF_FOOD)) return true;
-            if (stack.is(ItemTags.LEAVES)) return true;
-        }
+	private void feedDino(Player player, ItemStack stack) {
+		if (this.dinoData != null) {
+			float hunger = this.dinoData.getHunger();
+			float maxHunger = this.getAIConfig().maxHunger();
+			float replenishAmount = Math.max(1.0f, this.getAIConfig().defaultHungerReplenishment());
 
-        return false;
-    }
+			this.dinoData.setHunger(Math.min(maxHunger, hunger + replenishAmount));
+		}
+
+		if (this.canFallInLove()) {
+			this.setInLove(player);
+
+			if (this.dinoData != null) {
+				this.dinoData.addCondition(IDinoData.Condition.READY_TO_MATE);
+			}
+		}
+
+		if (!player.getAbilities().instabuild) {
+			stack.shrink(1);
+		}
+	}
+
+	@Override
+	public boolean isFood(ItemStack stack) {
+		if (dinoData == null) return false;
+		IDinoData.DietaryClassification diet = dinoData.getDiet();
+
+		if (diet == IDinoData.DietaryClassification.CARNIVORE) {
+			return isMeatFood(stack);
+		}
+
+		if (diet == IDinoData.DietaryClassification.PISCIVORE) {
+			return isMeatFood(stack) || isFishFood(stack);
+		}
+
+		if (diet == IDinoData.DietaryClassification.HERBIVORE) {
+			return isPlantFood(stack);
+		}
+
+		if (diet == IDinoData.DietaryClassification.OMNIVORE) {
+			return isMeatFood(stack) || isFishFood(stack) || isPlantFood(stack);
+		}
+
+		return false;
+	}
+
+	private boolean isMeatFood(ItemStack stack) {
+		return stack.is(Items.BEEF)
+		       || stack.is(Items.COOKED_BEEF)
+		       || stack.is(Items.PORKCHOP)
+		       || stack.is(Items.COOKED_PORKCHOP)
+		       || stack.is(Items.CHICKEN)
+		       || stack.is(Items.COOKED_CHICKEN)
+		       || stack.is(Items.MUTTON)
+		       || stack.is(Items.COOKED_MUTTON)
+		       || stack.is(Items.RABBIT)
+		       || stack.is(Items.COOKED_RABBIT)
+		       || stack.is(Items.ROTTEN_FLESH);
+	}
+
+	private boolean isFishFood(ItemStack stack) {
+		return stack.is(ItemTags.FISHES)
+		       || stack.is(Items.COD)
+		       || stack.is(Items.COOKED_COD)
+		       || stack.is(Items.SALMON)
+		       || stack.is(Items.COOKED_SALMON)
+		       || stack.is(Items.TROPICAL_FISH)
+		       || stack.is(Items.PUFFERFISH);
+	}
+
+	private boolean isPlantFood(ItemStack stack) {
+		return stack.is(ItemTags.LEAVES)
+		       || stack.is(ItemTags.FLOWERS)
+		       || stack.is(Items.WHEAT)
+		       || stack.is(Items.CARROT)
+		       || stack.is(Items.POTATO)
+		       || stack.is(Items.BEETROOT)
+		       || stack.is(Items.APPLE)
+		       || stack.is(Items.MELON_SLICE)
+		       || stack.is(Items.SWEET_BERRIES)
+		       || stack.is(Items.GLOW_BERRIES)
+		       || stack.is(Items.SEAGRASS)
+		       || stack.is(Items.KELP);
+	}
 
     @Override
     public void spawnChildFromBreeding(ServerLevel level, Animal partner) {

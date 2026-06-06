@@ -188,7 +188,7 @@ public class FossilCleanerBlock extends BaseEntityBlock {
 						if (!pPlayer.getAbilities().instabuild) {
 							pPlayer.setItemInHand(pHand, new ItemStack(Items.BUCKET));
 						}
-						// Actual addition is handled in BE tick for simplicity across loaders
+						fossilCleanerBlockEntity.getFluidHandler(null).fill(dev.architectury.fluid.FluidStack.create(net.minecraft.world.level.material.Fluids.WATER, 1000), false);
 						return ItemInteractionResult.SUCCESS;
 					}
 				}
@@ -211,6 +211,7 @@ public class FossilCleanerBlock extends BaseEntityBlock {
 						if (!player.getAbilities().instabuild) {
 							player.setItemInHand(hand, new ItemStack(Items.BUCKET));
 						}
+						fossilCleanerBlockEntity.getFluidHandler(null).fill(dev.architectury.fluid.FluidStack.create(net.minecraft.world.level.material.Fluids.WATER, 1000), false);
 						return InteractionResult.SUCCESS;
 					}
 				}

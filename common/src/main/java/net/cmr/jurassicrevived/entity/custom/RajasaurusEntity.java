@@ -9,6 +9,7 @@ import net.cmr.jurassicrevived.entity.ai.SprintingMeleeAttackGoal;
 import net.cmr.jurassicrevived.entity.ai.SprintingPanicGoal;
 import net.cmr.jurassicrevived.entity.client.AlbertosaurusVariant;
 import net.cmr.jurassicrevived.entity.client.RajasaurusVariant;
+import net.cmr.jurassicrevived.item.ModItems;
 import net.cmr.jurassicrevived.sound.ModSounds;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
@@ -80,6 +81,11 @@ public class RajasaurusEntity extends DinoEntityBase implements GeoEntity {
             IDinoData.ActivityPattern.CATHEMERAL
         );
     }
+
+	@Override
+	public ItemStack getPickResult() {
+		return new ItemStack(ModItems.RAJASAURUS_SPAWN_EGG.get());
+	}
 
     @Override
     public boolean isCarnivore() {

@@ -5,6 +5,7 @@ import net.cmr.jurassicrevived.entity.ModEntities;
 import net.cmr.jurassicrevived.entity.ai.*;
 import net.cmr.jurassicrevived.entity.client.MetriacanthosaurusVariant;
 import net.cmr.jurassicrevived.entity.client.MetriacanthosaurusVariant;
+import net.cmr.jurassicrevived.item.ModItems;
 import net.cmr.jurassicrevived.sound.ModSounds;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
@@ -75,6 +76,11 @@ public class MetriacanthosaurusEntity extends DinoEntityBase implements GeoEntit
 			IDinoData.ActivityPattern.CATHEMERAL
 		);
     }
+
+	@Override
+	public ItemStack getPickResult() {
+		return new ItemStack(ModItems.METRIACANTHOSAURUS_SPAWN_EGG.get());
+	}
 
 	@Override
 	public boolean isCarnivore() {

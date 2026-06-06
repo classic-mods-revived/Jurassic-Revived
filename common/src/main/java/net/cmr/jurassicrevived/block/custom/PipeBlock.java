@@ -137,9 +137,11 @@ public class PipeBlock extends Block implements EntityBlock, SimpleWaterloggedBl
 		BlockPos pos = ctx.getClickedPos();
 		BlockState state = this.defaultBlockState()
 			.setValue(WATERLOGGED, level.getFluidState(pos).getType() == Fluids.WATER);
+
 		for (Direction dir : Direction.values()) {
 			state = setConnectionForDirection(level, pos, state, dir);
 		}
+
 		return state;
 	}
 
@@ -149,6 +151,7 @@ public class PipeBlock extends Block implements EntityBlock, SimpleWaterloggedBl
 		if (state.getValue(WATERLOGGED)) {
 			level.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
 		}
+
 		return setConnectionForDirection(level, pos, state, direction);
 	}
 
@@ -285,18 +288,11 @@ public class PipeBlock extends Block implements EntityBlock, SimpleWaterloggedBl
 		if (val == ConnectionType.CONNECTOR) {
 			return state.setValue(prop, ConnectionType.CONNECTOR_PULL);
 		} else if (val == ConnectionType.CONNECTOR_PULL) {
+			return state.setValue(prop, ConnectionType.NONE);
+		} else if (val == ConnectionType.NONE) {
 			return state.setValue(prop, ConnectionType.CONNECTOR);
-		} else {
-			Direction nearest = nearestConnectedDirection(state, hit, pos);
-			if (nearest == null) return null;
-			prop = getProp(nearest);
-			val = state.getValue(prop);
-			if (val == ConnectionType.CONNECTOR) {
-				return state.setValue(prop, ConnectionType.CONNECTOR_PULL);
-			} else if (val == ConnectionType.CONNECTOR_PULL) {
-				return state.setValue(prop, ConnectionType.CONNECTOR);
-			}
 		}
+
 		return null;
 	}
 
@@ -313,16 +309,31 @@ public class PipeBlock extends Block implements EntityBlock, SimpleWaterloggedBl
 		if (intersects(CAP_WEST, x, y, z)   || intersects(ARM_WEST, x, y, z))   { if (state.getValue(WEST) != ConnectionType.NONE) return Direction.WEST; }
 		if (intersects(CAP_EAST, x, y, z)   || intersects(ARM_EAST, x, y, z))   { if (state.getValue(EAST) != ConnectionType.NONE) return Direction.EAST; }
 
-		return nearestConnectedDirection(state, x, y, z);
+		return nearestDirection(x, y, z);
 	}
 
-	private static Direction nearestConnectedDirection(BlockState state, BlockHitResult hit, BlockPos pos) {
-		Vec3 local = hit.getLocation().subtract(pos.getX(), pos.getY(), pos.getZ());
-		double x = Mth.clamp(local.x * 16.0, 0.0, 16.0);
-		double y = Mth.clamp(local.y * 16.0, 0.0, 16.0);
-		double z = Mth.clamp(local.z * 16.0, 0.0, 16.0);
-		return nearestConnectedDirection(state, x, y, z);
+	private static Direction nearestDirection(double x, double y, double z) {
+		Direction best = null;
+		double bestScore = Double.NEGATIVE_INFINITY;
+
+		for (Direction d : Direction.values()) {
+			double score = switch (d) {
+				case UP    -> y;
+				case DOWN  -> 16 - y;
+				case NORTH -> 16 - z;
+				case SOUTH -> z;
+				case WEST  -> 16 - x;
+				case EAST  -> x;
+			};
+			if (score > bestScore) {
+				bestScore = score;
+				best = d;
+			}
+		}
+		return best;
 	}
+
+	
 
 	private static Direction nearestConnectedDirection(BlockState state, double x, double y, double z) {
 		Direction best = null;

@@ -356,6 +356,23 @@ public class ModSounds {
     public static final Supplier<SoundEvent> ACHILLOBATOR_HURT = registerSoundEvent("achillobator_hurt");
     public static final Supplier<SoundEvent> ACHILLOBATOR_DEATH = registerSoundEvent("achillobator_death");
 
+    public static final Supplier<SoundEvent> SUCHOMIMUS_CALL = registerSoundEvent("suchomimus_call");
+    public static final Supplier<SoundEvent> SUCHOMIMUS_ATTACK = registerSoundEvent("suchomimus_attack");
+    public static final Supplier<SoundEvent> SUCHOMIMUS_HURT = registerSoundEvent("suchomimus_hurt");
+    public static final Supplier<SoundEvent> SUCHOMIMUS_DEATH = registerSoundEvent("suchomimus_death");
+
+    public static final Supplier<SoundEvent> CHILESAURUS_CALL = registerSoundEvent("chilesaurus_call");
+    public static final Supplier<SoundEvent> CHILESAURUS_HURT = registerSoundEvent("chilesaurus_hurt");
+    public static final Supplier<SoundEvent> CHILESAURUS_DEATH = registerSoundEvent("chilesaurus_death");
+
+    public static final Supplier<SoundEvent> MUSSASAURUS_CALL = registerSoundEvent("mussasaurus_call");
+    public static final Supplier<SoundEvent> MUSSASAURUS_HURT = registerSoundEvent("mussasaurus_hurt");
+    public static final Supplier<SoundEvent> MUSSASAURUS_DEATH = registerSoundEvent("mussasaurus_death");
+
+    public static final Supplier<SoundEvent> THESCELOSAURUS_CALL = registerSoundEvent("thescelosaurus_call");
+    public static final Supplier<SoundEvent> THESCELOSAURUS_HURT = registerSoundEvent("thescelosaurus_hurt");
+    public static final Supplier<SoundEvent> THESCELOSAURUS_DEATH = registerSoundEvent("thescelosaurus_death");
+
 
     private static Supplier<SoundEvent> registerSoundEvent(String name) {
         ResourceLocation id = Constants.rl(name);

@@ -10,6 +10,7 @@ import net.cmr.jurassicrevived.recipe.EmbryoCalcificationMachineRecipe;
 import net.cmr.jurassicrevived.recipe.EmbryoCalcificationMachineRecipeInput;
 import net.cmr.jurassicrevived.recipe.ModRecipes;
 import net.cmr.jurassicrevived.screen.custom.EmbryoCalcificationMachineMenu;
+import net.cmr.jurassicrevived.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -20,14 +21,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,6 +46,8 @@ import java.util.Optional;
 
 public class EmbryoCalcificationMachineBlockEntity extends BlockEntity implements ExtendedMenuProvider, ModEnergyUtil.EnergyProvider {
 
+	private boolean allowInternalExtraction = false;
+
 	public final SimpleContainer itemHandler = new SimpleContainer(5) {
 		@Override
 		public void setChanged() {
@@ -50,6 +56,30 @@ public class EmbryoCalcificationMachineBlockEntity extends BlockEntity implement
 			if (level != null && !level.isClientSide()) {
 				level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 			}
+		}
+
+		@Override
+		public boolean canPlaceItem(int slot, ItemStack stack) {
+			if (slot == OUTPUT_SLOT) return false;
+			if (slot == SYRINGE_SLOT) return stack.is(ModTags.Items.SYRINGES);
+			if (slot == EGG_SLOT) return stack.is(Items.EGG);
+			return false;
+		}
+
+		@Override
+		public ItemStack removeItem(int slot, int amount) {
+			if ((slot == SYRINGE_SLOT|| slot == EGG_SLOT) && !allowInternalExtraction) {
+				boolean isPlayer = false;
+				for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+					String className = element.getClassName();
+					if (className.contains("inventory") || className.contains("player") || className.contains("ServerGamePacketListenerImpl")) {
+						isPlayer = true;
+						break;
+					}
+				}
+				if (!isPlayer) return ItemStack.EMPTY;
+			}
+			return super.removeItem(slot, amount);
 		}
 	};
 
@@ -103,6 +133,16 @@ public class EmbryoCalcificationMachineBlockEntity extends BlockEntity implement
 				if (level != null && !level.isClientSide()) {
 					level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 				}
+			}
+
+			@Override
+			public boolean canExtract() {
+				return false;
+			}
+
+			@Override
+			public int extractEnergy(int maxExtract, boolean simulate) {
+				return 0;
 			}
 		};
 	}
@@ -238,6 +278,7 @@ public class EmbryoCalcificationMachineBlockEntity extends BlockEntity implement
 		if (level.isClientSide) return;
 
 		pullEnergyFromNeighbors();
+		pushOutputsToHoppers();
 
 		//? if >1.20.1 {
 		/*Optional<RecipeHolder<EmbryoCalcificationMachineRecipe>> recipeOpt = getCurrentRecipe();
@@ -287,14 +328,19 @@ public class EmbryoCalcificationMachineBlockEntity extends BlockEntity implement
 	}
 
 	private void craftItem(ItemStack output) {
-		ItemStack current = itemHandler.getItem(OUTPUT_SLOT);
-		if (current.isEmpty()) {
-			itemHandler.setItem(OUTPUT_SLOT, output.copy());
-		} else {
-			current.grow(output.getCount());
+		allowInternalExtraction = true;
+		try {
+			ItemStack current = itemHandler.getItem(OUTPUT_SLOT);
+			if (current.isEmpty()) {
+				itemHandler.setItem(OUTPUT_SLOT, output.copy());
+			} else {
+				current.grow(output.getCount());
+			}
+			itemHandler.removeItem(SYRINGE_SLOT, 1);
+			itemHandler.removeItem(EGG_SLOT, 1);
+		} finally {
+			allowInternalExtraction = false;
 		}
-		itemHandler.removeItem(SYRINGE_SLOT, 1);
-		itemHandler.removeItem(EGG_SLOT, 1);
 	}
 
 	private boolean canInsertOutput(ItemStack output) {
@@ -342,6 +388,29 @@ public class EmbryoCalcificationMachineBlockEntity extends BlockEntity implement
 						energyStorage.receiveEnergy(source.extractEnergy(accepted, false), false);
 					}
 				}
+			}
+		}
+	}
+
+	private void pushOutputsToHoppers() {
+		pushSlotToHoppers(OUTPUT_SLOT);
+	}
+
+	private void pushSlotToHoppers(int slot) {
+		ItemStack stack = itemHandler.getItem(slot);
+		if (stack.isEmpty()) return;
+
+		for (Direction dir : Direction.values()) {
+			BlockEntity be = level.getBlockEntity(worldPosition.relative(dir));
+			if (!(be instanceof Container target)) continue;
+
+			ItemStack toMove = stack.copy();
+			ItemStack remainder = HopperBlockEntity.addItem(itemHandler, target, toMove, dir);
+
+			if (remainder.getCount() != stack.getCount()) {
+				itemHandler.setItem(slot, remainder);
+				setChanged();
+				return;
 			}
 		}
 	}

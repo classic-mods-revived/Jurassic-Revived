@@ -24,6 +24,11 @@ public final class JRConfig {
 	public boolean waterConsumption = false;
 
 	/**
+	 * Controls whether dinosaurs breed over time.
+	 */
+	public boolean naturalBreeding = false;
+
+	/**
 	 * Energy pipe transfer rate in FE per second.
 	 */
 	public int fePerSecond = 1000;

@@ -41,6 +41,22 @@ public class GeneratorBlockEntity extends BlockEntity implements ExtendedMenuPro
 				level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 			}
 		}
+
+		@Override
+		public ItemStack removeItem(int slot, int amount) {
+			if (slot == INPUT_SLOT) {
+				boolean isPlayer = false;
+				for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+					String className = element.getClassName();
+					if (className.contains("inventory") || className.contains("player") || className.contains("ServerGamePacketListenerImpl")) {
+						isPlayer = true;
+						break;
+					}
+				}
+				if (!isPlayer) return ItemStack.EMPTY;
+			}
+			return super.removeItem(slot, amount);
+		}
 	};
 
 	public static final int INPUT_SLOT = 0;

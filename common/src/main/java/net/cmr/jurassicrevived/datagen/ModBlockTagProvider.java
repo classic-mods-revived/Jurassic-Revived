@@ -143,7 +143,9 @@ public class ModBlockTagProvider {
                 ModBlocks.INCUBATED_TUPUXUARA_EGG.get(),
                 ModBlocks.INCUBATED_UTAHRAPTOR_EGG.get(),
                 ModBlocks.INCUBATED_ZHENYUANOPTERUS_EGG.get(),
-                ModBlocks.INCUBATED_ACHILLOBATOR_EGG.get()
+                ModBlocks.INCUBATED_ACHILLOBATOR_EGG.get(),
+                ModBlocks.INCUBATED_SUCHOMIMUS_EGG.get(),
+                ModBlocks.INCUBATED_CHILESAURUS_EGG.get()
         );
 
         helper.tag(BlockTags.MINEABLE_WITH_SHOVEL);
@@ -167,6 +169,13 @@ public class ModBlockTagProvider {
                 Blocks.DIRT,
                 Blocks.SAND,
                 Blocks.CLAY
+        );
+
+        helper.tag(ModTags.Blocks.PLANTS,
+                ModBlocks.HORSETAIL_FERN.get(),
+				ModBlocks.ROYAL_FERN.get(),
+				ModBlocks.WESTERN_SWORD_FERN.get(),
+				ModBlocks.ONYCHIOPSIS.get()
         );
 
         helper.tag(BlockTags.WALLS,

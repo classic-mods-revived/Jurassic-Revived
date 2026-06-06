@@ -195,6 +195,10 @@ public class ModRecipeProvider {
         helper.dnaExtracting(ModItems.TEST_TUBE.get(), ModItems.UTAHRAPTOR_TISSUE.get(), ModItems.UTAHRAPTOR_DNA.get(), 1);
         helper.dnaExtracting(ModItems.TEST_TUBE.get(), ModItems.ZHENYUANOPTERUS_TISSUE.get(), ModItems.ZHENYUANOPTERUS_DNA.get(), 1);
         helper.dnaExtracting(ModItems.TEST_TUBE.get(), ModItems.ACHILLOBATOR_TISSUE.get(), ModItems.ACHILLOBATOR_DNA.get(), 1);
+        helper.dnaExtracting(ModItems.TEST_TUBE.get(), ModItems.SUCHOMIMUS_TISSUE.get(), ModItems.SUCHOMIMUS_DNA.get(), 1);
+        helper.dnaExtracting(ModItems.TEST_TUBE.get(), ModItems.CHILESAURUS_TISSUE.get(), ModItems.CHILESAURUS_DNA.get(), 1);
+        helper.dnaExtracting(ModItems.TEST_TUBE.get(), ModItems.THESCELOSAURUS_TISSUE.get(), ModItems.THESCELOSAURUS_DNA.get(), 1);
+        helper.dnaExtracting(ModItems.TEST_TUBE.get(), ModItems.MUSSASAURUS_TISSUE.get(), ModItems.MUSSASAURUS_DNA.get(), 1);
 
         helper.fossilCleaning(ModBlocks.STONE_FOSSIL.get(), ModItems.APATOSAURUS_SKULL_FOSSIL.get(), 1);
         helper.fossilCleaning(ModBlocks.DEEPSLATE_FOSSIL.get(), ModItems.VELOCIRAPTOR_SKULL_FOSSIL.get(), 1);
@@ -270,6 +274,10 @@ public class ModRecipeProvider {
 		helper.fossilGrinding(ModItems.UTAHRAPTOR_SKULL_FOSSIL.get(), ModItems.UTAHRAPTOR_TISSUE.get(), 1);
 		helper.fossilGrinding(ModItems.ZHENYUANOPTERUS_SKULL_FOSSIL.get(), ModItems.ZHENYUANOPTERUS_TISSUE.get(), 1);
 		helper.fossilGrinding(ModItems.ACHILLOBATOR_SKULL_FOSSIL.get(), ModItems.ACHILLOBATOR_TISSUE.get(), 1);
+		helper.fossilGrinding(ModItems.SUCHOMIMUS_SKULL_FOSSIL.get(), ModItems.SUCHOMIMUS_TISSUE.get(), 1);
+		helper.fossilGrinding(ModItems.CHILESAURUS_SKULL_FOSSIL.get(), ModItems.CHILESAURUS_TISSUE.get(), 1);
+		helper.fossilGrinding(ModItems.THESCELOSAURUS_SKULL_FOSSIL.get(), ModItems.THESCELOSAURUS_TISSUE.get(), 1);
+		helper.fossilGrinding(ModItems.MUSSASAURUS_SKULL_FOSSIL.get(), ModItems.MUSSASAURUS_TISSUE.get(), 1);
 
 		helper.skullToTissue(ModItems.FRESH_ALBERTOSAURUS_SKULL.get(), ModItems.ALBERTOSAURUS_TISSUE.get(), 1);
 		helper.skullToTissue(ModItems.FRESH_APATOSAURUS_SKULL.get(), ModItems.APATOSAURUS_TISSUE.get(), 1);
@@ -345,6 +353,10 @@ public class ModRecipeProvider {
 		helper.skullToTissue(ModItems.FRESH_UTAHRAPTOR_SKULL.get(), ModItems.UTAHRAPTOR_TISSUE.get(), 1);
 		helper.skullToTissue(ModItems.FRESH_ZHENYUANOPTERUS_SKULL.get(), ModItems.ZHENYUANOPTERUS_TISSUE.get(), 1);
 		helper.skullToTissue(ModItems.FRESH_ACHILLOBATOR_SKULL.get(), ModItems.ACHILLOBATOR_TISSUE.get(), 1);
+		helper.skullToTissue(ModItems.FRESH_SUCHOMIMUS_SKULL.get(), ModItems.SUCHOMIMUS_TISSUE.get(), 1);
+		helper.skullToTissue(ModItems.FRESH_CHILESAURUS_SKULL.get(), ModItems.CHILESAURUS_TISSUE.get(), 1);
+		helper.skullToTissue(ModItems.FRESH_THESCELOSAURUS_SKULL.get(), ModItems.THESCELOSAURUS_TISSUE.get(), 1);
+		helper.skullToTissue(ModItems.FRESH_MUSSASAURUS_SKULL.get(), ModItems.MUSSASAURUS_TISSUE.get(), 1);
 
 		helper.dnaAnalyzing(ModItems.TEST_TUBE.get(), ModItems.FROG_MATERIAL.get(), ModItems.FROG_DNA.get(), 1);
 
@@ -438,6 +450,10 @@ public class ModRecipeProvider {
         helper.embryonicMachine(ModItems.SYRINGE.get(), ModItems.UTAHRAPTOR_DNA.get(), ModItems.FROG_DNA.get(), ModItems.UTAHRAPTOR_SYRINGE.get(), 1);
         helper.embryonicMachine(ModItems.SYRINGE.get(), ModItems.ZHENYUANOPTERUS_DNA.get(), ModItems.FROG_DNA.get(), ModItems.ZHENYUANOPTERUS_SYRINGE.get(), 1);
         helper.embryonicMachine(ModItems.SYRINGE.get(), ModItems.ACHILLOBATOR_DNA.get(), ModItems.FROG_DNA.get(), ModItems.ACHILLOBATOR_SYRINGE.get(), 1);
+        helper.embryonicMachine(ModItems.SYRINGE.get(), ModItems.SUCHOMIMUS_DNA.get(), ModItems.FROG_DNA.get(), ModItems.SUCHOMIMUS_SYRINGE.get(), 1);
+        helper.embryonicMachine(ModItems.SYRINGE.get(), ModItems.CHILESAURUS_DNA.get(), ModItems.FROG_DNA.get(), ModItems.CHILESAURUS_SYRINGE.get(), 1);
+        helper.embryonicMachine(ModItems.SYRINGE.get(), ModItems.THESCELOSAURUS_DNA.get(), ModItems.FROG_DNA.get(), ModItems.THESCELOSAURUS_SYRINGE.get(), 1);
+        helper.embryonicMachine(ModItems.SYRINGE.get(), ModItems.MUSSASAURUS_DNA.get(), ModItems.FROG_DNA.get(), ModItems.MUSSASAURUS_SYRINGE.get(), 1);
 
 		helper.embryoCalcification(ModItems.ALBERTOSAURUS_SYRINGE.get(), Items.EGG, ModBlocks.ALBERTOSAURUS_EGG.get(), 1);
 		helper.embryoCalcification(ModItems.APATOSAURUS_SYRINGE.get(), Items.EGG, ModBlocks.APATOSAURUS_EGG.get(), 1);
@@ -513,6 +529,10 @@ public class ModRecipeProvider {
 		helper.embryoCalcification(ModItems.UTAHRAPTOR_SYRINGE.get(), Items.EGG, ModBlocks.UTAHRAPTOR_EGG.get(), 1);
 		helper.embryoCalcification(ModItems.ZHENYUANOPTERUS_SYRINGE.get(), Items.EGG, ModBlocks.ZHENYUANOPTERUS_EGG.get(), 1);
 		helper.embryoCalcification(ModItems.ACHILLOBATOR_SYRINGE.get(), Items.EGG, ModBlocks.ACHILLOBATOR_EGG.get(), 1);
+		helper.embryoCalcification(ModItems.SUCHOMIMUS_SYRINGE.get(), Items.EGG, ModBlocks.SUCHOMIMUS_EGG.get(), 1);
+		helper.embryoCalcification(ModItems.CHILESAURUS_SYRINGE.get(), Items.EGG, ModBlocks.CHILESAURUS_EGG.get(), 1);
+		helper.embryoCalcification(ModItems.THESCELOSAURUS_SYRINGE.get(), Items.EGG, ModBlocks.THESCELOSAURUS_EGG.get(), 1);
+		helper.embryoCalcification(ModItems.MUSSASAURUS_SYRINGE.get(), Items.EGG, ModBlocks.MUSSASAURUS_EGG.get(), 1);
 
 		helper.incubating(ModBlocks.APATOSAURUS_EGG.get(), ModBlocks.INCUBATED_APATOSAURUS_EGG.get(), 1);
 		helper.incubating(ModBlocks.ALBERTOSAURUS_EGG.get(), ModBlocks.INCUBATED_ALBERTOSAURUS_EGG.get(), 1);
@@ -588,6 +608,10 @@ public class ModRecipeProvider {
 		helper.incubating(ModBlocks.UTAHRAPTOR_EGG.get(), ModBlocks.INCUBATED_UTAHRAPTOR_EGG.get(), 1);
 		helper.incubating(ModBlocks.ZHENYUANOPTERUS_EGG.get(), ModBlocks.INCUBATED_ZHENYUANOPTERUS_EGG.get(), 1);
 		helper.incubating(ModBlocks.ACHILLOBATOR_EGG.get(), ModBlocks.INCUBATED_ACHILLOBATOR_EGG.get(), 1);
+		helper.incubating(ModBlocks.SUCHOMIMUS_EGG.get(), ModBlocks.INCUBATED_SUCHOMIMUS_EGG.get(), 1);
+		helper.incubating(ModBlocks.CHILESAURUS_EGG.get(), ModBlocks.INCUBATED_CHILESAURUS_EGG.get(), 1);
+		helper.incubating(ModBlocks.THESCELOSAURUS_EGG.get(), ModBlocks.INCUBATED_THESCELOSAURUS_EGG.get(), 1);
+		helper.incubating(ModBlocks.MUSSASAURUS_EGG.get(), ModBlocks.INCUBATED_MUSSASAURUS_EGG.get(), 1);
 
 		helper.amberRandomDNA(ModItems.TEST_TUBE.get(), ModItems.MOSQUITO_IN_AMBER.get(), ModItems.FROG_DNA.get(), 1);
     }

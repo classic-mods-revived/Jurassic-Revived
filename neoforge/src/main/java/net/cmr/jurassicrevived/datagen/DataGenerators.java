@@ -32,6 +32,7 @@ public class DataGenerators {
 		BlockTagsProvider blockTagsProvider = new NeoForgeBlockTagProvider(packOutput, lookupProvider, existingFileHelper);
 		generator.addProvider(event.includeServer(), blockTagsProvider);
 		generator.addProvider(event.includeServer(), new NeoForgeItemTagProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+		generator.addProvider(event.includeServer(), new NeoForgeEntityTagProvider(packOutput, lookupProvider, existingFileHelper));
 
 		generator.addProvider(event.includeServer(), new LootTableProvider(packOutput, Collections.emptySet(),
 				List.of(

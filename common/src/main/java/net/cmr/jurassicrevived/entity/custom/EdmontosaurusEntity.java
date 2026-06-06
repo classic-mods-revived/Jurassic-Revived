@@ -8,6 +8,7 @@ import net.cmr.jurassicrevived.entity.ai.IDinoData;
 import net.cmr.jurassicrevived.entity.ai.SprintingPanicGoal;
 import net.cmr.jurassicrevived.entity.client.EdmontosaurusVariant;
 import net.cmr.jurassicrevived.entity.client.EdmontosaurusVariant;
+import net.cmr.jurassicrevived.item.ModItems;
 import net.cmr.jurassicrevived.sound.ModSounds;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
@@ -76,6 +77,11 @@ public class EdmontosaurusEntity extends DinoEntityBase implements GeoEntity {
             IDinoData.ActivityPattern.CATHEMERAL
         );
     }
+
+	@Override
+	public ItemStack getPickResult() {
+		return new ItemStack(ModItems.EDMONTOSAURUS_SPAWN_EGG.get());
+	}
 
     @Override
     public boolean isCarnivore() {

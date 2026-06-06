@@ -5,6 +5,7 @@ import net.cmr.jurassicrevived.entity.ModEntities;
 import net.cmr.jurassicrevived.entity.ai.*;
 import net.cmr.jurassicrevived.entity.client.CarnotaurusVariant;
 import net.cmr.jurassicrevived.entity.client.CarnotaurusVariant;
+import net.cmr.jurassicrevived.item.ModItems;
 import net.cmr.jurassicrevived.sound.ModSounds;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
@@ -76,6 +77,11 @@ public class CarnotaurusEntity extends DinoEntityBase implements GeoEntity {
 			IDinoData.ActivityPattern.CATHEMERAL
 		);
     }
+
+	@Override
+	public ItemStack getPickResult() {
+		return new ItemStack(ModItems.CARNOTAURUS_SPAWN_EGG.get());
+	}
 
 	@Override
 	public boolean isCarnivore() {

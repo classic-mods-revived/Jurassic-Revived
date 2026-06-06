@@ -59,6 +59,15 @@ public final class JRClothConfigScreens {
         );
 
         general.addEntry(
+                eb.startBooleanToggle(Component.literal("Dinosaur Natural Breeding"), cfg.naturalBreeding)
+                        .setDefaultValue(false)
+                        .setTooltip(Component.literal("When enabled, dinosaurs have a chance to breed naturally over time. Disabled by default. Life finds a way..."))
+                        .setSaveConsumer(v -> cfg.naturalBreeding = v)
+						.requireRestart()
+                        .build()
+        );
+
+        general.addEntry(
                 eb.startIntField(Component.literal("FE Per Second"), cfg.fePerSecond)
                         .setDefaultValue(1000)
                         .setMin(1)

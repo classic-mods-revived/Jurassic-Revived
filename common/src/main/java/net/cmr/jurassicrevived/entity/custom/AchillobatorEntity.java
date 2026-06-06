@@ -6,6 +6,7 @@ import net.cmr.jurassicrevived.entity.ai.DinoData;
 import net.cmr.jurassicrevived.entity.ai.DinoEntityBase;
 import net.cmr.jurassicrevived.entity.ai.IDinoData;
 import net.cmr.jurassicrevived.entity.client.AchillobatorVariant;
+import net.cmr.jurassicrevived.item.ModItems;
 import net.cmr.jurassicrevived.sound.ModSounds;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -72,6 +74,11 @@ public class AchillobatorEntity extends DinoEntityBase implements GeoEntity {
 	}
 
 	@Override
+	public ItemStack getPickResult() {
+		return new ItemStack(ModItems.ACHILLOBATOR_SPAWN_EGG.get());
+	}
+
+	@Override
 	public boolean isCarnivore() {
 		return true;
 	}
@@ -98,13 +105,13 @@ public class AchillobatorEntity extends DinoEntityBase implements GeoEntity {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Animal.createLivingAttributes()
-			.add(Attributes.MAX_HEALTH, 55D)
+			.add(Attributes.MAX_HEALTH, 30D)
 			.add(Attributes.MOVEMENT_SPEED, 0.3D)
 			.add(Attributes.ARMOR, 0D)
 			.add(Attributes.FOLLOW_RANGE, 32D)
-			.add(Attributes.KNOCKBACK_RESISTANCE, 0D)
-			.add(Attributes.ATTACK_KNOCKBACK, 0D)
-			.add(Attributes.ATTACK_DAMAGE, 16D);
+			.add(Attributes.ATTACK_DAMAGE, 8D)
+			.add(Attributes.KNOCKBACK_RESISTANCE, 0.3D)
+			.add(Attributes.ATTACK_KNOCKBACK, 0D);
 	}
 
 	@Nullable

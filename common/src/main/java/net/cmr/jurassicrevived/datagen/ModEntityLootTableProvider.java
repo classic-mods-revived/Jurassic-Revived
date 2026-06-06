@@ -503,5 +503,33 @@ public class ModEntityLootTableProvider {
                         .add(LootItem.lootTableItem(ModItems.FRESH_ACHILLOBATOR_SKULL.get()))
                 )
         );
+
+        helper.add(ModEntities.SUCHOMIMUS.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(ModItems.FRESH_SUCHOMIMUS_SKULL.get()))
+                )
+        );
+
+        helper.add(ModEntities.CHILESAURUS.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(ModItems.FRESH_CHILESAURUS_SKULL.get()))
+                )
+        );
+
+        helper.add(ModEntities.MUSSASAURUS.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(ModItems.FRESH_MUSSASAURUS_SKULL.get()))
+                )
+        );
+
+        helper.add(ModEntities.THESCELOSAURUS.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(ModItems.FRESH_THESCELOSAURUS_SKULL.get()))
+                )
+        );
     }
 }

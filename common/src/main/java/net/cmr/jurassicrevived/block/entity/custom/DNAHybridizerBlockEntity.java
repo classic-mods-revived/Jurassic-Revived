@@ -10,6 +10,7 @@ import net.cmr.jurassicrevived.recipe.DNAHybridizerRecipe;
 import net.cmr.jurassicrevived.recipe.DNAHybridizerRecipeInput;
 import net.cmr.jurassicrevived.recipe.ModRecipes;
 import net.cmr.jurassicrevived.screen.custom.DNAHybridizerMenu;
+import net.cmr.jurassicrevived.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -20,6 +21,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -29,6 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,6 +48,8 @@ import java.util.Optional;
 
 public class DNAHybridizerBlockEntity extends BlockEntity implements ExtendedMenuProvider, ModEnergyUtil.EnergyProvider {
 
+	private boolean allowInternalExtraction = false;
+
 	public final SimpleContainer itemHandler = new SimpleContainer(11) {
 		@Override
 		public void setChanged() {
@@ -53,6 +58,30 @@ public class DNAHybridizerBlockEntity extends BlockEntity implements ExtendedMen
 			if (level != null && !level.isClientSide()) {
 				level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 			}
+		}
+
+		@Override
+		public boolean canPlaceItem(int slot, ItemStack stack) {
+			if (slot == OUTPUT_SLOT) return false;
+			if (slot >= 0 && slot <= 7) return stack.is(ModTags.Items.DNA);
+			if (slot == CATALYST_SLOT) return false;
+			return false;
+		}
+
+		@Override
+		public ItemStack removeItem(int slot, int amount) {
+			if (slot != OUTPUT_SLOT && !allowInternalExtraction) {
+				boolean isPlayer = false;
+				for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+					String className = element.getClassName();
+					if (className.contains("inventory") || className.contains("player") || className.contains("ServerGamePacketListenerImpl")) {
+						isPlayer = true;
+						break;
+					}
+				}
+				if (!isPlayer) return ItemStack.EMPTY;
+			}
+			return super.removeItem(slot, amount);
 		}
 	};
 
@@ -106,6 +135,16 @@ public class DNAHybridizerBlockEntity extends BlockEntity implements ExtendedMen
 				if (level != null && !level.isClientSide()) {
 					level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
 				}
+			}
+
+			@Override
+			public boolean canExtract() {
+				return false;
+			}
+
+			@Override
+			public int extractEnergy(int maxExtract, boolean simulate) {
+				return 0;
 			}
 		};
 	}
@@ -239,6 +278,7 @@ public class DNAHybridizerBlockEntity extends BlockEntity implements ExtendedMen
 		if (level.isClientSide) return;
 
 		pullEnergyFromNeighbors();
+		pushOutputsToHoppers();
 
 		//? if >1.20.1 {
 		/*Optional<RecipeHolder<DNAHybridizerRecipe>> recipeOpt = getCurrentRecipe();
@@ -297,14 +337,19 @@ public class DNAHybridizerBlockEntity extends BlockEntity implements ExtendedMen
 	}
 
 	private void craftItem(ItemStack output, List<Integer> matchedIndices) {
-		ItemStack current = itemHandler.getItem(OUTPUT_SLOT);
-		if (current.isEmpty()) {
-			itemHandler.setItem(OUTPUT_SLOT, output.copy());
-		} else {
-			current.grow(output.getCount());
-		}
-		for (int idx : matchedIndices) {
-			itemHandler.removeItem(idx, 1);
+		allowInternalExtraction = true;
+		try {
+			ItemStack current = itemHandler.getItem(OUTPUT_SLOT);
+			if (current.isEmpty()) {
+				itemHandler.setItem(OUTPUT_SLOT, output.copy());
+			} else {
+				current.grow(output.getCount());
+			}
+			for (int idx : matchedIndices) {
+				itemHandler.removeItem(idx, 1);
+			}
+		} finally {
+			allowInternalExtraction = false;
 		}
 	}
 
@@ -403,6 +448,29 @@ public class DNAHybridizerBlockEntity extends BlockEntity implements ExtendedMen
 						energyStorage.receiveEnergy(source.extractEnergy(accepted, false), false);
 					}
 				}
+			}
+		}
+	}
+
+	private void pushOutputsToHoppers() {
+		pushSlotToHoppers(OUTPUT_SLOT);
+	}
+
+	private void pushSlotToHoppers(int slot) {
+		ItemStack stack = itemHandler.getItem(slot);
+		if (stack.isEmpty()) return;
+
+		for (Direction dir : Direction.values()) {
+			BlockEntity be = level.getBlockEntity(worldPosition.relative(dir));
+			if (!(be instanceof Container target)) continue;
+
+			ItemStack toMove = stack.copy();
+			ItemStack remainder = HopperBlockEntity.addItem(itemHandler, target, toMove, dir);
+
+			if (remainder.getCount() != stack.getCount()) {
+				itemHandler.setItem(slot, remainder);
+				setChanged();
+				return;
 			}
 		}
 	}

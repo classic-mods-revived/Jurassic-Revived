@@ -5,6 +5,7 @@ import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
 import net.cmr.jurassicrevived.block.entity.custom.*;
 import net.cmr.jurassicrevived.config.JRConfigManager;
 import net.cmr.jurassicrevived.neoforge.capabilities.NeoForgeEnergyStorage;
+import net.cmr.jurassicrevived.platform.transfer.InternalFluidHandler;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
@@ -17,18 +18,33 @@ public class NeoForgeEvents
 {
 	@SubscribeEvent
 	public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        /* Items
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.GENERATOR_BE.get(), (be, side) -> be.getItemHandler(side));
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.DNA_EXTRACTOR_BE.get(), (be, side) -> be.getItemHandler(side));
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.DNA_ANALYZER_BE.get(), (be, side) -> be.getItemHandler(side));
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.DNA_HYBRIDIZER_BE.get(), (be, side) -> be.getItemHandler(side));
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.FOSSIL_CLEANER_BE.get(), (be, side) -> be.getItemHandler(side));
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.FOSSIL_GRINDER_BE.get(), (be, side) -> be.getItemHandler(side));
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.EMBRYONIC_MACHINE_BE.get(), (be, side) -> be.getItemHandler(side));
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.EMBRYO_CALCIFICATION_MACHINE_BE.get(), (be, side) -> be.getItemHandler(side));
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.CRATE_BE.get(), (be, side) -> be.getItemHandler(side));
-        event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.INCUBATOR_BE.get(), (be, side) -> be.getItemHandler(side));
-		*/
+		event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.GENERATOR_BE.get(),
+			(be, side) -> new net.neoforged.neoforge.items.wrapper.InvWrapper(((GeneratorBlockEntity) be).itemHandler));
+
+		event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.DNA_EXTRACTOR_BE.get(),
+			(be, side) -> new net.neoforged.neoforge.items.wrapper.InvWrapper(((DNAExtractorBlockEntity) be).itemHandler));
+
+		event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.DNA_ANALYZER_BE.get(),
+			(be, side) -> new net.neoforged.neoforge.items.wrapper.InvWrapper(((DNAAnalyzerBlockEntity) be).itemHandler));
+
+		event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.DNA_HYBRIDIZER_BE.get(),
+			(be, side) -> new net.neoforged.neoforge.items.wrapper.InvWrapper(((DNAHybridizerBlockEntity) be).itemHandler));
+
+		event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.FOSSIL_CLEANER_BE.get(),
+			(be, side) -> new net.neoforged.neoforge.items.wrapper.InvWrapper(((FossilCleanerBlockEntity) be).itemHandler));
+
+		event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.FOSSIL_GRINDER_BE.get(),
+			(be, side) -> new net.neoforged.neoforge.items.wrapper.InvWrapper(((FossilGrinderBlockEntity) be).itemHandler));
+
+		event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.EMBRYONIC_MACHINE_BE.get(),
+			(be, side) -> new net.neoforged.neoforge.items.wrapper.InvWrapper(((EmbryonicMachineBlockEntity) be).itemHandler));
+
+		event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.EMBRYO_CALCIFICATION_MACHINE_BE.get(),
+			(be, side) -> new net.neoforged.neoforge.items.wrapper.InvWrapper(((EmbryoCalcificationMachineBlockEntity) be).itemHandler));
+
+		event.registerBlockEntity(Capabilities.ItemHandler.BLOCK, ModBlockEntities.INCUBATOR_BE.get(),
+			(be, side) -> new net.neoforged.neoforge.items.wrapper.InvWrapper(((IncubatorBlockEntity) be).itemHandler));
+
 
 		// Energy
 		event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, ModBlockEntities.POWER_CELL_BE.get(),
@@ -63,10 +79,13 @@ public class NeoForgeEvents
 
 		// Fluids
 		event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, ModBlockEntities.TANK_BE.get(),
-			(be, side) -> new TankFluidAdapter(((TankBlockEntity) be).getTank(side)));
+			(be, side) -> new TankFluidAdapter(((TankBlockEntity) be).getFluidHandler(side)));
+
+		event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, ModBlockEntities.FOSSIL_CLEANER_BE.get(),
+			(be, side) -> new TankFluidAdapter(((FossilCleanerBlockEntity) be).getFluidHandler(side)));
 	}
 
-	private record TankFluidAdapter(TankBlockEntity.TankFluidHandler tank) implements IFluidHandler {
+	private record TankFluidAdapter(InternalFluidHandler tank) implements IFluidHandler {
 
 		@Override
 		public int getTanks() {

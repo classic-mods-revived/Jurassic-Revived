@@ -9,7 +9,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class UtahraptorRenderer extends GeoEntityRenderer<UtahraptorEntity> {
-    private final float animalScale = 0.9F;
+    private final float animalScale = 1.0F;
     public UtahraptorRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new UtahraptorModel());
     }

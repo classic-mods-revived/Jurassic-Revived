@@ -263,6 +263,18 @@ public class ModEntities {
 		ENTITIES.register("dryosaurus", () -> EntityType.Builder.of(DryosaurusEntity::new, MobCategory.CREATURE)
 			.sized(1.0f, 1.5f).build("dryosaurus"));
 
+	public static final RegistrySupplier<EntityType<ThescelosaurusEntity>> THESCELOSAURUS =
+		ENTITIES.register("thescelosaurus", () -> EntityType.Builder.of(ThescelosaurusEntity::new, MobCategory.CREATURE)
+			.sized(1.0f, 1.5f).build("thescelosaurus"));
+
+	public static final RegistrySupplier<EntityType<MussasaurusEntity>> MUSSASAURUS =
+		ENTITIES.register("mussasaurus", () -> EntityType.Builder.of(MussasaurusEntity::new, MobCategory.CREATURE)
+			.sized(1.0f, 1.5f).build("mussasaurus"));
+
+	public static final RegistrySupplier<EntityType<ChilesaurusEntity>> CHILESAURUS =
+		ENTITIES.register("chilesaurus", () -> EntityType.Builder.of(ChilesaurusEntity::new, MobCategory.CREATURE)
+			.sized(1.0f, 1.5f).build("chilesaurus"));
+
 	public static final RegistrySupplier<EntityType<HadrosaurusEntity>> HADROSAURUS =
 		ENTITIES.register("hadrosaurus", () -> EntityType.Builder.of(HadrosaurusEntity::new, MobCategory.CREATURE)
 			.sized(2.0f, 3.0f).build("hadrosaurus"));
@@ -334,6 +346,10 @@ public class ModEntities {
 	public static final RegistrySupplier<EntityType<AchillobatorEntity>> ACHILLOBATOR =
 		ENTITIES.register("achillobator", () -> EntityType.Builder.of(AchillobatorEntity::new, MobCategory.CREATURE)
 			.sized(1.0f, 2.0f).build("achillobator"));
+
+	public static final RegistrySupplier<EntityType<SuchomimusEntity>> SUCHOMIMUS =
+		ENTITIES.register("suchomimus", () -> EntityType.Builder.of(SuchomimusEntity::new, MobCategory.CREATURE)
+			.sized(2.0f, 3.0f).build("suchomimus"));
 
 	public static void registerAttributes() {
 		EntityAttributeRegistry.register(APATOSAURUS, ApatosaurusEntity::createAttributes);
@@ -412,6 +428,10 @@ public class ModEntities {
 		EntityAttributeRegistry.register(TROODON, TroodonEntity::createAttributes);
 		EntityAttributeRegistry.register(UTAHRAPTOR, UtahraptorEntity::createAttributes);
 		EntityAttributeRegistry.register(ACHILLOBATOR, AchillobatorEntity::createAttributes);
+		EntityAttributeRegistry.register(SUCHOMIMUS, SuchomimusEntity::createAttributes);
+		EntityAttributeRegistry.register(CHILESAURUS, ChilesaurusEntity::createAttributes);
+		EntityAttributeRegistry.register(MUSSASAURUS, MussasaurusEntity::createAttributes);
+		EntityAttributeRegistry.register(THESCELOSAURUS, ThescelosaurusEntity::createAttributes);
 	}
 
 	public static void registerSpawnPlacements() {
@@ -495,6 +515,10 @@ public class ModEntities {
 		registerGroundAnimalSpawn(VELOCIRAPTOR);
 		registerGroundAnimalSpawn(ZHENYUANOPTERUS);
 		registerGroundAnimalSpawn(ACHILLOBATOR);
+		registerGroundAnimalSpawn(SUCHOMIMUS);
+		registerGroundAnimalSpawn(CHILESAURUS);
+		registerGroundAnimalSpawn(MUSSASAURUS);
+		registerGroundAnimalSpawn(THESCELOSAURUS);
 	}
 
 	private static <T extends Animal> void registerGroundAnimalSpawn(RegistrySupplier<EntityType<T>> entityType) {

@@ -38,6 +38,7 @@ public class CustomGenderedSpawnEggItem extends SpawnEggItem {
 	private static final String KEY_VARIANT = "Variant";
 	private static final String KEY_ENTITY_TAG = "EntityTag";
 	private static final int VARIANT_COUNT = 2; // 0=Male, 1=Female
+	private static final int SELECTION_MODE_COUNT = 3; // 0=Male, 1=Female, 2=Random
 
 	private final Supplier<? extends EntityType<? extends Mob>> typeSupplier;
 
@@ -67,16 +68,16 @@ public class CustomGenderedSpawnEggItem extends SpawnEggItem {
         if (data == null) return 0;
         CompoundTag tag = data.copyTag();
         if (!tag.contains(KEY_SELECTED_VARIANT)) return 0;
-        return Math.floorMod(tag.getInt(KEY_SELECTED_VARIANT), VARIANT_COUNT);
+        return Math.floorMod(tag.getInt(KEY_SELECTED_VARIANT), SELECTION_MODE_COUNT);
         *///?} else {
 		CompoundTag tag = stack.getTag();
 		if (tag == null || !tag.contains(KEY_SELECTED_VARIANT)) return 0;
-		return Math.floorMod(tag.getInt(KEY_SELECTED_VARIANT), VARIANT_COUNT);
+		return Math.floorMod(tag.getInt(KEY_SELECTED_VARIANT), SELECTION_MODE_COUNT);
 		//?}
 	}
 
 	private static void setSelectedVariant(ItemStack stack, int variant) {
-		int v = Math.floorMod(variant, VARIANT_COUNT);
+		int v = Math.floorMod(variant, SELECTION_MODE_COUNT);
 		//? if >1.20.1 {
         /*stack.update(DataComponents.CUSTOM_DATA, CustomData.EMPTY, existing -> {
             CompoundTag tag = existing.copyTag();
@@ -89,11 +90,12 @@ public class CustomGenderedSpawnEggItem extends SpawnEggItem {
 	}
 
 	private static void cycleVariant(ItemStack stack) {
-		setSelectedVariant(stack, (getSelectedVariant(stack) + 1) % VARIANT_COUNT);
+		setSelectedVariant(stack, (getSelectedVariant(stack) + 1) % SELECTION_MODE_COUNT);
 	}
 
-	private void ensureEntityDataHasVariant(ItemStack stack) {
-		final int variant = getSelectedVariant(stack);
+	private void ensureEntityDataHasVariant(ItemStack stack, Level level) {
+		final int selectedVariant = getSelectedVariant(stack);
+		final int variant = selectedVariant == 2 ? level.random.nextInt(VARIANT_COUNT) : selectedVariant;
 		//? if >1.20.1 {
         /*stack.update(DataComponents.ENTITY_DATA, CustomData.EMPTY, existing -> {
             CompoundTag tag = existing.copyTag();
@@ -122,7 +124,7 @@ public class CustomGenderedSpawnEggItem extends SpawnEggItem {
 			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide);
 		}
 
-		ensureEntityDataHasVariant(stack);
+		ensureEntityDataHasVariant(stack, level);
 		return super.use(level, player, hand);
 	}
 
@@ -141,7 +143,7 @@ public class CustomGenderedSpawnEggItem extends SpawnEggItem {
 		}
 
 		if (player == null || !player.isSecondaryUseActive()) {
-			ensureEntityDataHasVariant(context.getItemInHand());
+			ensureEntityDataHasVariant(context.getItemInHand(), level);
 		}
 		return super.useOn(context);
 	}
@@ -162,7 +164,11 @@ public class CustomGenderedSpawnEggItem extends SpawnEggItem {
 
 	private void addGenderTooltip(ItemStack stack, List<Component> tooltip) {
 		int v = getSelectedVariant(stack);
-		String genderText = (v == 0) ? "Male" : "Female";
+		String genderText = switch (v) {
+			case 0 -> "Male";
+			case 1 -> "Female";
+			default -> "Random";
+		};
 		tooltip.add(Component.translatable("tooltip.jurassicrevived.gender", genderText));
 		tooltip.add(Component.translatable("tooltip.jurassicrevived.gender.hint", "Shift-Right-Click"));
 	}
@@ -170,9 +176,12 @@ public class CustomGenderedSpawnEggItem extends SpawnEggItem {
 	@Override
 	public Component getName(ItemStack stack) {
 		Component base = super.getName(stack);
-		boolean male = getSelectedVariant(stack) == 0;
-		Component gender = Component.literal(male ? "Male" : "Female")
-			.withStyle(male ? ChatFormatting.AQUA : ChatFormatting.LIGHT_PURPLE);
+		int variant = getSelectedVariant(stack);
+		Component gender = switch (variant) {
+			case 0 -> Component.literal("Male").withStyle(ChatFormatting.AQUA);
+			case 1 -> Component.literal("Female").withStyle(ChatFormatting.LIGHT_PURPLE);
+			default -> Component.literal("Random").withStyle(ChatFormatting.YELLOW);
+		};
 
 		return base.copy().append(Component.literal(" (")).append(gender).append(Component.literal(")"));
 	}

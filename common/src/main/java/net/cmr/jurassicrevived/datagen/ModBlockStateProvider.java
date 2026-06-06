@@ -197,6 +197,10 @@ public class ModBlockStateProvider {
         helper.eggLike(ModBlocks.UTAHRAPTOR_EGG.get());
         helper.eggLike(ModBlocks.ZHENYUANOPTERUS_EGG.get());
         helper.eggLike(ModBlocks.ACHILLOBATOR_EGG.get());
+        helper.eggLike(ModBlocks.SUCHOMIMUS_EGG.get());
+        helper.eggLike(ModBlocks.CHILESAURUS_EGG.get());
+        helper.eggLike(ModBlocks.MUSSASAURUS_EGG.get());
+        helper.eggLike(ModBlocks.THESCELOSAURUS_EGG.get());
 
         helper.eggLike(ModBlocks.INCUBATED_VELOCIRAPTOR_EGG.get());
         helper.eggLike(ModBlocks.INCUBATED_TYRANNOSAURUS_REX_EGG.get());
@@ -272,6 +276,10 @@ public class ModBlockStateProvider {
         helper.eggLike(ModBlocks.INCUBATED_UTAHRAPTOR_EGG.get());
         helper.eggLike(ModBlocks.INCUBATED_ZHENYUANOPTERUS_EGG.get());
         helper.eggLike(ModBlocks.INCUBATED_ACHILLOBATOR_EGG.get());
+        helper.eggLike(ModBlocks.INCUBATED_SUCHOMIMUS_EGG.get());
+        helper.eggLike(ModBlocks.INCUBATED_CHILESAURUS_EGG.get());
+        helper.eggLike(ModBlocks.INCUBATED_MUSSASAURUS_EGG.get());
+        helper.eggLike(ModBlocks.INCUBATED_THESCELOSAURUS_EGG.get());
 
         helper.customFenceMultipart(
                 ModBlocks.LOW_SECURITY_FENCE_POLE.get(),

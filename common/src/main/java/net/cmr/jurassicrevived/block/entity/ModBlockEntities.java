@@ -105,6 +105,10 @@ public class ModBlockEntities {
 				ModBlocks.UTAHRAPTOR_EGG.get(),
 				ModBlocks.ZHENYUANOPTERUS_EGG.get(),
 				ModBlocks.ACHILLOBATOR_EGG.get(),
+				ModBlocks.SUCHOMIMUS_EGG.get(),
+				ModBlocks.CHILESAURUS_EGG.get(),
+				ModBlocks.MUSSASAURUS_EGG.get(),
+				ModBlocks.THESCELOSAURUS_EGG.get(),
 				ModBlocks.INCUBATED_APATOSAURUS_EGG.get(),
 				ModBlocks.INCUBATED_ALBERTOSAURUS_EGG.get(),
 				ModBlocks.INCUBATED_VELOCIRAPTOR_EGG.get(),
@@ -178,7 +182,11 @@ public class ModBlockEntities {
 				ModBlocks.INCUBATED_TUPUXUARA_EGG.get(),
 				ModBlocks.INCUBATED_UTAHRAPTOR_EGG.get(),
 				ModBlocks.INCUBATED_ZHENYUANOPTERUS_EGG.get(),
-				ModBlocks.INCUBATED_ACHILLOBATOR_EGG.get()
+				ModBlocks.INCUBATED_ACHILLOBATOR_EGG.get(),
+				ModBlocks.INCUBATED_SUCHOMIMUS_EGG.get(),
+				ModBlocks.INCUBATED_MUSSASAURUS_EGG.get(),
+				ModBlocks.INCUBATED_THESCELOSAURUS_EGG.get(),
+				ModBlocks.INCUBATED_CHILESAURUS_EGG.get()
 			).build(null));
 
 	public static final RegistrySupplier<BlockEntityType<DNAExtractorBlockEntity>> DNA_EXTRACTOR_BE =
