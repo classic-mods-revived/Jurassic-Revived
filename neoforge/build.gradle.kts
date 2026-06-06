@@ -147,6 +147,7 @@ tasks {
 				"mod_license" to commonMod.license,
 				"mod_version" to commonMod.version,
 				"mod_authors" to commonMod.author,
+				"issue_url" to commonMod.issueUrl,
 				"mod_description" to commonMod.description
 			))
 

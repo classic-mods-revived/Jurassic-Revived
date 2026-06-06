@@ -69,16 +69,25 @@ legacyForge {
     val localResources = project.file("src/main/resources").absolutePath
     val generatedResources = project.file("src/generated/resources").absolutePath
 
+	fun net.neoforged.moddevgradle.dsl.RunModel.includeMixinConfigs() {
+		programArguments.addAll(
+			"-mixin.config=${commonMod.id}.mixins.json",
+			"-mixin.config=jurassicrevived.minecraftforge.mixins.json"
+		)
+	}
+
 	runs {
 		register("client") {
 			client()
 			ideName = "MinecraftForge Client (${project.path})"
 			logLevel = Level.TRACE
+			includeMixinConfigs()
 		}
 		register("gameTestServer") {
 			type = "gameTestServer"
 			ideName = "MinecraftForge GameTestServer (${project.path})"
 			logLevel = Level.TRACE
+			includeMixinConfigs()
 		}
 		register("data") {
 			data()
@@ -91,11 +100,13 @@ legacyForge {
 				"--existing", localResources,
 				"--existing", commonResources
 			)
+			includeMixinConfigs()
 		}
 		register("server") {
 			server()
 			ideName = "MinecraftForge Server (${project.path})"
 			logLevel = Level.TRACE
+			includeMixinConfigs()
 		}
 	}
 
@@ -128,6 +139,36 @@ tasks {
 			include(atFile.name)
 			rename(atFile.name, "META-INF/accesstransformer.cfg")
 			into("")
+		}
+
+		inputs.property("mod_id", commonMod.id)
+		inputs.property("mod_name", commonMod.name)
+		inputs.property("mod_version", commonMod.version)
+		inputs.property("mod_author", commonMod.author)
+		inputs.property("mod_description", commonMod.description)
+		inputs.property("mod_license", commonMod.license)
+		inputs.property("mod_credits", commonMod.credits)
+		inputs.property("mod_issue_url", commonMod.issueUrl)
+		inputs.property("minecraft_version", commonMod.minecraft_version)
+
+		filesMatching("META-INF/mods.toml") {
+			expand(mapOf(
+				"mod_id" to commonMod.id,
+				"mod_name" to commonMod.name,
+				"version" to commonMod.version,
+				"mod_author" to commonMod.author,
+				"description" to commonMod.description,
+				"license" to commonMod.license,
+				"credits" to commonMod.credits,
+				"issue_url" to commonMod.issueUrl,
+				"minecraft_version" to commonMod.minecraft_version,
+				"minecraft_version_range" to commonMod.prop("minecraft_version_range"),
+				"minecraftforge_version" to commonMod.prop("minecraftforge_version"),
+				"minecraftforge_version_range" to commonMod.prop("minecraftforge_version_range"),
+				"architectury_version" to commonMod.prop("architectury_version"),
+				"cloth_config_version_1_20_1" to commonMod.prop("cloth_config_version_1_20_1"),
+				"geckolib_version" to commonMod.prop("geckolib_version")
+			))
 		}
 	}
 }

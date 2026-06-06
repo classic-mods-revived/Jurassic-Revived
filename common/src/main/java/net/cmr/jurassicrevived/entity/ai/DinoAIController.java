@@ -6,6 +6,7 @@ import net.cmr.jurassicrevived.util.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -46,6 +47,10 @@ public class DinoAIController {
 	private static final int AVIAN_DIVE_RECOVERY_TICKS = 60;
 	private static final int AVIAN_MIN_SURFACE_RECOVERY_TICKS = 20;
 	private static final int AVIAN_MAX_UNDERWATER_DIVE_TICKS = 40;
+	private static final int AVIAN_BETWEEN_DIVE_REST_TICKS = 80;
+	private static final double AVIAN_RECOVERY_HEIGHT_ABOVE_WATER = 5.0D;
+	private static final double AVIAN_RECOVERY_TARGET_REACHED_DISTANCE_SQR = 2.25D;
+	private static final double AVIAN_RECOVERY_HORIZONTAL_SPEED = 0.08D;
 	private static final int ROAM_STATE_DURATION = 320;
 	private static final int ROAM_RETARGET_INTERVAL = 80;
 	private static final int NATURAL_BREEDING_CHECK_INTERVAL = 200;
@@ -56,7 +61,9 @@ public class DinoAIController {
 	private static final int KILL_REGEN_DURATION_TICKS = 100;
 	private static final double AVIAN_RECOVERY_AIR_UPWARD_SPEED = 0.08D;
 	private static final double AVIAN_RECOVERY_MAX_UPWARD_SPEED = 0.22D;
-	private static final boolean AVIAN_UNDERWATER_HUNTING_ENABLED = false;
+	private static final int AVIAN_MAX_TARGET_DEPTH_BELOW_SURFACE = 10;
+	private static final int AVIAN_WATER_SURFACE_SEARCH_UP = 16;
+	private static final boolean AVIAN_UNDERWATER_HUNTING_ENABLED = true;
 	private static final int HERBIVORE_SELF_FEED_INTERVAL = 40;
 	private static final float HERBIVORE_SELF_FEED_CHANCE = 0.35f;
 	private static final int HERBIVORE_BROWSE_HORIZONTAL_RANGE = 2;
@@ -81,9 +88,11 @@ public class DinoAIController {
 	private int breedingCheckCooldown = 0;
 	private int avianDiveRecoveryTimer = 0;
 	private int avianSurfaceRecoveryTimer = 0;
+	private int avianDiveRestTimer = 0;
 	private boolean avianDiveInProgress = false;
 	private int avianUnderwaterDiveTimer = 0;
 	private boolean avianDiveAttackSpent = false;
+	private Vec3 avianRecoveryTarget;
 
     // Attack Cooldown Tracker
     private int attackCooldown = 0;
@@ -108,27 +117,27 @@ public class DinoAIController {
         this.dino = dino;
     }
 
-    public void tick() {
-        if (homePos == null) homePos = dino.blockPosition();
+	public void tick() {
+		if (homePos == null) homePos = dino.blockPosition();
 
-        handleFloating();
+		handleFloating();
 
-        updateSensors();
+		updateSensors();
 		checkBreedingReadiness();
 
-        switch (currentState) {
-            case IDLE -> tickIdle();
-            case ROAMING -> tickRoaming();
-            case TERRITORIAL_ROAMING -> tickTerritorialRoaming();
-            case CHASING -> tickChasing();
-            case ATTACKING -> tickAttacking();
-            case FLEEING -> tickFleeing();
-            case SLEEPING -> tickSleeping();
-            case MATING -> tickMating();
-        }
+		switch (currentState) {
+			case IDLE -> tickIdle();
+			case ROAMING -> tickRoaming();
+			case TERRITORIAL_ROAMING -> tickTerritorialRoaming();
+			case CHASING -> tickChasing();
+			case ATTACKING -> tickAttacking();
+			case FLEEING -> tickFleeing();
+			case SLEEPING -> tickSleeping();
+			case MATING -> tickMating();
+		}
 
-        stateTimer++;
-        if (attackCooldown > 0) attackCooldown--;
+		stateTimer++;
+		if (attackCooldown > 0) attackCooldown--;
 		if (breedingCheckCooldown > 0) breedingCheckCooldown--;
 
 		if (avianDiveRecoveryTimer > 0) {
@@ -138,7 +147,24 @@ public class DinoAIController {
 		if (avianSurfaceRecoveryTimer > 0 && !dino.isInWater()) {
 			avianSurfaceRecoveryTimer--;
 		}
-    }
+
+		if (avianDiveRestTimer > 0 && !dino.isInWater() && avianDiveRecoveryTimer <= 0 && avianSurfaceRecoveryTimer <= 0) {
+			avianDiveRestTimer--;
+		}
+
+		if (isAvianWaterHunter()
+		    && attackTarget != null
+		    && currentState == State.CHASING
+		    && !isRecoveringFromAvianDive()
+		    && avianDiveRestTimer <= 0
+		    && avianDiveAttackSpent
+		    && isUnderwaterTarget(attackTarget)) {
+			avianDiveAttackSpent = false;
+			avianDiveInProgress = true;
+			avianUnderwaterDiveTimer = 0;
+			avianRecoveryTarget = null;
+		}
+	}
 
 	private void handleFloating() {
 		if (!dino.isInWater()) {
@@ -204,9 +230,11 @@ public class DinoAIController {
 		if (newState != State.CHASING && newState != State.ATTACKING) {
 			this.avianDiveRecoveryTimer = 0;
 			this.avianSurfaceRecoveryTimer = 0;
+			this.avianDiveRestTimer = 0;
 			this.avianDiveInProgress = false;
 			this.avianUnderwaterDiveTimer = 0;
 			this.avianDiveAttackSpent = false;
+			this.avianRecoveryTarget = null;
 		}
 
 		// Reset sprinting if we aren't in a high-speed state
@@ -520,8 +548,22 @@ public class DinoAIController {
 			return true;
 		}
 
-		if (target != null && target.isAlive() && isUnderwaterTarget(target)) {
-			avianDiveInProgress = true;
+		if (target != null && target.isAlive() && target.isInWater()) {
+			if (avianDiveRestTimer > 0) {
+				handleAvianDiveRecoveryMovement();
+				return true;
+			}
+
+			if (!isUnderwaterTarget(target)) {
+				if (avianDiveInProgress || dino.isInWater()) {
+					beginAvianDiveRecovery();
+					return true;
+				}
+
+				avianDiveInProgress = false;
+				avianUnderwaterDiveTimer = 0;
+				return false;
+			}
 
 			if (dino.isInWater()) {
 				avianUnderwaterDiveTimer++;
@@ -540,12 +582,14 @@ public class DinoAIController {
 				Vec3 velocity = dino.getDeltaMovement();
 
 				dino.getNavigation().stop();
+				faceAvianMovement(toTarget);
 
 				dino.setDeltaMovement(
 					velocity.x * 0.85D + dive.x,
 					Math.max(AVIAN_DIVE_MAX_DOWNWARD_SPEED, velocity.y * 0.75D + dive.y),
 					velocity.z * 0.85D + dive.z
 				);
+				dino.hasImpulse = true;
 			}
 
 			return true;
@@ -569,11 +613,30 @@ public class DinoAIController {
 	private void beginAvianDiveRecovery() {
 		this.avianDiveRecoveryTimer = AVIAN_DIVE_RECOVERY_TICKS;
 		this.avianSurfaceRecoveryTimer = AVIAN_MIN_SURFACE_RECOVERY_TICKS;
+		this.avianDiveRestTimer = AVIAN_BETWEEN_DIVE_REST_TICKS;
 		this.avianDiveInProgress = false;
 		this.avianUnderwaterDiveTimer = 0;
 		this.avianDiveAttackSpent = true;
+		this.avianRecoveryTarget = findAvianRecoveryTarget();
 		this.pathRecalcTimer = 10;
 		dino.getNavigation().stop();
+	}
+
+	private Vec3 findAvianRecoveryTarget() {
+		BlockPos origin = dino.blockPosition();
+		BlockPos surface = BlockPos.findClosestMatch(
+			origin,
+			10,
+			16,
+			p -> dino.level().getFluidState(p).is(FluidTags.WATER)
+			     && !dino.level().getFluidState(p.above()).is(FluidTags.WATER)
+		).orElse(null);
+
+		if (surface == null) {
+			return dino.position().add(0.0D, AVIAN_RECOVERY_HEIGHT_ABOVE_WATER, 0.0D);
+		}
+
+		return Vec3.atCenterOf(surface).add(0.0D, AVIAN_RECOVERY_HEIGHT_ABOVE_WATER, 0.0D);
 	}
 
 	private void handleAvianDiveRecoveryMovement() {
@@ -581,7 +644,14 @@ public class DinoAIController {
 
 		dino.getNavigation().stop();
 
+		if (avianRecoveryTarget == null) {
+			avianRecoveryTarget = findAvianRecoveryTarget();
+		}
+
 		if (dino.isInWater()) {
+			Vec3 upwardRecovery = new Vec3(velocity.x * 0.45D, 1.0D, velocity.z * 0.45D);
+			faceAvianMovement(upwardRecovery);
+
 			dino.setDeltaMovement(
 				velocity.x * 0.45D,
 				Math.min(Math.max(velocity.y + 0.035D, AVIAN_WATER_EXIT_BOOST), AVIAN_RECOVERY_MAX_UPWARD_SPEED),
@@ -591,11 +661,31 @@ public class DinoAIController {
 			return;
 		}
 
-		dino.setDeltaMovement(
-			velocity.x * 0.92D,
-			Math.min(Math.max(velocity.y, AVIAN_RECOVERY_AIR_UPWARD_SPEED), AVIAN_RECOVERY_MAX_UPWARD_SPEED),
-			velocity.z * 0.92D
-		);
+		Vec3 toRecoveryTarget = avianRecoveryTarget.subtract(dino.position());
+		Vec3 horizontal = new Vec3(toRecoveryTarget.x, 0.0D, toRecoveryTarget.z);
+		double horizontalLengthSqr = horizontal.lengthSqr();
+
+		double xMotion = velocity.x * 0.82D;
+		double zMotion = velocity.z * 0.82D;
+
+		if (horizontalLengthSqr > AVIAN_RECOVERY_TARGET_REACHED_DISTANCE_SQR) {
+			Vec3 horizontalMotion = horizontal.normalize().scale(AVIAN_RECOVERY_HORIZONTAL_SPEED);
+			xMotion += horizontalMotion.x;
+			zMotion += horizontalMotion.z;
+		}
+
+		double yMotion;
+		if (toRecoveryTarget.y > 0.35D) {
+			yMotion = Math.min(Math.max(velocity.y, AVIAN_RECOVERY_AIR_UPWARD_SPEED), AVIAN_RECOVERY_MAX_UPWARD_SPEED);
+		} else if (toRecoveryTarget.y < -0.75D) {
+			yMotion = Math.max(velocity.y - 0.03D, -0.08D);
+		} else {
+			yMotion = velocity.y * 0.55D;
+		}
+
+		faceAvianMovement(new Vec3(xMotion, yMotion, zMotion));
+
+		dino.setDeltaMovement(xMotion, yMotion, zMotion);
 		dino.hasImpulse = true;
 	}
 
@@ -631,10 +721,58 @@ public class DinoAIController {
 		       && !(dino instanceof FlyingAnimal);
 	}
 
-    private boolean isUnderwaterTarget(LivingEntity target) {
-        return target.isInWater()
-                && target.getFluidHeight(FluidTags.WATER) > target.getFluidJumpThreshold();
-    }
+	private boolean isUnderwaterTarget(LivingEntity target) {
+		if (target == null || !target.isInWater()) {
+			return false;
+		}
+
+		if (target.getFluidHeight(FluidTags.WATER) <= target.getFluidJumpThreshold()) {
+			return false;
+		}
+
+		if (isAvianWaterHunter()) {
+			return isWithinAvianDiveDepth(target);
+		}
+
+		return true;
+	}
+
+	private boolean isWithinAvianDiveDepth(LivingEntity target) {
+		BlockPos targetPos = target.blockPosition();
+
+		for (int y = 0; y <= AVIAN_WATER_SURFACE_SEARCH_UP; y++) {
+			BlockPos checkPos = targetPos.above(y);
+
+			if (dino.level().getFluidState(checkPos).is(FluidTags.WATER)) {
+				continue;
+			}
+
+			int depthBelowSurface = checkPos.getY() - targetPos.getY();
+			return depthBelowSurface <= AVIAN_MAX_TARGET_DEPTH_BELOW_SURFACE;
+		}
+
+		return false;
+	}
+
+	private void faceAvianMovement(Vec3 direction) {
+		if (direction.lengthSqr() < 0.0001D) {
+			return;
+		}
+
+		Vec3 normalized = direction.normalize();
+
+		float yaw = (float)(Mth.atan2(normalized.z, normalized.x) * Mth.RAD_TO_DEG) - 90.0F;
+		float pitch = (float)(-(Mth.atan2(normalized.y, Math.sqrt(normalized.x * normalized.x + normalized.z * normalized.z)) * Mth.RAD_TO_DEG));
+
+		dino.setYRot(yaw);
+		dino.yRotO = yaw;
+		dino.yBodyRot = yaw;
+		dino.yBodyRotO = yaw;
+		dino.yHeadRot = yaw;
+		dino.yHeadRotO = yaw;
+		dino.setXRot(Mth.clamp(pitch, -75.0F, 75.0F));
+		dino.xRotO = dino.getXRot();
+	}
 
     // --- STATE LOGIC ---
 
@@ -1285,6 +1423,17 @@ public class DinoAIController {
 			return;
 		}
 
+		if (isAvianWaterHunter()
+		    && !avianDiveInProgress
+		    && !avianDiveAttackSpent
+		    && avianDiveRestTimer <= 0
+		    && isUnderwaterTarget(attackTarget)) {
+			avianDiveInProgress = true;
+			avianUnderwaterDiveTimer = 0;
+			dino.getNavigation().stop();
+			return;
+		}
+
 		if (distSqr <= reach * 1.1) {
 			transitionTo(State.ATTACKING);
 			return;
@@ -1305,17 +1454,21 @@ public class DinoAIController {
 				pathRecalcTimer = 10; // Wait before retrying to prevent rapid failure loops
 				failedPathfindingAttempts++;
 
-                // Tolerance allows for temporary pathfinding failures (e.g., target inside hitbox)
-                if (failedPathfindingAttempts > 5) {
-                    attackTarget = null;
-                    transitionTo(State.IDLE);
-                }
-            } else {
-                pathRecalcTimer = 10;
-                failedPathfindingAttempts = 0;
-            }
-        }
-    }
+				// Tolerance allows for temporary pathfinding failures (e.g., target inside hitbox)
+				if (failedPathfindingAttempts > 5) {
+					if (isAvianWaterHunter() && isUnderwaterTarget(attackTarget)) {
+						failedPathfindingAttempts = 0;
+					} else {
+						attackTarget = null;
+						transitionTo(State.IDLE);
+					}
+				}
+			} else {
+				pathRecalcTimer = 10;
+				failedPathfindingAttempts = 0;
+			}
+		}
+	}
 
 	private void tickAttacking() {
 		if (attackTarget == null) {
@@ -1333,6 +1486,17 @@ public class DinoAIController {
 		double reach = (double)(dino.getBbWidth() * reachMult * dino.getBbWidth() * reachMult) + attackTarget.getBbWidth();
 
 		if (isAvianWaterHunter() && isRecoveringFromAvianDive()) {
+			dino.getNavigation().stop();
+			transitionTo(State.CHASING);
+			return;
+		}
+
+		if (isAvianWaterHunter()
+		    && !avianDiveInProgress
+		    && !avianDiveAttackSpent
+		    && isUnderwaterTarget(attackTarget)) {
+			avianDiveInProgress = true;
+			avianUnderwaterDiveTimer = 0;
 			dino.getNavigation().stop();
 			transitionTo(State.CHASING);
 			return;
