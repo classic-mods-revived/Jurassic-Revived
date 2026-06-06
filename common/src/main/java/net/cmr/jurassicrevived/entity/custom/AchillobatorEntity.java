@@ -306,10 +306,17 @@ public class AchillobatorEntity extends DinoEntityBase implements GeoEntity {
 		}
 	}
 
+	/*? if <=1.20.1 {*/
 	@Override
 	public EntityDimensions getDimensions(Pose pose) {
 		return this.getType().getDimensions().scale(this.getTotalModelScale());
 	}
+	/*?} else {*/
+	/*@Override
+	protected EntityDimensions getDefaultDimensions(Pose pose) {
+		return this.getType().getDimensions().scale(this.getTotalModelScale());
+	}
+	*//*?}*/
 
 	public int getTypeVariant() {
 		return this.entityData.get(VARIANT);
