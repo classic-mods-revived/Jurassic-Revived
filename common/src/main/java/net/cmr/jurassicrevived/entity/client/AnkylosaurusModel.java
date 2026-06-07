@@ -25,6 +25,9 @@ public class AnkylosaurusModel extends GeoModel<AnkylosaurusEntity> {
                 map.put(AnkylosaurusVariant.FEMALE, Constants.rl("textures/entity/ankylosaurus_female.png"));
             });
 
+	private static final ResourceLocation BUMPY_LOCATION =
+		Constants.rl("textures/entity/ankylosaurus_bumpy.png");
+
     // Model-local "currently applied" offsets; cleared before each entity render
     private float[] appliedYaw = null;
     private float[] appliedRoll = null;
@@ -34,10 +37,14 @@ public class AnkylosaurusModel extends GeoModel<AnkylosaurusEntity> {
         return Constants.rl("geo/ankylosaurus.geo.json");
     }
 
-    @Override
-    public ResourceLocation getTextureResource(AnkylosaurusEntity animatable) {
-        return LOCATION_BY_VARIANT.get(animatable.getVariant());
-    }
+	@Override
+	public ResourceLocation getTextureResource(AnkylosaurusEntity animatable) {
+		if (animatable.hasCustomName() && "bumpy".equalsIgnoreCase(animatable.getName().getString())) {
+			return BUMPY_LOCATION;
+		}
+
+		return LOCATION_BY_VARIANT.get(animatable.getVariant());
+	}
 
     @Override
     public ResourceLocation getAnimationResource(AnkylosaurusEntity animatable) {

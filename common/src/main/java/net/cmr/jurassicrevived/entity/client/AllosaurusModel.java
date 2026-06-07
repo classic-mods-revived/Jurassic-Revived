@@ -25,6 +25,9 @@ public class AllosaurusModel extends GeoModel<AllosaurusEntity> {
                 map.put(AllosaurusVariant.FEMALE, Constants.rl("textures/entity/allosaurus_female.png"));
             });
 
+	private static final ResourceLocation AL_LOCATION =
+		Constants.rl("textures/entity/allosaurus_al.png");
+
     // Model-local "currently applied" offsets; cleared before each entity render
     private float[] appliedYaw = null;
     private float[] appliedRoll = null;
@@ -36,7 +39,11 @@ public class AllosaurusModel extends GeoModel<AllosaurusEntity> {
 
     @Override
     public ResourceLocation getTextureResource(AllosaurusEntity animatable) {
-        return LOCATION_BY_VARIANT.get(animatable.getVariant());
+		if (animatable.hasCustomName() && "al".equalsIgnoreCase(animatable.getName().getString())) {
+			return AL_LOCATION;
+		}
+
+		return LOCATION_BY_VARIANT.get(animatable.getVariant());
     }
 
     @Override

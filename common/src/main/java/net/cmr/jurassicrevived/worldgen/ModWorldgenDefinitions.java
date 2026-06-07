@@ -1,11 +1,16 @@
 package net.cmr.jurassicrevived.worldgen;
 
+import dev.architectury.registry.registries.RegistrySupplier;
 import net.cmr.jurassicrevived.Constants;
 import net.cmr.jurassicrevived.block.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags; // <-- Add this import
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.biome.Biome; // <-- Add this import
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -16,6 +21,8 @@ import java.util.function.Supplier;
 public final class ModWorldgenDefinitions {
 	private ModWorldgenDefinitions() {
 	}
+	public static final TagKey<Biome> SNOWY_BIOMES = TagKey.create(Registries.BIOME, Constants.rl("is_snowy"));
+
 
 	public static final List<OreDefinition> ORES = List.of(
 		new OreDefinition(
@@ -25,7 +32,8 @@ public final class ModWorldgenDefinitions {
 			18,
 			20,
 			32,
-			64
+			64,
+			BiomeTags.IS_OVERWORLD // <-- Add biome tag
 		),
 		new OreDefinition(
 			"stone_fossil",
@@ -34,7 +42,8 @@ public final class ModWorldgenDefinitions {
 			8,
 			15,
 			0,
-			64
+			64,
+			BiomeTags.IS_OVERWORLD
 		),
 		new OreDefinition(
 			"deepslate_fossil",
@@ -43,7 +52,8 @@ public final class ModWorldgenDefinitions {
 			8,
 			15,
 			-32,
-			0
+			0,
+			BiomeTags.IS_OVERWORLD
 		),
 		new OreDefinition(
 			"amber_ore",
@@ -52,7 +62,8 @@ public final class ModWorldgenDefinitions {
 			3,
 			4,
 			0,
-			32
+			32,
+			BiomeTags.IS_OVERWORLD
 		),
 		new OreDefinition(
 			"deepslate_ice_shard_ore",
@@ -61,7 +72,19 @@ public final class ModWorldgenDefinitions {
 			3,
 			6,
 			-32,
-			0
+			0,
+			BiomeTags.IS_OVERWORLD
+		),
+		// Add your new Permafrost generation here!
+		new OreDefinition(
+			"permafrost",
+			ModBlocks.PERMAFROST,
+			BlockTags.DIRT,
+			16, // Vein Size
+			6,  // Count
+			60, // Min Y
+			140,// Max Y
+			SNOWY_BIOMES
 		)
 	);
 
@@ -72,7 +95,8 @@ public final class ModWorldgenDefinitions {
 		int veinSize,
 		int count,
 		int minY,
-		int maxY
+		int maxY,
+		TagKey<Biome> biomeTag // <-- Add this to the record
 	) {
 		public ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey() {
 			return ResourceKey.create(Registries.CONFIGURED_FEATURE, Constants.rl(name));

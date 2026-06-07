@@ -26,6 +26,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.CRUSHED_FOSSIL.get());
 				output.accept(ModItems.MOSQUITO_IN_AMBER.get());
 				output.accept(ModItems.FROZEN_LEECH.get());
+				output.accept(ModItems.FROZEN_BONE.get());
 				output.accept(ModItems.CABLE.get());
 				output.accept(ModItems.SCREEN.get());
 				output.accept(ModItems.PROCESSOR.get());
@@ -103,6 +104,7 @@ public class ModCreativeTabs {
 				output.accept(ModBlocks.DEEPSLATE_FOSSIL.get());
 				output.accept(ModBlocks.AMBER_ORE.get());
 				output.accept(ModBlocks.DEEPSLATE_ICE_SHARD_ORE.get());
+				output.accept(ModBlocks.PERMAFROST.get());
 			});
 		}));
 

@@ -42,18 +42,22 @@ public class ModWorldgenProvider implements DataProvider {
 			))
 			.toArray(CompletableFuture[]::new);
 
-		return CompletableFuture.allOf(
+		CompletableFuture<?> allGenerators = CompletableFuture.allOf(
 			java.util.stream.Stream.concat(
 				java.util.Arrays.stream(oreFutures),
 				java.util.Arrays.stream(spawnFutures)
 			).toArray(CompletableFuture[]::new)
 		);
+
+		return CompletableFuture.allOf(allGenerators, saveIsSnowyFallbackTag(cachedOutput));
+
 	}
 
 	private CompletableFuture<?> saveForgeAddFeatureBiomeModifier(CachedOutput cachedOutput, ModWorldgenDefinitions.OreDefinition ore) {
 		JsonObject root = new JsonObject();
 		root.addProperty("type", "forge:add_features");
-		root.addProperty("biomes", "#minecraft:is_overworld");
+		// Dynamically grab the biome tag
+		root.addProperty("biomes", "#" + ore.biomeTag().location().toString());
 		root.addProperty("features", Constants.rl(ore.name() + "_placed").toString());
 		root.addProperty("step", "underground_ores");
 
@@ -66,7 +70,8 @@ public class ModWorldgenProvider implements DataProvider {
 	private CompletableFuture<?> saveNeoForgeAddFeatureBiomeModifier(CachedOutput cachedOutput, ModWorldgenDefinitions.OreDefinition ore) {
 		JsonObject root = new JsonObject();
 		root.addProperty("type", "neoforge:add_features");
-		root.addProperty("biomes", "#minecraft:is_overworld");
+		// Dynamically grab the biome tag
+		root.addProperty("biomes", "#" + ore.biomeTag().location().toString());
 		root.addProperty("features", Constants.rl(ore.name() + "_placed").toString());
 		root.addProperty("step", "underground_ores");
 
@@ -188,6 +193,42 @@ public class ModWorldgenProvider implements DataProvider {
 
 		Path path = output.getOutputFolder()
 			.resolve("data/" + Constants.MOD_ID + "/worldgen/placed_feature/" + ore.name() + "_placed.json");
+
+		return DataProvider.saveStable(cachedOutput, root, path);
+	}
+
+	private CompletableFuture<?> saveIsSnowyFallbackTag(CachedOutput cachedOutput) {
+		JsonObject root = new JsonObject();
+		root.addProperty("replace", false);
+
+		JsonArray values = new JsonArray();
+
+		// Optional Forge Tag
+		JsonObject forgeTag = new JsonObject();
+		forgeTag.addProperty("id", "#forge:is_snowy");
+		forgeTag.addProperty("required", false);
+		values.add(forgeTag);
+
+		// Optional Fabric Tag
+		JsonObject fabricTag = new JsonObject();
+		fabricTag.addProperty("id", "#c:snowy");
+		fabricTag.addProperty("required", false);
+		values.add(fabricTag);
+
+		// Vanilla Fallbacks
+		values.add("minecraft:snowy_plains");
+		values.add("minecraft:ice_spikes");
+		values.add("minecraft:snowy_taiga");
+		values.add("minecraft:snowy_beach");
+		values.add("minecraft:grove");
+		values.add("minecraft:snowy_slopes");
+		values.add("minecraft:jagged_peaks");
+		values.add("minecraft:frozen_peaks");
+
+		root.add("values", values);
+
+		Path path = output.getOutputFolder()
+			.resolve("data/" + Constants.MOD_ID + "/tags/worldgen/biome/is_snowy.json");
 
 		return DataProvider.saveStable(cachedOutput, root, path);
 	}

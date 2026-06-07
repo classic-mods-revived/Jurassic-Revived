@@ -194,6 +194,7 @@ public class ModItems {
 	public static final RegistrySupplier<Item> TEST_TUBE = ITEMS.register("test_tube", () -> new Item(new Item.Properties().stacksTo(16)));
 	public static final RegistrySupplier<Item> SYRINGE = ITEMS.register("syringe", () -> new FrogSyringeItem(new Item.Properties().stacksTo(16)));
 	public static final RegistrySupplier<Item> MOSQUITO_IN_AMBER = ITEMS.register("mosquito_in_amber", () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON)));
+	public static final RegistrySupplier<Item> FROZEN_BONE = ITEMS.register("frozen_bone", () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));
 	public static final RegistrySupplier<Item> CRUSHED_FOSSIL = ITEMS.register("crushed_fossil", () -> new Item(new Item.Properties()));
 	public static final RegistrySupplier<Item> FROZEN_LEECH = ITEMS.register("frozen_leech", () -> new Item(new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));
 	public static final RegistrySupplier<Item> CABLE = ITEMS.register("cable", () -> new Item(new Item.Properties().stacksTo(16)));

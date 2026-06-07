@@ -109,6 +109,7 @@ public class ModItemModelProvider {
         helper.basicItemModel(ModItems.CRUSHED_FOSSIL.get());
         helper.basicItemModel(ModItems.MOSQUITO_IN_AMBER.get());
         helper.basicItemModel(ModItems.FROZEN_LEECH.get());
+        helper.basicItemModel(ModItems.FROZEN_BONE.get());
         helper.basicItemModel(ModItems.CABLE.get());
         helper.basicItemModel(ModItems.SCREEN.get());
         helper.basicItemModel(ModItems.PROCESSOR.get());

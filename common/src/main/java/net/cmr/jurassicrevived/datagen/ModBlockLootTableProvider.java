@@ -20,7 +20,8 @@ public class ModBlockLootTableProvider {
         void dropSelf(Block block);
         void add(Block block, LootTable.Builder builder);
         LootTable.Builder createMultipleOreDrops(Block block, Item item, float minDrops, float maxDrops);
-        LootTable.Builder createPotFlowerItemTable(Block block);
+		LootTable.Builder createRandomOreDrops(Block block, Item silkTouchDrop, Item firstDrop, Item secondDrop, float minRolls, float maxRolls, double firstDropChance);
+		LootTable.Builder createPotFlowerItemTable(Block block);
     }
 
     public static void registerBlockLootTables(BlockLootHelper helper) {
@@ -53,6 +54,8 @@ public class ModBlockLootTableProvider {
                 helper.createMultipleOreDrops(ModBlocks.AMBER_ORE.get(), ModItems.MOSQUITO_IN_AMBER.get(),1, 1));
         helper.add(ModBlocks.DEEPSLATE_ICE_SHARD_ORE.get(),
                 helper.createMultipleOreDrops(ModBlocks.DEEPSLATE_ICE_SHARD_ORE.get(), ModItems.FROZEN_LEECH.get(),1, 1));
+		helper.add(ModBlocks.PERMAFROST.get(),
+			helper.createMultipleOreDrops(ModBlocks.PERMAFROST.get(), ModItems.FROZEN_BONE.get(),1, 1));
 
         helper.dropSelf(ModBlocks.REINFORCED_STONE.get());
         helper.dropSelf(ModBlocks.REINFORCED_STONE_BRICKS.get());

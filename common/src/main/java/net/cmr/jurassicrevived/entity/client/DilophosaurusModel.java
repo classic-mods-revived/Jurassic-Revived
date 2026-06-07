@@ -25,6 +25,9 @@ public class DilophosaurusModel extends GeoModel<DilophosaurusEntity> {
                 map.put(DilophosaurusVariant.FEMALE, Constants.rl("textures/entity/dilophosaurus_female.png"));
             });
 
+	private static final ResourceLocation INFERNO_LOCATION =
+		Constants.rl("textures/entity/dilophosaurus_inferno.png");
+
     // Model-local "currently applied" offsets; cleared before each entity render
     private float[] appliedYaw = null;
     private float[] appliedRoll = null;
@@ -36,6 +39,10 @@ public class DilophosaurusModel extends GeoModel<DilophosaurusEntity> {
 
     @Override
     public ResourceLocation getTextureResource(DilophosaurusEntity animatable) {
+		if (animatable.hasCustomName() && "inferno".equalsIgnoreCase(animatable.getName().getString())) {
+			return INFERNO_LOCATION;
+		}
+
         return LOCATION_BY_VARIANT.get(animatable.getVariant());
     }
 

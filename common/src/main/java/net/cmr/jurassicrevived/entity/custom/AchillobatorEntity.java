@@ -46,9 +46,9 @@ import software.bernie.geckolib.animation.*;
 public class AchillobatorEntity extends DinoEntityBase implements GeoEntity {
 	private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
-	public static final int BABY_TO_ADULT_AGE_TICKS = 240;
-	private static final float MIN_ANIMAL_SCALE = 0.92F;
-	private static final float MAX_ANIMAL_SCALE = 1.08F;
+	public static final int BABY_TO_ADULT_AGE_TICKS = 28800;
+	private static final float MIN_ANIMAL_SCALE = 0.8F;
+	private static final float MAX_ANIMAL_SCALE = 1.2F;
 
 	private float lastDimensionsScale = 1.0F;
 

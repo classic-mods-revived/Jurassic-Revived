@@ -25,6 +25,18 @@ public class VelociraptorModel extends GeoModel<VelociraptorEntity> {
                 map.put(VelociraptorVariant.FEMALE, Constants.rl("textures/entity/velociraptor_female.png"));
             });
 
+	private static final ResourceLocation BLUE_LOCATION =
+		Constants.rl("textures/entity/velociraptor_blue.png");
+
+	private static final ResourceLocation CHARLIE_LOCATION =
+		Constants.rl("textures/entity/velociraptor_charlie.png");
+
+	private static final ResourceLocation DELTA_LOCATION =
+		Constants.rl("textures/entity/velociraptor_delta.png");
+
+	private static final ResourceLocation ECHO_LOCATION =
+		Constants.rl("textures/entity/velociraptor_echo.png");
+
     // Model-local "currently applied" offsets; cleared before each entity render
     private float[] appliedYaw = null;
     private float[] appliedRoll = null;
@@ -36,6 +48,19 @@ public class VelociraptorModel extends GeoModel<VelociraptorEntity> {
 
     @Override
     public ResourceLocation getTextureResource(VelociraptorEntity animatable) {
+		if (animatable.hasCustomName() && "blue".equalsIgnoreCase(animatable.getName().getString())) {
+			return BLUE_LOCATION;
+		}
+		if (animatable.hasCustomName() && "charlie".equalsIgnoreCase(animatable.getName().getString())) {
+			return CHARLIE_LOCATION;
+		}
+		if (animatable.hasCustomName() && "delta".equalsIgnoreCase(animatable.getName().getString())) {
+			return DELTA_LOCATION;
+		}
+		if (animatable.hasCustomName() && "echo".equalsIgnoreCase(animatable.getName().getString())) {
+			return ECHO_LOCATION;
+		}
+
         return LOCATION_BY_VARIANT.get(animatable.getVariant());
     }
 

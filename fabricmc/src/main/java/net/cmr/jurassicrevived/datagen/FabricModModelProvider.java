@@ -148,6 +148,57 @@ public class FabricModModelProvider extends FabricModelProvider implements ModBl
         }
     }
 
+	@Override
+	public void blockWithItem(Block block, ResourceLocation sideTexture, ResourceLocation bottomTexture, ResourceLocation topTexture) {
+		if (isGeneratingBlocks()) {
+			TextureMapping mapping = new TextureMapping()
+				.put(TextureSlot.SIDE, sideTexture)
+				.put(TextureSlot.BOTTOM, bottomTexture)
+				.put(TextureSlot.TOP, topTexture);
+			ResourceLocation modelLocation = ModelTemplates.CUBE_BOTTOM_TOP.create(block, mapping, blockStateGenerator.modelOutput);
+			blockStateGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, modelLocation));
+		}
+		if (isGeneratingItems()) {
+			generateBlockItemModel(block);
+		}
+	}
+
+	@Override
+	public void randomTextureBlockWithItem(Block block, List<ResourceLocation> textures) {
+		if (textures.isEmpty()) {
+			throw new IllegalArgumentException("randomTextureBlockWithItem requires at least one texture");
+		}
+
+		ResourceLocation baseModel = null;
+
+		if (isGeneratingBlocks()) {
+			Variant[] variants = new Variant[textures.size()];
+
+			for (int i = 0; i < textures.size(); i++) {
+				TextureMapping mapping = new TextureMapping().put(TextureSlot.ALL, textures.get(i));
+				ResourceLocation model = ModelTemplates.CUBE_ALL.createWithSuffix(block, "_" + i, mapping, blockStateGenerator.modelOutput);
+
+				if (i == 0) {
+					baseModel = model;
+				}
+
+				variants[i] = Variant.variant()
+					.with(VariantProperties.MODEL, model);
+			}
+
+			blockStateGenerator.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block, variants));
+		}
+
+		if (isGeneratingItems()) {
+			ResourceLocation itemParent = baseModel != null ? baseModel : ModelLocationUtils.getModelLocation(block, "_0");
+			itemModelGenerator.output.accept(ModelLocationUtils.getModelLocation(block.asItem()), () -> {
+				JsonObject json = new JsonObject();
+				json.addProperty("parent", itemParent.toString());
+				return json;
+			});
+		}
+	}
+
     private PropertyDispatch createRotatedHorizontalFacingDispatch() {
         return PropertyDispatch.property(BlockStateProperties.HORIZONTAL_FACING)
                 .select(Direction.NORTH, Variant.variant().with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))

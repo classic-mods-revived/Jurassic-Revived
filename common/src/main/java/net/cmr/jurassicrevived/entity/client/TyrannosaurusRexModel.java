@@ -25,6 +25,12 @@ public class TyrannosaurusRexModel extends GeoModel<TyrannosaurusRexEntity> {
                 map.put(TyrannosaurusRexVariant.FEMALE, Constants.rl("textures/entity/tyrannosaurus_rex_female.png"));
             });
 
+	private static final ResourceLocation DRGRAY_LOCATION =
+		Constants.rl("textures/entity/tyrannosaurus_rex_drgray.png");
+
+	private static final ResourceLocation EMBER_LOCATION =
+		Constants.rl("textures/entity/tyrannosaurus_rex_ember.png");
+
     // Model-local "currently applied" offsets; cleared before each entity render
     private float[] appliedYaw = null;
     private float[] appliedRoll = null;
@@ -36,7 +42,15 @@ public class TyrannosaurusRexModel extends GeoModel<TyrannosaurusRexEntity> {
 
     @Override
     public ResourceLocation getTextureResource(TyrannosaurusRexEntity animatable) {
-        return LOCATION_BY_VARIANT.get(animatable.getVariant());
+		if (animatable.hasCustomName() && "drgray".equalsIgnoreCase(animatable.getName().getString())) {
+			return DRGRAY_LOCATION;
+		}
+
+		if (animatable.hasCustomName() && "ember".equalsIgnoreCase(animatable.getName().getString())) {
+			return EMBER_LOCATION;
+		}
+
+		return LOCATION_BY_VARIANT.get(animatable.getVariant());
     }
 
     @Override

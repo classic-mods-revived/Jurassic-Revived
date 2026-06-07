@@ -12,6 +12,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 
+import java.util.List;
+
 public class ModBlockStateProvider {
 
     public interface BlockStateHelper {
@@ -25,7 +27,9 @@ public class ModBlockStateProvider {
         void pottedPlantBlock(Block block, ResourceLocation plantTexture);
 
         void blockWithItem(Block block);
-        void horizontalFacingWithItem(Block block);
+		void blockWithItem(Block block, ResourceLocation sideTexture, ResourceLocation bottomTexture, ResourceLocation topTexture);
+		void randomTextureBlockWithItem(Block block, List<ResourceLocation> textures);
+		void horizontalFacingWithItem(Block block);
         void horizontalFacingLitWithItem(Block block);
         void horizontalFacingLitNoBlockstateWithItem(Block block);
         void eggLike(Block block);
@@ -68,10 +72,22 @@ public class ModBlockStateProvider {
         helper.blockWithItem(ModBlocks.SMOOTH_GYPSUM_STONE.get());
         helper.blockWithItem(ModBlocks.CHISELED_GYPSUM_STONE.get());
 
-        helper.blockWithItem(ModBlocks.STONE_FOSSIL.get());
-        helper.blockWithItem(ModBlocks.DEEPSLATE_FOSSIL.get());
+		helper.randomTextureBlockWithItem(ModBlocks.STONE_FOSSIL.get(), List.of(
+			Constants.rl("block/stone_fossil_egg"),
+			Constants.rl("block/stone_fossil_rib"),
+			Constants.rl("block/stone_fossil_skull")
+		));
+		helper.randomTextureBlockWithItem(ModBlocks.DEEPSLATE_FOSSIL.get(), List.of(
+			Constants.rl("block/deepslate_fossil_egg"),
+			Constants.rl("block/deepslate_fossil_rib"),
+			Constants.rl("block/deepslate_fossil_skull")
+		));
         helper.blockWithItem(ModBlocks.AMBER_ORE.get());
         helper.blockWithItem(ModBlocks.DEEPSLATE_ICE_SHARD_ORE.get());
+		helper.blockWithItem(ModBlocks.PERMAFROST.get(),
+			Constants.rl("block/permafrost_side"),
+			Constants.rl("block/permafrost_bottom"),
+			Constants.rl("block/permafrost_top"));
 
         helper.blockWithItem(ModBlocks.REINFORCED_STONE.get());
         helper.blockWithItem(ModBlocks.REINFORCED_STONE_BRICKS.get());

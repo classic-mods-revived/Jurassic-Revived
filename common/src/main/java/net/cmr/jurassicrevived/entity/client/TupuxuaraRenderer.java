@@ -9,18 +9,13 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class TupuxuaraRenderer extends GeoEntityRenderer<TupuxuaraEntity> {
-    private final float animalScale = 1.0F;
     public TupuxuaraRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new TupuxuaraModel());
     }
 
     @Override
     public void scaleModelForRender(float widthScale, float heightScale, PoseStack poseStack, TupuxuaraEntity animatable, BakedGeoModel model, boolean isReRender, float partialTick, int packedLight, int packedOverlay) {
-        poseStack.scale(animalScale, animalScale, animalScale);
-        if(animatable.isBaby()) {
-            float growthProgress = Mth.clamp((24000.0F + animatable.getSyncedAge()) / 24000.0F, 0.0F, 1.0F);
-            float scale = Mth.lerp(growthProgress, 0.2F, 1.0F);
-            poseStack.scale(scale, scale, scale);
-        }
+        float scale = animatable.getTotalModelScale();
+        poseStack.scale(scale, scale, scale);
     }
 }

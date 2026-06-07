@@ -47,10 +47,18 @@ import software.bernie.geckolib.animation.*;
 public class AlbertosaurusEntity extends DinoEntityBase implements GeoEntity {
 	private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
+	public static final int BABY_TO_ADULT_AGE_TICKS = 67200;
+	private static final float MIN_ANIMAL_SCALE = 1.5F;
+	private static final float MAX_ANIMAL_SCALE = 1.9F;
+
+	private float lastDimensionsScale = 1.0F;
+
 	private static final EntityDataAccessor<Integer> VARIANT =
 		SynchedEntityData.defineId(AlbertosaurusEntity.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Integer> DATA_SYNCED_AGE =
 		SynchedEntityData.defineId(AlbertosaurusEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Float> DATA_ANIMAL_SCALE =
+		SynchedEntityData.defineId(AlbertosaurusEntity.class, EntityDataSerializers.FLOAT);
 
 	// Procedural tail sway state (client-side use for rendering)
 	private float tailSwayOffset;   // Smoothed offset in range roughly [-1, 1]
@@ -103,6 +111,10 @@ public class AlbertosaurusEntity extends DinoEntityBase implements GeoEntity {
 		return new DinoAIConfig(0.3D, 1.1D, 1.5D, 100, 100, 0.05f, 0.1f, 20);
 	}
 
+	public void setBaby(boolean baby) {
+		this.setAge(baby ? -BABY_TO_ADULT_AGE_TICKS : 0);
+	}
+
 	public static AttributeSupplier.Builder createAttributes() {
 		return Animal.createLivingAttributes()
 			.add(Attributes.MAX_HEALTH, 55D)
@@ -121,6 +133,7 @@ public class AlbertosaurusEntity extends DinoEntityBase implements GeoEntity {
 		if (child instanceof AlbertosaurusEntity baby) {
 			AlbertosaurusVariant randomVariant = Util.getRandom(AlbertosaurusVariant.values(), this.random);
 			baby.setVariant(randomVariant);
+			baby.setBaby(true);
 		}
 		return child;
 	}
@@ -178,6 +191,8 @@ public class AlbertosaurusEntity extends DinoEntityBase implements GeoEntity {
 				}
 			}
 		}
+
+		updateDynamicDimensions();
 
 		if (!level().isClientSide) {
 			if (mouthAnimCooldown > 0) {
@@ -244,6 +259,7 @@ public class AlbertosaurusEntity extends DinoEntityBase implements GeoEntity {
 		super.defineSynchedData();
 		this.entityData.define(VARIANT, 0);
 		this.entityData.define(DATA_SYNCED_AGE, 0);
+		this.entityData.define(DATA_ANIMAL_SCALE, 1.0F);
 	}
 	/*?} else {*/
 	/*@Override
@@ -251,12 +267,55 @@ public class AlbertosaurusEntity extends DinoEntityBase implements GeoEntity {
 		super.defineSynchedData(pBuilder);
 		pBuilder.define(VARIANT, 0);
 		pBuilder.define(DATA_SYNCED_AGE, 0);
+		pBuilder.define(DATA_ANIMAL_SCALE, 1.0F);
 	}
 	*//*?}*/
 
 	public int getSyncedAge() {
 		return this.entityData.get(DATA_SYNCED_AGE);
 	}
+
+	public float getAnimalScale() {
+		return this.entityData.get(DATA_ANIMAL_SCALE);
+	}
+
+	private void setAnimalScale(float animalScale) {
+		this.entityData.set(DATA_ANIMAL_SCALE, animalScale);
+	}
+
+	public float getGrowthScale() {
+		if (!this.isBaby()) {
+			return 1.0F;
+		}
+
+		int age = this.level().isClientSide ? this.getSyncedAge() : this.getAge();
+		float growthProgress = Mth.clamp((BABY_TO_ADULT_AGE_TICKS + age) / (float) BABY_TO_ADULT_AGE_TICKS, 0.0F, 1.0F);
+		return Mth.lerp(growthProgress, 0.2F, 1.0F);
+	}
+
+	public float getTotalModelScale() {
+		return this.getAnimalScale() * this.getGrowthScale();
+	}
+
+	private void updateDynamicDimensions() {
+		float dimensionsScale = this.getTotalModelScale();
+		if (Math.abs(dimensionsScale - this.lastDimensionsScale) > 0.01F) {
+			this.lastDimensionsScale = dimensionsScale;
+			this.refreshDimensions();
+		}
+	}
+
+	/*? if <=1.20.1 {*/
+	@Override
+	public EntityDimensions getDimensions(Pose pose) {
+		return this.getType().getDimensions().scale(this.getTotalModelScale());
+	}
+	/*?} else {*/
+	/*@Override
+	protected EntityDimensions getDefaultDimensions(Pose pose) {
+		return this.getType().getDimensions().scale(this.getTotalModelScale());
+	}
+	*//*?}*/
 
 	public int getTypeVariant() {
 		return this.entityData.get(VARIANT);
@@ -280,12 +339,16 @@ public class AlbertosaurusEntity extends DinoEntityBase implements GeoEntity {
 	public void addAdditionalSaveData(CompoundTag pCompound) {
 		super.addAdditionalSaveData(pCompound);
 		pCompound.putInt("Variant", this.getTypeVariant());
+		pCompound.putFloat("AnimalScale", this.getAnimalScale());
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag pCompound) {
 		super.readAdditionalSaveData(pCompound);
 		this.entityData.set(VARIANT, pCompound.getInt("Variant"));
+		if (pCompound.contains("AnimalScale")) {
+			this.setAnimalScale(pCompound.getFloat("AnimalScale"));
+		}
 	}
 
 	/*? if <=1.20.1 {*/
@@ -293,15 +356,13 @@ public class AlbertosaurusEntity extends DinoEntityBase implements GeoEntity {
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
 		AlbertosaurusVariant variant = Util.getRandom(AlbertosaurusVariant.values(), this.random);
 		this.setVariant(variant);
+		this.setAnimalScale(Mth.nextFloat(this.random, MIN_ANIMAL_SCALE, MAX_ANIMAL_SCALE));
 		return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
 	}
 	/*?} else {*/
 	/*@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-		AlbertosaurusVariant variant = Util.getRandom(AlbertosaurusVariant.values(), this.random);
-		this.setVariant(variant);
-		return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
-	}
+		AlbertosaurusVariant variant = Util.getRandom(AlbertosaurusVariant.values(), this.random);    this.setVariant(variant);    this.setAnimalScale(Mth.nextFloat(this.random, MIN_ANIMAL_SCALE, MAX_ANIMAL_SCALE));    return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);}
 	*//*?}*/
 
 	@Override

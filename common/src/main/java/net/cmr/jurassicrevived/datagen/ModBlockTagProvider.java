@@ -148,7 +148,9 @@ public class ModBlockTagProvider {
                 ModBlocks.INCUBATED_CHILESAURUS_EGG.get()
         );
 
-        helper.tag(BlockTags.MINEABLE_WITH_SHOVEL);
+        helper.tag(BlockTags.MINEABLE_WITH_SHOVEL,
+			ModBlocks.PERMAFROST.get()
+		);
 
         helper.tag(BlockTags.NEEDS_STONE_TOOL,
                 ModBlocks.STONE_FOSSIL.get(),

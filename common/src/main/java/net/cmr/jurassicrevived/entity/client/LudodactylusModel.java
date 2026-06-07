@@ -25,6 +25,9 @@ public class LudodactylusModel extends GeoModel<LudodactylusEntity> {
                 map.put(LudodactylusVariant.FEMALE, Constants.rl("textures/entity/ludodactylus_female.png"));
             });
 
+	private static final ResourceLocation PINWIN_LOCATION =
+		Constants.rl("textures/entity/ludodactylus_pinwin.png");
+
     // Model-local "currently applied" offsets; cleared before each entity render
     private float[] appliedYaw = null;
     private float[] appliedRoll = null;
@@ -36,6 +39,10 @@ public class LudodactylusModel extends GeoModel<LudodactylusEntity> {
 
     @Override
     public ResourceLocation getTextureResource(LudodactylusEntity animatable) {
+		if (animatable.hasCustomName() && "pinwin".equalsIgnoreCase(animatable.getName().getString())) {
+			return PINWIN_LOCATION;
+		}
+
         return LOCATION_BY_VARIANT.get(animatable.getVariant());
     }
 

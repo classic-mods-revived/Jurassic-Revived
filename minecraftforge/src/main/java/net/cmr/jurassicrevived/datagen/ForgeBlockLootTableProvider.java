@@ -8,9 +8,11 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.Set;
@@ -43,6 +45,20 @@ public class ForgeBlockLootTableProvider extends BlockLootSubProvider implements
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(minDrops, maxDrops)))
                         .apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE))));
     }
+
+	@Override
+	public LootTable.Builder createRandomOreDrops(Block block, Item silkTouchDrop, Item firstDrop, Item secondDrop, float minRolls, float maxRolls, double firstDropChance) {
+		return this.createSilkTouchDispatchTable(block,
+			AlternativesEntry.alternatives(
+				this.applyExplosionDecay(block,
+					LootItem.lootTableItem(firstDrop)
+						.when(LootItemRandomChanceCondition.randomChance((float) firstDropChance))
+						.apply(SetItemCountFunction.setCount(UniformGenerator.between(minRolls, maxRolls)))),
+				this.applyExplosionDecay(block,
+					LootItem.lootTableItem(secondDrop)
+						.apply(SetItemCountFunction.setCount(UniformGenerator.between(minRolls, maxRolls))))
+			));
+	}
 
     @Override
     public LootTable.Builder createPotFlowerItemTable(Block block) {

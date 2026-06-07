@@ -207,6 +207,8 @@ public class ModBlocks {
 		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
 	public static final RegistrySupplier<Block> DEEPSLATE_ICE_SHARD_ORE = registerBlock("deepslate_ice_shard_ore",
 		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> PERMAFROST = registerBlock("permafrost",
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
 
 	public static final RegistrySupplier<Block> REINFORCED_STONE = registerBlock("reinforced_stone",
 		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));

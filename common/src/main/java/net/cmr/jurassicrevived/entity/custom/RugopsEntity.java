@@ -55,10 +55,18 @@ import software.bernie.geckolib.animation.*;
 public class RugopsEntity extends DinoEntityBase implements GeoEntity {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
+	public static final int BABY_TO_ADULT_AGE_TICKS = 38400;
+	private static final float MIN_ANIMAL_SCALE = 0.7F;
+	private static final float MAX_ANIMAL_SCALE = 1.1F;
+
+	private float lastDimensionsScale = 1.0F;
+
     private static final EntityDataAccessor<Integer> VARIANT =
             SynchedEntityData.defineId(RugopsEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_SYNCED_AGE =
             SynchedEntityData.defineId(RugopsEntity.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Float> DATA_ANIMAL_SCALE =
+		SynchedEntityData.defineId(RugopsEntity.class, EntityDataSerializers.FLOAT);
 
     // Procedural tail sway state (client-side use for rendering)
     private float tailSwayOffset;   // Smoothed offset in range roughly [-1, 1]
@@ -107,10 +115,14 @@ public class RugopsEntity extends DinoEntityBase implements GeoEntity {
         return ModBlocks.INCUBATED_RUGOPS_EGG.get();
     }
 
-    @Override
-    public DinoAIConfig getAIConfig() {
-        return new DinoAIConfig(0.3D, 1.1D, 1.5D, 100, 100, 0.05f, 0.1f, 20);
-    }
+   	@Override
+   	public DinoAIConfig getAIConfig() {
+   		return new DinoAIConfig(0.3D, 1.1D, 1.5D, 100, 100, 0.05f, 0.1f, 20);
+   	}
+
+   	public void setBaby(boolean baby) {
+   		this.setAge(baby ? -BABY_TO_ADULT_AGE_TICKS : 0);
+   	}
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createLivingAttributes()
@@ -131,6 +143,7 @@ public class RugopsEntity extends DinoEntityBase implements GeoEntity {
         if (child instanceof RugopsEntity baby) {
             RugopsVariant randomVariant = Util.getRandom(RugopsVariant.values(), this.random);
             baby.setVariant(randomVariant);
+			baby.setBaby(true);
         }
         return child;
     }
@@ -184,9 +197,11 @@ public class RugopsEntity extends DinoEntityBase implements GeoEntity {
                     double healthRatio = this.getHealth() / (float) oldMax;
                     maxHealthAttr.setBaseValue(desired);
                     this.setHealth((float) (desired * Mth.clamp(healthRatio, 0.0F, 1.0F)));
-                }
+            				}
             }
         }
+
+		updateDynamicDimensions();
 
         if (!level().isClientSide) {
             if (mouthAnimCooldown > 0) {
@@ -253,19 +268,58 @@ public class RugopsEntity extends DinoEntityBase implements GeoEntity {
 		super.defineSynchedData();
 		this.entityData.define(VARIANT, 0);
 		this.entityData.define(DATA_SYNCED_AGE, 0);
+		this.entityData.define(DATA_ANIMAL_SCALE, 1.0F);
 	}
 	/*?} else {*/
 	/*@Override
 	protected void defineSynchedData(SynchedEntityData.Builder pBuilder) {
-		super.defineSynchedData(pBuilder);
-		pBuilder.define(VARIANT, 0);
-		pBuilder.define(DATA_SYNCED_AGE, 0);
-	}
+		super.defineSynchedData(pBuilder);    pBuilder.define(VARIANT, 0);    pBuilder.define(DATA_SYNCED_AGE, 0);    pBuilder.define(DATA_ANIMAL_SCALE, 1.0F);}
 	*//*?}*/
 
-    public int getSyncedAge() {
-        return this.entityData.get(DATA_SYNCED_AGE);
-    }
+	public int getSyncedAge() {
+		return this.entityData.get(DATA_SYNCED_AGE);
+	}
+
+	public float getAnimalScale() {
+		return this.entityData.get(DATA_ANIMAL_SCALE);
+	}
+
+	private void setAnimalScale(float animalScale) {
+		this.entityData.set(DATA_ANIMAL_SCALE, animalScale);
+	}
+
+	public float getGrowthScale() {
+		if (!this.isBaby()) {
+			return 1.0F;
+		}
+
+		int age = this.level().isClientSide ? this.getSyncedAge() : this.getAge();
+		float growthProgress = Mth.clamp((BABY_TO_ADULT_AGE_TICKS + age) / (float) BABY_TO_ADULT_AGE_TICKS, 0.0F, 1.0F);
+		return Mth.lerp(growthProgress, 0.2F, 1.0F);
+	}
+
+	public float getTotalModelScale() {
+		return this.getAnimalScale() * this.getGrowthScale();
+	}
+
+	private void updateDynamicDimensions() {
+		float dimensionsScale = this.getTotalModelScale();
+		if (Math.abs(dimensionsScale - this.lastDimensionsScale) > 0.01F) {
+			this.lastDimensionsScale = dimensionsScale;
+			this.refreshDimensions();
+		}
+	}
+
+	/*? if <=1.20.1 {*/
+	@Override
+	public EntityDimensions getDimensions(Pose pose) {
+		return this.getType().getDimensions().scale(this.getTotalModelScale());
+	}
+	/*?} else {*/
+	/*@Override
+	protected EntityDimensions getDefaultDimensions(Pose pose) {
+		return this.getType().getDimensions().scale(this.getTotalModelScale());}
+	*//*?}*/
     public int getTypeVariant() {
         return this.entityData.get(VARIANT);
     }
@@ -288,12 +342,16 @@ public class RugopsEntity extends DinoEntityBase implements GeoEntity {
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("Variant", this.getTypeVariant());
+		pCompound.putFloat("AnimalScale", this.getAnimalScale());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.entityData.set(VARIANT, pCompound.getInt("Variant"));
+		if (pCompound.contains("AnimalScale")) {
+			this.setAnimalScale(pCompound.getFloat("AnimalScale"));
+		}
     }
 
 	/*? if <=1.20.1 {*/
@@ -301,15 +359,13 @@ public class RugopsEntity extends DinoEntityBase implements GeoEntity {
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
 		RugopsVariant variant = Util.getRandom(RugopsVariant.values(), this.random);
 		this.setVariant(variant);
+		this.setAnimalScale(Mth.nextFloat(this.random, MIN_ANIMAL_SCALE, MAX_ANIMAL_SCALE));
 		return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
 	}
 	/*?} else {*/
 	/*@Override
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-		RugopsVariant variant = Util.getRandom(RugopsVariant.values(), this.random);
-		this.setVariant(variant);
-		return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
-	}
+		RugopsVariant variant = Util.getRandom(RugopsVariant.values(), this.random);    this.setVariant(variant);    this.setAnimalScale(Mth.nextFloat(this.random, MIN_ANIMAL_SCALE, MAX_ANIMAL_SCALE));    return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);}
 	*//*?}*/
 
     @Override

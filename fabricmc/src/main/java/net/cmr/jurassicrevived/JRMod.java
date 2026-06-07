@@ -2,7 +2,10 @@ package net.cmr.jurassicrevived;
 
 import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
 import net.cmr.jurassicrevived.block.entity.custom.*;
+import net.cmr.jurassicrevived.worldgen.ModWorldgenDefinitions;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.cmr.jurassicrevived.platform.FabricEnergyWrapper;
 import net.cmr.jurassicrevived.platform.FabricTransferHelper;
@@ -10,6 +13,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import team.reborn.energy.api.EnergyStorage;
 
 public class JRMod implements ModInitializer
@@ -24,6 +28,14 @@ public class JRMod implements ModInitializer
 
 		// Use Fabric to bootstrap the Common mod.
 		CommonClass.init();
+
+		for (ModWorldgenDefinitions.OreDefinition ore : ModWorldgenDefinitions.ORES) {
+			BiomeModifications.addFeature(
+				BiomeSelectors.tag(ore.biomeTag()), // Dynamically uses IS_OVERWORLD or IS_SNOWY
+				GenerationStep.Decoration.UNDERGROUND_ORES,
+				ore.placedFeatureKey()
+			);
+		}
 
 		FluidStorage.SIDED.registerForBlockEntities((be, side) ->
 			new FabricTransferHelper.InternalFluidStorage(((TankBlockEntity) be).getFluidHandler(side)),

@@ -9,18 +9,13 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 
 public class GuanlongRenderer extends GeoEntityRenderer<GuanlongEntity> {
-    private final float animalScale = 0.6F;
-    public GuanlongRenderer(EntityRendererProvider.Context renderManager) {
-        super(renderManager, new GuanlongModel());
-    }
+	public GuanlongRenderer(EntityRendererProvider.Context renderManager) {
+		super(renderManager, new GuanlongModel());
+	}
 
-    @Override
-    public void scaleModelForRender(float widthScale, float heightScale, PoseStack poseStack, GuanlongEntity animatable, BakedGeoModel model, boolean isReRender, float partialTick, int packedLight, int packedOverlay) {
-        poseStack.scale(animalScale, animalScale, animalScale);
-        if(animatable.isBaby()) {
-            float growthProgress = Mth.clamp((24000.0F + animatable.getSyncedAge()) / 24000.0F, 0.0F, 1.0F);
-            float scale = Mth.lerp(growthProgress, 0.2F, 1.0F);
-            poseStack.scale(scale, scale, scale);
-        }
-    }
+	@Override
+	public void scaleModelForRender(float widthScale, float heightScale, PoseStack poseStack, GuanlongEntity animatable, BakedGeoModel model, boolean isReRender, float partialTick, int packedLight, int packedOverlay) {
+		float scale = animatable.getTotalModelScale();
+		poseStack.scale(scale, scale, scale);
+	}
 }

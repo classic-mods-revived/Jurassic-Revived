@@ -13,9 +13,12 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+
+import java.util.List;
 
 public class NeoForgeBlockStateProvider extends BlockStateProvider implements ModBlockStateProvider.BlockStateHelper {
 
@@ -64,6 +67,34 @@ public class NeoForgeBlockStateProvider extends BlockStateProvider implements Mo
     public void blockWithItem(Block block) {
         super.simpleBlockWithItem(block, models().cubeAll(name(block), blockTexture(block)));
     }
+
+	@Override
+	public void blockWithItem(Block block, ResourceLocation sideTexture, ResourceLocation bottomTexture, ResourceLocation topTexture) {
+		super.simpleBlockWithItem(block, models().cubeBottomTop(name(block), sideTexture, bottomTexture, topTexture));
+	}
+
+	@Override
+	public void randomTextureBlockWithItem(Block block, List<ResourceLocation> textures) {
+		if (textures.isEmpty()) {
+			throw new IllegalArgumentException("randomTextureBlockWithItem requires at least one texture");
+		}
+
+		ConfiguredModel[] configuredModels = new ConfiguredModel[textures.size()];
+
+		for (int i = 0; i < textures.size(); i++) {
+			ModelFile model = models().cubeAll(name(block) + "_" + i, textures.get(i));
+			configuredModels[i] = ConfiguredModel.builder()
+				.modelFile(model)
+				.weight(1)
+				.buildLast();
+		}
+
+		getVariantBuilder(block)
+			.partialState()
+			.setModels(configuredModels);
+
+		simpleBlockItem(block, models().cubeAll(name(block) + "_0", textures.get(0)));
+	}
 
     @Override
     public void horizontalFacingWithItem(Block block) {
