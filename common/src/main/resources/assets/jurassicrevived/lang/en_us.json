@@ -225,6 +225,7 @@
 
   "block.jurassicrevived.stone_fossil": "Stone Fossil",
   "block.jurassicrevived.deepslate_fossil": "Deepslate Fossil",
+  "block.jurassicrevived.permafrost": "Permafrost",
   "block.jurassicrevived.amber_ore": "Amber Ore",
   "block.jurassicrevived.deepslate_ice_shard_ore": "Deepslate Ice Shard Ore",
 
@@ -402,6 +403,7 @@
   "item.jurassicrevived.crushed_fossil": "Crushed Fossil",
   "item.jurassicrevived.mosquito_in_amber": "Mosquito In Amber",
   "item.jurassicrevived.frozen_leech": "Frozen Leech",
+  "item.jurassicrevived.frozen_bone": "Frozen Bone",
   "item.jurassicrevived.cable": "Cable",
   "item.jurassicrevived.screen": "Screen",
   "item.jurassicrevived.processor": "Processor",
