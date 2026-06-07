@@ -60,6 +60,34 @@ public class ModRecipeProvider {
         helper.buildShaped(RecipeCategory.MISC, ModBlocks.REINFORCED_BRICK_WALL.get(), 6, new String[]{"AAA", "AAA"}, 'A', ModBlocks.REINFORCED_STONE_BRICKS.get());
         helper.buildShaped(RecipeCategory.MISC, ModBlocks.CHISELED_REINFORCED_STONE.get(), 1, new String[]{"A", "A"}, 'A', ModBlocks.REINFORCED_BRICK_SLAB.get());
 
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.CHARRED_TERRACOTTA_STAIRS.get(), 4, new String[]{"A  ", "AA ", "AAA"}, 'A', ModBlocks.CHARRED_TERRACOTTA.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.CHARRED_TERRACOTTA_SLAB.get(), 6, new String[]{"AAA"}, 'A', ModBlocks.CHARRED_TERRACOTTA.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.CHARRED_TERRACOTTA_WALL.get(), 6, new String[]{"AAA", "AAA"}, 'A', ModBlocks.CHARRED_TERRACOTTA.get());
+
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.GYPSUM_STONE_STAIRS.get(), 4, new String[]{"A  ", "AA ", "AAA"}, 'A', ModBlocks.GYPSUM_STONE.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.GYPSUM_STONE_SLAB.get(), 6, new String[]{"AAA"}, 'A', ModBlocks.GYPSUM_STONE.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.GYPSUM_STONE_WALL.get(), 6, new String[]{"AAA", "AAA"}, 'A', ModBlocks.GYPSUM_STONE.get());
+
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.GYPSUM_COBBLESTONE_STAIRS.get(), 4, new String[]{"A  ", "AA ", "AAA"}, 'A', ModBlocks.GYPSUM_COBBLESTONE.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.GYPSUM_COBBLESTONE_SLAB.get(), 6, new String[]{"AAA"}, 'A', ModBlocks.GYPSUM_COBBLESTONE.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.GYPSUM_COBBLESTONE_WALL.get(), 6, new String[]{"AAA", "AAA"}, 'A', ModBlocks.GYPSUM_COBBLESTONE.get());
+
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.SMOOTH_GYPSUM_STONE_STAIRS.get(), 4, new String[]{"A  ", "AA ", "AAA"}, 'A', ModBlocks.SMOOTH_GYPSUM_STONE.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.SMOOTH_GYPSUM_STONE_SLAB.get(), 6, new String[]{"AAA"}, 'A', ModBlocks.SMOOTH_GYPSUM_STONE.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.SMOOTH_GYPSUM_STONE_WALL.get(), 6, new String[]{"AAA", "AAA"}, 'A', ModBlocks.SMOOTH_GYPSUM_STONE.get());
+
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.CHISELED_GYPSUM_STONE_STAIRS.get(), 4, new String[]{"A  ", "AA ", "AAA"}, 'A', ModBlocks.CHISELED_GYPSUM_STONE.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.CHISELED_GYPSUM_STONE_SLAB.get(), 6, new String[]{"AAA"}, 'A', ModBlocks.CHISELED_GYPSUM_STONE.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.CHISELED_GYPSUM_STONE_WALL.get(), 6, new String[]{"AAA", "AAA"}, 'A', ModBlocks.CHISELED_GYPSUM_STONE.get());
+
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.REINFORCED_STONE_STAIRS.get(), 4, new String[]{"A  ", "AA ", "AAA"}, 'A', ModBlocks.REINFORCED_STONE.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.REINFORCED_STONE_SLAB.get(), 6, new String[]{"AAA"}, 'A', ModBlocks.REINFORCED_STONE.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.REINFORCED_STONE_WALL.get(), 6, new String[]{"AAA", "AAA"}, 'A', ModBlocks.REINFORCED_STONE.get());
+
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.CHISELED_REINFORCED_STONE_STAIRS.get(), 4, new String[]{"A  ", "AA ", "AAA"}, 'A', ModBlocks.CHISELED_REINFORCED_STONE.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.CHISELED_REINFORCED_STONE_SLAB.get(), 6, new String[]{"AAA"}, 'A', ModBlocks.CHISELED_REINFORCED_STONE.get());
+		helper.buildShaped(RecipeCategory.MISC, ModBlocks.CHISELED_REINFORCED_STONE_WALL.get(), 6, new String[]{"AAA", "AAA"}, 'A', ModBlocks.CHISELED_REINFORCED_STONE.get());
+
         helper.buildShaped(RecipeCategory.MISC, ModBlocks.TRASH_CAN.get(), 1, new String[]{"AAA", "A A", "AAA"}, 'A', Items.IRON_INGOT);
         helper.buildShaped(RecipeCategory.MISC, ModBlocks.BENCH.get(), 1, new String[]{"A  ", "AAA", "BBB"}, 'A', ItemTags.PLANKS, 'B', ModBlocks.REINFORCED_STONE_BRICKS.get());
         helper.buildShaped(RecipeCategory.MISC, ModBlocks.FENCE_LIGHT.get(), 1, new String[]{"A", "B"}, 'A', Blocks.GLOWSTONE, 'B', Items.IRON_INGOT);

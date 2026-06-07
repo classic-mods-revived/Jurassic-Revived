@@ -599,6 +599,13 @@ public class ModItemModelProvider {
 
         helper.wallItem(ModBlocks.GYPSUM_BRICK_WALL.get(), ModBlocks.GYPSUM_STONE_BRICKS.get());
         helper.wallItem(ModBlocks.REINFORCED_BRICK_WALL.get(), ModBlocks.REINFORCED_STONE_BRICKS.get());
+		helper.wallItem(ModBlocks.CHARRED_TERRACOTTA_WALL.get(), ModBlocks.CHARRED_TERRACOTTA.get());
+		helper.wallItem(ModBlocks.CHISELED_GYPSUM_STONE_WALL.get(), ModBlocks.CHISELED_GYPSUM_STONE.get());
+		helper.wallItem(ModBlocks.CHISELED_REINFORCED_STONE_WALL.get(), ModBlocks.CHISELED_REINFORCED_STONE.get());
+		helper.wallItem(ModBlocks.GYPSUM_COBBLESTONE_WALL.get(), ModBlocks.GYPSUM_COBBLESTONE.get());
+		helper.wallItem(ModBlocks.GYPSUM_STONE_WALL.get(), ModBlocks.GYPSUM_STONE.get());
+		helper.wallItem(ModBlocks.REINFORCED_STONE_WALL.get(), ModBlocks.REINFORCED_STONE.get());
+		helper.wallItem(ModBlocks.SMOOTH_GYPSUM_STONE_WALL.get(), ModBlocks.SMOOTH_GYPSUM_STONE.get());
 
         helper.simpleBlockItemModel(ModBlocks.INCUBATED_BRACHIOSAURUS_EGG.get());
         helper.simpleBlockItemModel(ModBlocks.INCUBATED_CERATOSAURUS_EGG.get());

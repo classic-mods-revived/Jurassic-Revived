@@ -34,6 +34,14 @@ public class ModBlocks {
 	public static final RegistrySupplier<Block> CHARRED_TERRACOTTA = registerBlock("charred_terracotta",
 		() -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
 
+	public static final RegistrySupplier<Block> CHARRED_TERRACOTTA_STAIRS = registerBlock("charred_terracotta_stairs",
+		() -> new StairBlock(ModBlocks.CHARRED_TERRACOTTA.get().defaultBlockState(),
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> CHARRED_TERRACOTTA_SLAB = registerBlock("charred_terracotta_slab",
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> CHARRED_TERRACOTTA_WALL = registerBlock("charred_terracotta_wall",
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+
 	public static final RegistrySupplier<Block> LIGHT_POST = registerBlock("light_post",
 		() -> new LightPostBlock(BlockBehaviour.Properties.of().noOcclusion().lightLevel(state -> 15)));
 
@@ -177,12 +185,44 @@ public class ModBlocks {
 	public static final RegistrySupplier<Block> CHISELED_GYPSUM_STONE = registerBlock("chiseled_gypsum_stone",
 		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
 
+	public static final RegistrySupplier<Block> GYPSUM_STONE_STAIRS = registerBlock("gypsum_stone_stairs",
+		() -> new StairBlock(ModBlocks.GYPSUM_STONE.get().defaultBlockState(),
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> GYPSUM_STONE_SLAB = registerBlock("gypsum_stone_slab",
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> GYPSUM_STONE_WALL = registerBlock("gypsum_stone_wall",
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+
+	public static final RegistrySupplier<Block> GYPSUM_COBBLESTONE_STAIRS = registerBlock("gypsum_cobblestone_stairs",
+		() -> new StairBlock(ModBlocks.GYPSUM_COBBLESTONE.get().defaultBlockState(),
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> GYPSUM_COBBLESTONE_SLAB = registerBlock("gypsum_cobblestone_slab",
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> GYPSUM_COBBLESTONE_WALL = registerBlock("gypsum_cobblestone_wall",
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+
 	public static final RegistrySupplier<Block> GYPSUM_BRICK_STAIRS = registerBlock("gypsum_brick_stairs",
 		() -> new StairBlock(ModBlocks.GYPSUM_STONE_BRICKS.get().defaultBlockState(),
 			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
 	public static final RegistrySupplier<Block> GYPSUM_BRICK_SLAB = registerBlock("gypsum_brick_slab",
 		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
 	public static final RegistrySupplier<Block> GYPSUM_BRICK_WALL = registerBlock("gypsum_brick_wall",
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+
+	public static final RegistrySupplier<Block> SMOOTH_GYPSUM_STONE_STAIRS = registerBlock("smooth_gypsum_stone_stairs",
+		() -> new StairBlock(ModBlocks.SMOOTH_GYPSUM_STONE.get().defaultBlockState(),
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> SMOOTH_GYPSUM_STONE_SLAB = registerBlock("smooth_gypsum_stone_slab",
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> SMOOTH_GYPSUM_STONE_WALL = registerBlock("smooth_gypsum_stone_wall",
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+
+	public static final RegistrySupplier<Block> CHISELED_GYPSUM_STONE_STAIRS = registerBlock("chiseled_gypsum_stone_stairs",
+		() -> new StairBlock(ModBlocks.CHISELED_GYPSUM_STONE.get().defaultBlockState(),
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> CHISELED_GYPSUM_STONE_SLAB = registerBlock("chiseled_gypsum_stone_slab",
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> CHISELED_GYPSUM_STONE_WALL = registerBlock("chiseled_gypsum_stone_wall",
 		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
 
 	public static final RegistrySupplier<Block> FENCE_LIGHT = registerBlock("fence_light",
@@ -216,6 +256,22 @@ public class ModBlocks {
 		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
 	public static final RegistrySupplier<Block> CHISELED_REINFORCED_STONE = registerBlock("chiseled_reinforced_stone",
 		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+
+	public static final RegistrySupplier<Block> REINFORCED_STONE_STAIRS = registerBlock("reinforced_stone_stairs",
+		() -> new StairBlock(ModBlocks.REINFORCED_STONE.get().defaultBlockState(),
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> REINFORCED_STONE_SLAB = registerBlock("reinforced_stone_slab",
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> REINFORCED_STONE_WALL = registerBlock("reinforced_stone_wall",
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+
+	public static final RegistrySupplier<Block> CHISELED_REINFORCED_STONE_STAIRS = registerBlock("chiseled_reinforced_stone_stairs",
+		() -> new StairBlock(ModBlocks.CHISELED_REINFORCED_STONE.get().defaultBlockState(),
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> CHISELED_REINFORCED_STONE_SLAB = registerBlock("chiseled_reinforced_stone_slab",
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+	public static final RegistrySupplier<Block> CHISELED_REINFORCED_STONE_WALL = registerBlock("chiseled_reinforced_stone_wall",
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
 
 	public static final RegistrySupplier<Block> REINFORCED_BRICK_STAIRS = registerBlock("reinforced_brick_stairs",
 		() -> new StairBlock(ModBlocks.REINFORCED_STONE_BRICKS.get().defaultBlockState(),

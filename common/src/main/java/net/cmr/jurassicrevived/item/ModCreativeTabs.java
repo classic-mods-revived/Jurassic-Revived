@@ -47,24 +47,54 @@ public class ModCreativeTabs {
 				output.accept(ModBlocks.CAT_PLUSHIE.get());
 				output.accept(ModBlocks.TRASH_CAN.get());
 				output.accept(ModBlocks.BENCH.get());
+
 				output.accept(ModBlocks.CHARRED_TERRACOTTA.get());
+				output.accept(ModBlocks.CHARRED_TERRACOTTA_STAIRS.get());
+				output.accept(ModBlocks.CHARRED_TERRACOTTA_SLAB.get());
+				output.accept(ModBlocks.CHARRED_TERRACOTTA_WALL.get());
+
 				output.accept(ModBlocks.FENCE_LIGHT.get());
 				output.accept(ModBlocks.LIGHT_POST.get());
+
 				output.accept(ModBlocks.GYPSUM_STONE.get());
+				output.accept(ModBlocks.GYPSUM_STONE_STAIRS.get());
+				output.accept(ModBlocks.GYPSUM_STONE_SLAB.get());
+				output.accept(ModBlocks.GYPSUM_STONE_WALL.get());
+
 				output.accept(ModBlocks.GYPSUM_COBBLESTONE.get());
+				output.accept(ModBlocks.GYPSUM_COBBLESTONE_STAIRS.get());
+				output.accept(ModBlocks.GYPSUM_COBBLESTONE_SLAB.get());
+				output.accept(ModBlocks.GYPSUM_COBBLESTONE_WALL.get());
+
 				output.accept(ModBlocks.GYPSUM_STONE_BRICKS.get());
-				output.accept(ModBlocks.SMOOTH_GYPSUM_STONE.get());
-				output.accept(ModBlocks.CHISELED_GYPSUM_STONE.get());
 				output.accept(ModBlocks.GYPSUM_BRICK_STAIRS.get());
 				output.accept(ModBlocks.GYPSUM_BRICK_SLAB.get());
 				output.accept(ModBlocks.GYPSUM_BRICK_WALL.get());
 
+				output.accept(ModBlocks.SMOOTH_GYPSUM_STONE.get());
+				output.accept(ModBlocks.SMOOTH_GYPSUM_STONE_STAIRS.get());
+				output.accept(ModBlocks.SMOOTH_GYPSUM_STONE_SLAB.get());
+				output.accept(ModBlocks.SMOOTH_GYPSUM_STONE_WALL.get());
+
+				output.accept(ModBlocks.CHISELED_GYPSUM_STONE.get());
+				output.accept(ModBlocks.CHISELED_GYPSUM_STONE_STAIRS.get());
+				output.accept(ModBlocks.CHISELED_GYPSUM_STONE_SLAB.get());
+				output.accept(ModBlocks.CHISELED_GYPSUM_STONE_WALL.get());
+
 				output.accept(ModBlocks.REINFORCED_STONE.get());
+				output.accept(ModBlocks.REINFORCED_STONE_STAIRS.get());
+				output.accept(ModBlocks.REINFORCED_STONE_SLAB.get());
+				output.accept(ModBlocks.REINFORCED_STONE_WALL.get());
+
 				output.accept(ModBlocks.REINFORCED_STONE_BRICKS.get());
-				output.accept(ModBlocks.CHISELED_REINFORCED_STONE.get());
 				output.accept(ModBlocks.REINFORCED_BRICK_STAIRS.get());
 				output.accept(ModBlocks.REINFORCED_BRICK_SLAB.get());
 				output.accept(ModBlocks.REINFORCED_BRICK_WALL.get());
+
+				output.accept(ModBlocks.CHISELED_REINFORCED_STONE.get());
+				output.accept(ModBlocks.CHISELED_REINFORCED_STONE_STAIRS.get());
+				output.accept(ModBlocks.CHISELED_REINFORCED_STONE_SLAB.get());
+				output.accept(ModBlocks.CHISELED_REINFORCED_STONE_WALL.get());
 
 				output.accept(ModBlocks.LOW_SECURITY_FENCE_POLE.get());
 				output.accept(ModBlocks.LOW_SECURITY_FENCE_WIRE.get());

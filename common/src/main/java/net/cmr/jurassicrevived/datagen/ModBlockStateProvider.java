@@ -67,10 +67,41 @@ public class ModBlockStateProvider {
                  modLoc("block/" + ModBlocks.ONYCHIOPSIS.getId().getPath()));
         
         helper.blockWithItem(ModBlocks.GYPSUM_STONE.get());
-        helper.blockWithItem(ModBlocks.GYPSUM_COBBLESTONE.get());
+
+		helper.stairsBlock((StairBlock) ModBlocks.GYPSUM_STONE_STAIRS.get(), modLoc("block/" + ModBlocks.GYPSUM_STONE.getId().getPath()));
+		helper.slabBlock((SlabBlock) ModBlocks.GYPSUM_STONE_SLAB.get(), modLoc("block/" + ModBlocks.GYPSUM_STONE.getId().getPath()), modLoc("block/" + ModBlocks.GYPSUM_STONE.getId().getPath()));
+		helper.wallBlock((WallBlock) ModBlocks.GYPSUM_STONE_WALL.get(), modLoc("block/" + ModBlocks.GYPSUM_STONE.getId().getPath()));
+
+		helper.simpleBlockItem(ModBlocks.GYPSUM_STONE_STAIRS.get(), modLoc("block/" + ModBlocks.GYPSUM_STONE_STAIRS.getId().getPath()));
+		helper.simpleBlockItem(ModBlocks.GYPSUM_STONE_SLAB.get(), modLoc("block/" + ModBlocks.GYPSUM_STONE_SLAB.getId().getPath()));
+
+		helper.blockWithItem(ModBlocks.GYPSUM_COBBLESTONE.get());
+
+		helper.stairsBlock((StairBlock) ModBlocks.GYPSUM_COBBLESTONE_STAIRS.get(), modLoc("block/" + ModBlocks.GYPSUM_COBBLESTONE.getId().getPath()));
+		helper.slabBlock((SlabBlock) ModBlocks.GYPSUM_COBBLESTONE_SLAB.get(), modLoc("block/" + ModBlocks.GYPSUM_COBBLESTONE.getId().getPath()), modLoc("block/" + ModBlocks.GYPSUM_COBBLESTONE.getId().getPath()));
+		helper.wallBlock((WallBlock) ModBlocks.GYPSUM_COBBLESTONE_WALL.get(), modLoc("block/" + ModBlocks.GYPSUM_COBBLESTONE.getId().getPath()));
+
+		helper.simpleBlockItem(ModBlocks.GYPSUM_COBBLESTONE_STAIRS.get(), modLoc("block/" + ModBlocks.GYPSUM_COBBLESTONE_STAIRS.getId().getPath()));
+		helper.simpleBlockItem(ModBlocks.GYPSUM_COBBLESTONE_SLAB.get(), modLoc("block/" + ModBlocks.GYPSUM_COBBLESTONE_SLAB.getId().getPath()));
+
         helper.blockWithItem(ModBlocks.GYPSUM_STONE_BRICKS.get());
         helper.blockWithItem(ModBlocks.SMOOTH_GYPSUM_STONE.get());
+
+		helper.stairsBlock((StairBlock) ModBlocks.SMOOTH_GYPSUM_STONE_STAIRS.get(), modLoc("block/" + ModBlocks.SMOOTH_GYPSUM_STONE.getId().getPath()));
+		helper.slabBlock((SlabBlock) ModBlocks.SMOOTH_GYPSUM_STONE_SLAB.get(), modLoc("block/" + ModBlocks.SMOOTH_GYPSUM_STONE.getId().getPath()), modLoc("block/" + ModBlocks.SMOOTH_GYPSUM_STONE.getId().getPath()));
+		helper.wallBlock((WallBlock) ModBlocks.SMOOTH_GYPSUM_STONE_WALL.get(), modLoc("block/" + ModBlocks.SMOOTH_GYPSUM_STONE.getId().getPath()));
+
+		helper.simpleBlockItem(ModBlocks.SMOOTH_GYPSUM_STONE_STAIRS.get(), modLoc("block/" + ModBlocks.SMOOTH_GYPSUM_STONE_STAIRS.getId().getPath()));
+		helper.simpleBlockItem(ModBlocks.SMOOTH_GYPSUM_STONE_SLAB.get(), modLoc("block/" + ModBlocks.SMOOTH_GYPSUM_STONE_SLAB.getId().getPath()));
+
         helper.blockWithItem(ModBlocks.CHISELED_GYPSUM_STONE.get());
+
+		helper.stairsBlock((StairBlock) ModBlocks.CHISELED_GYPSUM_STONE_STAIRS.get(), modLoc("block/" + ModBlocks.CHISELED_GYPSUM_STONE.getId().getPath()));
+		helper.slabBlock((SlabBlock) ModBlocks.CHISELED_GYPSUM_STONE_SLAB.get(), modLoc("block/" + ModBlocks.CHISELED_GYPSUM_STONE.getId().getPath()), modLoc("block/" + ModBlocks.CHISELED_GYPSUM_STONE.getId().getPath()));
+		helper.wallBlock((WallBlock) ModBlocks.CHISELED_GYPSUM_STONE_WALL.get(), modLoc("block/" + ModBlocks.CHISELED_GYPSUM_STONE.getId().getPath()));
+
+		helper.simpleBlockItem(ModBlocks.CHISELED_GYPSUM_STONE_STAIRS.get(), modLoc("block/" + ModBlocks.CHISELED_GYPSUM_STONE_STAIRS.getId().getPath()));
+		helper.simpleBlockItem(ModBlocks.CHISELED_GYPSUM_STONE_SLAB.get(), modLoc("block/" + ModBlocks.CHISELED_GYPSUM_STONE_SLAB.getId().getPath()));
 
 		helper.randomTextureBlockWithItem(ModBlocks.STONE_FOSSIL.get(), List.of(
 			Constants.rl("block/stone_fossil_egg"),
@@ -93,9 +124,23 @@ public class ModBlockStateProvider {
         helper.blockWithItem(ModBlocks.REINFORCED_STONE_BRICKS.get());
         helper.blockWithItem(ModBlocks.CHISELED_REINFORCED_STONE.get());
 
+        helper.stairsBlock((StairBlock) ModBlocks.REINFORCED_STONE_STAIRS.get(), modLoc("block/" + ModBlocks.REINFORCED_STONE.getId().getPath()));
+        helper.slabBlock((SlabBlock) ModBlocks.REINFORCED_STONE_SLAB.get(), modLoc("block/" + ModBlocks.REINFORCED_STONE.getId().getPath()), modLoc("block/" + ModBlocks.REINFORCED_STONE.getId().getPath()));
+        helper.wallBlock((WallBlock) ModBlocks.REINFORCED_STONE_WALL.get(), modLoc("block/" + ModBlocks.REINFORCED_STONE.getId().getPath()));
+
+		helper.simpleBlockItem(ModBlocks.REINFORCED_STONE_STAIRS.get(), modLoc("block/" + ModBlocks.REINFORCED_STONE_STAIRS.getId().getPath()));
+		helper.simpleBlockItem(ModBlocks.REINFORCED_STONE_SLAB.get(), modLoc("block/" + ModBlocks.REINFORCED_STONE_SLAB.getId().getPath()));
+
         helper.stairsBlock((StairBlock) ModBlocks.REINFORCED_BRICK_STAIRS.get(), modLoc("block/" + ModBlocks.REINFORCED_STONE_BRICKS.getId().getPath()));
         helper.slabBlock((SlabBlock) ModBlocks.REINFORCED_BRICK_SLAB.get(), modLoc("block/" + ModBlocks.REINFORCED_STONE_BRICKS.getId().getPath()), modLoc("block/" + ModBlocks.REINFORCED_STONE_BRICKS.getId().getPath()));
         helper.wallBlock((WallBlock) ModBlocks.REINFORCED_BRICK_WALL.get(), modLoc("block/" + ModBlocks.REINFORCED_STONE_BRICKS.getId().getPath()));
+
+        helper.stairsBlock((StairBlock) ModBlocks.CHISELED_REINFORCED_STONE_STAIRS.get(), modLoc("block/" + ModBlocks.CHISELED_REINFORCED_STONE.getId().getPath()));
+        helper.slabBlock((SlabBlock) ModBlocks.CHISELED_REINFORCED_STONE_SLAB.get(), modLoc("block/" + ModBlocks.CHISELED_REINFORCED_STONE.getId().getPath()), modLoc("block/" + ModBlocks.CHISELED_REINFORCED_STONE.getId().getPath()));
+        helper.wallBlock((WallBlock) ModBlocks.CHISELED_REINFORCED_STONE_WALL.get(), modLoc("block/" + ModBlocks.CHISELED_REINFORCED_STONE.getId().getPath()));
+
+		helper.simpleBlockItem(ModBlocks.CHISELED_REINFORCED_STONE_STAIRS.get(), modLoc("block/" + ModBlocks.CHISELED_REINFORCED_STONE_STAIRS.getId().getPath()));
+		helper.simpleBlockItem(ModBlocks.CHISELED_REINFORCED_STONE_SLAB.get(), modLoc("block/" + ModBlocks.CHISELED_REINFORCED_STONE_SLAB.getId().getPath()));
 
         helper.simpleBlockItem(ModBlocks.REINFORCED_BRICK_STAIRS.get(), modLoc("block/" + ModBlocks.REINFORCED_BRICK_STAIRS.getId().getPath()));
         helper.simpleBlockItem(ModBlocks.REINFORCED_BRICK_SLAB.get(), modLoc("block/" + ModBlocks.REINFORCED_BRICK_SLAB.getId().getPath()));
@@ -111,7 +156,15 @@ public class ModBlockStateProvider {
         helper.horizontalFacingWithItem(ModBlocks.TRASH_CAN.get());
         helper.horizontalFacingWithItem(ModBlocks.BENCH.get());
         helper.blockWithItem(ModBlocks.CHARRED_TERRACOTTA.get());
-        helper.horizontalFacingWithItem(ModBlocks.FENCE_LIGHT.get());
+
+		helper.stairsBlock((StairBlock) ModBlocks.CHARRED_TERRACOTTA_STAIRS.get(), modLoc("block/" + ModBlocks.CHARRED_TERRACOTTA.getId().getPath()));
+		helper.slabBlock((SlabBlock) ModBlocks.CHARRED_TERRACOTTA_SLAB.get(), modLoc("block/" + ModBlocks.CHARRED_TERRACOTTA.getId().getPath()), modLoc("block/" + ModBlocks.CHARRED_TERRACOTTA.getId().getPath()));
+		helper.wallBlock((WallBlock) ModBlocks.CHARRED_TERRACOTTA_WALL.get(), modLoc("block/" + ModBlocks.CHARRED_TERRACOTTA.getId().getPath()));
+
+		helper.simpleBlockItem(ModBlocks.CHARRED_TERRACOTTA_STAIRS.get(), modLoc("block/" + ModBlocks.CHARRED_TERRACOTTA_STAIRS.getId().getPath()));
+		helper.simpleBlockItem(ModBlocks.CHARRED_TERRACOTTA_SLAB.get(), modLoc("block/" + ModBlocks.CHARRED_TERRACOTTA_SLAB.getId().getPath()));
+
+		helper.horizontalFacingWithItem(ModBlocks.FENCE_LIGHT.get());
         helper.horizontalFacingWithItem(ModBlocks.LIGHT_POST.get());
 
         helper.simpleBlockWithExistingModel(ModBlocks.TANK.get(), modLoc("block/tank"));
