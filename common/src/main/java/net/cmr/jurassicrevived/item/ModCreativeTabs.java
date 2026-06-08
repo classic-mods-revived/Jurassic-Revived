@@ -48,6 +48,11 @@ public class ModCreativeTabs {
 				output.accept(ModBlocks.TRASH_CAN.get());
 				output.accept(ModBlocks.BENCH.get());
 
+				output.accept(ModBlocks.SANDSTONE_PATH.get());
+				output.accept(ModBlocks.CHISELED_BRICK_PATH.get());
+				output.accept(ModBlocks.CONCRETE_PATH.get());
+				output.accept(ModBlocks.LIGHT_GRAY_TERRACOTTA_PATH.get());
+
 				output.accept(ModBlocks.CHARRED_TERRACOTTA.get());
 				output.accept(ModBlocks.CHARRED_TERRACOTTA_STAIRS.get());
 				output.accept(ModBlocks.CHARRED_TERRACOTTA_SLAB.get());

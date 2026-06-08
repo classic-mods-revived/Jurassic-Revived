@@ -31,6 +31,15 @@ public class ModBlocks {
 	public static final RegistrySupplier<Block> BENCH = registerBlock("bench",
 		() -> new BenchBlock(BlockBehaviour.Properties.of().noOcclusion()));
 
+	public static final RegistrySupplier<Block> SANDSTONE_PATH = registerBlock("sandstone_path",
+		() -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
+	public static final RegistrySupplier<Block> CHISELED_BRICK_PATH = registerBlock("chiseled_brick_path",
+		() -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
+	public static final RegistrySupplier<Block> CONCRETE_PATH = registerBlock("concrete_path",
+		() -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
+	public static final RegistrySupplier<Block> LIGHT_GRAY_TERRACOTTA_PATH = registerBlock("light_gray_terracotta_path",
+		() -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
+
 	public static final RegistrySupplier<Block> CHARRED_TERRACOTTA = registerBlock("charred_terracotta",
 		() -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
 

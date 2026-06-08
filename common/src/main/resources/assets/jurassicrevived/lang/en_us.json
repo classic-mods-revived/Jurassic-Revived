@@ -202,6 +202,11 @@
   "block.jurassicrevived.smooth_gypsum_stone_slab": "Smooth Gypsum Stone Slab",
   "block.jurassicrevived.smooth_gypsum_stone_wall": "Smooth Gypsum Stone Wall",
 
+  "block.jurassicrevived.sandstone_path": "Sandstone Path",
+  "block.jurassicrevived.chiseled_brick_path": "Chiseled Brick Path",
+  "block.jurassicrevived.concrete_path": "Concrete Path",
+  "block.jurassicrevived.light_gray_terracotta_path": "Light Gray Terracotta Path",
+
   "block.jurassicrevived.reinforced_stone": "Reinforced Stone",
   "block.jurassicrevived.reinforced_stone_bricks": "Reinforced Stone Bricks",
   "block.jurassicrevived.chiseled_reinforced_stone": "Chiseled Reinforced Stone",

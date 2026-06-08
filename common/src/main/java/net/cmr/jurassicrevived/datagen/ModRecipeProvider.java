@@ -93,6 +93,11 @@ public class ModRecipeProvider {
         helper.buildShaped(RecipeCategory.MISC, ModBlocks.FENCE_LIGHT.get(), 1, new String[]{"A", "B"}, 'A', Blocks.GLOWSTONE, 'B', Items.IRON_INGOT);
         helper.buildShaped(RecipeCategory.MISC, ModBlocks.LIGHT_POST.get(), 1, new String[]{"A", "B"}, 'A', Blocks.GLOWSTONE, 'B', ModBlocks.GYPSUM_STONE.get());
 
+        helper.buildShaped(RecipeCategory.MISC, ModBlocks.SANDSTONE_PATH.get(), 4, new String[]{"AA", "AA"}, 'A', Blocks.SANDSTONE);
+        helper.buildShaped(RecipeCategory.MISC, ModBlocks.CHISELED_BRICK_PATH.get(), 4, new String[]{"AA", "AA"}, 'A', Blocks.BRICKS);
+        helper.buildShaped(RecipeCategory.MISC, ModBlocks.CONCRETE_PATH.get(), 4, new String[]{"AA", "AA"}, 'A', Blocks.GRAY_CONCRETE);
+        helper.buildShaped(RecipeCategory.MISC, ModBlocks.LIGHT_GRAY_TERRACOTTA_PATH.get(), 4, new String[]{"AA", "AA"}, 'A', Blocks.LIGHT_GRAY_TERRACOTTA);
+
         helper.buildShaped(RecipeCategory.MISC, ModItems.TEST_TUBE.get(), 3, new String[]{"  A", " B ", "B  "}, 'A', Items.IRON_INGOT, 'B', Blocks.GLASS);
         helper.buildShaped(RecipeCategory.MISC, ModItems.SYRINGE.get(), 3, new String[]{"  A", " B ", "C  "}, 'A', Items.IRON_INGOT, 'B', Blocks.GLASS, 'C', Items.IRON_NUGGET);
         helper.buildShaped(RecipeCategory.MISC, ModItems.CABLE.get(), 4, new String[]{" BA", "BAB", "AB "}, 'A', Items.COPPER_INGOT, 'B', Items.IRON_NUGGET);

@@ -4,13 +4,9 @@ import net.cmr.jurassicrevived.Constants;
 import net.cmr.jurassicrevived.block.ModBlocks;
 import net.cmr.jurassicrevived.block.custom.FencePoleBlock;
 import net.cmr.jurassicrevived.block.custom.FenceWireBlock;
-import net.cmr.jurassicrevived.block.custom.PipeBlock;
-import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 import java.util.List;
 
@@ -156,6 +152,10 @@ public class ModBlockStateProvider {
         helper.horizontalFacingWithItem(ModBlocks.TRASH_CAN.get());
         helper.horizontalFacingWithItem(ModBlocks.BENCH.get());
         helper.blockWithItem(ModBlocks.CHARRED_TERRACOTTA.get());
+		helper.blockWithItem(ModBlocks.SANDSTONE_PATH.get());
+		helper.blockWithItem(ModBlocks.CHISELED_BRICK_PATH.get());
+		helper.blockWithItem(ModBlocks.CONCRETE_PATH.get());
+		helper.blockWithItem(ModBlocks.LIGHT_GRAY_TERRACOTTA_PATH.get());
 
 		helper.stairsBlock((StairBlock) ModBlocks.CHARRED_TERRACOTTA_STAIRS.get(), modLoc("block/" + ModBlocks.CHARRED_TERRACOTTA.getId().getPath()));
 		helper.slabBlock((SlabBlock) ModBlocks.CHARRED_TERRACOTTA_SLAB.get(), modLoc("block/" + ModBlocks.CHARRED_TERRACOTTA.getId().getPath()), modLoc("block/" + ModBlocks.CHARRED_TERRACOTTA.getId().getPath()));

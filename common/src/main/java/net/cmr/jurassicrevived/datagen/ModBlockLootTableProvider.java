@@ -2,17 +2,9 @@ package net.cmr.jurassicrevived.datagen;
 
 import net.cmr.jurassicrevived.block.ModBlocks;
 import net.cmr.jurassicrevived.item.ModItems;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class ModBlockLootTableProvider {
 
@@ -62,6 +54,10 @@ public class ModBlockLootTableProvider {
         helper.dropSelf(ModBlocks.ITEM_PIPE.get());
         helper.dropSelf(ModBlocks.FLUID_PIPE.get());
         helper.dropSelf(ModBlocks.POWER_PIPE.get());
+        helper.dropSelf(ModBlocks.SANDSTONE_PATH.get());
+        helper.dropSelf(ModBlocks.CHISELED_BRICK_PATH.get());
+        helper.dropSelf(ModBlocks.CONCRETE_PATH.get());
+        helper.dropSelf(ModBlocks.LIGHT_GRAY_TERRACOTTA_PATH.get());
 
         helper.add(ModBlocks.GYPSUM_STONE.get(),
                 helper.createMultipleOreDrops(ModBlocks.GYPSUM_STONE.get(), ModBlocks.GYPSUM_COBBLESTONE.get().asItem(),1, 1));
