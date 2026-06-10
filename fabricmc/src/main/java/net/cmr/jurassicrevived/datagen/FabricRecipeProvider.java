@@ -285,16 +285,44 @@ public class FabricRecipeProvider extends net.fabricmc.fabric.api.datagen.v1.pro
         //?}
     }
 
-    @Override
-    public void amberRandomDNA(ItemLike testTube, ItemLike amber, ItemLike defaultDna, int count) {
-        //? if >1.20.1 {
-        /*DNAExtractingRecipeBuilder.amberRandomDNAUniform(testTube, amber, defaultDna, count)
-                .unlockedBy("has_amber", has(amber))
-                .save(output);
-        *///?} else {
-        DNAExtractingRecipeBuilder.amberRandomDNAUniform(testTube, amber, defaultDna, count)
-                .unlockedBy("has_amber", has(amber))
-                .save(output);
-        //?}
-    }
+	@Override
+	public void amberRandomDNA(ItemLike testTube, ItemLike amber, ItemLike defaultDna, Object... weightedDnaAndCount) {
+		//? if >1.20.1 {
+            /*int count = getAmberRandomDNACount(weightedDnaAndCount);
+            DNAExtractingRecipeBuilder builder = DNAExtractingRecipeBuilder.amberRandomDNAUniform(testTube, amber, defaultDna, count);
+
+            addAmberRandomDNAWeights(builder, weightedDnaAndCount);
+
+            builder.unlockedBy("has_amber", has(amber))
+                    .save(output);
+            *///?} else {
+		int count = getAmberRandomDNACount(weightedDnaAndCount);
+		DNAExtractingRecipeBuilder builder = DNAExtractingRecipeBuilder.amberRandomDNAUniform(testTube, amber, defaultDna, count);
+
+		addAmberRandomDNAWeights(builder, weightedDnaAndCount);
+
+		builder.unlockedBy("has_amber", has(amber))
+			.save(output);
+		//?}
+	}
+
+	private static int getAmberRandomDNACount(Object... weightedDnaAndCount) {
+		if (weightedDnaAndCount.length == 0 || !(weightedDnaAndCount[weightedDnaAndCount.length - 1] instanceof Number count)) {
+			throw new IllegalArgumentException("amberRandomDNA requires the final argument to be the recipe count");
+		}
+		return count.intValue();
+	}
+
+	private static void addAmberRandomDNAWeights(DNAExtractingRecipeBuilder builder, Object... weightedDnaAndCount) {
+		if ((weightedDnaAndCount.length - 1) % 2 != 0) {
+			throw new IllegalArgumentException("amberRandomDNA weights must be provided as ItemLike, weight pairs before the count");
+		}
+
+		for (int i = 0; i < weightedDnaAndCount.length - 1; i += 2) {
+			if (!(weightedDnaAndCount[i] instanceof ItemLike dnaItem) || !(weightedDnaAndCount[i + 1] instanceof Number weight)) {
+				throw new IllegalArgumentException("amberRandomDNA weights must be provided as ItemLike, weight pairs before the count");
+			}
+			builder.addDNAWeight(dnaItem, weight.intValue());
+		}
+	}
 }

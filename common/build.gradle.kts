@@ -1,7 +1,7 @@
 plugins {
 	id("multiloader-common")
 	id("dev.architectury.loom")
-	id("architectury-plugin") version "3.4.162"
+	id("architectury-plugin") version "3.5.166"
 }
 
 val is120 = project.path.contains("1.20")

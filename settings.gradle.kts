@@ -19,9 +19,9 @@ pluginManagement {
 }
 
 plugins {
-	id("dev.kikugie.stonecutter") version "0.7.11"
+	id("dev.kikugie.stonecutter") version "0.9.5"
 	id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-	id("dev.architectury.loom") version "1.9.436" apply false
+	id("dev.architectury.loom") version "1.14.476" apply false
 }
 
 // ... (Your version variables remain the same) ...

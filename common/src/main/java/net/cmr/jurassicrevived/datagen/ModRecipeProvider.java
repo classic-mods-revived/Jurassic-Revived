@@ -34,8 +34,8 @@ public class ModRecipeProvider {
         void fossilCleaning(ItemLike fossilBlock, ItemLike result, int count);
         
         // Special cases
-        void amberRandomDNA(ItemLike testTube, ItemLike amber, ItemLike defaultDna, int count);
-    }
+		void amberRandomDNA(ItemLike testTube, ItemLike amber, ItemLike defaultDna, Object... weightedDnaAndCount);
+	}
 
     public static void registerRecipes(RecipeHelper helper) {
         List<ItemLike> GYPSUM_COBBLESTONE_SMELTABLES = List.of(ModBlocks.GYPSUM_COBBLESTONE.get());
@@ -646,6 +646,14 @@ public class ModRecipeProvider {
 		helper.incubating(ModBlocks.THESCELOSAURUS_EGG.get(), ModBlocks.INCUBATED_THESCELOSAURUS_EGG.get(), 1);
 		helper.incubating(ModBlocks.MUSSASAURUS_EGG.get(), ModBlocks.INCUBATED_MUSSASAURUS_EGG.get(), 1);
 
-		helper.amberRandomDNA(ModItems.TEST_TUBE.get(), ModItems.MOSQUITO_IN_AMBER.get(), ModItems.FROG_DNA.get(), 1);
+		helper.amberRandomDNA(
+			ModItems.TEST_TUBE.get(),
+			ModItems.MOSQUITO_IN_AMBER.get(),
+			ModItems.FROG_DNA.get(),
+			ModItems.INDORAPTOR_DNA.get(), 0.0,
+			ModItems.INDOMINUS_REX_DNA.get(), 0.0,
+			ModItems.DISTORTUS_REX_DNA.get(), 0.0,
+			1
+		);
     }
 }

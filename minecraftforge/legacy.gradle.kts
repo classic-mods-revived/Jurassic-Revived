@@ -60,14 +60,14 @@ dependencies {
 
 
 legacyForge {
-	val at = project.file("build/resources/main/META-INF/accesstransformer.cfg");
+	val at = file("build/resources/main/META-INF/accesstransformer.cfg");
 
 	accessTransformers.from(at.absolutePath)
 	validateAccessTransformers = true
 
     val commonResources = project(":common").file("src/main/resources").absolutePath
-    val localResources = project.file("src/main/resources").absolutePath
-    val generatedResources = project.file("src/generated/resources").absolutePath
+    val localResources = file("src/main/resources").absolutePath
+    val generatedResources = file("src/generated/resources").absolutePath
 
 	fun net.neoforged.moddevgradle.dsl.RunModel.includeMixinConfigs() {
 		programArguments.addAll(
@@ -79,19 +79,19 @@ legacyForge {
 	runs {
 		register("client") {
 			client()
-			ideName = "MinecraftForge Client (${project.path})"
+			ideName = "MinecraftForge Client (${path})"
 			logLevel = Level.TRACE
 			includeMixinConfigs()
 		}
 		register("gameTestServer") {
 			type = "gameTestServer"
-			ideName = "MinecraftForge GameTestServer (${project.path})"
+			ideName = "MinecraftForge GameTestServer (${path})"
 			logLevel = Level.TRACE
 			includeMixinConfigs()
 		}
 		register("data") {
 			data()
-			ideName = "MinecraftForge Data (${project.path})"
+			ideName = "MinecraftForge Data (${path})"
 			logLevel = Level.TRACE
 			programArguments.addAll(
 				"--mod", commonMod.id,
@@ -104,7 +104,7 @@ legacyForge {
 		}
 		register("server") {
 			server()
-			ideName = "MinecraftForge Server (${project.path})"
+			ideName = "MinecraftForge Server (${path})"
 			logLevel = Level.TRACE
 			includeMixinConfigs()
 		}

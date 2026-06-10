@@ -61,33 +61,33 @@ dependencies {
 }
 
 neoForge {
-	val at = project.file("build/resources/main/META-INF/accesstransformer.cfg");
+	val at = file("build/resources/main/META-INF/accesstransformer.cfg");
 
 	accessTransformers.from(at.absolutePath)
 	validateAccessTransformers = true
 
     val commonResources = project(":common").file("src/main/resources").absolutePath
-    val localResources = project.file("src/main/resources").absolutePath
-    val generatedResources = project.file("src/generated/resources").absolutePath
+    val localResources = file("src/main/resources").absolutePath
+    val generatedResources = file("src/generated/resources").absolutePath
 
 	runs {
 		register("client") {
 			client()
-			ideName = "NeoForge Client (${project.path})"
+			ideName = "NeoForge Client (${path})"
 		}
 		if (stonecutter.eval(stonecutter.current.version, ">=1.21.4")) {
 			register("clientData") {
 				clientData()
-				ideName = "NeoForge Client Data (${project.path})"
+				ideName = "NeoForge Client Data (${path})"
 			}
 			register("serverData") {
 				serverData()
-				ideName = "NeoForge Server Data (${project.path})"
+				ideName = "NeoForge Server Data (${path})"
 			}
 		} else {
 			register("data") {
 				data()
-				ideName = "NeoForge Data (${project.path})"
+				ideName = "NeoForge Data (${path})"
 				programArguments.addAll(
 					"--mod", commonMod.id,
 					"--all",
@@ -99,7 +99,7 @@ neoForge {
 		}
 		register("server") {
 			server()
-			ideName = "NeoForge Server (${project.path})"
+			ideName = "NeoForge Server (${path})"
 		}
 	}
 
