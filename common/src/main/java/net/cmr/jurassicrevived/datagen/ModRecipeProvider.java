@@ -650,9 +650,9 @@ public class ModRecipeProvider {
 			ModItems.TEST_TUBE.get(),
 			ModItems.MOSQUITO_IN_AMBER.get(),
 			ModItems.FROG_DNA.get(),
-			ModItems.INDORAPTOR_DNA.get(), 0.0,
-			ModItems.INDOMINUS_REX_DNA.get(), 0.0,
-			ModItems.DISTORTUS_REX_DNA.get(), 0.0,
+			ModItems.INDORAPTOR_DNA.get(), 0,
+			ModItems.INDOMINUS_REX_DNA.get(), 0,
+			ModItems.DISTORTUS_REX_DNA.get(), 0,
 			1
 		);
     }

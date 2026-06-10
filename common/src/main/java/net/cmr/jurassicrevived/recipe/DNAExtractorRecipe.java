@@ -137,17 +137,42 @@ public record DNAExtractorRecipe(
 			JsonArray ingredients = GsonHelper.getAsJsonArray(json, "ingredients");
 			NonNullList<Ingredient> inputs = NonNullList.withSize(2, Ingredient.EMPTY);
 			for (int i = 0; i < 2; i++) inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
-			return new DNAExtractorRecipe(id, inputs, ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result")), java.util.Map.of());
+
+			java.util.Map<ResourceLocation, Integer> parsedWeights = new java.util.HashMap<>();
+			if (json.has("weights")) {
+				JsonObject weightsObj = GsonHelper.getAsJsonObject(json, "weights");
+				for (java.util.Map.Entry<String, com.google.gson.JsonElement> entry : weightsObj.entrySet()) {
+					parsedWeights.put(new ResourceLocation(entry.getKey()), entry.getValue().getAsInt());
+				}
+			}
+
+			return new DNAExtractorRecipe(id, inputs, ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result")), parsedWeights);
 		}
+
 		@Override public DNAExtractorRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buf) {
 			NonNullList<Ingredient> inputs = NonNullList.withSize(buf.readInt(), Ingredient.EMPTY);
 			for (int i = 0; i < inputs.size(); i++) inputs.set(i, Ingredient.fromNetwork(buf));
-			return new DNAExtractorRecipe(id, inputs, buf.readItem(), java.util.Map.of());
+			ItemStack output = buf.readItem();
+
+			int mapSize = buf.readVarInt();
+			java.util.Map<ResourceLocation, Integer> syncedWeights = new java.util.HashMap<>();
+			for (int i = 0; i < mapSize; i++) {
+				syncedWeights.put(buf.readResourceLocation(), buf.readVarInt());
+			}
+
+			return new DNAExtractorRecipe(id, inputs, output, syncedWeights);
 		}
+
 		@Override public void toNetwork(FriendlyByteBuf buf, DNAExtractorRecipe recipe) {
 			buf.writeInt(recipe.inputs().size());
 			for (Ingredient ing : recipe.inputs()) ing.toNetwork(buf);
 			buf.writeItem(recipe.output());
+
+			buf.writeVarInt(recipe.weights().size());
+			for (java.util.Map.Entry<ResourceLocation, Integer> entry : recipe.weights().entrySet()) {
+				buf.writeResourceLocation(entry.getKey());
+				buf.writeVarInt(entry.getValue());
+			}
 		}
 		/*?}*/
 	}
