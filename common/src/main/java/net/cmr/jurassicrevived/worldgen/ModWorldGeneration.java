@@ -7,8 +7,11 @@ import net.cmr.jurassicrevived.entity.ModEntities;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -21,7 +24,11 @@ public class ModWorldGeneration {
 
 	public static void generateWorldGen() {
 		for (ModWorldgenDefinitions.OreDefinition ore : ModWorldgenDefinitions.ORES) {
-			addOverworldOre(ore.placedFeatureKey());
+			if (ore.name().equals("permafrost")) {
+				addSurfaceModification(ore.placedFeatureKey(), ore.biomeTag());
+			} else {
+				addUndergroundOre(ore.placedFeatureKey(), ore.biomeTag());
+			}
 		}
 
 		Constants.LOG.info("Natural dinosaur spawning config loaded as: {}", JRConfigManager.get().naturallySpawning);
@@ -34,11 +41,19 @@ public class ModWorldGeneration {
 		}
 	}
 
-	private static void addOverworldOre(ResourceKey<PlacedFeature> placedFeature) {
+	private static void addUndergroundOre(ResourceKey<PlacedFeature> placedFeature, TagKey<Biome> biomeTag) {
 		BiomeModifications.addProperties(
-			context -> context.hasTag(BiomeTags.IS_OVERWORLD),
+			context -> context.hasTag(biomeTag),
 			(context, properties) -> properties.getGenerationProperties()
-				.addFeature(GenerationStep.Decoration.UNDERGROUND_ORES, placedFeature)
+				.addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, placedFeature)
+		);
+	}
+
+	private static void addSurfaceModification(ResourceKey<PlacedFeature> placedFeature, TagKey<Biome> biomeTag) {
+		BiomeModifications.addProperties(
+			context -> context.hasTag(biomeTag),
+			(context, properties) -> properties.getGenerationProperties()
+				.addFeature(GenerationStep.Decoration.TOP_LAYER_MODIFICATION, placedFeature)
 		);
 	}
 

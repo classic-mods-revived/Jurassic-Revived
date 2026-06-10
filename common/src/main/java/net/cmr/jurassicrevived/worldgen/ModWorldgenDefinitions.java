@@ -1,16 +1,13 @@
 package net.cmr.jurassicrevived.worldgen;
 
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.cmr.jurassicrevived.Constants;
 import net.cmr.jurassicrevived.block.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.BiomeTags; // <-- Add this import
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.biome.Biome; // <-- Add this import
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
@@ -33,7 +30,7 @@ public final class ModWorldgenDefinitions {
 			20,
 			32,
 			64,
-			BiomeTags.IS_OVERWORLD // <-- Add biome tag
+			BiomeTags.IS_OVERWORLD
 		),
 		new OreDefinition(
 			"stone_fossil",
@@ -75,15 +72,14 @@ public final class ModWorldgenDefinitions {
 			0,
 			BiomeTags.IS_OVERWORLD
 		),
-		// Add your new Permafrost generation here!
 		new OreDefinition(
 			"permafrost",
 			ModBlocks.PERMAFROST,
 			BlockTags.DIRT,
-			16, // Vein Size
-			6,  // Count
-			60, // Min Y
-			140,// Max Y
+			8,
+			3,
+			60,
+			140,
 			SNOWY_BIOMES
 		)
 	);
@@ -96,7 +92,7 @@ public final class ModWorldgenDefinitions {
 		int count,
 		int minY,
 		int maxY,
-		TagKey<Biome> biomeTag // <-- Add this to the record
+		TagKey<Biome> biomeTag
 	) {
 		public ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureKey() {
 			return ResourceKey.create(Registries.CONFIGURED_FEATURE, Constants.rl(name));
