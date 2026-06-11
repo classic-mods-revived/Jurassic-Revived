@@ -351,6 +351,10 @@ public class ModEntities {
 		ENTITIES.register("suchomimus", () -> EntityType.Builder.of(SuchomimusEntity::new, MobCategory.CREATURE)
 			.sized(1.3f, 1.8f).build("suchomimus"));
 
+	public static final RegistrySupplier<EntityType<CoelacanthEntity>> COELACANTH =
+		ENTITIES.register("coelacanth", () -> EntityType.Builder.of(CoelacanthEntity::new, MobCategory.CREATURE)
+			.sized(1.3f, 1.8f).build("coelacanth"));
+
 	public static void registerAttributes() {
 		EntityAttributeRegistry.register(APATOSAURUS, ApatosaurusEntity::createAttributes);
 		EntityAttributeRegistry.register(ALBERTOSAURUS, AlbertosaurusEntity::createAttributes);
@@ -432,6 +436,7 @@ public class ModEntities {
 		EntityAttributeRegistry.register(CHILESAURUS, ChilesaurusEntity::createAttributes);
 		EntityAttributeRegistry.register(MUSSASAURUS, MussasaurusEntity::createAttributes);
 		EntityAttributeRegistry.register(THESCELOSAURUS, ThescelosaurusEntity::createAttributes);
+		EntityAttributeRegistry.register(COELACANTH, CoelacanthEntity::createAttributes);
 	}
 
 	public static void registerSpawnPlacements() {

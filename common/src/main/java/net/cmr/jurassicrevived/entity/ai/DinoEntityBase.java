@@ -107,7 +107,10 @@ public abstract class DinoEntityBase extends Animal {
     public abstract boolean isCarnivore();
     public abstract boolean isMarine();
     public abstract boolean isAmphibious();
-    public abstract Block getEggBlock(); // New hook for breeding
+	public boolean isSimpleFish() {
+		return false;
+	}
+    public abstract Block getEggBlock();
     public abstract DinoAIConfig getAIConfig();
 
     public record DinoAIConfig(double walkSpeed, double runSpeed, double attackReach,

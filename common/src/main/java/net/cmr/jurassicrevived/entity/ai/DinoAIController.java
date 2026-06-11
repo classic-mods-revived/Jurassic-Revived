@@ -70,6 +70,10 @@ public class DinoAIController {
 	private static final int HERBIVORE_BROWSE_VERTICAL_RANGE = 2;
 	private static final float HERBIVORE_SELF_FEED_HUNGER_THRESHOLD = 0.75f;
 	private static final float HERBIVORE_SELF_FEED_REPLENISHMENT_MULTIPLIER = 0.50f;
+	private static final double MARINE_ROAM_SPEED_MULTIPLIER = 1.0D;
+	private static final double MARINE_FLEE_SPEED_MULTIPLIER = 1.6D;
+	private static final int MARINE_ROAM_RANGE = 12;
+	private static final int MARINE_ROAM_VERTICAL_RANGE = 6;
 
 
 	private final DinoEntityBase dino;
@@ -175,6 +179,10 @@ public class DinoAIController {
 			return;
 		}
 
+		if (dino.isMarine()) {
+			return;
+		}
+
 		if (handleWaterMovementHelper(null)) {
 			return;
 		}
@@ -265,6 +273,20 @@ public class DinoAIController {
 
             float hungerDecay = jrConfig.hungerConsumption ? config.hungerDecay() * VITAL_DECAY_MULTIPLIER : 0.0f;
             float thirstDecay = jrConfig.waterConsumption ? config.thirstDecay() * VITAL_DECAY_MULTIPLIER : 0.0f;
+
+			if (dino.isMarine()) {
+				thirstDecay = 0.0f;
+				if (dino.dinoData != null) {
+					dino.dinoData.setThirst(config.maxThirst());
+				}
+			}
+
+			if (dino.isSimpleFish()) {
+				hungerDecay = 0.0f;
+				if (dino.dinoData != null) {
+					dino.dinoData.setHunger(config.maxHunger());
+				}
+			}
 
             if (currentState == State.SLEEPING) {
                 hungerDecay *= 0.5f;
@@ -381,7 +403,7 @@ public class DinoAIController {
 		}
 
 		// 5. Hunt check
-		if ((currentState == State.IDLE || currentState == State.ROAMING || currentState == State.TERRITORIAL_ROAMING) && dino.isCarnivore()) {
+		if ((currentState == State.IDLE || currentState == State.ROAMING || currentState == State.TERRITORIAL_ROAMING) && dino.isCarnivore() && !dino.isSimpleFish()) {
 			JRConfig jrConfig = JRConfigManager.get();
 			boolean hungerConsumptionEnabled = jrConfig.hungerConsumption;
 			boolean waterConsumptionEnabled = jrConfig.waterConsumption;
@@ -407,11 +429,30 @@ public class DinoAIController {
 		}
 
         // 6. Water check
-        if ((currentState == State.IDLE || currentState == State.ROAMING || currentState == State.TERRITORIAL_ROAMING)) {
-            if (dino.dinoData != null && dino.dinoData.getThirst() < 50 && waterTarget == null) {
-                if (stateTimer % 10 == 0) findWater();
-            }
-        }
+		if (!dino.isMarine() && (currentState == State.IDLE || currentState == State.ROAMING || currentState == State.TERRITORIAL_ROAMING)) {
+			if (dino.dinoData != null && dino.dinoData.getThirst() < 50 && waterTarget == null) {
+				if (stateTimer % 10 == 0) findWater();
+			}
+		}
+
+		if (dino.isMarine()) {
+			if (dino.isInWater()) {
+				// Reset air supply when submerged
+				dino.setAirSupply(dino.getMaxAirSupply());
+			} else {
+				// Vanilla automatically adds +4 air every tick on land.
+				// Subtracting 5 counters it for a perfect net loss of -1 per tick.
+				dino.setAirSupply(dino.getAirSupply() - 5);
+
+				// When air runs out (-20 is the vanilla grace period before taking damage)
+				if (dino.getAirSupply() <= -20) {
+					// Setting to 0 means it will take another 20 ticks to hit -20 again,
+					// resulting in exactly 1 tick of damage per second, just like vanilla.
+					dino.setAirSupply(0);
+					dino.hurt(dino.damageSources().dryOut(), 2.0F);
+				}
+			}
+		}
     }
 
     private void findWater() {
@@ -783,6 +824,11 @@ public class DinoAIController {
 			return;
 		}
 
+		if (dino.isMarine()) {
+			transitionTo(State.ROAMING);
+			return;
+		}
+
 		float territoriality = 0.0f;
 		if (dino.dinoData != null) {
 			territoriality = dino.dinoData.getTerritoriality();
@@ -1055,6 +1101,16 @@ public class DinoAIController {
 	private void findAndSetRoamTarget() {
 		this.roamTarget = null;
 
+		if (dino.isMarine()) {
+			Vec3 marinePos = getMarineRoamPos();
+			if (marinePos != null) {
+				if (dino.getNavigation().moveTo(marinePos.x, marinePos.y, marinePos.z, getRoamSpeed() * MARINE_ROAM_SPEED_MULTIPLIER)) {
+					this.roamTarget = marinePos;
+				}
+			}
+			return; // Prevent falling through to ground/flying logic
+		}
+
 		// Grounded flyers should walk to nearby grounded targets instead of taking off immediately.
 		if (dino instanceof FlyingAnimal && dino.onGround()) {
 			Vec3 groundPos = getNearbyGroundRoamPosForFlyer();
@@ -1259,6 +1315,10 @@ public class DinoAIController {
 
 	private boolean tryHerbivoreSelfFeed() {
 		if (dino.level().isClientSide || dino.dinoData == null || dino.isCarnivore()) {
+			return false;
+		}
+
+		if (dino.isSimpleFish()) {
 			return false;
 		}
 
@@ -1586,21 +1646,66 @@ public class DinoAIController {
 		}
 	}
 
-    private void tickFleeing() {
-        if (attackTarget == null) {
-            transitionTo(State.IDLE);
-            return;
-        }
+	private void tickFleeing() {
+		if (attackTarget == null) {
+			transitionTo(State.IDLE);
+			return;
+		}
 
-        if (dino.getNavigation().isDone() || stateTimer % 10 == 0) {
-            Vec3 awayDir = DefaultRandomPos.getPosAway(dino, 16, 7, attackTarget.position());
-            if (awayDir != null) {
-                dino.getNavigation().moveTo(awayDir.x, awayDir.y, awayDir.z, dino.getAIConfig().runSpeed() * 1.2);
-            }
-        }
+		if (dino.getNavigation().isDone() || stateTimer % 10 == 0) {
+			Vec3 awayDir;
 
-        if (dino.distanceToSqr(attackTarget) > 48 * 48) {
-            transitionTo(State.IDLE);
-        }
-    }
+			if (dino.isMarine()) {
+				awayDir = getMarineFleePos(attackTarget.position());
+			} else {
+				awayDir = DefaultRandomPos.getPosAway(dino, 16, 7, attackTarget.position());
+			}
+
+			if (awayDir != null) {
+				double speed = dino.isMarine() ? dino.getAIConfig().runSpeed() * MARINE_FLEE_SPEED_MULTIPLIER : dino.getAIConfig().runSpeed() * 1.2;
+				dino.getNavigation().moveTo(awayDir.x, awayDir.y, awayDir.z, speed);
+			}
+		}
+
+		if (dino.distanceToSqr(attackTarget) > 48 * 48) {
+			transitionTo(State.IDLE);
+		}
+	}
+
+	private Vec3 getMarineRoamPos() {
+		for (int i = 0; i < 10; i++) {
+			BlockPos randomPos = dino.blockPosition().offset(
+				dino.getRandom().nextInt(MARINE_ROAM_RANGE * 2) - MARINE_ROAM_RANGE,
+				dino.getRandom().nextInt(MARINE_ROAM_VERTICAL_RANGE * 2) - MARINE_ROAM_VERTICAL_RANGE,
+				dino.getRandom().nextInt(MARINE_ROAM_RANGE * 2) - MARINE_ROAM_RANGE
+			);
+
+			if (dino.level().getFluidState(randomPos).is(FluidTags.WATER)) {
+				return Vec3.atCenterOf(randomPos);
+			}
+		}
+		return null;
+	}
+
+	private Vec3 getMarineFleePos(Vec3 threatPos) {
+		// Calculate a vector exactly opposite to the threat
+		Vec3 awayVector = dino.position().subtract(threatPos).normalize().scale(12);
+		BlockPos targetPos = BlockPos.containing(dino.position().add(awayVector));
+
+		// Try to find a valid water block in that general panic direction
+		for (int i = 0; i < 5; i++) {
+			BlockPos offsetPos = targetPos.offset(
+				dino.getRandom().nextInt(4) - 2,
+				dino.getRandom().nextInt(4) - 2,
+				dino.getRandom().nextInt(4) - 2
+			);
+
+			if (dino.level().getFluidState(offsetPos).is(FluidTags.WATER)) {
+				return Vec3.atCenterOf(offsetPos);
+			}
+		}
+
+		// Fallback: Just swim erratically if trapped
+		return getMarineRoamPos();
+	}
 }
