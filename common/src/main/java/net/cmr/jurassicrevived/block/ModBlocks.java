@@ -14,6 +14,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
 
 import java.util.Map;
 import java.util.function.Supplier;
@@ -23,33 +24,33 @@ public class ModBlocks {
 		DeferredRegister.create(Constants.MOD_ID, Registries.BLOCK);
 
 	public static final RegistrySupplier<Block> CAT_PLUSHIE = registerBlock("cat_plushie",
-		() -> new DecoBlock(BlockBehaviour.Properties.of().noOcclusion().sound(SoundType.WOOL)));
+		() -> new DecoBlock(BlockBehaviour.Properties.of().noOcclusion().sound(SoundType.WOOL).mapColor(MapColor.COLOR_BLACK)));
 
 	public static final RegistrySupplier<Block> TRASH_CAN = registerBlock("trash_can",
-		() -> new TrashBlock(BlockBehaviour.Properties.of().noOcclusion()));
+		() -> new TrashBlock(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.COLOR_YELLOW)));
 
 	public static final RegistrySupplier<Block> BENCH = registerBlock("bench",
-		() -> new BenchBlock(BlockBehaviour.Properties.of().noOcclusion()));
+		() -> new BenchBlock(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.WOOD)));
 
 	public static final RegistrySupplier<Block> SANDSTONE_PATH = registerBlock("sandstone_path",
-		() -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.SAND)));
 	public static final RegistrySupplier<Block> CHISELED_BRICK_PATH = registerBlock("chiseled_brick_path",
-		() -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.TERRACOTTA_RED)));
 	public static final RegistrySupplier<Block> CONCRETE_PATH = registerBlock("concrete_path",
-		() -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.TERRACOTTA_GRAY)));
 	public static final RegistrySupplier<Block> LIGHT_GRAY_TERRACOTTA_PATH = registerBlock("light_gray_terracotta_path",
-		() -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)));
 
 	public static final RegistrySupplier<Block> CHARRED_TERRACOTTA = registerBlock("charred_terracotta",
-		() -> new Block(BlockBehaviour.Properties.of().noOcclusion()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.TERRACOTTA_BROWN)));
 
 	public static final RegistrySupplier<Block> CHARRED_TERRACOTTA_STAIRS = registerBlock("charred_terracotta_stairs",
 		() -> new StairBlock(ModBlocks.CHARRED_TERRACOTTA.get().defaultBlockState(),
-			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.TERRACOTTA_BROWN)));
 	public static final RegistrySupplier<Block> CHARRED_TERRACOTTA_SLAB = registerBlock("charred_terracotta_slab",
-		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.TERRACOTTA_BROWN)));
 	public static final RegistrySupplier<Block> CHARRED_TERRACOTTA_WALL = registerBlock("charred_terracotta_wall",
-		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.TERRACOTTA_BROWN)));
 
 	public static final RegistrySupplier<Block> LIGHT_POST = registerBlock("light_post",
 		() -> new LightPostBlock(BlockBehaviour.Properties.of().noOcclusion().lightLevel(state -> 15)));
@@ -64,52 +65,52 @@ public class ModBlocks {
 		() -> new PipeBlock(BlockBehaviour.Properties.of().strength(1.0F).noOcclusion(), PipeBlock.Transport.ENERGY));
 
 	public static final RegistrySupplier<Block> TANK = registerBlock("tank",
-		() -> new TankBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops().noOcclusion().noLootTable()));
+		() -> new TankBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops().noOcclusion().noLootTable().mapColor(MapColor.COLOR_BLACK)));
 
 	public static final RegistrySupplier<Block> POWER_CELL = registerBlock("power_cell",
-		() -> new PowerCellBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops().noOcclusion().noLootTable()));
+		() -> new PowerCellBlock(BlockBehaviour.Properties.of().strength(3f).requiresCorrectToolForDrops().noOcclusion().noLootTable().mapColor(MapColor.COLOR_BLACK)));
 
 	public static final RegistrySupplier<Block> WOOD_CRATE = registerBlock("wood_crate",
-		() -> new CrateBlock(BlockBehaviour.Properties.of().strength(2.0f).noOcclusion().noLootTable().sound(SoundType.WOOD), 9));
+		() -> new CrateBlock(BlockBehaviour.Properties.of().strength(2.0f).noOcclusion().noLootTable().sound(SoundType.WOOD).mapColor(MapColor.WOOD), 9));
 	public static final RegistrySupplier<Block> IRON_CRATE = registerBlock("iron_crate",
-		() -> new CrateBlock(BlockBehaviour.Properties.of().strength(2.0f).requiresCorrectToolForDrops().noOcclusion().noLootTable(), 18));
+		() -> new CrateBlock(BlockBehaviour.Properties.of().strength(2.0f).requiresCorrectToolForDrops().noOcclusion().noLootTable().mapColor(MapColor.METAL), 18));
 
 	public static final RegistrySupplier<Block> GENERATOR = registerBlock("generator",
-		() -> new GeneratorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new GeneratorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_BLACK)));
 	public static final RegistrySupplier<Block> DNA_EXTRACTOR = registerBlock("dna_extractor",
-		() -> new DNAExtractorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new DNAExtractorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_BLACK)));
 	public static final RegistrySupplier<Block> DNA_ANALYZER = registerBlock("dna_analyzer",
-		() -> new DNAAnalyzerBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new DNAAnalyzerBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_BLACK)));
 	public static final RegistrySupplier<Block> FOSSIL_GRINDER = registerBlock("fossil_grinder",
-		() -> new FossilGrinderBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new FossilGrinderBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_BLACK)));
 	public static final RegistrySupplier<Block> FOSSIL_CLEANER = registerBlock("fossil_cleaner",
-		() -> new FossilCleanerBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new FossilCleanerBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_BLACK)));
 	public static final RegistrySupplier<Block> DNA_HYBRIDIZER = registerBlock("dna_hybridizer",
-		() -> new DNAHybridizerBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new DNAHybridizerBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_BLACK)));
 	public static final RegistrySupplier<Block> EMBRYONIC_MACHINE = registerBlock("embryonic_machine",
-		() -> new EmbryonicMachineBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new EmbryonicMachineBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_BLACK)));
 	public static final RegistrySupplier<Block> EMBRYO_CALCIFICATION_MACHINE = registerBlock("embryo_calcification_machine",
-		() -> new EmbryoCalcificationMachineBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new EmbryoCalcificationMachineBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_BLACK)));
 	public static final RegistrySupplier<Block> INCUBATOR = registerBlock("incubator",
-		() -> new IncubatorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new IncubatorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_BLACK)));
 	public static final RegistrySupplier<Block> WHITE_GENERATOR = registerBlock("white_generator",
-		() -> new GeneratorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new GeneratorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_LIGHT_GRAY)));
 	public static final RegistrySupplier<Block> WHITE_DNA_EXTRACTOR = registerBlock("white_dna_extractor",
-		() -> new DNAExtractorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new DNAExtractorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_LIGHT_GRAY)));
 	public static final RegistrySupplier<Block> WHITE_DNA_ANALYZER = registerBlock("white_dna_analyzer",
-		() -> new DNAAnalyzerBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new DNAAnalyzerBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_LIGHT_GRAY)));
 	public static final RegistrySupplier<Block> WHITE_FOSSIL_GRINDER = registerBlock("white_fossil_grinder",
-		() -> new FossilGrinderBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new FossilGrinderBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_LIGHT_GRAY)));
 	public static final RegistrySupplier<Block> WHITE_FOSSIL_CLEANER = registerBlock("white_fossil_cleaner",
-		() -> new FossilCleanerBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new FossilCleanerBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_LIGHT_GRAY)));
 	public static final RegistrySupplier<Block> WHITE_DNA_HYBRIDIZER = registerBlock("white_dna_hybridizer",
-		() -> new DNAHybridizerBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new DNAHybridizerBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_LIGHT_GRAY)));
 	public static final RegistrySupplier<Block> WHITE_EMBRYONIC_MACHINE = registerBlock("white_embryonic_machine",
-		() -> new EmbryonicMachineBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new EmbryonicMachineBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_LIGHT_GRAY)));
 	public static final RegistrySupplier<Block> WHITE_EMBRYO_CALCIFICATION_MACHINE = registerBlock("white_embryo_calcification_machine",
-		() -> new EmbryoCalcificationMachineBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new EmbryoCalcificationMachineBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_LIGHT_GRAY)));
 	public static final RegistrySupplier<Block> WHITE_INCUBATOR = registerBlock("white_incubator",
-		() -> new IncubatorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable()));
+		() -> new IncubatorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_LIGHT_GRAY)));
 
 	//? if >1.20.1 {
 	/*public static final RegistrySupplier<Block> ROYAL_FERN = registerBlock("royal_fern",
@@ -184,55 +185,55 @@ public class ModBlocks {
 	}
 
 	public static final RegistrySupplier<Block> GYPSUM_STONE = registerBlock("gypsum_stone",
-		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> GYPSUM_COBBLESTONE = registerBlock("gypsum_cobblestone",
-		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> GYPSUM_STONE_BRICKS = registerBlock("gypsum_stone_bricks",
-		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> SMOOTH_GYPSUM_STONE = registerBlock("smooth_gypsum_stone",
-		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> CHISELED_GYPSUM_STONE = registerBlock("chiseled_gypsum_stone",
-		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 
 	public static final RegistrySupplier<Block> GYPSUM_STONE_STAIRS = registerBlock("gypsum_stone_stairs",
 		() -> new StairBlock(ModBlocks.GYPSUM_STONE.get().defaultBlockState(),
-			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> GYPSUM_STONE_SLAB = registerBlock("gypsum_stone_slab",
-		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> GYPSUM_STONE_WALL = registerBlock("gypsum_stone_wall",
-		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 
 	public static final RegistrySupplier<Block> GYPSUM_COBBLESTONE_STAIRS = registerBlock("gypsum_cobblestone_stairs",
 		() -> new StairBlock(ModBlocks.GYPSUM_COBBLESTONE.get().defaultBlockState(),
-			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> GYPSUM_COBBLESTONE_SLAB = registerBlock("gypsum_cobblestone_slab",
-		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> GYPSUM_COBBLESTONE_WALL = registerBlock("gypsum_cobblestone_wall",
-		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 
 	public static final RegistrySupplier<Block> GYPSUM_BRICK_STAIRS = registerBlock("gypsum_brick_stairs",
 		() -> new StairBlock(ModBlocks.GYPSUM_STONE_BRICKS.get().defaultBlockState(),
-			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> GYPSUM_BRICK_SLAB = registerBlock("gypsum_brick_slab",
-		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> GYPSUM_BRICK_WALL = registerBlock("gypsum_brick_wall",
-		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 
 	public static final RegistrySupplier<Block> SMOOTH_GYPSUM_STONE_STAIRS = registerBlock("smooth_gypsum_stone_stairs",
 		() -> new StairBlock(ModBlocks.SMOOTH_GYPSUM_STONE.get().defaultBlockState(),
-			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> SMOOTH_GYPSUM_STONE_SLAB = registerBlock("smooth_gypsum_stone_slab",
-		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> SMOOTH_GYPSUM_STONE_WALL = registerBlock("smooth_gypsum_stone_wall",
-		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 
 	public static final RegistrySupplier<Block> CHISELED_GYPSUM_STONE_STAIRS = registerBlock("chiseled_gypsum_stone_stairs",
 		() -> new StairBlock(ModBlocks.CHISELED_GYPSUM_STONE.get().defaultBlockState(),
-			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> CHISELED_GYPSUM_STONE_SLAB = registerBlock("chiseled_gypsum_stone_slab",
-		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> CHISELED_GYPSUM_STONE_WALL = registerBlock("chiseled_gypsum_stone_wall",
-		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 
 	public static final RegistrySupplier<Block> FENCE_LIGHT = registerBlock("fence_light",
 		() -> new FenceLightBlock(BlockBehaviour.Properties.of().strength(1.0F).noOcclusion().lightLevel(state -> 15)));
@@ -249,46 +250,46 @@ public class ModBlocks {
 
 
 	public static final RegistrySupplier<Block> STONE_FOSSIL = registerBlock("stone_fossil",
-		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> DEEPSLATE_FOSSIL = registerBlock("deepslate_fossil",
-		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.DEEPSLATE)));
 	public static final RegistrySupplier<Block> AMBER_ORE = registerBlock("amber_ore",
-		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.STONE)));
 	public static final RegistrySupplier<Block> DEEPSLATE_ICE_SHARD_ORE = registerBlock("deepslate_ice_shard_ore",
-		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.DEEPSLATE)));
 	public static final RegistrySupplier<Block> PERMAFROST = registerBlock("permafrost",
-		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.ICE)));
 
 	public static final RegistrySupplier<Block> REINFORCED_STONE = registerBlock("reinforced_stone",
-		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
 	public static final RegistrySupplier<Block> REINFORCED_STONE_BRICKS = registerBlock("reinforced_stone_bricks",
-		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
 	public static final RegistrySupplier<Block> CHISELED_REINFORCED_STONE = registerBlock("chiseled_reinforced_stone",
-		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new Block(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
 
 	public static final RegistrySupplier<Block> REINFORCED_STONE_STAIRS = registerBlock("reinforced_stone_stairs",
 		() -> new StairBlock(ModBlocks.REINFORCED_STONE.get().defaultBlockState(),
-			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
 	public static final RegistrySupplier<Block> REINFORCED_STONE_SLAB = registerBlock("reinforced_stone_slab",
-		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
 	public static final RegistrySupplier<Block> REINFORCED_STONE_WALL = registerBlock("reinforced_stone_wall",
-		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
 
 	public static final RegistrySupplier<Block> CHISELED_REINFORCED_STONE_STAIRS = registerBlock("chiseled_reinforced_stone_stairs",
 		() -> new StairBlock(ModBlocks.CHISELED_REINFORCED_STONE.get().defaultBlockState(),
-			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
 	public static final RegistrySupplier<Block> CHISELED_REINFORCED_STONE_SLAB = registerBlock("chiseled_reinforced_stone_slab",
-		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
 	public static final RegistrySupplier<Block> CHISELED_REINFORCED_STONE_WALL = registerBlock("chiseled_reinforced_stone_wall",
-		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
 
 	public static final RegistrySupplier<Block> REINFORCED_BRICK_STAIRS = registerBlock("reinforced_brick_stairs",
 		() -> new StairBlock(ModBlocks.REINFORCED_STONE_BRICKS.get().defaultBlockState(),
-			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+			BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
 	public static final RegistrySupplier<Block> REINFORCED_BRICK_SLAB = registerBlock("reinforced_brick_slab",
-		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new SlabBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
 	public static final RegistrySupplier<Block> REINFORCED_BRICK_WALL = registerBlock("reinforced_brick_wall",
-		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops()));
+		() -> new WallBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops().mapColor(MapColor.COLOR_GRAY)));
 
 	public static final RegistrySupplier<Block> ALBERTOSAURUS_EGG = registerBlock("albertosaurus_egg",
 		() -> new EggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.ALBERTOSAURUS));
