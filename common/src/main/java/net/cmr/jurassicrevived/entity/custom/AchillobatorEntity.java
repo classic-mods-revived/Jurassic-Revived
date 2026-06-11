@@ -1,5 +1,6 @@
 package net.cmr.jurassicrevived.entity.custom;
 
+import net.cmr.jurassicrevived.Constants;
 import net.cmr.jurassicrevived.block.ModBlocks;
 import net.cmr.jurassicrevived.entity.ModEntities;
 import net.cmr.jurassicrevived.entity.ai.DinoData;
@@ -47,8 +48,9 @@ public class AchillobatorEntity extends DinoEntityBase implements GeoEntity {
 	private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
 	public static final int BABY_TO_ADULT_AGE_TICKS = 28800;
-	private static final float MIN_ANIMAL_SCALE = 0.8F;
-	private static final float MAX_ANIMAL_SCALE = 1.2F;
+	private static final float ANIMAL_SCALE = 1.0F;
+	private static final float MIN_ANIMAL_SCALE = !Constants.DEBUG_SIZES ? (ANIMAL_SCALE - 0.2F) : ANIMAL_SCALE;
+	private static final float MAX_ANIMAL_SCALE = !Constants.DEBUG_SIZES ? (ANIMAL_SCALE + 0.2F) : ANIMAL_SCALE;
 
 	private float lastDimensionsScale = 1.0F;
 
@@ -135,6 +137,7 @@ public class AchillobatorEntity extends DinoEntityBase implements GeoEntity {
 			AchillobatorVariant randomVariant = Util.getRandom(AchillobatorVariant.values(), this.random);
 			baby.setVariant(randomVariant);
 			baby.setBaby(true);
+			baby.setAnimalScale(Mth.nextFloat(this.random, MIN_ANIMAL_SCALE, MAX_ANIMAL_SCALE));
 		}
 		return child;
 	}
@@ -293,7 +296,6 @@ public class AchillobatorEntity extends DinoEntityBase implements GeoEntity {
 		float growthProgress = Mth.clamp((BABY_TO_ADULT_AGE_TICKS + age) / (float) BABY_TO_ADULT_AGE_TICKS, 0.0F, 1.0F);
 		return Mth.lerp(growthProgress, 0.2F, 1.0F);
 	}
-
 	public float getTotalModelScale() {
 		return this.getAnimalScale() * this.getGrowthScale();
 	}
@@ -306,17 +308,10 @@ public class AchillobatorEntity extends DinoEntityBase implements GeoEntity {
 		}
 	}
 
-	/*? if <=1.20.1 {*/
 	@Override
-	public EntityDimensions getDimensions(Pose pose) {
-		return this.getType().getDimensions().scale(this.getTotalModelScale());
+	public float getDinoScale() {
+		return this.getTotalModelScale();
 	}
-	/*?} else {*/
-	/*@Override
-	protected EntityDimensions getDefaultDimensions(Pose pose) {
-		return this.getType().getDimensions().scale(this.getTotalModelScale());
-	}
-	*//*?}*/
 
 	public int getTypeVariant() {
 		return this.entityData.get(VARIANT);

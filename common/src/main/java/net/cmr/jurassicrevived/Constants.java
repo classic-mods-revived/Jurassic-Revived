@@ -11,6 +11,8 @@ public class Constants
 	public static final String MOD_NAME = "JurassicRevived";
 	public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 
+	public static final boolean DEBUG_SIZES = false;
+
 	public static ResourceLocation rl(String path) {
 		//? if >1.20.1 {
 		/*return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);

@@ -15,7 +15,8 @@ public class ThescelosaurusRenderer extends GeoEntityRenderer<ThescelosaurusEnti
 
     @Override
     public void scaleModelForRender(float widthScale, float heightScale, PoseStack poseStack, ThescelosaurusEntity animatable, BakedGeoModel model, boolean isReRender, float partialTick, int packedLight, int packedOverlay) {
-        float scale = animatable.getTotalModelScale();
+		super.scaleModelForRender(widthScale, heightScale, poseStack, animatable, model, isReRender, partialTick, packedLight, packedOverlay);
+		float scale = animatable.getTotalModelScale();
         poseStack.scale(scale, scale, scale);
     }
 }

@@ -15,6 +15,7 @@ public class CeratosaurusRenderer extends GeoEntityRenderer<CeratosaurusEntity> 
 
 	@Override
 	public void scaleModelForRender(float widthScale, float heightScale, PoseStack poseStack, CeratosaurusEntity animatable, BakedGeoModel model, boolean isReRender, float partialTick, int packedLight, int packedOverlay) {
+		super.scaleModelForRender(widthScale, heightScale, poseStack, animatable, model, isReRender, partialTick, packedLight, packedOverlay);
 		float scale = animatable.getTotalModelScale();
 		poseStack.scale(scale, scale, scale);
 	}

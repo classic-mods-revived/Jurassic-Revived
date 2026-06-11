@@ -1,5 +1,6 @@
 package net.cmr.jurassicrevived.entity.custom;
 
+import net.cmr.jurassicrevived.Constants;
 import net.cmr.jurassicrevived.block.ModBlocks;
 import net.cmr.jurassicrevived.entity.ModEntities;
 import net.cmr.jurassicrevived.entity.ai.DinoData;
@@ -55,8 +56,9 @@ public class BaryonyxEntity extends DinoEntityBase implements GeoEntity {
     private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
    	public static final int BABY_TO_ADULT_AGE_TICKS = 52800;
-	private static final float MIN_ANIMAL_SCALE = 1.1F;
-	private static final float MAX_ANIMAL_SCALE = 1.5F;
+	private static final float ANIMAL_SCALE = 1.3F;
+	private static final float MIN_ANIMAL_SCALE = !Constants.DEBUG_SIZES ? (ANIMAL_SCALE - 0.2F) : ANIMAL_SCALE;
+	private static final float MAX_ANIMAL_SCALE = !Constants.DEBUG_SIZES ? (ANIMAL_SCALE + 0.2F) : ANIMAL_SCALE;
 
 	private float lastDimensionsScale = 1.0F;
 
@@ -143,6 +145,7 @@ public class BaryonyxEntity extends DinoEntityBase implements GeoEntity {
    			BaryonyxVariant randomVariant = Util.getRandom(BaryonyxVariant.values(), this.random);
    			baby.setVariant(randomVariant);
    			baby.setBaby(true);
+			baby.setAnimalScale(Mth.nextFloat(this.random, MIN_ANIMAL_SCALE, MAX_ANIMAL_SCALE));
    		}
    		return child;
    	}
@@ -314,17 +317,10 @@ public class BaryonyxEntity extends DinoEntityBase implements GeoEntity {
 		}
 	}
 
-	/*? if <=1.20.1 {*/
 	@Override
-	public EntityDimensions getDimensions(Pose pose) {
-		return this.getType().getDimensions().scale(this.getTotalModelScale());
-	}
-	/*?} else {*/
-	/*@Override
-	protected EntityDimensions getDefaultDimensions(Pose pose) {
-		return this.getType().getDimensions().scale(this.getTotalModelScale());
-	}
-	*//*?}*/
+public float getDinoScale() {
+    return this.getTotalModelScale();
+}
     public int getTypeVariant() {
         return this.entityData.get(VARIANT);
     }

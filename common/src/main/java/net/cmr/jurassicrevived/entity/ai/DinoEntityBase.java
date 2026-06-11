@@ -1,6 +1,6 @@
 package net.cmr.jurassicrevived.entity.ai;
 
-import net.cmr.jurassicrevived.config.JRConfigManager;
+import net.cmr.jurassicrevived.Constants;
 import net.cmr.jurassicrevived.entity.ai.navigation.CustomDinoNavigation;
 import net.cmr.jurassicrevived.util.ModTags;
 import net.minecraft.nbt.CompoundTag;
@@ -14,8 +14,10 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -23,12 +25,49 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public abstract class DinoEntityBase extends Animal {
+
+	public float liveDebugWidth = -1.0F;
+	public float liveDebugHeight = -1.0F;
+
+	public float getDinoScale() {
+		return 1.0F;
+	}
+
+	@Override
+	//? if >1.20.1 {
+	/*protected @NotNull EntityDimensions getDefaultDimensions(Pose pose) {
+	 *///?} else {
+	public EntityDimensions getDimensions(Pose pose) {
+	//?}
+		EntityDimensions base;
+
+		// 1. Use Live Debug Sizes if enabled and modified
+		if (Constants.DEBUG_SIZES && liveDebugWidth > 0 && liveDebugHeight > 0) {
+			base = EntityDimensions.scalable(liveDebugWidth, liveDebugHeight);
+		} else {
+			// 2. Otherwise, use the ModEntities registry default
+			/*? if >1.20.1 {*/
+			/*base = super.getDefaultDimensions(pose);
+			*//*?} else {*/
+			base = super.getDimensions(pose);
+			 /*?}*/
+		}
+
+		// 3. Prevent vanilla from double-shrinking your babies
+		if (this.isBaby()) {
+			base = base.scale(2.0F);
+		}
+
+		// 4. Apply the dynamic multiplier from the subclass
+		return base.scale(this.getDinoScale());
+	}
 
     protected IDinoData dinoData;
     protected final DinoAIController aiController;
@@ -139,6 +178,47 @@ public abstract class DinoEntityBase extends Animal {
 		}
 
 		ItemStack stack = player.getItemInHand(hand);
+
+		// --- LIVE HITBOX TUNER ---
+		if (Constants.DEBUG_SIZES && stack.is(Items.BLAZE_ROD)) {
+
+			// Grab default registry sizes on the very first click
+			if (liveDebugWidth < 0) {
+				//? if >1.20.1 {
+				
+				/*liveDebugWidth = this.getType().getDimensions().width();
+				liveDebugHeight = this.getType().getDimensions().height();
+				 *///?} else {
+				liveDebugWidth = this.getType().getDimensions().width;
+				liveDebugHeight = this.getType().getDimensions().height;
+					//?}
+			}
+
+			// Shift = Shrink, Normal = Grow
+			float adjustment = player.isShiftKeyDown() ? -0.1f : 0.1f;
+
+			if (hand == InteractionHand.MAIN_HAND) {
+				liveDebugWidth += adjustment;  // Main hand edits WIDTH
+			} else if (hand == InteractionHand.OFF_HAND) {
+				liveDebugHeight += adjustment; // Off hand edits HEIGHT
+			}
+
+			// INSTANT VISUAL UPDATE (Works because mobInteract is client+server)
+			this.refreshDimensions();
+
+			if (!this.level().isClientSide) {
+				String action = player.isShiftKeyDown() ? "§c[-] SHRUNK" : "§a[+] GREW";
+				String dimension = hand == InteractionHand.MAIN_HAND ? "WIDTH" : "HEIGHT";
+				String dinoName = net.minecraft.world.entity.EntityType.getKey(this.getType()).getPath();
+
+				player.sendSystemMessage(Component.literal(action + " " + dimension + "§f: " + dinoName +
+			                                               " -> §e.sized(" + String.format("%.1f", liveDebugWidth) + "F, " +
+			                                               String.format("%.1f", liveDebugHeight) + "F)"));
+			}
+			return InteractionResult.SUCCESS;
+		}
+		// --- END LIVE HITBOX TUNER ---
+
 		if (this.isFood(stack)) {
 			if (!this.level().isClientSide) {
 				feedDino(player, stack);
