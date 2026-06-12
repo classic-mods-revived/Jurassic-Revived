@@ -35,9 +35,20 @@ public abstract class DinoEntityBase extends Animal {
 
 	public float liveDebugWidth = -1.0F;
 	public float liveDebugHeight = -1.0F;
+	public float liveDebugScale = -1.0F;
+	
+	public final float getDinoScale() {
+		// If debug is active, intercept the scale
+		if (Constants.DEBUG_SIZES && liveDebugScale > 0) {
+			return liveDebugScale;
+		}
+		// Otherwise, ask the specific dinosaur what its scale should be
+		return this.getLiveDinoScale();
+	}
 
-	public float getDinoScale() {
-		return 1.0F;
+	// 2. The Hook: Subclasses will override this instead of getDinoScale()
+	public float getLiveDinoScale() {
+		return 1.0F; // Default base scale
 	}
 
 	@Override
@@ -205,14 +216,12 @@ public abstract class DinoEntityBase extends Animal {
 			} else if (hand == InteractionHand.OFF_HAND) {
 				liveDebugHeight += adjustment; // Off hand edits HEIGHT
 			}
-
-			// INSTANT VISUAL UPDATE (Works because mobInteract is client+server)
 			this.refreshDimensions();
 
 			if (!this.level().isClientSide) {
 				String action = player.isShiftKeyDown() ? "§c[-] SHRUNK" : "§a[+] GREW";
 				String dimension = hand == InteractionHand.MAIN_HAND ? "WIDTH" : "HEIGHT";
-				String dinoName = net.minecraft.world.entity.EntityType.getKey(this.getType()).getPath();
+				String dinoName = EntityType.getKey(this.getType()).getPath();
 
 				player.sendSystemMessage(Component.literal(action + " " + dimension + "§f: " + dinoName +
 			                                               " -> §e.sized(" + String.format("%.1f", liveDebugWidth) + "F, " +
@@ -221,6 +230,33 @@ public abstract class DinoEntityBase extends Animal {
 			return InteractionResult.SUCCESS;
 		}
 		// --- END LIVE HITBOX TUNER ---
+
+
+		// --- LIVE SCALE TUNER ---
+		if (Constants.DEBUG_SIZES && stack.is(Items.BONE)) {
+			if (liveDebugScale < 0) {
+				liveDebugScale = 1.0F;
+			}
+
+			float adjustment = player.isShiftKeyDown() ? -0.1f : 0.1f;
+			liveDebugScale += adjustment;
+
+			if (liveDebugScale < 0.1F) {
+				liveDebugScale = 0.1F;
+			}
+
+			this.refreshDimensions();
+
+			if (!this.level().isClientSide) {
+				String action = player.isShiftKeyDown() ? "§cShrunk" : "§aGrown";
+				String dinoName = EntityType.getKey(this.getType()).getPath();
+				player.sendSystemMessage(Component.literal(action + " SCALE§f: " + dinoName +
+				                                           " -> §e" + String.format("%.1f", liveDebugScale) + "x"));
+
+			}
+			return InteractionResult.SUCCESS;
+		}
+		// --- END LIVE SCALE TUNER ---
 
 		if (this.isFood(stack)) {
 			if (!this.level().isClientSide) {

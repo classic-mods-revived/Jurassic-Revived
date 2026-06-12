@@ -48,7 +48,7 @@ public class CoelacanthModel extends GeoModel<CoelacanthEntity> {
     public void setCustomAnimations(CoelacanthEntity entity, long id, AnimationState<CoelacanthEntity> state) {
         super.setCustomAnimations(entity, id, state);
 
-        String[] tailBones = { "tail1", "tail2", "tail3", "tail4", "tail5", "tail6" };
+        String[] tailBones = { "BodySection2", "BodySection3", "TailSection1", "TailSection2" , "TailSection3" };
         int n = tailBones.length;
 
         if (appliedYaw == null || appliedYaw.length != n) {
@@ -82,7 +82,7 @@ public class CoelacanthModel extends GeoModel<CoelacanthEntity> {
         float baseYaw = sway * maxYawDeg * deg2rad;
         float baseRoll = -baseYaw * rollFraction;
 
-        float[] weights = { 1.00f, 0.78f, 0.58f, 0.42f, 0.30f, 0.22f };
+        float[] weights = { 1.00f, 0.78f, 0.58f, 0.42f, 0.30f };
 
         for (int i = 0; i < n; i++) {
             GeoBone bone = (GeoBone) getAnimationProcessor().getBone(tailBones[i]);
@@ -101,7 +101,7 @@ public class CoelacanthModel extends GeoModel<CoelacanthEntity> {
             appliedRoll[i] = roll;
         }
         
-        GeoBone head = (GeoBone) getAnimationProcessor().getBone("body1");
+        GeoBone head = (GeoBone) getAnimationProcessor().getBone("BodySection1");
 
         if (head != null) {
             var entityData = state.getData(DataTickets.ENTITY_MODEL_DATA);

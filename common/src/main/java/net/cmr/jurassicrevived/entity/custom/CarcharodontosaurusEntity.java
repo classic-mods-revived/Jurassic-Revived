@@ -316,7 +316,7 @@ public class CarcharodontosaurusEntity extends DinoEntityBase implements GeoEnti
 	}
 
 	@Override
-	public float getDinoScale() {
+	public float getLiveDinoScale() {
 		return this.getTotalModelScale();
 	}
 

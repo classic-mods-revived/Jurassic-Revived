@@ -355,7 +355,7 @@ public class PteranodonEntity extends DinoEntityBase implements GeoEntity, Flyin
 	}
 
 	@Override
-public float getDinoScale() {
+public float getLiveDinoScale() {
     return this.getTotalModelScale();
 }
 

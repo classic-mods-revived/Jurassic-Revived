@@ -16,7 +16,7 @@ public class ShantungosaurusRenderer extends GeoEntityRenderer<ShantungosaurusEn
     @Override
     public void scaleModelForRender(float widthScale, float heightScale, PoseStack poseStack, ShantungosaurusEntity animatable, BakedGeoModel model, boolean isReRender, float partialTick, int packedLight, int packedOverlay) {
 		super.scaleModelForRender(widthScale, heightScale, poseStack, animatable, model, isReRender, partialTick, packedLight, packedOverlay);
-		float scale = animatable.getTotalModelScale();
+		float scale = animatable.getDinoScale();
         poseStack.scale(scale, scale, scale);
     }
 }

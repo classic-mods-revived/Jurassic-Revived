@@ -355,7 +355,7 @@ public class GuidracoEntity extends DinoEntityBase implements GeoEntity, FlyingA
 	}
 
 	@Override
-public float getDinoScale() {
+public float getLiveDinoScale() {
     return this.getTotalModelScale();
 }
 

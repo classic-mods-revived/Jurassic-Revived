@@ -351,7 +351,7 @@ public class NyctosaurusEntity extends DinoEntityBase implements GeoEntity, Flyi
 	}
 
 	@Override
-public float getDinoScale() {
+public float getLiveDinoScale() {
     return this.getTotalModelScale();
 }
 

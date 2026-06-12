@@ -333,7 +333,7 @@ public class CoelacanthEntity extends DinoEntityBase implements GeoEntity {
 	}
 
 	@Override
-	public float getDinoScale() {
+	public float getLiveDinoScale() {
 		return this.getTotalModelScale();
 	}
 

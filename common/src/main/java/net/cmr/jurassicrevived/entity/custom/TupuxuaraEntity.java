@@ -351,7 +351,7 @@ public class TupuxuaraEntity extends DinoEntityBase implements GeoEntity, Flying
 	}
 
 	@Override
-public float getDinoScale() {
+public float getLiveDinoScale() {
     return this.getTotalModelScale();
 }
 

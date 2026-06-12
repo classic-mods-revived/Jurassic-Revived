@@ -315,7 +315,7 @@ public class PachycephalosaurusEntity extends DinoEntityBase implements GeoEntit
 	}
 
 	@Override
-public float getDinoScale() {
+public float getLiveDinoScale() {
     return this.getTotalModelScale();
 }
     public int getTypeVariant() {

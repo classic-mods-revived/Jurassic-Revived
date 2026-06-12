@@ -355,7 +355,7 @@ public class TropeognathusEntity extends DinoEntityBase implements GeoEntity, Fl
 	}
 
 	@Override
-public float getDinoScale() {
+public float getLiveDinoScale() {
     return this.getTotalModelScale();
 }
 

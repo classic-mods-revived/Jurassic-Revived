@@ -355,6 +355,14 @@ public class ModEntities {
 		ENTITIES.register("coelacanth", () -> EntityType.Builder.of(CoelacanthEntity::new, MobCategory.CREATURE)
 			.sized(1.3f, 1.8f).build("coelacanth"));
 
+	public static final RegistrySupplier<EntityType<MawsoniaEntity>> MAWSONIA =
+		ENTITIES.register("mawsonia", () -> EntityType.Builder.of(MawsoniaEntity::new, MobCategory.CREATURE)
+			.sized(1.3f, 1.8f).build("mawsonia"));
+
+	public static final RegistrySupplier<EntityType<AlligatorGarEntity>> ALLIGATOR_GAR =
+		ENTITIES.register("alligator_gar", () -> EntityType.Builder.of(AlligatorGarEntity::new, MobCategory.CREATURE)
+			.sized(1.3f, 1.8f).build("alligator_gar"));
+
 	public static void registerAttributes() {
 		EntityAttributeRegistry.register(APATOSAURUS, ApatosaurusEntity::createAttributes);
 		EntityAttributeRegistry.register(ALBERTOSAURUS, AlbertosaurusEntity::createAttributes);
@@ -437,6 +445,8 @@ public class ModEntities {
 		EntityAttributeRegistry.register(MUSSASAURUS, MussasaurusEntity::createAttributes);
 		EntityAttributeRegistry.register(THESCELOSAURUS, ThescelosaurusEntity::createAttributes);
 		EntityAttributeRegistry.register(COELACANTH, CoelacanthEntity::createAttributes);
+		EntityAttributeRegistry.register(MAWSONIA, MawsoniaEntity::createAttributes);
+		EntityAttributeRegistry.register(ALLIGATOR_GAR, AlligatorGarEntity::createAttributes);
 	}
 
 	public static void registerSpawnPlacements() {

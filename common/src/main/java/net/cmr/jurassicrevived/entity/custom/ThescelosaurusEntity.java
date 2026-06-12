@@ -304,7 +304,7 @@ public class ThescelosaurusEntity extends DinoEntityBase implements GeoEntity {
 	}
 
 	@Override
-public float getDinoScale() {
+public float getLiveDinoScale() {
     return this.getTotalModelScale();
 }
     public int getTypeVariant() {

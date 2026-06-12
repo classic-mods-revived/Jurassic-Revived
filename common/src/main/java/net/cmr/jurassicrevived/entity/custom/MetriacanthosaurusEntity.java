@@ -308,7 +308,7 @@ public class MetriacanthosaurusEntity extends DinoEntityBase implements GeoEntit
 	}
 
 	@Override
-public float getDinoScale() {
+public float getLiveDinoScale() {
     return this.getTotalModelScale();
 }
 

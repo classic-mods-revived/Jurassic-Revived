@@ -16,7 +16,7 @@ public class LudodactylusRenderer extends GeoEntityRenderer<LudodactylusEntity> 
 	@Override
 	public void scaleModelForRender(float widthScale, float heightScale, PoseStack poseStack, LudodactylusEntity animatable, BakedGeoModel model, boolean isReRender, float partialTick, int packedLight, int packedOverlay) {
 		super.scaleModelForRender(widthScale, heightScale, poseStack, animatable, model, isReRender, partialTick, packedLight, packedOverlay);
-		float scale = animatable.getTotalModelScale();
+		float scale = animatable.getDinoScale();
 		poseStack.scale(scale, scale, scale);
 	}
 }

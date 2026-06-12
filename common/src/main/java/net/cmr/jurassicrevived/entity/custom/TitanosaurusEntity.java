@@ -315,7 +315,7 @@ public class TitanosaurusEntity extends DinoEntityBase implements GeoEntity {
 	}
 
 	@Override
-public float getDinoScale() {
+public float getLiveDinoScale() {
     return this.getTotalModelScale();
 }
 

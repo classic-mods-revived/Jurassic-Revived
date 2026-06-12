@@ -351,7 +351,7 @@ public class MoganopterusEntity extends DinoEntityBase implements GeoEntity, Fly
 	}
 
 	@Override
-public float getDinoScale() {
+public float getLiveDinoScale() {
     return this.getTotalModelScale();
 }
 

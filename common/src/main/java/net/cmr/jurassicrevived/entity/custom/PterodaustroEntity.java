@@ -355,7 +355,7 @@ public class PterodaustroEntity extends DinoEntityBase implements GeoEntity, Fly
 	}
 
 	@Override
-public float getDinoScale() {
+public float getLiveDinoScale() {
     return this.getTotalModelScale();
 }
 

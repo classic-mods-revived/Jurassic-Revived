@@ -351,7 +351,7 @@ public class QuetzalcoatlusEntity extends DinoEntityBase implements GeoEntity, F
 	}
 
 	@Override
-public float getDinoScale() {
+public float getLiveDinoScale() {
     return this.getTotalModelScale();
 }
 
