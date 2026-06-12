@@ -6,17 +6,16 @@ import net.cmr.jurassicrevived.entity.custom.AlligatorGarEntity;
 import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+/*? if <=1.20.1 {*/
+import software.bernie.geckolib.core.animation.AnimationState;
+/*?} else {*/
+/*import software.bernie.geckolib.animation.AnimationState;
+ *//*?}*/
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
-import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.GeoModel;
 
 import java.util.Map;
-
-/*? if <=1.20.1 {*/
-/*?} else {*/
-/*import software.bernie.geckolib.animation.AnimationState;
-*//*?}*/
 
 public class AlligatorGarModel extends GeoModel<AlligatorGarEntity> {
 
