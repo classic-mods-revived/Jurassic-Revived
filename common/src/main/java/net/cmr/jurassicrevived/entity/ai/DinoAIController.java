@@ -824,6 +824,20 @@ public class DinoAIController {
 			return;
 		}
 
+		// --- Keep Swimming Logic ---
+		// If floating in water, do not idle long.
+		if (dino.isInWater() && !dino.onGround()) {
+			if (!dino.isAmphibious()) {
+				// Terrestrial creatures panic and immediately swim
+				transitionTo(State.ROAMING);
+				return;
+			} else if (stateTimer > 20) {
+				// Amphibious creatures can tread water briefly, but keep them moving
+				transitionTo(State.ROAMING);
+				return;
+			}
+		}
+
 		float territoriality = 0.0f;
 		if (dino.dinoData != null) {
 			territoriality = dino.dinoData.getTerritoriality();
@@ -851,6 +865,25 @@ public class DinoAIController {
             }
         }
     }
+
+	private Vec3 getLandEscapePos() {
+		Vec3 bestFallback = null;
+
+		for (int i = 0; i < 15; i++) {
+			Vec3 pos = DefaultRandomPos.getPos(dino, 16, 7);
+			if (pos != null) {
+				BlockPos targetBlock = BlockPos.containing(pos);
+
+				// Check if the target block and the block below it are free of water
+				if (!dino.level().getFluidState(targetBlock).is(FluidTags.WATER) &&
+				    !dino.level().getBlockState(targetBlock.below()).is(Blocks.WATER)) {
+					return pos; // Found dry land!
+				}
+				bestFallback = pos; // Remember a water pos just in case we are in the middle of an ocean
+			}
+		}
+		return bestFallback; // Keep swimming even if we couldn't find the shore yet
+	}
 
 	private void checkBreedingReadiness() {
 		if (dino.level().isClientSide || breedingCheckCooldown > 0 || !isBreedingCheckState()) {
@@ -1096,10 +1129,21 @@ public class DinoAIController {
 					this.roamTarget = marinePos;
 				}
 			}
-			return; // Prevent falling through to ground/flying logic
+			return;
 		}
 
-		// Grounded flyers should walk to nearby grounded targets instead of taking off immediately.
+		// --- Terrestrial Escape Water Logic ---
+		if (!dino.isAmphibious() && !(dino instanceof FlyingAnimal) && dino.isInWater()) {
+			Vec3 escapePos = getLandEscapePos();
+			if (escapePos != null) {
+				// Swim slightly faster towards land
+				if (dino.getNavigation().moveTo(escapePos.x, escapePos.y, escapePos.z, getRoamSpeed() * 1.2)) {
+					this.roamTarget = escapePos;
+					return;
+				}
+			}
+		}
+
 		if (dino instanceof FlyingAnimal && dino.onGround()) {
 			Vec3 groundPos = getNearbyGroundRoamPosForFlyer();
 			if (groundPos != null && dino.getNavigation().moveTo(groundPos.x, groundPos.y, groundPos.z, getRoamSpeed())) {
@@ -1108,11 +1152,9 @@ public class DinoAIController {
 			}
 		}
 
-		// Flying Logic
 		if (dino instanceof FlyingAnimal) {
 			Vec3 airPos = getAirRoamPos();
 			if (airPos != null) {
-				// Use boosted roaming speed as cruising speed.
 				if (dino.getNavigation().moveTo(airPos.x, airPos.y, airPos.z, getRoamSpeed())) {
 					this.roamTarget = airPos;
 					return;
@@ -1124,6 +1166,16 @@ public class DinoAIController {
 		for (int i = 0; i < 5; i++) {
 			Vec3 pos = DefaultRandomPos.getPos(dino, 20, 7);
 			if (pos != null && dino.distanceToSqr(pos) > 49.0) {
+
+				// --- Prevent wandering into water if on land ---
+				if (!dino.isAmphibious() && !dino.isInWater()) {
+					BlockPos targetBlock = BlockPos.containing(pos);
+					if (dino.level().getFluidState(targetBlock).is(FluidTags.WATER) ||
+					    dino.level().getBlockState(targetBlock.below()).is(Blocks.WATER)) {
+						continue; // Skip this waypoint, it's a lake
+					}
+				}
+
 				if (dino.getNavigation().moveTo(pos.x, pos.y, pos.z, getRoamSpeed())) {
 					this.roamTarget = pos;
 					return;
@@ -1395,11 +1447,21 @@ public class DinoAIController {
 		dino.dinoData.setHunger(Math.min(maxHunger, hunger + amount));
 	}
 
-    private void findAndSetTerritorialTarget() {
+	private void findAndSetTerritorialTarget() {
 		this.roamTarget = null;
 		Vec3 target = null;
 
-		// Grounded flyers should walk to nearby grounded territorial targets before taking off.
+		// --- Terrestrial Escape Water Logic ---
+		if (!dino.isAmphibious() && !(dino instanceof FlyingAnimal) && dino.isInWater()) {
+			Vec3 escapePos = getLandEscapePos();
+			if (escapePos != null) {
+				if (dino.getNavigation().moveTo(escapePos.x, escapePos.y, escapePos.z, getTerritorialRoamSpeed() * 1.2)) {
+					this.roamTarget = escapePos;
+					return;
+				}
+			}
+		}
+
 		if (dino instanceof FlyingAnimal && dino.onGround()) {
 			Vec3 groundPos = getNearbyGroundRoamPosForFlyer();
 			if (groundPos != null && dino.getNavigation().moveTo(groundPos.x, groundPos.y, groundPos.z, getTerritorialRoamSpeed())) {
@@ -1419,6 +1481,16 @@ public class DinoAIController {
 			}
 
 			if (candidate != null && dino.distanceToSqr(candidate) > 25.0) {
+
+				// --- Prevent wandering into water if on land ---
+				if (!dino.isAmphibious() && !dino.isInWater()) {
+					BlockPos targetBlock = BlockPos.containing(candidate);
+					if (dino.level().getFluidState(targetBlock).is(FluidTags.WATER) ||
+					    dino.level().getBlockState(targetBlock.below()).is(Blocks.WATER)) {
+						continue; // Skip this waypoint
+					}
+				}
+
 				if (dino.getNavigation().moveTo(candidate.x, candidate.y, candidate.z, getTerritorialRoamSpeed())) {
 					this.roamTarget = candidate;
 					return;
