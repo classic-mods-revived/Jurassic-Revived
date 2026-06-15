@@ -77,7 +77,7 @@ public class GeosternbergiaModel extends GeoModel<GeosternbergiaEntity> {
 
         // Direction: positive sway (left turn) -> tail swings right (negative yaw)
         // Flip the sign here if the sway feels inverted
-        float baseYaw = sway * maxYawDeg * deg2rad;
+        float baseYaw = (sway * swayGain) * maxYawDeg * deg2rad;
         float baseRoll = -baseYaw * rollFraction;
 
         float[] weights = { 1.00f, 0.78f, 0.58f };

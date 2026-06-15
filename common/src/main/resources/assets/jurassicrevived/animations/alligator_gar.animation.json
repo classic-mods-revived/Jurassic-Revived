@@ -487,106 +487,6 @@
 				}
 			}
 		},
-		"anim.alligator_gar.mouth": {
-			"loop": "hold_on_last_frame",
-			"animation_length": 1.25,
-			"bones": {
-				"Jaw": {
-					"rotation": {
-						"0.0": {
-							"post": {
-								"vector": [0, 0, 0]
-							},
-							"lerp_mode": "catmullrom"
-						},
-						"0.25": {
-							"post": {
-								"vector": [22.5, 0, 0]
-							},
-							"lerp_mode": "catmullrom"
-						},
-						"1.0": {
-							"post": {
-								"vector": [22.5, 0, 0]
-							},
-							"lerp_mode": "catmullrom"
-						},
-						"1.25": {
-							"post": {
-								"vector": [0, 0, 0]
-							},
-							"lerp_mode": "catmullrom"
-						}
-					}
-				},
-				"Lowerjawfront": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"0.5": {
-							"vector": [40, 0, 0]
-						},
-						"1.25": {
-							"vector": [0, 0, 0]
-						}
-					}
-				},
-				"root": {
-					"position": {
-						"vector": [0, 0, -20]
-					}
-				},
-				"Lowerjawrear": {
-					"rotation": {
-						"0.0": {
-							"post": {
-								"vector": [0, 0, 0]
-							},
-							"lerp_mode": "catmullrom"
-						},
-						"0.625": {
-							"post": {
-								"vector": [12.5, 0, 0]
-							},
-							"lerp_mode": "catmullrom"
-						},
-						"1.25": {
-							"post": {
-								"vector": [0, 0, 0]
-							},
-							"lerp_mode": "catmullrom"
-						}
-					}
-				},
-				"Lowerjawtop": {
-					"rotation": {
-						"0.0": {
-							"post": {
-								"vector": [-10, 0, 0]
-							},
-							"lerp_mode": "catmullrom"
-						},
-						"1.25": {
-							"post": {
-								"vector": [-10, 0, 0]
-							},
-							"lerp_mode": "catmullrom"
-						}
-					}
-				},
-				"Neck": {
-					"rotation": {
-						"0.0": {
-							"vector": [15, 0, 0]
-						},
-						"1.25": {
-							"vector": [15, 0, 0]
-						}
-					}
-				}
-			}
-		},
 		"anim.alligator_gar.flop": {
 			"loop": true,
 			"animation_length": 0.5,
@@ -727,13 +627,13 @@
 				"root": {
 					"position": {
 						"0.0": {
-							"vector": [4, -16, -17]
+							"vector": [4, 4, -17]
 						},
 						"0.1667": {
-							"vector": [4, -17, -16]
+							"vector": [4, 1, -17]
 						},
 						"0.5": {
-							"vector": [4, -16, -17]
+							"vector": [4, 4, -17]
 						}
 					}
 				},

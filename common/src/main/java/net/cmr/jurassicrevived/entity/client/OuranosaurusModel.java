@@ -79,7 +79,7 @@ public class OuranosaurusModel extends GeoModel<OuranosaurusEntity> {
 
         // Direction: positive sway (left turn) -> tail swings right (negative yaw)
         // Flip the sign here if the sway feels inverted
-        float baseYaw = sway * maxYawDeg * deg2rad;
+        float baseYaw = (sway * swayGain) * maxYawDeg * deg2rad;
         float baseRoll = -baseYaw * rollFraction;
 
         float[] weights = { 1.00f, 0.78f, 0.58f, 0.42f, 0.30f, 0.22f, 0.16f };

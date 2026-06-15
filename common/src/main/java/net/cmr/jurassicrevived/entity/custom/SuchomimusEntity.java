@@ -156,12 +156,19 @@ public class SuchomimusEntity extends DinoEntityBase implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "Walk/Run/Idle", 5, state -> {
-            if (state.isMoving())
-                return state.setAndContinue(SuchomimusEntity.this.isSprinting() ? RawAnimation.begin().then("anim.suchomimus.run", Animation.LoopType.LOOP) : RawAnimation.begin().then("anim.suchomimus.walk", Animation.LoopType.LOOP));
+		controllers.add(new AnimationController<>(this, "MovementController", 5, state -> {
+			if (SuchomimusEntity.this.isWaterDeepEnoughToSwim()) {
+				return state.setAndContinue(RawAnimation.begin().then("anim.suchomimus.swim", Animation.LoopType.LOOP));
+			}
 
-            return state.setAndContinue(RawAnimation.begin().then("anim.suchomimus.idle", Animation.LoopType.LOOP));
-        }));
+			if (state.isMoving()) {
+				return state.setAndContinue(SuchomimusEntity.this.isSprinting()
+					? RawAnimation.begin().then("anim.suchomimus.run", Animation.LoopType.LOOP)
+					: RawAnimation.begin().then("anim.suchomimus.walk", Animation.LoopType.LOOP));
+			}
+
+			return state.setAndContinue(RawAnimation.begin().then("anim.suchomimus.idle", Animation.LoopType.LOOP));
+		}));
 
         controllers.add(new AnimationController<>(this, "attackController", 5, state -> PlayState.STOP)
                 .triggerableAnim("attack", RawAnimation.begin().then("anim.suchomimus.attack", Animation.LoopType.PLAY_ONCE)));
@@ -169,6 +176,10 @@ public class SuchomimusEntity extends DinoEntityBase implements GeoEntity {
         controllers.add(new AnimationController<>(this, "mouthController", 5, state -> PlayState.STOP)
                 .triggerableAnim("mouth", RawAnimation.begin().then("anim.suchomimus.mouth", Animation.LoopType.PLAY_ONCE)));
     }
+
+	private boolean isWaterDeepEnoughToSwim() {
+		return this.isInWater() && this.level().getBlockState(this.blockPosition().below()).getFluidState().isSource();
+	}
 
     private float getSignedTurnDelta() {
         // Only consider the body (torso) rotation so head look does not affect tail sway

@@ -353,15 +353,15 @@ public class ModEntities {
 
 	public static final RegistrySupplier<EntityType<CoelacanthEntity>> COELACANTH =
 		ENTITIES.register("coelacanth", () -> EntityType.Builder.of(CoelacanthEntity::new, MobCategory.CREATURE)
-			.sized(1.3f, 1.8f).build("coelacanth"));
+			.sized(0.4f, 0.5f).build("coelacanth"));
 
 	public static final RegistrySupplier<EntityType<MawsoniaEntity>> MAWSONIA =
 		ENTITIES.register("mawsonia", () -> EntityType.Builder.of(MawsoniaEntity::new, MobCategory.CREATURE)
-			.sized(1.3f, 1.8f).build("mawsonia"));
+			.sized(0.9f, 1.4f).build("mawsonia"));
 
 	public static final RegistrySupplier<EntityType<AlligatorGarEntity>> ALLIGATOR_GAR =
 		ENTITIES.register("alligator_gar", () -> EntityType.Builder.of(AlligatorGarEntity::new, MobCategory.CREATURE)
-			.sized(1.3f, 1.8f).build("alligator_gar"));
+			.sized(0.4f, 0.6f).build("alligator_gar"));
 
 	public static void registerAttributes() {
 		EntityAttributeRegistry.register(APATOSAURUS, ApatosaurusEntity::createAttributes);

@@ -125,6 +125,7 @@ public class DinoAIController {
 		if (homePos == null) homePos = dino.blockPosition();
 
 		handleFloating();
+		handleWideHitboxJumping();
 
 		updateSensors();
 		checkBreedingReadiness();
@@ -576,7 +577,7 @@ public class DinoAIController {
 			return handleAvianWaterHuntingMovement(target);
 		}
 
-		if (isGroundCreature()) {
+		if (isGroundCreature() || dino.isAmphibious()) {
 			return handleTerrestrialWaterExitMovement();
 		}
 
@@ -735,10 +736,8 @@ public class DinoAIController {
 			return false;
 		}
 
-		double fluidHeight = dino.getFluidHeight(FluidTags.WATER);
-		Vec3 velocity = dino.getDeltaMovement();
-
-		if (fluidHeight > dino.getFluidJumpThreshold() * 0.6D || dino.horizontalCollision) {
+		if (dino.horizontalCollision) {
+			Vec3 velocity = dino.getDeltaMovement();
 			dino.setDeltaMovement(
 				velocity.x,
 				Math.min(velocity.y + 0.06D, TERRESTRIAL_WATER_EXIT_BOOST),
@@ -800,19 +799,15 @@ public class DinoAIController {
 			return;
 		}
 
-		Vec3 normalized = direction.normalize();
-
-		float yaw = (float)(Mth.atan2(normalized.z, normalized.x) * Mth.RAD_TO_DEG) - 90.0F;
-		float pitch = (float)(-(Mth.atan2(normalized.y, Math.sqrt(normalized.x * normalized.x + normalized.z * normalized.z)) * Mth.RAD_TO_DEG));
-
-		dino.setYRot(yaw);
-		dino.yRotO = yaw;
-		dino.yBodyRot = yaw;
-		dino.yBodyRotO = yaw;
-		dino.yHeadRot = yaw;
-		dino.yHeadRotO = yaw;
-		dino.setXRot(Mth.clamp(pitch, -75.0F, 75.0F));
-		dino.xRotO = dino.getXRot();
+		// Instead of forcing the YRot and XRot instantly, tell the LookControl where to look.
+		// The 30.0F values dictate the maximum turn speed per tick (yaw and pitch).
+		dino.getLookControl().setLookAt(
+			dino.getX() + direction.x,
+			dino.getY() + direction.y,
+			dino.getZ() + direction.z,
+			30.0F,
+			30.0F
+		);
 	}
 
     // --- STATE LOGIC ---
@@ -1080,21 +1075,14 @@ public class DinoAIController {
                 return;
             }
 
-            boolean resumed = false;
-            if (roamTarget != null) {
-                resumed = dino.getNavigation().moveTo(roamTarget.x, roamTarget.y, roamTarget.z, getRoamSpeed());
-            }
-
-            if (!resumed) {
-                findAndSetRoamTarget();
-                if (this.roamTarget == null) {
-                    if (dino instanceof FlyingAnimal && !dino.onGround()) {
-                        transitionTo(State.ROAMING);
-                    } else {
-                        transitionTo(State.IDLE);
-                    }
-                }
-            }
+            findAndSetRoamTarget();
+			if (this.roamTarget == null) {
+				if (dino instanceof FlyingAnimal && !dino.onGround()) {
+					transitionTo(State.ROAMING);
+				} else {
+					transitionTo(State.IDLE);
+				}
+			}
         }
     }
 
@@ -1260,29 +1248,14 @@ public class DinoAIController {
             return;
         }
 
-        if (dino.getNavigation().isDone()) {
-            if (roamTarget != null && dino.distanceToSqr(roamTarget) < 9.0) {
-                transitionTo(State.IDLE);
-                return;
-            }
-
-            boolean resumed = false;
-            if (roamTarget != null) {
-                resumed = dino.getNavigation().moveTo(
-                        roamTarget.x,
-                        roamTarget.y,
-                        roamTarget.z,
-                        getTerritorialRoamSpeed()
-                );
-            }
-
-            if (!resumed) {
-                findAndSetTerritorialTarget();
-                if (this.roamTarget == null) {
-                    transitionTo(State.IDLE);
-                }
-            }
-        }
+		if (dino.getNavigation().isDone()) {
+			if (roamTarget != null && dino.distanceToSqr(roamTarget) < 9.0) {
+				transitionTo(State.IDLE);
+				return;
+			}
+			this.roamTarget = null;
+			transitionTo(State.IDLE);
+		}
     }
 
     private double getBaseRoamSpeed() {
@@ -1472,7 +1445,9 @@ public class DinoAIController {
 
 		boolean waterMovementHandled = handleWaterMovementHelper(attackTarget);
 
-		dino.getLookControl().setLookAt(attackTarget, 30.0F, 30.0F);
+		if (dino.distanceToSqr(attackTarget) > 1.0D) {
+			dino.getLookControl().setLookAt(attackTarget, 30.0F, 30.0F);
+		}
 
 		double distSqr = dino.distanceToSqr(attackTarget);
 		double reachMult = dino.getAIConfig().attackReach();
@@ -1509,12 +1484,11 @@ public class DinoAIController {
 			return;
 		}
 
-		if (pathRecalcTimer-- <= 0 || dino.getNavigation().isDone()) {
+		if (pathRecalcTimer-- <= 0) {
 			if (!dino.getNavigation().moveTo(attackTarget, dino.getAIConfig().runSpeed())) {
-				pathRecalcTimer = 10; // Wait before retrying to prevent rapid failure loops
+				pathRecalcTimer = 10;
 				failedPathfindingAttempts++;
 
-				// Tolerance allows for temporary pathfinding failures (e.g., target inside hitbox)
 				if (failedPathfindingAttempts > 5) {
 					if (isAvianWaterHunter() && isUnderwaterTarget(attackTarget)) {
 						failedPathfindingAttempts = 0;
@@ -1539,7 +1513,9 @@ public class DinoAIController {
 
 		boolean waterMovementHandled = handleWaterMovementHelper(attackTarget);
 
-		dino.getLookControl().setLookAt(attackTarget, 30.0F, 30.0F);
+		if (dino.distanceToSqr(attackTarget) > 1.0D) {
+			dino.getLookControl().setLookAt(attackTarget, 30.0F, 30.0F);
+		}
 
 		double distSqr = dino.distanceToSqr(attackTarget);
 		double reachMult = dino.getAIConfig().attackReach();
@@ -1580,7 +1556,10 @@ public class DinoAIController {
 		} else if (isAvianWaterHunter() && avianDiveInProgress) {
 			dino.getNavigation().stop();
 		} else if (distSqr > stopDistSqr) {
-			dino.getNavigation().moveTo(attackTarget, dino.getAIConfig().runSpeed());
+			if (pathRecalcTimer-- <= 0) {
+				dino.getNavigation().moveTo(attackTarget, dino.getAIConfig().runSpeed());
+				pathRecalcTimer = 10;
+			}
 		} else {
 			dino.getNavigation().stop();
 		}
@@ -1669,6 +1648,31 @@ public class DinoAIController {
 
 		if (dino.distanceToSqr(attackTarget) > 48 * 48) {
 			transitionTo(State.IDLE);
+		}
+	}
+
+	private void handleWideHitboxJumping() {
+		// We only care about grounded entities that are bumping into something
+		if (!dino.onGround() || !dino.horizontalCollision) {
+			return;
+		}
+
+		// Vanilla jump logic works fine for small mobs, only intercept for wide ones
+		if (dino.getBbWidth() <= 1.0F) {
+			return;
+		}
+
+		Path path = dino.getNavigation().getPath();
+		if (path != null && !path.isDone()) {
+			Node nextNode = path.getNextNode();
+
+			if (nextNode != null) {
+				// If the path's next node is higher than the dinosaur's current block height,
+				// force it to jump, ignoring Vanilla's strict distance checks.
+				if (nextNode.y > dino.getBlockY()) {
+					dino.getJumpControl().jump();
+				}
+			}
 		}
 	}
 

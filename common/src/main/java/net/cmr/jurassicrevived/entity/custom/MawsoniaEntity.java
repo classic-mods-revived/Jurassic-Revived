@@ -45,7 +45,7 @@ public class MawsoniaEntity extends DinoEntityBase implements GeoEntity {
 	private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
 	public static final int BABY_TO_ADULT_AGE_TICKS = 28800;
-	private static final float ANIMAL_SCALE = 1.0F;
+	private static final float ANIMAL_SCALE = 1.8F;
 	private static final float MIN_ANIMAL_SCALE = !Constants.DEBUG_SIZES ? (ANIMAL_SCALE - 0.2F) : ANIMAL_SCALE;
 	private static final float MAX_ANIMAL_SCALE = !Constants.DEBUG_SIZES ? (ANIMAL_SCALE + 0.2F) : ANIMAL_SCALE;
 
