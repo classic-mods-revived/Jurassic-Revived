@@ -100,6 +100,9 @@ public class ModItemModelProvider {
         helper.spawnEgg(ModItems.CHILESAURUS_SPAWN_EGG.get());
         helper.spawnEgg(ModItems.THESCELOSAURUS_SPAWN_EGG.get());
         helper.spawnEgg(ModItems.MUSSASAURUS_SPAWN_EGG.get());
+        helper.spawnEgg(ModItems.COELACANTH_SPAWN_EGG.get());
+        helper.spawnEgg(ModItems.MAWSONIA_SPAWN_EGG.get());
+        helper.spawnEgg(ModItems.ALLIGATOR_GAR_SPAWN_EGG.get());
 
         helper.basicItemModel(ModItems.FROG_MATERIAL.get());
         helper.basicItemModel(ModItems.FROG_DNA.get());
@@ -196,6 +199,9 @@ public class ModItemModelProvider {
         helper.basicItemModel(ModItems.CHILESAURUS_SKULL_FOSSIL.get());
         helper.basicItemModel(ModItems.THESCELOSAURUS_SKULL_FOSSIL.get());
         helper.basicItemModel(ModItems.MUSSASAURUS_SKULL_FOSSIL.get());
+        helper.basicItemModel(ModItems.COELACANTH_SKULL_FOSSIL.get());
+        helper.basicItemModel(ModItems.MAWSONIA_SKULL_FOSSIL.get());
+        helper.basicItemModel(ModItems.ALLIGATOR_GAR_SKULL_FOSSIL.get());
 
         helper.basicItemModel(ModItems.FRESH_APATOSAURUS_SKULL.get());
         helper.basicItemModel(ModItems.FRESH_ALBERTOSAURUS_SKULL.get());
@@ -275,6 +281,9 @@ public class ModItemModelProvider {
         helper.basicItemModel(ModItems.FRESH_CHILESAURUS_SKULL.get());
         helper.basicItemModel(ModItems.FRESH_THESCELOSAURUS_SKULL.get());
         helper.basicItemModel(ModItems.FRESH_MUSSASAURUS_SKULL.get());
+        helper.basicItemModel(ModItems.FRESH_COELACANTH_SKULL.get());
+        helper.basicItemModel(ModItems.FRESH_MAWSONIA_SKULL.get());
+        helper.basicItemModel(ModItems.FRESH_ALLIGATOR_GAR_SKULL.get());
 
         helper.basicItemModel(ModItems.APATOSAURUS_TISSUE.get());
         helper.basicItemModel(ModItems.ALBERTOSAURUS_TISSUE.get());
@@ -354,6 +363,9 @@ public class ModItemModelProvider {
         helper.basicItemModel(ModItems.CHILESAURUS_TISSUE.get());
         helper.basicItemModel(ModItems.THESCELOSAURUS_TISSUE.get());
         helper.basicItemModel(ModItems.MUSSASAURUS_TISSUE.get());
+        helper.basicItemModel(ModItems.COELACANTH_TISSUE.get());
+        helper.basicItemModel(ModItems.MAWSONIA_TISSUE.get());
+        helper.basicItemModel(ModItems.ALLIGATOR_GAR_TISSUE.get());
 
         helper.basicItemModel(ModItems.APATOSAURUS_DNA.get());
         helper.basicItemModel(ModItems.ALBERTOSAURUS_DNA.get());
@@ -433,6 +445,9 @@ public class ModItemModelProvider {
         helper.basicItemModel(ModItems.CHILESAURUS_DNA.get());
         helper.basicItemModel(ModItems.THESCELOSAURUS_DNA.get());
         helper.basicItemModel(ModItems.MUSSASAURUS_DNA.get());
+        helper.basicItemModel(ModItems.COELACANTH_DNA.get());
+        helper.basicItemModel(ModItems.MAWSONIA_DNA.get());
+        helper.basicItemModel(ModItems.ALLIGATOR_GAR_DNA.get());
 
         helper.basicItemModel(ModItems.APATOSAURUS_SYRINGE.get());
         helper.basicItemModel(ModItems.ALBERTOSAURUS_SYRINGE.get());
@@ -512,6 +527,9 @@ public class ModItemModelProvider {
         helper.basicItemModel(ModItems.CHILESAURUS_SYRINGE.get());
         helper.basicItemModel(ModItems.THESCELOSAURUS_SYRINGE.get());
         helper.basicItemModel(ModItems.MUSSASAURUS_SYRINGE.get());
+        helper.basicItemModel(ModItems.COELACANTH_SYRINGE.get());
+        helper.basicItemModel(ModItems.MAWSONIA_SYRINGE.get());
+        helper.basicItemModel(ModItems.ALLIGATOR_GAR_SYRINGE.get());
 
         helper.simpleBlockItemModel(ModBlocks.APATOSAURUS_EGG.get());
         helper.simpleBlockItemModel(ModBlocks.ALBERTOSAURUS_EGG.get());
@@ -591,6 +609,9 @@ public class ModItemModelProvider {
         helper.simpleBlockItemModel(ModBlocks.CHILESAURUS_EGG.get());
         helper.simpleBlockItemModel(ModBlocks.THESCELOSAURUS_EGG.get());
         helper.simpleBlockItemModel(ModBlocks.MUSSASAURUS_EGG.get());
+        helper.simpleBlockItemModel(ModBlocks.COELACANTH_EGG.get());
+        helper.simpleBlockItemModel(ModBlocks.MAWSONIA_EGG.get());
+        helper.simpleBlockItemModel(ModBlocks.ALLIGATOR_GAR_EGG.get());
 
         helper.basicItemModel(ModBlocks.LOW_SECURITY_FENCE_POLE.get().asItem());
         helper.basicItemModel(ModBlocks.LOW_SECURITY_FENCE_WIRE.get().asItem());

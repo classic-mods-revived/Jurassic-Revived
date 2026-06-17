@@ -18,9 +18,16 @@ public class JRModClient implements ClientModInitializer {
 
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.TANK.get(), RenderType.translucent());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.INCUBATOR.get(), RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WHITE_INCUBATOR.get(), RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CULTIVATOR.get(), RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WHITE_CULTIVATOR.get(), RenderType.translucent());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DNA_EXTRACTOR.get(), RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WHITE_DNA_EXTRACTOR.get(), RenderType.translucent());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FOSSIL_GRINDER.get(), RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WHITE_FOSSIL_GRINDER.get(), RenderType.translucent());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.FOSSIL_CLEANER.get(), RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WHITE_FOSSIL_CLEANER.get(), RenderType.translucent());
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DNA_HYBRIDIZER.get(), RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.WHITE_DNA_HYBRIDIZER.get(), RenderType.translucent());
 	}
 }

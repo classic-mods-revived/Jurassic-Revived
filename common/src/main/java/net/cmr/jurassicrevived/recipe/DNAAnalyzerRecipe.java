@@ -56,6 +56,16 @@ public record DNAAnalyzerRecipe(
 	}
 
 	@Override
+	public boolean isSpecial() {
+		return true;
+	}
+
+	@Override
+	public boolean showNotification() {
+		return false;
+	}
+
+	@Override
 	public ItemStack getResultItem(HolderLookup.Provider provider) {
 		return output.copy();
 	}

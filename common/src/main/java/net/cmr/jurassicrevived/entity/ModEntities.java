@@ -534,6 +534,9 @@ public class ModEntities {
 		registerGroundAnimalSpawn(CHILESAURUS);
 		registerGroundAnimalSpawn(MUSSASAURUS);
 		registerGroundAnimalSpawn(THESCELOSAURUS);
+		registerGroundAnimalSpawn(COELACANTH);
+		registerGroundAnimalSpawn(MAWSONIA);
+		registerGroundAnimalSpawn(ALLIGATOR_GAR);
 	}
 
 	private static <T extends Animal> void registerGroundAnimalSpawn(RegistrySupplier<EntityType<T>> entityType) {

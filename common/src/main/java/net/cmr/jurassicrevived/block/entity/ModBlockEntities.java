@@ -109,6 +109,9 @@ public class ModBlockEntities {
 				ModBlocks.CHILESAURUS_EGG.get(),
 				ModBlocks.MUSSASAURUS_EGG.get(),
 				ModBlocks.THESCELOSAURUS_EGG.get(),
+				ModBlocks.COELACANTH_EGG.get(),
+				ModBlocks.MAWSONIA_EGG.get(),
+				ModBlocks.ALLIGATOR_GAR_EGG.get(),
 				ModBlocks.INCUBATED_APATOSAURUS_EGG.get(),
 				ModBlocks.INCUBATED_ALBERTOSAURUS_EGG.get(),
 				ModBlocks.INCUBATED_VELOCIRAPTOR_EGG.get(),
@@ -236,6 +239,10 @@ public class ModBlockEntities {
 	public static final RegistrySupplier<BlockEntityType<IncubatorBlockEntity>> INCUBATOR_BE =
 		BLOCK_ENTITIES.register("incubator_be", () -> BlockEntityType.Builder.of(
 			IncubatorBlockEntity::new, ModBlocks.INCUBATOR.get(), ModBlocks.WHITE_INCUBATOR.get()).build(null));
+
+	public static final RegistrySupplier<BlockEntityType<CultivatorBlockEntity>> CULTIVATOR_BE =
+		BLOCK_ENTITIES.register("cultivator_be", () -> BlockEntityType.Builder.of(
+			CultivatorBlockEntity::new, ModBlocks.CULTIVATOR.get(), ModBlocks.WHITE_CULTIVATOR.get()).build(null));
 
 	public static void register() {
 		BLOCK_ENTITIES.register();

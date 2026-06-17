@@ -36,6 +36,16 @@ public record DNAHybridizerRecipe(ResourceLocation id, NonNullList<Ingredient> i
 	}
 
 	@Override
+	public boolean isSpecial() {
+		return true;
+	}
+
+	@Override
+	public boolean showNotification() {
+		return false;
+	}
+
+	@Override
 	public boolean matches(DNAHybridizerRecipeInput recipeInput, Level level) {
 		if (level.isClientSide) return false;
 

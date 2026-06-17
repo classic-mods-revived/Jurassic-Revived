@@ -85,6 +85,9 @@
   "item.jurassicrevived.chilesaurus_spawn_egg": "Chilesaurus Spawn Egg",
   "item.jurassicrevived.thescelosaurus_spawn_egg": "Thescelosaurus Spawn Egg",
   "item.jurassicrevived.mussasaurus_spawn_egg": "Mussasaurus Spawn Egg",
+  "item.jurassicrevived.coelacanth_spawn_egg": "Coelacanth Spawn Egg",
+  "item.jurassicrevived.mawsonia_spawn_egg": "Mawsonia Spawn Egg",
+  "item.jurassicrevived.alligator_gar_spawn_egg": "Alligator Gar Spawn Egg",
 
   "entity.jurassicrevived.apatosaurus": "Apatosaurus",
   "entity.jurassicrevived.albertosaurus": "Albertosaurus",
@@ -166,6 +169,9 @@
   "entity.jurassicrevived.chilesaurus": "Chilesaurus",
   "entity.jurassicrevived.thescelosaurus": "Thescelosaurus",
   "entity.jurassicrevived.mussasaurus": "Mussasaurus",
+  "entity.jurassicrevived.coelacanth": "Coelacanth",
+  "entity.jurassicrevived.mawsonia": "Mawsonia",
+  "entity.jurassicrevived.alligator_gar": "Alligator Gar",
 
   "block.jurassicrevived.cat_plushie": "Cat Plushie",
   "block.jurassicrevived.trash_can": "Trash Can",
@@ -238,6 +244,7 @@
   "block.jurassicrevived.embryonic_machine": "Embryonic Machine",
   "block.jurassicrevived.embryo_calcification_machine": "Embryo Calcification Machine",
   "block.jurassicrevived.incubator": "Incubator",
+  "block.jurassicrevived.cultivator": "Cultivator",
 
   "block.jurassicrevived.white_generator": "White Generator",
   "block.jurassicrevived.white_dna_extractor": "White DNA Extractor",
@@ -248,6 +255,7 @@
   "block.jurassicrevived.white_embryonic_machine": "White Embryonic Machine",
   "block.jurassicrevived.white_embryo_calcification_machine": "White Embryo Calcification Machine",
   "block.jurassicrevived.white_incubator": "White Incubator",
+  "block.jurassicrevived.white_cultivator": "White Cultivator",
 
   "block.jurassicrevived.stone_fossil": "Stone Fossil",
   "block.jurassicrevived.deepslate_fossil": "Deepslate Fossil",
@@ -344,6 +352,9 @@
   "item.jurassicrevived.chilesaurus_skull_fossil": "Chilesaurus Skull Fossil",
   "item.jurassicrevived.thescelosaurus_skull_fossil": "Thescelosaurus Skull Fossil",
   "item.jurassicrevived.mussasaurus_skull_fossil": "Mussasaurus Skull Fossil",
+  "item.jurassicrevived.coelacanth_skull_fossil": "Coelacanth Skull Fossil",
+  "item.jurassicrevived.mawsonia_skull_fossil": "Mawsonia Skull Fossil",
+  "item.jurassicrevived.alligator_gar_skull_fossil": "Alligator Gar Skull Fossil",
 
   "item.jurassicrevived.fresh_velociraptor_skull": "Fresh Velociraptor Skull",
   "item.jurassicrevived.fresh_tyrannosaurus_rex_skull": "Fresh Tyrannosaurus Rex Skull",
@@ -423,6 +434,9 @@
   "item.jurassicrevived.fresh_chilesaurus_skull": "Fresh Chilesaurus Skull",
   "item.jurassicrevived.fresh_thescelosaurus_skull": "Fresh Thescelosaurus Skull",
   "item.jurassicrevived.fresh_mussasaurus_skull": "Fresh Mussasaurus Skull",
+  "item.jurassicrevived.fresh_coelacanth_skull": "Fresh Coelacanth Skull",
+  "item.jurassicrevived.fresh_mawsonia_skull": "Fresh Mawsonia Skull",
+  "item.jurassicrevived.fresh_alligator_gar_skull": "Fresh Alligator Gar Skull",
 
   "item.jurassicrevived.test_tube": "Test Tube",
   "item.jurassicrevived.syringe": "Syringe",
@@ -518,6 +532,9 @@
   "item.jurassicrevived.chilesaurus_tissue": "Chilesaurus Tissue",
   "item.jurassicrevived.thescelosaurus_tissue": "Thescelosaurus Tissue",
   "item.jurassicrevived.mussasaurus_tissue": "Mussasaurus Tissue",
+  "item.jurassicrevived.coelacanth_tissue": "Coelacanth Tissue",
+  "item.jurassicrevived.mawsonia_tissue": "Mawsonia Tissue",
+  "item.jurassicrevived.alligator_gar_tissue": "Alligator Gar Tissue",
 
   "item.jurassicrevived.velociraptor_dna": "Velociraptor DNA",
   "item.jurassicrevived.tyrannosaurus_rex_dna": "Tyrannosaurus Rex DNA",
@@ -597,6 +614,9 @@
   "item.jurassicrevived.chilesaurus_dna": "Chilesaurus DNA",
   "item.jurassicrevived.thescelosaurus_dna": "Thescelosaurus DNA",
   "item.jurassicrevived.mussasaurus_dna": "Mussasaurus DNA",
+  "item.jurassicrevived.coelacanth_dna": "Coelacanth DNA",
+  "item.jurassicrevived.mawsonia_dna": "Mawsonia DNA",
+  "item.jurassicrevived.alligator_gar_dna": "Alligator Gar DNA",
 
   "item.jurassicrevived.velociraptor_syringe": "Velociraptor Syringe",
   "item.jurassicrevived.tyrannosaurus_rex_syringe": "Tyrannosaurus Rex Syringe",
@@ -676,6 +696,9 @@
   "item.jurassicrevived.chilesaurus_syringe": "Chilesaurus Syringe",
   "item.jurassicrevived.thescelosaurus_syringe": "Thescelosaurus Syringe",
   "item.jurassicrevived.mussasaurus_syringe": "Mussasaurus Syringe",
+  "item.jurassicrevived.coelacanth_syringe": "Coelacanth Syringe",
+  "item.jurassicrevived.mawsonia_syringe": "Mawsonia Syringe",
+  "item.jurassicrevived.alligator_gar_syringe": "Alligator Gar Syringe",
 
   "block.jurassicrevived.velociraptor_egg": "Velociraptor Egg",
   "block.jurassicrevived.tyrannosaurus_rex_egg": "Tyrannosaurus Rex Egg",
@@ -755,6 +778,9 @@
   "block.jurassicrevived.chilesaurus_egg": "Chilesaurus Egg",
   "block.jurassicrevived.thescelosaurus_egg": "Thescelosaurus Egg",
   "block.jurassicrevived.mussasaurus_egg": "Mussasaurus Egg",
+  "block.jurassicrevived.coelacanth_egg": "Coelacanth Egg",
+  "block.jurassicrevived.mawsonia_egg": "Mawsonia Egg",
+  "block.jurassicrevived.alligator_gar_egg": "Alligator Gar Egg",
 
   "block.jurassicrevived.incubated_velociraptor_egg": "§aIncubated Velociraptor Egg",
   "block.jurassicrevived.incubated_tyrannosaurus_rex_egg": "§aIncubated Tyrannosaurus Rex Egg",

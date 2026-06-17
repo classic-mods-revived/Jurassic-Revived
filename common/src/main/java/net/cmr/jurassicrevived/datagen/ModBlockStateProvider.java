@@ -181,7 +181,8 @@ public class ModBlockStateProvider {
         helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.EMBRYONIC_MACHINE.get());
         helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.EMBRYO_CALCIFICATION_MACHINE.get());
         helper.horizontalFacingLitWithItem(ModBlocks.INCUBATOR.get());
-        
+        helper.horizontalFacingLitWithItem(ModBlocks.CULTIVATOR.get());
+
         helper.horizontalFacingLitWithItem(ModBlocks.WHITE_GENERATOR.get());
         helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.WHITE_DNA_EXTRACTOR.get());
         helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.WHITE_DNA_ANALYZER.get());
@@ -191,6 +192,7 @@ public class ModBlockStateProvider {
         helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.WHITE_EMBRYONIC_MACHINE.get());
         helper.horizontalFacingLitNoBlockstateWithItem(ModBlocks.WHITE_EMBRYO_CALCIFICATION_MACHINE.get());
         helper.horizontalFacingLitWithItem(ModBlocks.WHITE_INCUBATOR.get());
+        helper.horizontalFacingLitWithItem(ModBlocks.WHITE_CULTIVATOR.get());
 
         helper.eggLike(ModBlocks.VELOCIRAPTOR_EGG.get());
         helper.eggLike(ModBlocks.TYRANNOSAURUS_REX_EGG.get());
@@ -270,6 +272,9 @@ public class ModBlockStateProvider {
         helper.eggLike(ModBlocks.CHILESAURUS_EGG.get());
         helper.eggLike(ModBlocks.MUSSASAURUS_EGG.get());
         helper.eggLike(ModBlocks.THESCELOSAURUS_EGG.get());
+        helper.eggLike(ModBlocks.COELACANTH_EGG.get());
+        helper.eggLike(ModBlocks.MAWSONIA_EGG.get());
+        helper.eggLike(ModBlocks.ALLIGATOR_GAR_EGG.get());
 
         helper.eggLike(ModBlocks.INCUBATED_VELOCIRAPTOR_EGG.get());
         helper.eggLike(ModBlocks.INCUBATED_TYRANNOSAURUS_REX_EGG.get());

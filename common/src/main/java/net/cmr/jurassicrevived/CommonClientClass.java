@@ -7,6 +7,7 @@ import dev.architectury.registry.menu.MenuRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import net.cmr.jurassicrevived.block.ModBlocks;
 import net.cmr.jurassicrevived.block.entity.ModBlockEntities;
+import net.cmr.jurassicrevived.block.renderer.CultivatorBlockEntityRenderer;
 import net.cmr.jurassicrevived.block.renderer.TankBlockEntityRenderer;
 import net.cmr.jurassicrevived.entity.ModEntities;
 import net.cmr.jurassicrevived.entity.client.*;
@@ -129,6 +130,7 @@ public class CommonClientClass {
 
         LifecycleEvent.SETUP.register(() -> {
             BlockEntityRendererRegistry.register(ModBlockEntities.TANK_BE.get(), TankBlockEntityRenderer::new);
+            BlockEntityRendererRegistry.register(ModBlockEntities.CULTIVATOR_BE.get(), CultivatorBlockEntityRenderer::new);
 		});
     }
 
@@ -143,6 +145,7 @@ public class CommonClientClass {
 		MenuRegistry.registerScreenFactory(ModMenuTypes.EMBRYONIC_MACHINE_MENU.get(), EmbryonicMachineScreen::new);
 		MenuRegistry.registerScreenFactory(ModMenuTypes.EMBRYO_CALCIFICATION_MACHINE_MENU.get(), EmbryoCalcificationMachineScreen::new);
 		MenuRegistry.registerScreenFactory(ModMenuTypes.INCUBATOR_MENU.get(), IncubatorScreen::new);
+		MenuRegistry.registerScreenFactory(ModMenuTypes.CULTIVATOR_MENU.get(), CultivatorScreen::new);
 		MenuRegistry.registerScreenFactory(ModMenuTypes.TANK_MENU.get(), TankScreen::new);
 		MenuRegistry.registerScreenFactory(ModMenuTypes.POWER_CELL_MENU.get(), PowerCellScreen::new);
 		MenuRegistry.registerScreenFactory(ModMenuTypes.WOOD_CRATE_MENU.get(), CrateScreen::new);

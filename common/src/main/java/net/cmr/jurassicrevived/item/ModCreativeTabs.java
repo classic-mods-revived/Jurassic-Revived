@@ -124,6 +124,7 @@ public class ModCreativeTabs {
 				output.accept(ModBlocks.EMBRYONIC_MACHINE.get());
 				output.accept(ModBlocks.EMBRYO_CALCIFICATION_MACHINE.get());
 				output.accept(ModBlocks.INCUBATOR.get());
+				output.accept(ModBlocks.CULTIVATOR.get());
 
 				output.accept(ModBlocks.WHITE_GENERATOR.get());
 				output.accept(ModBlocks.WHITE_DNA_EXTRACTOR.get());
@@ -134,6 +135,7 @@ public class ModCreativeTabs {
 				output.accept(ModBlocks.WHITE_EMBRYONIC_MACHINE.get());
 				output.accept(ModBlocks.WHITE_EMBRYO_CALCIFICATION_MACHINE.get());
 				output.accept(ModBlocks.WHITE_INCUBATOR.get());
+				output.accept(ModBlocks.WHITE_CULTIVATOR.get());
 
 				output.accept(ModBlocks.STONE_FOSSIL.get());
 				output.accept(ModBlocks.DEEPSLATE_FOSSIL.get());
@@ -163,6 +165,7 @@ public class ModCreativeTabs {
 				// Skull fossils (alphabetical)
 				output.accept(ModItems.ACHILLOBATOR_SKULL_FOSSIL.get());
 				output.accept(ModItems.ALBERTOSAURUS_SKULL_FOSSIL.get());
+				output.accept(ModItems.ALLIGATOR_GAR_SKULL_FOSSIL.get());
 				output.accept(ModItems.ALLOSAURUS_SKULL_FOSSIL.get());
 				output.accept(ModItems.ALVAREZSAURUS_SKULL_FOSSIL.get());
 				output.accept(ModItems.ANKYLOSAURUS_SKULL_FOSSIL.get());
@@ -176,6 +179,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.CERATOSAURUS_SKULL_FOSSIL.get());
 				output.accept(ModItems.CHASMOSAURUS_SKULL_FOSSIL.get());
 				output.accept(ModItems.CHILESAURUS_SKULL_FOSSIL.get());
+				output.accept(ModItems.COELACANTH_SKULL_FOSSIL.get());
 				output.accept(ModItems.COELOPHYSIS_SKULL_FOSSIL.get());
 				output.accept(ModItems.COELURUS_SKULL_FOSSIL.get());
 				output.accept(ModItems.COMPSOGNATHUS_SKULL_FOSSIL.get());
@@ -200,6 +204,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.LUDODACTYLUS_SKULL_FOSSIL.get());
 				output.accept(ModItems.MAJUNGASAURUS_SKULL_FOSSIL.get());
 				output.accept(ModItems.MAMENCHISAURUS_SKULL_FOSSIL.get());
+				output.accept(ModItems.MAWSONIA_SKULL_FOSSIL.get());
 				output.accept(ModItems.METRIACANTHOSAURUS_SKULL_FOSSIL.get());
 				output.accept(ModItems.MOGANOPTERUS_SKULL_FOSSIL.get());
 				output.accept(ModItems.MUSSASAURUS_SKULL_FOSSIL.get());
@@ -240,6 +245,7 @@ public class ModCreativeTabs {
 // Fresh skulls (alphabetical)
 				output.accept(ModItems.FRESH_ACHILLOBATOR_SKULL.get());
 				output.accept(ModItems.FRESH_ALBERTOSAURUS_SKULL.get());
+				output.accept(ModItems.FRESH_ALLIGATOR_GAR_SKULL.get());
 				output.accept(ModItems.FRESH_ALLOSAURUS_SKULL.get());
 				output.accept(ModItems.FRESH_ALVAREZSAURUS_SKULL.get());
 				output.accept(ModItems.FRESH_ANKYLOSAURUS_SKULL.get());
@@ -253,6 +259,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.FRESH_CERATOSAURUS_SKULL.get());
 				output.accept(ModItems.FRESH_CHASMOSAURUS_SKULL.get());
 				output.accept(ModItems.FRESH_CHILESAURUS_SKULL.get());
+				output.accept(ModItems.FRESH_COELACANTH_SKULL.get());
 				output.accept(ModItems.FRESH_COELOPHYSIS_SKULL.get());
 				output.accept(ModItems.FRESH_COELURUS_SKULL.get());
 				output.accept(ModItems.FRESH_COMPSOGNATHUS_SKULL.get());
@@ -280,6 +287,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.FRESH_LUDODACTYLUS_SKULL.get());
 				output.accept(ModItems.FRESH_MAJUNGASAURUS_SKULL.get());
 				output.accept(ModItems.FRESH_MAMENCHISAURUS_SKULL.get());
+				output.accept(ModItems.FRESH_MAWSONIA_SKULL.get());
 				output.accept(ModItems.FRESH_METRIACANTHOSAURUS_SKULL.get());
 				output.accept(ModItems.FRESH_MOGANOPTERUS_SKULL.get());
 				output.accept(ModItems.FRESH_MUSSASAURUS_SKULL.get());
@@ -319,6 +327,7 @@ public class ModCreativeTabs {
 // Tissue (alphabetical)
 				output.accept(ModItems.ACHILLOBATOR_TISSUE.get());
 				output.accept(ModItems.ALBERTOSAURUS_TISSUE.get());
+				output.accept(ModItems.ALLIGATOR_GAR_TISSUE.get());
 				output.accept(ModItems.ALLOSAURUS_TISSUE.get());
 				output.accept(ModItems.ALVAREZSAURUS_TISSUE.get());
 				output.accept(ModItems.ANKYLOSAURUS_TISSUE.get());
@@ -332,6 +341,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.CERATOSAURUS_TISSUE.get());
 				output.accept(ModItems.CHASMOSAURUS_TISSUE.get());
 				output.accept(ModItems.CHILESAURUS_TISSUE.get());
+				output.accept(ModItems.COELACANTH_TISSUE.get());
 				output.accept(ModItems.COELOPHYSIS_TISSUE.get());
 				output.accept(ModItems.COELURUS_TISSUE.get());
 				output.accept(ModItems.COMPSOGNATHUS_TISSUE.get());
@@ -359,6 +369,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.LUDODACTYLUS_TISSUE.get());
 				output.accept(ModItems.MAJUNGASAURUS_TISSUE.get());
 				output.accept(ModItems.MAMENCHISAURUS_TISSUE.get());
+				output.accept(ModItems.MAWSONIA_TISSUE.get());
 				output.accept(ModItems.METRIACANTHOSAURUS_TISSUE.get());
 				output.accept(ModItems.MOGANOPTERUS_TISSUE.get());
 				output.accept(ModItems.MUSSASAURUS_TISSUE.get());
@@ -399,6 +410,7 @@ public class ModCreativeTabs {
 // DNA (alphabetical)
 				output.accept(ModItems.ACHILLOBATOR_DNA.get());
 				output.accept(ModItems.ALBERTOSAURUS_DNA.get());
+				output.accept(ModItems.ALLIGATOR_GAR_DNA.get());
 				output.accept(ModItems.ALLOSAURUS_DNA.get());
 				output.accept(ModItems.ALVAREZSAURUS_DNA.get());
 				output.accept(ModItems.ANKYLOSAURUS_DNA.get());
@@ -412,6 +424,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.CERATOSAURUS_DNA.get());
 				output.accept(ModItems.CHASMOSAURUS_DNA.get());
 				output.accept(ModItems.CHILESAURUS_DNA.get());
+				output.accept(ModItems.COELACANTH_DNA.get());
 				output.accept(ModItems.COELOPHYSIS_DNA.get());
 				output.accept(ModItems.COELURUS_DNA.get());
 				output.accept(ModItems.COMPSOGNATHUS_DNA.get());
@@ -439,6 +452,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.LUDODACTYLUS_DNA.get());
 				output.accept(ModItems.MAJUNGASAURUS_DNA.get());
 				output.accept(ModItems.MAMENCHISAURUS_DNA.get());
+				output.accept(ModItems.MAWSONIA_DNA.get());
 				output.accept(ModItems.METRIACANTHOSAURUS_DNA.get());
 				output.accept(ModItems.MOGANOPTERUS_DNA.get());
 				output.accept(ModItems.MUSSASAURUS_DNA.get());
@@ -479,6 +493,7 @@ public class ModCreativeTabs {
 // Syringes (alphabetical)
 				output.accept(ModItems.ACHILLOBATOR_SYRINGE.get());
 				output.accept(ModItems.ALBERTOSAURUS_SYRINGE.get());
+				output.accept(ModItems.ALLIGATOR_GAR_SYRINGE.get());
 				output.accept(ModItems.ALLOSAURUS_SYRINGE.get());
 				output.accept(ModItems.ALVAREZSAURUS_SYRINGE.get());
 				output.accept(ModItems.ANKYLOSAURUS_SYRINGE.get());
@@ -492,6 +507,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.CERATOSAURUS_SYRINGE.get());
 				output.accept(ModItems.CHASMOSAURUS_SYRINGE.get());
 				output.accept(ModItems.CHILESAURUS_SYRINGE.get());
+				output.accept(ModItems.COELACANTH_SYRINGE.get());
 				output.accept(ModItems.COELOPHYSIS_SYRINGE.get());
 				output.accept(ModItems.COELURUS_SYRINGE.get());
 				output.accept(ModItems.COMPSOGNATHUS_SYRINGE.get());
@@ -519,6 +535,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.LUDODACTYLUS_SYRINGE.get());
 				output.accept(ModItems.MAJUNGASAURUS_SYRINGE.get());
 				output.accept(ModItems.MAMENCHISAURUS_SYRINGE.get());
+				output.accept(ModItems.MAWSONIA_SYRINGE.get());
 				output.accept(ModItems.METRIACANTHOSAURUS_SYRINGE.get());
 				output.accept(ModItems.MOGANOPTERUS_SYRINGE.get());
 				output.accept(ModItems.MUSSASAURUS_SYRINGE.get());
@@ -559,6 +576,7 @@ public class ModCreativeTabs {
 // Eggs (alphabetical)
 				output.accept(ModBlocks.ACHILLOBATOR_EGG.get());
 				output.accept(ModBlocks.ALBERTOSAURUS_EGG.get());
+				output.accept(ModBlocks.ALLIGATOR_GAR_EGG.get());
 				output.accept(ModBlocks.ALLOSAURUS_EGG.get());
 				output.accept(ModBlocks.ALVAREZSAURUS_EGG.get());
 				output.accept(ModBlocks.ANKYLOSAURUS_EGG.get());
@@ -572,6 +590,7 @@ public class ModCreativeTabs {
 				output.accept(ModBlocks.CERATOSAURUS_EGG.get());
 				output.accept(ModBlocks.CHASMOSAURUS_EGG.get());
 				output.accept(ModBlocks.CHILESAURUS_EGG.get());
+				output.accept(ModBlocks.COELACANTH_EGG.get());
 				output.accept(ModBlocks.COELOPHYSIS_EGG.get());
 				output.accept(ModBlocks.COELURUS_EGG.get());
 				output.accept(ModBlocks.COMPSOGNATHUS_EGG.get());
@@ -599,6 +618,7 @@ public class ModCreativeTabs {
 				output.accept(ModBlocks.LUDODACTYLUS_EGG.get());
 				output.accept(ModBlocks.MAJUNGASAURUS_EGG.get());
 				output.accept(ModBlocks.MAMENCHISAURUS_EGG.get());
+				output.accept(ModBlocks.MAWSONIA_EGG.get());
 				output.accept(ModBlocks.METRIACANTHOSAURUS_EGG.get());
 				output.accept(ModBlocks.MOGANOPTERUS_EGG.get());
 				output.accept(ModBlocks.MUSSASAURUS_EGG.get());
@@ -644,6 +664,7 @@ public class ModCreativeTabs {
 			builder.displayItems((params, output) -> {
 				output.accept(ModItems.ACHILLOBATOR_SPAWN_EGG.get());
 				output.accept(ModItems.ALBERTOSAURUS_SPAWN_EGG.get());
+				output.accept(ModItems.ALLIGATOR_GAR_SPAWN_EGG.get());
 				output.accept(ModItems.ALLOSAURUS_SPAWN_EGG.get());
 				output.accept(ModItems.ALVAREZSAURUS_SPAWN_EGG.get());
 				output.accept(ModItems.ANKYLOSAURUS_SPAWN_EGG.get());
@@ -657,6 +678,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.CERATOSAURUS_SPAWN_EGG.get());
 				output.accept(ModItems.CHASMOSAURUS_SPAWN_EGG.get());
 				output.accept(ModItems.CHILESAURUS_SPAWN_EGG.get());
+				output.accept(ModItems.COELACANTH_SPAWN_EGG.get());
 				output.accept(ModItems.COELOPHYSIS_SPAWN_EGG.get());
 				output.accept(ModItems.COELURUS_SPAWN_EGG.get());
 				output.accept(ModItems.COMPSOGNATHUS_SPAWN_EGG.get());
@@ -684,6 +706,7 @@ public class ModCreativeTabs {
 				output.accept(ModItems.LUDODACTYLUS_SPAWN_EGG.get());
 				output.accept(ModItems.MAJUNGASAURUS_SPAWN_EGG.get());
 				output.accept(ModItems.MAMENCHISAURUS_SPAWN_EGG.get());
+				output.accept(ModItems.MAWSONIA_SPAWN_EGG.get());
 				output.accept(ModItems.METRIACANTHOSAURUS_SPAWN_EGG.get());
 				output.accept(ModItems.MOGANOPTERUS_SPAWN_EGG.get());
 				output.accept(ModItems.MUSSASAURUS_SPAWN_EGG.get());

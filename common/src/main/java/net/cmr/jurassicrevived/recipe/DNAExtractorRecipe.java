@@ -94,6 +94,16 @@ public record DNAExtractorRecipe(
 	@Override public RecipeSerializer<?> getSerializer() { return ModRecipes.DNA_EXTRACTOR_SERIALIZER.get(); }
 	@Override public RecipeType<?> getType() { return ModRecipes.DNA_EXTRACTOR_RECIPE_TYPE.get(); }
 
+	@Override
+	public boolean isSpecial() {
+		return true;
+	}
+
+	@Override
+	public boolean showNotification() {
+		return false;
+	}
+
 	public int getWeightFor(Item item) {
 		ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
 		return weights.getOrDefault(key, 1);

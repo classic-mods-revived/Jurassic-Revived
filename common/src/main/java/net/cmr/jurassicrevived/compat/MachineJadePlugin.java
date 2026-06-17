@@ -304,6 +304,53 @@ public class MachineJadePlugin implements IWailaPlugin {
 									   }
 								   }, FossilCleanerBlock.class
 		);
+		reg.registerBlockComponent(new snownee.jade.api.IBlockComponentProvider() {
+									   //? if >1.20.1 {
+                                       /*@Override
+                                       public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
+                                           CompoundTag data = accessor.getServerData();
+                                           if (data == null || !data.contains(NBT_PROGRESS) || !data.contains(NBT_MAX)) return;
+
+                                           int progress = Math.max(0, data.getInt(NBT_PROGRESS));
+                                           int max = Math.max(1, data.getInt(NBT_MAX));
+                                           float ratio = Mth.clamp(progress / (float) max, 0.0f, 1.0f);
+
+                                           IElementHelper h = IElementHelper.get();
+                                           ProgressStyle style = h.progressStyle()
+                                                   .color(0xFFFFFFFF, 0xFFFFFFFF)
+                                                   .direction(ScreenDirection.RIGHT)
+                                                   .fitContentX(true)
+                                                   .fitContentY(true);
+                                           BoxStyle box = BoxStyle.getNestedBox();
+                                           IElement bar = h.progress(ratio, Component.empty(), style, box, true);
+                                           tooltip.add(bar);
+                                       }
+									   *///?} else {
+									   @Override
+									   public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
+										   CompoundTag data = accessor.getServerData();
+										   if (!data.contains(NBT_PROGRESS) || !data.contains(NBT_MAX)) return;
+
+										   int progress = data.getInt(NBT_PROGRESS);
+										   int max = Math.max(1, data.getInt(NBT_MAX));
+										   float ratio = Mth.clamp(progress / (float) max, 0.0f, 1.0f);
+
+										   IElementHelper h = tooltip.getElementHelper();
+										   IProgressStyle pStyle = h.progressStyle()
+											   .color(0xFFFFFFFF)
+											   .textColor(0xFFFFFFFF);
+										   IBoxStyle box = new ThickBorderBox(1.0f);
+
+										   tooltip.add(h.progress(ratio, Component.empty(), pStyle, box, false));
+									   }
+									   //?}
+
+									   @Override
+									   public ResourceLocation getUid() {
+										   return UID;
+									   }
+								   }, CultivatorBlock.class
+		);
         reg.registerBlockComponent(new snownee.jade.api.IBlockComponentProvider() {
 			//? if >1.20.1 {
                                        /*@Override
@@ -469,5 +516,6 @@ public class MachineJadePlugin implements IWailaPlugin {
         reg.registerBlockDataProvider(provider, FossilCleanerBlockEntity.class);
         reg.registerBlockDataProvider(provider, FossilGrinderBlockEntity.class);
         reg.registerBlockDataProvider(provider, IncubatorBlockEntity.class);
+        reg.registerBlockDataProvider(provider, CultivatorBlockEntity.class);
     }
 }

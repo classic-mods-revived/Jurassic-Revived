@@ -59,6 +59,16 @@ public class FossilGrinderRecipe implements Recipe<FossilGrinderRecipeInput> {
 		return inputs.get(0).test(input.getItem(0));
 	}
 
+	@Override
+	public boolean isSpecial() {
+		return true;
+	}
+
+	@Override
+	public boolean showNotification() {
+		return false;
+	}
+
 	//? if >1.20.1 {
     /*@Override
     public @NotNull ItemStack assemble(FossilGrinderRecipeInput input, HolderLookup.Provider registries) {

@@ -531,5 +531,26 @@ public class ModEntityLootTableProvider {
                         .add(LootItem.lootTableItem(ModItems.FRESH_THESCELOSAURUS_SKULL.get()))
                 )
         );
+
+        helper.add(ModEntities.COELACANTH.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(ModItems.FRESH_COELACANTH_SKULL.get()))
+                )
+        );
+
+        helper.add(ModEntities.MAWSONIA.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(ModItems.FRESH_MAWSONIA_SKULL.get()))
+                )
+        );
+
+        helper.add(ModEntities.ALLIGATOR_GAR.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(ModItems.FRESH_ALLIGATOR_GAR_SKULL.get()))
+                )
+        );
     }
 }

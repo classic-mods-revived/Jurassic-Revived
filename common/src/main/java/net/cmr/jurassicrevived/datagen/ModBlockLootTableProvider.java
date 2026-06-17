@@ -159,6 +159,9 @@ public class ModBlockLootTableProvider {
         helper.dropSelf(ModBlocks.CHILESAURUS_EGG.get());
         helper.dropSelf(ModBlocks.MUSSASAURUS_EGG.get());
         helper.dropSelf(ModBlocks.THESCELOSAURUS_EGG.get());
+        helper.dropSelf(ModBlocks.COELACANTH_EGG.get());
+        helper.dropSelf(ModBlocks.MAWSONIA_EGG.get());
+        helper.dropSelf(ModBlocks.ALLIGATOR_GAR_EGG.get());
 
         helper.dropSelf(ModBlocks.INCUBATED_APATOSAURUS_EGG.get());
         helper.dropSelf(ModBlocks.INCUBATED_ALBERTOSAURUS_EGG.get());

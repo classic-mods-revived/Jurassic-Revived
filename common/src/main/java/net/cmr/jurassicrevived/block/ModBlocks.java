@@ -93,6 +93,8 @@ public class ModBlocks {
 		() -> new EmbryoCalcificationMachineBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_BLACK)));
 	public static final RegistrySupplier<Block> INCUBATOR = registerBlock("incubator",
 		() -> new IncubatorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_BLACK)));
+	public static final RegistrySupplier<Block> CULTIVATOR = registerBlock("cultivator",
+		() -> new CultivatorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_BLACK)));
 	public static final RegistrySupplier<Block> WHITE_GENERATOR = registerBlock("white_generator",
 		() -> new GeneratorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_LIGHT_GRAY)));
 	public static final RegistrySupplier<Block> WHITE_DNA_EXTRACTOR = registerBlock("white_dna_extractor",
@@ -111,6 +113,8 @@ public class ModBlocks {
 		() -> new EmbryoCalcificationMachineBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_LIGHT_GRAY)));
 	public static final RegistrySupplier<Block> WHITE_INCUBATOR = registerBlock("white_incubator",
 		() -> new IncubatorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_LIGHT_GRAY)));
+	public static final RegistrySupplier<Block> WHITE_CULTIVATOR = registerBlock("white_cultivator",
+		() -> new CultivatorBlock(BlockBehaviour.Properties.of().noOcclusion().requiresCorrectToolForDrops().strength(4f).noLootTable().mapColor(MapColor.COLOR_LIGHT_GRAY)));
 
 	//? if >1.20.1 {
 	/*public static final RegistrySupplier<Block> ROYAL_FERN = registerBlock("royal_fern",
@@ -524,6 +528,15 @@ public class ModBlocks {
 
 	public static final RegistrySupplier<Block> MUSSASAURUS_EGG = registerBlock("mussasaurus_egg",
 		() -> new EggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.MUSSASAURUS));
+
+	public static final RegistrySupplier<Block> COELACANTH_EGG = registerBlock("coelacanth_egg",
+		() -> new EggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.COELACANTH));
+
+	public static final RegistrySupplier<Block> MAWSONIA_EGG = registerBlock("mawsonia_egg",
+		() -> new EggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.MAWSONIA));
+
+	public static final RegistrySupplier<Block> ALLIGATOR_GAR_EGG = registerBlock("alligator_gar_egg",
+		() -> new EggBlock(BlockBehaviour.Properties.of().strength(4f).requiresCorrectToolForDrops(), ModEntities.ALLIGATOR_GAR));
 
 
 

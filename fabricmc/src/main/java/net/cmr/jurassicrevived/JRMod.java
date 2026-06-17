@@ -47,6 +47,11 @@ public class JRMod implements ModInitializer
 			ModBlockEntities.FOSSIL_CLEANER_BE.get()
 		);
 
+		FluidStorage.SIDED.registerForBlockEntities((be, side) ->
+			new FabricTransferHelper.InternalFluidStorage(((CultivatorBlockEntity) be).getFluidHandler(side)),
+			ModBlockEntities.CULTIVATOR_BE.get()
+		);
+
 		ItemStorage.SIDED.registerForBlockEntities((be, side) ->
 			InventoryStorage.of(((GeneratorBlockEntity) be).itemHandler, side),
 			ModBlockEntities.GENERATOR_BE.get()
@@ -90,6 +95,11 @@ public class JRMod implements ModInitializer
 		ItemStorage.SIDED.registerForBlockEntities((be, side) ->
 			InventoryStorage.of(((IncubatorBlockEntity) be).itemHandler, side),
 			ModBlockEntities.INCUBATOR_BE.get()
+		);
+
+		ItemStorage.SIDED.registerForBlockEntities((be, side) ->
+			InventoryStorage.of(((CultivatorBlockEntity) be).itemHandler, side),
+			ModBlockEntities.CULTIVATOR_BE.get()
 		);
 
 		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
@@ -140,6 +150,11 @@ public class JRMod implements ModInitializer
 		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
 			new FabricEnergyWrapper(((IncubatorBlockEntity) be).getEnergyStorage(side)),
 			ModBlockEntities.INCUBATOR_BE.get()
+		);
+
+		EnergyStorage.SIDED.registerForBlockEntities((be, side) ->
+			new FabricEnergyWrapper(((CultivatorBlockEntity) be).getEnergyStorage(side)),
+			ModBlockEntities.CULTIVATOR_BE.get()
 		);
 	}
 }

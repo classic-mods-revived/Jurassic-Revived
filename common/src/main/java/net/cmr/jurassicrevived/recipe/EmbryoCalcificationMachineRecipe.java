@@ -34,6 +34,16 @@ public record EmbryoCalcificationMachineRecipe(ResourceLocation id, NonNullList<
 	}
 
 	@Override
+	public boolean isSpecial() {
+		return true;
+	}
+
+	@Override
+	public boolean showNotification() {
+		return false;
+	}
+
+	@Override
 	public boolean matches(EmbryoCalcificationMachineRecipeInput recipeInput, Level level) {
 		if (level.isClientSide) return false;
 		if (recipeInput.size() < 2 || inputs.size() < 2) return false;

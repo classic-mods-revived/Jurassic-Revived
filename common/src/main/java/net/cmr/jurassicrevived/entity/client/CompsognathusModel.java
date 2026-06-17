@@ -25,6 +25,9 @@ public class CompsognathusModel extends GeoModel<CompsognathusEntity> {
                 map.put(CompsognathusVariant.FEMALE, Constants.rl("textures/entity/compsognathus_female.png"));
             });
 
+	private static final ResourceLocation REBIRTH_LOCATION =
+		Constants.rl("textures/entity/compsognathus_rebirth.png");
+
     // Model-local "currently applied" offsets; cleared before each entity render
     private float[] appliedYaw = null;
     private float[] appliedRoll = null;
@@ -36,6 +39,10 @@ public class CompsognathusModel extends GeoModel<CompsognathusEntity> {
 
     @Override
     public ResourceLocation getTextureResource(CompsognathusEntity animatable) {
+		if (animatable.hasCustomName() && "rebirth".equalsIgnoreCase(animatable.getName().getString())) {
+			return REBIRTH_LOCATION;
+		}
+
         return LOCATION_BY_VARIANT.get(animatable.getVariant());
     }
 

@@ -52,6 +52,7 @@ public class JEIJRPlugin implements IModPlugin {
         registration.addRecipeCategories(new EmbryonicMachineRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new EmbryoCalcificationMachineRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new IncubatorRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new CultivatorRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -75,6 +76,8 @@ public class JEIJRPlugin implements IModPlugin {
                 .getAllRecipesFor(ModRecipes.EMBRYO_CALCIFICATION_MACHINE_RECIPE_TYPE.get()).stream().map(net.minecraft.world.item.crafting.RecipeHolder::value).toList();
         List<IncubatorRecipe> incubatorRecipes = recipeManager
                 .getAllRecipesFor(ModRecipes.INCUBATOR_RECIPE_TYPE.get()).stream().map(net.minecraft.world.item.crafting.RecipeHolder::value).toList();
+        List<CultivatorRecipe> cultivatorRecipes = recipeManager
+                .getAllRecipesFor(ModRecipes.CULTIVATOR_RECIPE_TYPE.get()).stream().map(net.minecraft.world.item.crafting.RecipeHolder::value).toList();
         *///?} else {
         List<DNAExtractorRecipe> dnaExtractorRecipes = recipeManager.getAllRecipesFor(ModRecipes.DNA_EXTRACTOR_RECIPE_TYPE.get());
         List<DNAAnalyzerRecipe> dnaAnalyzerRecipes = recipeManager.getAllRecipesFor(ModRecipes.DNA_ANALYZER_RECIPE_TYPE.get());
@@ -84,6 +87,7 @@ public class JEIJRPlugin implements IModPlugin {
         List<EmbryonicMachineRecipe> embryonicMachineRecipes = recipeManager.getAllRecipesFor(ModRecipes.EMBRYONIC_MACHINE_RECIPE_TYPE.get());
         List<EmbryoCalcificationMachineRecipe> embryoCalcificationMachineRecipes = recipeManager.getAllRecipesFor(ModRecipes.EMBRYO_CALCIFICATION_MACHINE_RECIPE_TYPE.get());
         List<IncubatorRecipe> incubatorRecipes = recipeManager.getAllRecipesFor(ModRecipes.INCUBATOR_RECIPE_TYPE.get());
+        List<CultivatorRecipe> cultivatorRecipes = recipeManager.getAllRecipesFor(ModRecipes.CULTIVATOR_RECIPE_TYPE.get());
         //?}
 
         registration.addRecipes(DNAExtractorRecipeCategory.DNA_EXTRACTOR_RECIPE_RECIPE_TYPE, dnaExtractorRecipes);
@@ -94,6 +98,7 @@ public class JEIJRPlugin implements IModPlugin {
         registration.addRecipes(EmbryonicMachineRecipeCategory.EMBRYONIC_MACHINE_RECIPE_RECIPE_TYPE, embryonicMachineRecipes);
         registration.addRecipes(EmbryoCalcificationMachineRecipeCategory.EMBRYO_CALCIFICATION_MACHINE_RECIPE_RECIPE_TYPE, embryoCalcificationMachineRecipes);
         registration.addRecipes(IncubatorRecipeCategory.INCUBATOR_RECIPE_RECIPE_TYPE, incubatorRecipes);
+        registration.addRecipes(CultivatorRecipeCategory.CULTIVATOR_RECIPE_RECIPE_TYPE, cultivatorRecipes);
     }
 
     @Override
@@ -114,6 +119,8 @@ public class JEIJRPlugin implements IModPlugin {
                 EmbryoCalcificationMachineRecipeCategory.EMBRYO_CALCIFICATION_MACHINE_RECIPE_RECIPE_TYPE);
         registration.addRecipeClickArea(IncubatorScreen.class, 51, 16, 72, 16,
                 IncubatorRecipeCategory.INCUBATOR_RECIPE_RECIPE_TYPE);
+        registration.addRecipeClickArea(CultivatorScreen.class, 51, 16, 72, 16,
+				CultivatorRecipeCategory.CULTIVATOR_RECIPE_RECIPE_TYPE);
     }
 
     @Override
@@ -126,6 +133,7 @@ public class JEIJRPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.EMBRYONIC_MACHINE.get()), EmbryonicMachineRecipeCategory.EMBRYONIC_MACHINE_RECIPE_RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.EMBRYO_CALCIFICATION_MACHINE.get()), EmbryoCalcificationMachineRecipeCategory.EMBRYO_CALCIFICATION_MACHINE_RECIPE_RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.INCUBATOR.get()), IncubatorRecipeCategory.INCUBATOR_RECIPE_RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.CULTIVATOR.get()), CultivatorRecipeCategory.CULTIVATOR_RECIPE_RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.WHITE_DNA_EXTRACTOR.get()), DNAExtractorRecipeCategory.DNA_EXTRACTOR_RECIPE_RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.WHITE_DNA_ANALYZER.get()), DNAAnalyzerRecipeCategory.DNA_ANALYZER_RECIPE_RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.WHITE_FOSSIL_GRINDER.get()), FossilGrinderRecipeCategory.FOSSIL_GRINDER_RECIPE_RECIPE_TYPE);
@@ -134,6 +142,7 @@ public class JEIJRPlugin implements IModPlugin {
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.WHITE_EMBRYONIC_MACHINE.get()), EmbryonicMachineRecipeCategory.EMBRYONIC_MACHINE_RECIPE_RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.WHITE_EMBRYO_CALCIFICATION_MACHINE.get()), EmbryoCalcificationMachineRecipeCategory.EMBRYO_CALCIFICATION_MACHINE_RECIPE_RECIPE_TYPE);
         registration.addRecipeCatalyst(new ItemStack(ModBlocks.WHITE_INCUBATOR.get()), IncubatorRecipeCategory.INCUBATOR_RECIPE_RECIPE_TYPE);
+        registration.addRecipeCatalyst(new ItemStack(ModBlocks.WHITE_CULTIVATOR.get()), CultivatorRecipeCategory.CULTIVATOR_RECIPE_RECIPE_TYPE);
     }
 
     @Override
@@ -207,6 +216,15 @@ public class JEIJRPlugin implements IModPlugin {
                 IncubatorRecipeCategory.INCUBATOR_RECIPE_RECIPE_TYPE,
                 36, // The index of the FIRST recipe input slot in your Menu (slot 36)
                 3,  // The NUMBER of recipe input slots (slots 36, 37)
+                0,  // The index where the player inventory slots START (slot 0)
+                36  // The NUMBER of player inventory slots to check (slots 0-35)
+        );
+        registration.addRecipeTransferHandler(
+				CultivatorMenu.class,
+                ModMenuTypes.CULTIVATOR_MENU.get(),
+				CultivatorRecipeCategory.CULTIVATOR_RECIPE_RECIPE_TYPE,
+                36, // The index of the FIRST recipe input slot in your Menu (slot 36)
+                2,  // The NUMBER of recipe input slots (slots 36, 37)
                 0,  // The index where the player inventory slots START (slot 0)
                 36  // The NUMBER of player inventory slots to check (slots 0-35)
         );

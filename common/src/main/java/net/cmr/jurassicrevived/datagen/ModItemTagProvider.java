@@ -92,7 +92,10 @@ public class ModItemTagProvider {
                 ModItems.SUCHOMIMUS_TISSUE.get(),
                 ModItems.MUSSASAURUS_TISSUE.get(),
                 ModItems.THESCELOSAURUS_TISSUE.get(),
-                ModItems.CHILESAURUS_TISSUE.get()
+                ModItems.CHILESAURUS_TISSUE.get(),
+                ModItems.COELACANTH_TISSUE.get(),
+                ModItems.MAWSONIA_TISSUE.get(),
+                ModItems.ALLIGATOR_GAR_TISSUE.get()
         );
 
         helper.tag(ModTags.Items.DNA,
@@ -174,7 +177,10 @@ public class ModItemTagProvider {
                 ModItems.SUCHOMIMUS_DNA.get(),
                 ModItems.MUSSASAURUS_DNA.get(),
                 ModItems.THESCELOSAURUS_DNA.get(),
-                ModItems.CHILESAURUS_DNA.get()
+                ModItems.CHILESAURUS_DNA.get(),
+                ModItems.COELACANTH_DNA.get(),
+                ModItems.MAWSONIA_DNA.get(),
+                ModItems.ALLIGATOR_GAR_DNA.get()
         );
 
         helper.tag(ModTags.Items.SYRINGES,
@@ -256,7 +262,10 @@ public class ModItemTagProvider {
                 ModItems.SUCHOMIMUS_SYRINGE.get(),
                 ModItems.MUSSASAURUS_SYRINGE.get(),
                 ModItems.THESCELOSAURUS_SYRINGE.get(),
-                ModItems.CHILESAURUS_SYRINGE.get()
+                ModItems.CHILESAURUS_SYRINGE.get(),
+                ModItems.COELACANTH_SYRINGE.get(),
+                ModItems.MAWSONIA_SYRINGE.get(),
+                ModItems.ALLIGATOR_GAR_SYRINGE.get()
         );
 
         helper.tag(ModTags.Items.EGGS,
@@ -337,7 +346,10 @@ public class ModItemTagProvider {
                 Item.byBlock(ModBlocks.SUCHOMIMUS_EGG.get()),
                 Item.byBlock(ModBlocks.MUSSASAURUS_EGG.get()),
                 Item.byBlock(ModBlocks.THESCELOSAURUS_EGG.get()),
-                Item.byBlock(ModBlocks.CHILESAURUS_EGG.get())
+                Item.byBlock(ModBlocks.CHILESAURUS_EGG.get()),
+                Item.byBlock(ModBlocks.COELACANTH_EGG.get()),
+                Item.byBlock(ModBlocks.MAWSONIA_EGG.get()),
+                Item.byBlock(ModBlocks.ALLIGATOR_GAR_EGG.get())
         );
 
         helper.tag(ModTags.Items.FOSSILS,
@@ -416,7 +428,10 @@ public class ModItemTagProvider {
                 ModItems.SUCHOMIMUS_SKULL_FOSSIL.get(),
                 ModItems.MUSSASAURUS_SKULL_FOSSIL.get(),
                 ModItems.THESCELOSAURUS_SKULL_FOSSIL.get(),
-                ModItems.CHILESAURUS_SKULL_FOSSIL.get()
+                ModItems.CHILESAURUS_SKULL_FOSSIL.get(),
+                ModItems.COELACANTH_SKULL_FOSSIL.get(),
+                ModItems.MAWSONIA_SKULL_FOSSIL.get(),
+                ModItems.ALLIGATOR_GAR_SKULL_FOSSIL.get()
         );
 
         helper.tag(ModTags.Items.SKULLS,
@@ -498,7 +513,10 @@ public class ModItemTagProvider {
                 ModItems.FRESH_SUCHOMIMUS_SKULL.get(),
                 ModItems.FRESH_MUSSASAURUS_SKULL.get(),
                 ModItems.FRESH_THESCELOSAURUS_SKULL.get(),
-                ModItems.FRESH_CHILESAURUS_SKULL.get()
+                ModItems.FRESH_CHILESAURUS_SKULL.get(),
+                ModItems.FRESH_COELACANTH_SKULL.get(),
+                ModItems.FRESH_MAWSONIA_SKULL.get(),
+                ModItems.FRESH_ALLIGATOR_GAR_SKULL.get()
         );
     }
 }

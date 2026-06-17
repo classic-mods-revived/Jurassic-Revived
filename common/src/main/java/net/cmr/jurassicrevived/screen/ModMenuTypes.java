@@ -30,6 +30,8 @@ public class ModMenuTypes {
 		MENUS.register("embryo_calcification_machine_menu", () -> MenuRegistry.ofExtended(EmbryoCalcificationMachineMenu::new));
 	public static final RegistrySupplier<MenuType<IncubatorMenu>> INCUBATOR_MENU =
 		MENUS.register("incubator_menu", () -> MenuRegistry.ofExtended(IncubatorMenu::new));
+	public static final RegistrySupplier<MenuType<CultivatorMenu>> CULTIVATOR_MENU =
+		MENUS.register("cultivator_menu", () -> MenuRegistry.ofExtended(CultivatorMenu::new));
 	public static final RegistrySupplier<MenuType<TankMenu>> TANK_MENU =
 		MENUS.register("tank_menu", () -> MenuRegistry.ofExtended(TankMenu::new));
 	public static final RegistrySupplier<MenuType<PowerCellMenu>> POWER_CELL_MENU =

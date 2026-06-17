@@ -88,7 +88,10 @@ public final class ModSpawnDefinitions {
 		spawn("utahraptor", ModEntities.UTAHRAPTOR, 4, 1, 3, BiomeTags.IS_TAIGA, BiomeTags.IS_FOREST),
 		spawn("velociraptor", ModEntities.VELOCIRAPTOR, 5, 2, 4, BiomeTags.IS_BADLANDS, BiomeTags.IS_OVERWORLD),
 		spawn("zhenyuanopterus", ModEntities.ZHENYUANOPTERUS, 2, 2, 5, BiomeTags.IS_BEACH, BiomeTags.IS_MOUNTAIN),
-		spawn("achillobator", ModEntities.ACHILLOBATOR, 3, 1, 2, BiomeTags.IS_TAIGA)
+		spawn("achillobator", ModEntities.ACHILLOBATOR, 3, 1, 2, BiomeTags.IS_TAIGA),
+		spawn("coelacanth", ModEntities.COELACANTH, 9, 3, 6, BiomeTags.IS_OCEAN, BiomeTags.IS_RIVER),
+		spawn("mawsonia", ModEntities.MAWSONIA, 3, 1, 2, BiomeTags.IS_OCEAN, BiomeTags.IS_RIVER),
+		spawn("alligator_gar", ModEntities.ALLIGATOR_GAR, 6, 1, 2, BiomeTags.IS_OCEAN, BiomeTags.IS_RIVER)
 	);
 
 	@SafeVarargs

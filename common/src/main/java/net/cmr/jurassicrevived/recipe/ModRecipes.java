@@ -93,6 +93,16 @@ public class ModRecipes {
 			}
 		});
 
+	public static final RegistrySupplier<RecipeSerializer<CultivatorRecipe>> CULTIVATOR_SERIALIZER =
+		SERIALIZERS.register("cultivating", CultivatorRecipe.Serializer::new);
+	public static final RegistrySupplier<RecipeType<CultivatorRecipe>> CULTIVATOR_RECIPE_TYPE =
+		TYPES.register("cultivating", () -> new RecipeType<CultivatorRecipe>() {
+			@Override
+			public String toString() {
+				return "cultivating";
+			}
+		});
+
 	public static void register() {
 		SERIALIZERS.register();
 		TYPES.register();

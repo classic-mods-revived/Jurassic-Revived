@@ -76,6 +76,16 @@ public class EmbryonicMachineRecipe implements Recipe<EmbryonicMachineRecipeInpu
         return output.copy();
     }
 
+	@Override
+	public boolean isSpecial() {
+		return true;
+	}
+
+	@Override
+	public boolean showNotification() {
+		return false;
+	}
+
     @Override
     public @NotNull ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();

@@ -76,6 +76,7 @@ public class ModBlockTagProvider {
                 ModBlocks.EMBRYONIC_MACHINE.get(),
                 ModBlocks.EMBRYO_CALCIFICATION_MACHINE.get(),
                 ModBlocks.INCUBATOR.get(),
+                ModBlocks.CULTIVATOR.get(),
                 ModBlocks.WHITE_GENERATOR.get(),
                 ModBlocks.WHITE_DNA_EXTRACTOR.get(),
                 ModBlocks.WHITE_DNA_ANALYZER.get(),
@@ -85,6 +86,7 @@ public class ModBlockTagProvider {
                 ModBlocks.WHITE_EMBRYONIC_MACHINE.get(),
                 ModBlocks.WHITE_EMBRYO_CALCIFICATION_MACHINE.get(),
                 ModBlocks.WHITE_INCUBATOR.get(),
+                ModBlocks.WHITE_CULTIVATOR.get(),
                 ModBlocks.TANK.get(),
                 ModBlocks.POWER_CELL.get(),
                 ModBlocks.IRON_CRATE.get()
@@ -170,7 +172,9 @@ public class ModBlockTagProvider {
                 ModBlocks.INCUBATED_ZHENYUANOPTERUS_EGG.get(),
                 ModBlocks.INCUBATED_ACHILLOBATOR_EGG.get(),
                 ModBlocks.INCUBATED_SUCHOMIMUS_EGG.get(),
-                ModBlocks.INCUBATED_CHILESAURUS_EGG.get()
+                ModBlocks.INCUBATED_CHILESAURUS_EGG.get(),
+                ModBlocks.INCUBATED_THESCELOSAURUS_EGG.get(),
+                ModBlocks.INCUBATED_MUSSASAURUS_EGG.get()
         );
 
         helper.tag(BlockTags.MINEABLE_WITH_SHOVEL,

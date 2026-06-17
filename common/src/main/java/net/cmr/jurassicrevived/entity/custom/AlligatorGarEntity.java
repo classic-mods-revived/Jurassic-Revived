@@ -6,6 +6,7 @@ import net.cmr.jurassicrevived.entity.ai.DinoData;
 import net.cmr.jurassicrevived.entity.ai.DinoEntityBase;
 import net.cmr.jurassicrevived.entity.ai.IDinoData;
 import net.cmr.jurassicrevived.entity.client.AlligatorGarVariant;
+import net.cmr.jurassicrevived.item.ModItems;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -95,10 +97,10 @@ public class AlligatorGarEntity extends DinoEntityBase implements GeoEntity {
 		return new WaterBoundPathNavigation(this, pLevel);
 	}
 
-	//@Override
-	//public ItemStack getPickResult() {
-	//	return new ItemStack(ModItems.ALLIGATOR_GAR_SPAWN_EGG.get());
-	//}
+	@Override
+	public ItemStack getPickResult() {
+		return new ItemStack(ModItems.ALLIGATOR_GAR_SPAWN_EGG.get());
+	}
 
 	@Override
 	public boolean isCarnivore() {

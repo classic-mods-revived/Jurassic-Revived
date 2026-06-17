@@ -189,6 +189,12 @@ public class ModItems {
 		() -> new CustomGenderedSpawnEggItem(ModEntities.THESCELOSAURUS, 0xff6d7a83, 0xffbac6d1, new Item.Properties()));
 	public static final RegistrySupplier<Item> MUSSASAURUS_SPAWN_EGG = ITEMS.register("mussasaurus_spawn_egg",
 		() -> new CustomGenderedSpawnEggItem(ModEntities.MUSSASAURUS, 0xff6c6724, 0xff222611, new Item.Properties()));
+	public static final RegistrySupplier<Item> COELACANTH_SPAWN_EGG = ITEMS.register("coelacanth_spawn_egg",
+		() -> new CustomGenderedSpawnEggItem(ModEntities.COELACANTH, 0xff3a4862, 0xff616e87, new Item.Properties()));
+	public static final RegistrySupplier<Item> MAWSONIA_SPAWN_EGG = ITEMS.register("mawsonia_spawn_egg",
+		() -> new CustomGenderedSpawnEggItem(ModEntities.MAWSONIA, 0xff595d4d, 0xffd8d8b6, new Item.Properties()));
+	public static final RegistrySupplier<Item> ALLIGATOR_GAR_SPAWN_EGG = ITEMS.register("alligator_gar_spawn_egg",
+		() -> new CustomGenderedSpawnEggItem(ModEntities.ALLIGATOR_GAR, 0xff969180, 0xffe4675a, new Item.Properties()));
 
 
 	public static final RegistrySupplier<Item> TEST_TUBE = ITEMS.register("test_tube", () -> new Item(new Item.Properties().stacksTo(16)));
@@ -278,6 +284,9 @@ public class ModItems {
 	public static final RegistrySupplier<Item> CHILESAURUS_SKULL_FOSSIL = ITEMS.register("chilesaurus_skull_fossil", () -> new Item(new Item.Properties().stacksTo(16)));
 	public static final RegistrySupplier<Item> THESCELOSAURUS_SKULL_FOSSIL = ITEMS.register("thescelosaurus_skull_fossil", () -> new Item(new Item.Properties().stacksTo(16)));
 	public static final RegistrySupplier<Item> MUSSASAURUS_SKULL_FOSSIL = ITEMS.register("mussasaurus_skull_fossil", () -> new Item(new Item.Properties().stacksTo(16)));
+	public static final RegistrySupplier<Item> COELACANTH_SKULL_FOSSIL = ITEMS.register("coelacanth_skull_fossil", () -> new Item(new Item.Properties().stacksTo(16)));
+	public static final RegistrySupplier<Item> MAWSONIA_SKULL_FOSSIL = ITEMS.register("mawsonia_skull_fossil", () -> new Item(new Item.Properties().stacksTo(16)));
+	public static final RegistrySupplier<Item> ALLIGATOR_GAR_SKULL_FOSSIL = ITEMS.register("alligator_gar_skull_fossil", () -> new Item(new Item.Properties().stacksTo(16)));
 
 
 	public static final RegistrySupplier<Item> FRESH_VELOCIRAPTOR_SKULL = ITEMS.register("fresh_velociraptor_skull", () -> new Item(new Item.Properties().stacksTo(16)));
@@ -358,6 +367,9 @@ public class ModItems {
 	public static final RegistrySupplier<Item> FRESH_CHILESAURUS_SKULL = ITEMS.register("fresh_chilesaurus_skull", () -> new Item(new Item.Properties().stacksTo(16)));
 	public static final RegistrySupplier<Item> FRESH_THESCELOSAURUS_SKULL = ITEMS.register("fresh_thescelosaurus_skull", () -> new Item(new Item.Properties().stacksTo(16)));
 	public static final RegistrySupplier<Item> FRESH_MUSSASAURUS_SKULL = ITEMS.register("fresh_mussasaurus_skull", () -> new Item(new Item.Properties().stacksTo(16)));
+	public static final RegistrySupplier<Item> FRESH_COELACANTH_SKULL = ITEMS.register("fresh_coelacanth_skull", () -> new Item(new Item.Properties().stacksTo(16)));
+	public static final RegistrySupplier<Item> FRESH_MAWSONIA_SKULL = ITEMS.register("fresh_mawsonia_skull", () -> new Item(new Item.Properties().stacksTo(16)));
+	public static final RegistrySupplier<Item> FRESH_ALLIGATOR_GAR_SKULL = ITEMS.register("fresh_alligator_gar_skull", () -> new Item(new Item.Properties().stacksTo(16)));
 
 
 	// Tissue group
@@ -439,6 +451,9 @@ public class ModItems {
 	public static final RegistrySupplier<Item> CHILESAURUS_TISSUE = ITEMS.register("chilesaurus_tissue", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.EPIC)));
 	public static final RegistrySupplier<Item> THESCELOSAURUS_TISSUE = ITEMS.register("thescelosaurus_tissue", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.EPIC)));
 	public static final RegistrySupplier<Item> MUSSASAURUS_TISSUE = ITEMS.register("mussasaurus_tissue", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.EPIC)));
+	public static final RegistrySupplier<Item> COELACANTH_TISSUE = ITEMS.register("coelacanth_tissue", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.EPIC)));
+	public static final RegistrySupplier<Item> MAWSONIA_TISSUE = ITEMS.register("mawsonia_tissue", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.EPIC)));
+	public static final RegistrySupplier<Item> ALLIGATOR_GAR_TISSUE = ITEMS.register("alligator_gar_tissue", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.EPIC)));
 
 
 	// DNA group
@@ -520,6 +535,9 @@ public class ModItems {
 	public static final RegistrySupplier<Item> CHILESAURUS_DNA = ITEMS.register("chilesaurus_dna", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.RARE)));
 	public static final RegistrySupplier<Item> THESCELOSAURUS_DNA = ITEMS.register("thescelosaurus_dna", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.RARE)));
 	public static final RegistrySupplier<Item> MUSSASAURUS_DNA = ITEMS.register("mussasaurus_dna", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.RARE)));
+	public static final RegistrySupplier<Item> COELACANTH_DNA = ITEMS.register("coelacanth_dna", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.RARE)));
+	public static final RegistrySupplier<Item> MAWSONIA_DNA = ITEMS.register("mawsonia_dna", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.RARE)));
+	public static final RegistrySupplier<Item> ALLIGATOR_GAR_DNA = ITEMS.register("alligator_gar_dna", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.RARE)));
 
 
 	// Syringe group
@@ -601,7 +619,9 @@ public class ModItems {
 	public static final RegistrySupplier<Item> CHILESAURUS_SYRINGE = ITEMS.register("chilesaurus_syringe", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON)));
 	public static final RegistrySupplier<Item> THESCELOSAURUS_SYRINGE = ITEMS.register("thescelosaurus_syringe", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON)));
 	public static final RegistrySupplier<Item> MUSSASAURUS_SYRINGE = ITEMS.register("mussasaurus_syringe", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON)));
-
+	public static final RegistrySupplier<Item> COELACANTH_SYRINGE = ITEMS.register("coelacanth_syringe", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON)));
+	public static final RegistrySupplier<Item> MAWSONIA_SYRINGE = ITEMS.register("mawsonia_syringe", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON)));
+	public static final RegistrySupplier<Item> ALLIGATOR_GAR_SYRINGE = ITEMS.register("alligator_gar_syringe", () -> new Item(new Item.Properties().stacksTo(8).rarity(Rarity.UNCOMMON)));
 
 	public static void register() {
 		ITEMS.register();

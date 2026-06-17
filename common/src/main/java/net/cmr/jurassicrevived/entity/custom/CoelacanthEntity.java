@@ -101,10 +101,10 @@ public class CoelacanthEntity extends DinoEntityBase implements GeoEntity {
 		return new WaterBoundPathNavigation(this, pLevel);
 	}
 
-	//@Override
-	//public ItemStack getPickResult() {
-	//	return new ItemStack(ModItems.COELACANTH_SPAWN_EGG.get());
-	//}
+	@Override
+	public ItemStack getPickResult() {
+		return new ItemStack(ModItems.COELACANTH_SPAWN_EGG.get());
+	}
 
 	@Override
 	public boolean isCarnivore() {
