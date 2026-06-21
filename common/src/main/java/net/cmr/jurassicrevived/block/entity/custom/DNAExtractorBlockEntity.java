@@ -181,6 +181,10 @@ public class DNAExtractorBlockEntity extends BlockEntity implements ExtendedMenu
 		tag.putInt("Prog", this.progress);
 		tag.putInt("MaxProg", this.maxProgress);
 		tag.put("Energy", energyStorage.saveNBT());
+		if (!this.lockedOutput.isEmpty()) {
+			tag.put("LockedOutput", this.lockedOutput.saveOptional(registries));
+		}
+		tag.putString("LastInputSig", this.lastInputSignature);
 	}
 
 	@Override
@@ -192,7 +196,15 @@ public class DNAExtractorBlockEntity extends BlockEntity implements ExtendedMenu
 		if (tag.contains("Energy")) {
 			energyStorage.loadNBT(tag.getCompound("Energy"));
 		}
-	}private ListTag saveInventory(HolderLookup.Provider registries) {
+		if (tag.contains("LockedOutput")) {
+			this.lockedOutput = ItemStack.parseOptional(registries, tag.getCompound("LockedOutput"));
+		} else {
+			this.lockedOutput = ItemStack.EMPTY;
+		}
+		this.lastInputSignature = tag.getString("LastInputSig");
+	}
+
+	private ListTag saveInventory(HolderLookup.Provider registries) {
 		ListTag listTag = new ListTag();
 
 		for (int slot = 0; slot < itemHandler.getContainerSize(); slot++) {
@@ -228,6 +240,12 @@ public class DNAExtractorBlockEntity extends BlockEntity implements ExtendedMenu
 		tag.putInt("Prog", this.progress);
 		tag.putInt("MaxProg", this.maxProgress);
 		tag.put("Energy", energyStorage.saveNBT());
+		if (!this.lockedOutput.isEmpty()) {
+			CompoundTag itemTag = new CompoundTag();
+			this.lockedOutput.save(itemTag);
+			tag.put("LockedOutput", itemTag);
+		}
+		tag.putString("LastInputSig", this.lastInputSignature);
 	}
 
 	@Override
@@ -239,6 +257,12 @@ public class DNAExtractorBlockEntity extends BlockEntity implements ExtendedMenu
 		if (tag.contains("Energy")) {
 			energyStorage.loadNBT(tag.getCompound("Energy"));
 		}
+		if (tag.contains("LockedOutput")) {
+			this.lockedOutput = ItemStack.of(tag.getCompound("LockedOutput"));
+		} else {
+			this.lockedOutput = ItemStack.EMPTY;
+		}
+		this.lastInputSignature = tag.getString("LastInputSig");
 	}
 
 	private ListTag saveInventory() {

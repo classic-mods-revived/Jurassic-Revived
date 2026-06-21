@@ -272,6 +272,10 @@ public class CultivatorBlockEntity extends BlockEntity implements ExtendedMenuPr
 		if (!fluidStack.isEmpty()) {
 			tag.put("Fluid", fluidStack.write(registries, new CompoundTag()));
 		}
+		if (!this.lockedOutput.isEmpty()) {
+			tag.put("LockedOutput", this.lockedOutput.saveOptional(registries));
+		}
+		tag.putString("LastInputSig", this.lastInputSignature);
 	}
 
 	@Override
@@ -291,6 +295,12 @@ public class CultivatorBlockEntity extends BlockEntity implements ExtendedMenuPr
 		} else {
 			fluidStack = FluidStack.empty();
 		}
+		if (tag.contains("LockedOutput")) {
+			this.lockedOutput = ItemStack.parseOptional(registries, tag.getCompound("LockedOutput"));
+		} else {
+			this.lockedOutput = ItemStack.EMPTY;
+		}
+		this.lastInputSignature = tag.getString("LastInputSig");
 	}
 
 	private ListTag saveInventory(HolderLookup.Provider registries) {
@@ -332,6 +342,12 @@ public class CultivatorBlockEntity extends BlockEntity implements ExtendedMenuPr
 		CompoundTag fluidTag = new CompoundTag();
 		fluidStack.write(fluidTag);
 		tag.put("Fluid", fluidTag);
+		if (!this.lockedOutput.isEmpty()) {
+			CompoundTag itemTag = new CompoundTag();
+			this.lockedOutput.save(itemTag);
+			tag.put("LockedOutput", itemTag);
+		}
+		tag.putString("LastInputSig", this.lastInputSignature);
 	}
 
 	@Override
@@ -342,6 +358,12 @@ public class CultivatorBlockEntity extends BlockEntity implements ExtendedMenuPr
 		maxProgress = tag.getInt("MaxProg");
 		if (tag.contains("Energy")) energyStorage.loadNBT(tag.getCompound("Energy"));
 		if (tag.contains("Fluid")) fluidStack = FluidStack.read(tag.getCompound("Fluid"));
+		if (tag.contains("LockedOutput")) {
+			this.lockedOutput = ItemStack.of(tag.getCompound("LockedOutput"));
+		} else {
+			this.lockedOutput = ItemStack.EMPTY;
+		}
+		this.lastInputSignature = tag.getString("LastInputSig");
 	}
 
 	private ListTag saveInventory() {
@@ -417,6 +439,8 @@ public class CultivatorBlockEntity extends BlockEntity implements ExtendedMenuPr
 				fluidStack.setAmount(fluidStack.getAmount() - WATER_CRAFT_AMOUNT);
 				resetProgress();
 				level.setBlockAndUpdate(pos, state.setValue(CultivatorBlock.LIT, false));
+				this.lockedOutput = ItemStack.EMPTY;
+				this.lastInputSignature = "";
 			}
 		} else {
 			resetProgress();

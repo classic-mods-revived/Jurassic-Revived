@@ -174,6 +174,10 @@ public class FossilGrinderBlockEntity extends BlockEntity implements ExtendedMen
 		super.saveAdditional(tag, registries);
 		tag.put("Inventory", saveInventory(registries));
 		saveCommonData(tag);
+		if (!this.lockedOutput.isEmpty()) {
+			tag.put("LockedOutput", this.lockedOutput.saveOptional(registries));
+		}
+		tag.putString("LastInputSig", this.lastInputSignature);
 	}
 
 	@Override
@@ -181,6 +185,12 @@ public class FossilGrinderBlockEntity extends BlockEntity implements ExtendedMen
 		super.loadAdditional(tag, registries);
 		loadInventory(tag.getList("Inventory", 10), registries);
 		loadCommonData(tag);
+		if (tag.contains("LockedOutput")) {
+			this.lockedOutput = ItemStack.parseOptional(registries, tag.getCompound("LockedOutput"));
+		} else {
+			this.lockedOutput = ItemStack.EMPTY;
+		}
+		this.lastInputSignature = tag.getString("LastInputSig");
 	}
 
 	private ListTag saveInventory(HolderLookup.Provider registries) {
@@ -217,6 +227,12 @@ public class FossilGrinderBlockEntity extends BlockEntity implements ExtendedMen
 		super.saveAdditional(tag);
 		tag.put("Inventory", saveInventory());
 		saveCommonData(tag);
+		if (!this.lockedOutput.isEmpty()) {
+			CompoundTag itemTag = new CompoundTag();
+			this.lockedOutput.save(itemTag);
+			tag.put("LockedOutput", itemTag);
+		}
+		tag.putString("LastInputSig", this.lastInputSignature);
 	}
 
 	@Override
@@ -224,6 +240,12 @@ public class FossilGrinderBlockEntity extends BlockEntity implements ExtendedMen
 		super.load(tag);
 		loadInventory(tag.getList("Inventory", 10));
 		loadCommonData(tag);
+		if (tag.contains("LockedOutput")) {
+			this.lockedOutput = ItemStack.of(tag.getCompound("LockedOutput"));
+		} else {
+			this.lockedOutput = ItemStack.EMPTY;
+		}
+		this.lastInputSignature = tag.getString("LastInputSig");
 	}
 
 	private ListTag saveInventory() {
